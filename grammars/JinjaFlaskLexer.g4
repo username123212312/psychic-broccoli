@@ -85,15 +85,17 @@ RBRACE  : '}' { if (opened>0) opened--; } ;
 // Triple-quoted strings
 PY_TRIPLE_START1 : '"""' -> pushMode(TEMPLATE);
 PY_TRIPLE_START2 : '\'\'\'' -> pushMode(TEMPLATE);
+HTML_OPEN  : '<' [a-zA-Z!] [^>]* '>' -> pushMode(HTML);
+JINJA_OPEN : '{%' -> pushMode(JINJA);
 
 // Single Python line
-PY_LINE : ~[\r\n]+ ;
+PY_LINE : ~[ \r\n]+ ;
 
 // --------------------
 // HTML MODE
 // --------------------
 mode HTML;
-HTML_OPEN  : '<' [a-zA-Z!] [^>]* '>' -> pushMode(HTML);
+
 HTML_CLOSE : '</' [a-zA-Z]+ [^>]* '>' -> popMode;
 HTML_TEXT  : (~('<' | '{' | '\r' | '\n'))+ ;
 HTML_ANY   : . ;
