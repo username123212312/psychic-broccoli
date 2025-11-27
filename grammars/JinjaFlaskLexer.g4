@@ -20,6 +20,7 @@ LBRACK: '[';
 RBRACK: ']';
 LBRACE: '{';
 RBRACE: '}';
+DOT: '.';
 
 NAME: [a-zA-Z_][a-zA-Z0-9_]*;
 NUMBER: [0-9]+;
@@ -30,21 +31,21 @@ STRING
     | '"' (~["\r\n])* '"'
     ;
 
-// Triple-quoted string (enter HTMLMODE)
+// Triple-quoted string → enter HTMLMODE
 TRIPLE_DOUBLE_START: '"""' -> pushMode(HTMLMODE);
 TRIPLE_SINGLE_START: '\'\'\'' -> pushMode(HTMLMODE);
 
-// Catch all other characters
+// Catch all other characters (for safety)
 OTHER: . ;
 
-// =================== HTMLMODE (inside triple-quoted string) ===================
+// =================== HTMLMODE ===================
 mode HTMLMODE;
 
 // CSS starts first
 STYLE_START: '<style>' -> pushMode(CSSMODE);
 
 // Jinja starts
-JINJA_EXPR_START: '{{' -> pushMode(JINJA_EXPR) ;
+JINJA_EXPR_START: '{{' -> pushMode(JINJA_EXPR);
 JINJA_STMT_START: '{%' -> pushMode(JINJA_STMT);
 JINJA_COMMENT_START: '{#' -> pushMode(JINJA_COMMENT);
 
@@ -52,29 +53,41 @@ JINJA_COMMENT_START: '{#' -> pushMode(JINJA_COMMENT);
 TRIPLE_DOUBLE_END: '"""' -> popMode;
 TRIPLE_SINGLE_END: '\'\'\'' -> popMode;
 
-// Anything else in HTML
-HTML_CONTENT: .+? ;
+// HTML content (everything else)
+HTML_CONTENT
+    : (   ~[<{'"]    // any char except <, {, or "
+        | '<' ~'s'   // < not followed by s
+        | '{' ~[#{%] // { not followed by # or %
+        | '"' ~'"'   // double quote not starting """
+        | '\'' ~'\'' // single quote not starting '''
+      )+
+    ;
 
 // =================== CSS MODE ===================
 mode CSSMODE;
-
 STYLE_END: '</style>' -> popMode;
-CSS_CONTENT: .+? ; // catch all inside style
+CSS_CONTENT
+    : (   ~'<'          // any char except <
+        | '<' ~'/'      // < not followed by /
+        | '</' ~'s'     // </ not followed by s
+        | '</s' ~'t'    // </st not followed by t
+        | '</st' ~'y'   // continue
+        | '</sty' ~'l'
+        | '</styl' ~'e'
+      )+
+    ;// non-greedy until </style>
 
 // =================== JINJA EXPRESSION MODE ===================
 mode JINJA_EXPR;
-
 JINJA_EXPR_END: '}}' -> popMode;
-JINJA_EXPR_CONTENT: .+? ; // everything until JINJA_EXPR_END
+fragment JINJA_EXPR_CONTENT: (~'}')* ;
 
 // =================== JINJA STATEMENT MODE ===================
 mode JINJA_STMT;
-
 JINJA_STMT_END: '%}' -> popMode;
-JINJA_STMT_CONTENT: .+? ;
+fragment JINJA_STMT_CONTENT: (~'%')* ;
 
 // =================== JINJA COMMENT MODE ===================
 mode JINJA_COMMENT;
-
 JINJA_COMMENT_END: '#}' -> popMode;
-JINJA_COMMENT_CONTENT: .+? ;
+fragment JINJA_COMMENT_CONTENT: (~'#')* ;

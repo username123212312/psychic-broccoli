@@ -1,7 +1,5 @@
 // Generated from C:/Users/Yousef Razzouk/IdeaProjects/compiler_project/grammars/JinjaFlaskParser.g4 by ANTLR 4.13.2
-
-    package antlr;
-
+ package antlr; 
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -43,6 +41,24 @@ public interface JinjaFlaskParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssignment(JinjaFlaskParser.AssignmentContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#returnStmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturnStmt(JinjaFlaskParser.ReturnStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#functionDef}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionDef(JinjaFlaskParser.FunctionDefContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#block}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBlock(JinjaFlaskParser.BlockContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link JinjaFlaskParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -62,23 +78,23 @@ public interface JinjaFlaskParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunctionCall(JinjaFlaskParser.FunctionCallContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#functionDef}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#attributeAccess}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFunctionDef(JinjaFlaskParser.FunctionDefContext ctx);
+	T visitAttributeAccess(JinjaFlaskParser.AttributeAccessContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#returnStmt}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#listLiteral}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitReturnStmt(JinjaFlaskParser.ReturnStmtContext ctx);
+	T visitListLiteral(JinjaFlaskParser.ListLiteralContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#block}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#dictLiteral}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBlock(JinjaFlaskParser.BlockContext ctx);
+	T visitDictLiteral(JinjaFlaskParser.DictLiteralContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JinjaFlaskParser#tripleQuotedTemplate}.
 	 * @param ctx the parse tree
@@ -115,4 +131,22 @@ public interface JinjaFlaskParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitStyleBlock(JinjaFlaskParser.StyleBlockContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#routeArgs}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRouteArgs(JinjaFlaskParser.RouteArgsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#routeOptions}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRouteOptions(JinjaFlaskParser.RouteOptionsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#arrayOfStrings}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayOfStrings(JinjaFlaskParser.ArrayOfStringsContext ctx);
 }
