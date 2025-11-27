@@ -214,13 +214,17 @@ app.jinja_loader = DictLoader(
 # =========================================
 @app.route("/")
 def index():
+    # 4 spaces
     return render_template("index.html", products=products)
 
 
 @app.route("/add", methods=["GET", "POST"])
 def add_product():
+    # 4 spaces
     if request.method == "POST":
+        # 8 spaces
         product = {
+            # 12 spaces
             "id": len(products) + 1,
             "name": request.form.get("name"),
             "price": request.form.get("price"),
@@ -228,25 +232,35 @@ def add_product():
             "specification": request.form.get("specification"),
             "img": request.form.get("img") or "/static/images/default.png",
         }
+        # 8 spaces
         products.append(product)
+        # 8 spaces
         return redirect(url_for("index"))
 
+    # 4 spaces
     return render_template("add.html")
 
 
 @app.route("/product/<int:product_id>")
 def detail(product_id):
+    # 4 spaces
     product = next((p for p in products if p["id"] == product_id), None)
+    # 4 spaces
     return render_template("detail.html",
-     product=product)
+        # 8 spaces (line continuation)
+        product=product)
 
 
 @app.route("/delete/<int:product_id>")
 def delete(product_id):
+    # 4 spaces
     global products
+    # 4 spaces
     products = [p for p in products if p["id"] != product_id]
+    # 4 spaces
     return redirect(url_for("index"))
 
 
 if __name__ == "__main__":
+    # 4 spaces
     app.run(debug=True)
