@@ -19,157 +19,61 @@ public class JinjaFlaskParserBaseListener implements JinjaFlaskParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFile(JinjaFlaskParser.FileContext ctx) { }
+	@Override public void enterProgram(JinjaFlaskParser.ProgramContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFile(JinjaFlaskParser.FileContext ctx) { }
+	@Override public void exitProgram(JinjaFlaskParser.ProgramContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterElement(JinjaFlaskParser.ElementContext ctx) { }
+	@Override public void enterStatement(JinjaFlaskParser.StatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitElement(JinjaFlaskParser.ElementContext ctx) { }
+	@Override public void exitStatement(JinjaFlaskParser.StatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPython_block(JinjaFlaskParser.Python_blockContext ctx) { }
+	@Override public void enterImportStmt(JinjaFlaskParser.ImportStmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPython_block(JinjaFlaskParser.Python_blockContext ctx) { }
+	@Override public void exitImportStmt(JinjaFlaskParser.ImportStmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPython_stmt(JinjaFlaskParser.Python_stmtContext ctx) { }
+	@Override public void enterDecorator(JinjaFlaskParser.DecoratorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPython_stmt(JinjaFlaskParser.Python_stmtContext ctx) { }
+	@Override public void exitDecorator(JinjaFlaskParser.DecoratorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSimple_stmt(JinjaFlaskParser.Simple_stmtContext ctx) { }
+	@Override public void enterAssignment(JinjaFlaskParser.AssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSimple_stmt(JinjaFlaskParser.Simple_stmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterSmall_stmt(JinjaFlaskParser.Small_stmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSmall_stmt(JinjaFlaskParser.Small_stmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterAssign_stmt(JinjaFlaskParser.Assign_stmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAssign_stmt(JinjaFlaskParser.Assign_stmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterExpr_stmt(JinjaFlaskParser.Expr_stmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitExpr_stmt(JinjaFlaskParser.Expr_stmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterCompound_stmt(JinjaFlaskParser.Compound_stmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitCompound_stmt(JinjaFlaskParser.Compound_stmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterIf_stmt(JinjaFlaskParser.If_stmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitIf_stmt(JinjaFlaskParser.If_stmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterWhile_stmt(JinjaFlaskParser.While_stmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitWhile_stmt(JinjaFlaskParser.While_stmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFor_stmt(JinjaFlaskParser.For_stmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFor_stmt(JinjaFlaskParser.For_stmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFuncdef(JinjaFlaskParser.FuncdefContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFuncdef(JinjaFlaskParser.FuncdefContext ctx) { }
+	@Override public void exitAssignment(JinjaFlaskParser.AssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -187,73 +91,121 @@ public class JinjaFlaskParserBaseListener implements JinjaFlaskParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTerm(JinjaFlaskParser.TermContext ctx) { }
+	@Override public void enterConstructorCallExpr(JinjaFlaskParser.ConstructorCallExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTerm(JinjaFlaskParser.TermContext ctx) { }
+	@Override public void exitConstructorCallExpr(JinjaFlaskParser.ConstructorCallExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFactor(JinjaFlaskParser.FactorContext ctx) { }
+	@Override public void enterFunctionCall(JinjaFlaskParser.FunctionCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFactor(JinjaFlaskParser.FactorContext ctx) { }
+	@Override public void exitFunctionCall(JinjaFlaskParser.FunctionCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterHtml_block(JinjaFlaskParser.Html_blockContext ctx) { }
+	@Override public void enterFunctionDef(JinjaFlaskParser.FunctionDefContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitHtml_block(JinjaFlaskParser.Html_blockContext ctx) { }
+	@Override public void exitFunctionDef(JinjaFlaskParser.FunctionDefContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterHtml_content(JinjaFlaskParser.Html_contentContext ctx) { }
+	@Override public void enterReturnStmt(JinjaFlaskParser.ReturnStmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitHtml_content(JinjaFlaskParser.Html_contentContext ctx) { }
+	@Override public void exitReturnStmt(JinjaFlaskParser.ReturnStmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterJinja_unit(JinjaFlaskParser.Jinja_unitContext ctx) { }
+	@Override public void enterBlock(JinjaFlaskParser.BlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitJinja_unit(JinjaFlaskParser.Jinja_unitContext ctx) { }
+	@Override public void exitBlock(JinjaFlaskParser.BlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTemplate_block(JinjaFlaskParser.Template_blockContext ctx) { }
+	@Override public void enterTripleQuotedTemplate(JinjaFlaskParser.TripleQuotedTemplateContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTemplate_block(JinjaFlaskParser.Template_blockContext ctx) { }
+	@Override public void exitTripleQuotedTemplate(JinjaFlaskParser.TripleQuotedTemplateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHtmlContent(JinjaFlaskParser.HtmlContentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHtmlContent(JinjaFlaskParser.HtmlContentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinjaExpr(JinjaFlaskParser.JinjaExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinjaExpr(JinjaFlaskParser.JinjaExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinjaStmt(JinjaFlaskParser.JinjaStmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinjaStmt(JinjaFlaskParser.JinjaStmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinjaComment(JinjaFlaskParser.JinjaCommentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinjaComment(JinjaFlaskParser.JinjaCommentContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

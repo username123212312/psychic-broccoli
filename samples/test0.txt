@@ -1,1 +1,252 @@
-<h1>
+from flask import Flask, render_template, request, redirect, url_for
+from jinja2 import DictLoader
+
+app = Flask(__name__)
+
+# ---- RAM STORAGE ----
+products = []
+
+
+# =========================================
+#               TEMPLATES
+# =========================================
+
+BASE_HTML = """
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Manager</title>
+
+    <style>
+    body {
+        text-align: center;
+    }
+
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .product-card {
+        width: 300px;
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 0 8px #ccc;
+    }
+
+    .product-card img {
+        width: 250px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .price {
+        color: green;
+        font-weight: bold;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 8px 15px;
+        background: #333;
+        color: white;
+        text-decoration: none;
+        margin-top: 10px;
+        border-radius: 5px;
+    }
+
+    .btn.delete {
+        background: #b30000;
+    }
+
+    .form {
+        width: 400px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 8px #ccc;
+    }
+
+    .form input,
+    .form textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+    }
+
+    .detail-container {
+        display: flex;
+        gap: 30px;
+        padding: 30px;
+    }
+
+    .big-img {
+        height: 200px;
+        object-fit: cover;
+        width: 300px;
+        border-radius: 8px;
+    }
+
+    .info {
+        max-width: 600px;
+    }
+    </style>
+
+</head>
+
+<body>
+    <header>
+        <h1>Product Manager</h1>
+        <nav>
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('add_product') }}">Add Product</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+</body>
+</html>
+"""
+
+INDEX_HTML = """
+{% extends 'base.html' %}
+{% block content %}
+<h2>All Products</h2>
+
+<div class="product-grid">
+    {% for p in products %}
+    <div class="product-card">
+        <img src="{{ p.img }}" alt="product image">
+        <h3>{{ p.name }}</h3>
+        <p class="price">${{ p.price }}</p>
+        <a class="btn" href="{{ url_for('detail', product_id=p.id) }}">View</a>
+        <a class="btn delete" href="{{ url_for('delete', product_id=p.id) }}">Delete</a>
+    </div>
+    {% endfor %}
+
+    {% if products|length == 0 %}
+    <p>No products yet. Add one!</p>
+    {% endif %}
+</div>
+
+{% endblock %}
+"""
+
+ADD_HTML = """
+{% extends 'base.html' %}
+{% block content %}
+<h2>Add Product</h2>
+
+<form method="POST" class="form">
+    <label>Name</label>
+    <input type="text" name="name" required>
+
+    <label>Price</label>
+    <input type="number" name="price" required>
+
+    <label>Description</label>
+    <textarea name="description" required></textarea>
+
+    <label>Specification</label>
+    <textarea name="specification" required></textarea>
+
+    <label>Image URL (local path)</label>
+    <input type="text" name="img" placeholder="/static/images/example.png">
+
+    <button type="submit" class="btn">Add</button>
+</form>
+
+{% endblock %}
+"""
+
+DETAIL_HTML = """
+{% extends 'base.html' %}
+{% block content %}
+<div class="detail-container">
+
+    <img class="big-img" src="{{ product.img }}" alt="product image">
+
+    <div class="info">
+        <h2>{{ product.name }}</h2>
+        <p class="price">${{ product.price }}</p>
+
+        <h3>Description</h3>
+        <p>{{ product.description }}</p>
+
+        <h3>Specifications</h3>
+        <p>{{ product.specification }}</p>
+
+        <a class="btn delete" href="{{ url_for('delete', product_id=product.id) }}">Delete Product</a>
+    </div>
+
+</div>
+{% endblock %}
+"""
+
+
+# =========================================
+#        REGISTER ALL TEMPLATES
+# =========================================
+app.jinja_loader = DictLoader(
+    {
+        "base.html": BASE_HTML,
+        "index.html": INDEX_HTML,
+        "add.html": ADD_HTML,
+        "detail.html": DETAIL_HTML,
+    }
+)
+
+
+# =========================================
+#               ROUTES
+# =========================================
+@app.route("/")
+def index():
+    return render_template("index.html", products=products)
+
+
+@app.route("/add", methods=["GET", "POST"])
+def add_product():
+    if request.method == "POST":
+        product = {
+            "id": len(products) + 1,
+            "name": request.form.get("name"),
+            "price": request.form.get("price"),
+            "description": request.form.get("description"),
+            "specification": request.form.get("specification"),
+            "img": request.form.get("img") or "/static/images/default.png",
+        }
+        products.append(product)
+        return redirect(url_for("index"))
+
+    return render_template("add.html")
+
+
+@app.route("/product/<int:product_id>")
+def detail(product_id):
+    product = next((p for p in products if p["id"] == product_id), None)
+    return render_template("detail.html",
+     product=product)
+
+
+@app.route("/delete/<int:product_id>")
+def delete(product_id):
+    global products
+    products = [p for p in products if p["id"] != product_id]
+    return redirect(url_for("index"))
+
+
+if __name__ == "__main__":
+    app.run(debug=True)

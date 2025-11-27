@@ -8,97 +8,72 @@ options {tokenVocab=JinjaFlaskLexer;}
     package antlr;
 }
 
-file
-    : element* EOF
+program: statement* EOF;
+
+statement
+    : importStmt
+    | tripleQuotedTemplate
+    | decorator
+    | assignment
+    | functionDef
+    | returnStmt
     ;
 
-element
-    : python_block
-    | html_block
-    | jinja_unit
-    | template_block
+importStmt
+    : FROM NAME IMPORT NAME (COMMA NAME)* COMMA? (AS NAME)?   // optional trailing comma
+    | IMPORT NAME (COMMA NAME)* COMMA? (AS NAME)?
     ;
 
-python_block
-    : PY_LINE+ (NEWLINE? (INDENT python_stmt+ DEDENT)?)?
+decorator
+    : AT NAME LP STRING RP
     ;
 
-python_stmt
-    : simple_stmt
-    | compound_stmt
-    ;
-
-simple_stmt
-    : small_stmt (SEMI small_stmt)* NEWLINE?
-    ;
-
-small_stmt
-    : assign_stmt
-    | expr_stmt
-    ;
-
-assign_stmt
+assignment
     : NAME ASSIGN expr
     ;
 
-expr_stmt
-    : expr
-    ;
-
-compound_stmt
-    : if_stmt
-    | while_stmt
-    | for_stmt
-    | funcdef
-    ;
-
-if_stmt
-    : IF expr COLON (NEWLINE INDENT python_stmt+ DEDENT)?
-    ;
-
-while_stmt
-    : WHILE expr COLON (NEWLINE INDENT python_stmt+ DEDENT)?
-    ;
-
-for_stmt
-    : FOR NAME IN expr COLON (NEWLINE INDENT python_stmt+ DEDENT)?
-    ;
-
-funcdef
-    : DEF NAME LPAREN (NAME (COMMA NAME)*)? RPAREN COLON (NEWLINE INDENT python_stmt+ DEDENT)?
-    ;
-
 expr
-    : term ((PLUS|MINUS) term)*
+    : STRING
+        | tripleQuotedTemplate
+        | NUMBER
+        | NAME
+        | functionCall
+        | constructorCall
     ;
 
-term
-    : factor ((STAR|SLASH) factor)*
+constructorCall
+    : NAME LP (expr (COMMA expr)* COMMA?)? RP
+      # ConstructorCallExpr
     ;
 
-factor
-    : NUMBER
-    | NAME
-    | STRING
-    | LPAREN expr RPAREN
+functionCall
+    : NAME LP (expr (COMMA expr)*)? RP
     ;
 
-html_block
-    : HTML_OPEN html_content* HTML_CLOSE?
+functionDef
+    : DEF NAME LP (NAME (COMMA NAME)*)? RP COLON block
     ;
 
-html_content
-    : HTML_TEXT
-    | jinja_unit
-    | html_block
+returnStmt
+    : RETURN expr?
     ;
 
-jinja_unit
-    : JINJA_VAR_OPEN JINJA_CONTENT JINJA_VAR_CLOSE
-    | JINJA_STMT_OPEN JINJA_CONTENT JINJA_STMT_CLOSE
-    | JINJA_COMMENT_OPEN JINJA_CONTENT JINJA_COMMENT_CLOSE
+block
+    : statement*
     ;
 
-template_block
-    : PY_TRIPLE_START TEMPLATE_TEXT* PY_TRIPLE_START?
+tripleQuotedTemplate
+    : TRIPLE_DOUBLE_START htmlContent* TRIPLE_DOUBLE_END
+    | TRIPLE_SINGLE_START htmlContent* TRIPLE_SINGLE_END
     ;
+
+htmlContent
+    : HTML_CONTENT
+    | jinjaExpr
+    | jinjaStmt
+    | jinjaComment
+    ;
+
+jinjaExpr: JINJA_EXPR_START JINJA_EXPR_CONTENT JINJA_EXPR_END;
+jinjaStmt: JINJA_STMT_START JINJA_STMT_CONTENT JINJA_STMT_END;
+jinjaComment: JINJA_COMMENT_START JINJA_COMMENT_CONTENT JINJA_COMMENT_END;
