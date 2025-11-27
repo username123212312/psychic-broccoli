@@ -8,91 +8,6 @@ products = []
 
 
 # =========================================
-#               CSS
-# =========================================
-STYLE_CSS = """
-body {
-    text-align: center;
-}
-
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px;
-}
-
-.product-card {
-    width: 300px;
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 0 8px #ccc;
-}
-
-.product-card img {
-    width: 250px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
-.price {
-    color: green;
-    font-weight: bold;
-}
-
-.btn {
-    display: inline-block;
-    padding: 8px 15px;
-    background: #333;
-    color: white;
-    text-decoration: none;
-    margin-top: 10px;
-    border-radius: 5px;
-}
-
-.btn.delete {
-    background: #b30000;
-}
-
-.form {
-    width: 400px;
-    margin: auto;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 8px #ccc;
-}
-
-.form input,
-.form textarea {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-}
-
-.detail-container {
-    display: flex;
-    gap: 30px;
-    padding: 30px;
-}
-
-.big-img {
-    height: 200px;
-    object-fit: cover;
-    width: 300px;
-    border-radius: 8px;
-}
-
-.info {
-    max-width: 600px;
-}
-"""
-
-
-# =========================================
 #               TEMPLATES
 # =========================================
 
@@ -106,7 +21,84 @@ BASE_HTML = """
     <title>Product Manager</title>
 
     <style>
-    {{ css }}
+        body {
+            text-align: center;
+        }
+    
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+    
+        .product-card {
+            width: 300px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 0 8px #ccc;
+        }
+    
+        .product-card img {
+            width: 250px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+    
+        .price {
+            color: green;
+            font-weight: bold;
+        }
+    
+        .btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+    
+        .btn.delete {
+            background: #b30000;
+        }
+    
+        .form {
+            width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 8px #ccc;
+        }
+    
+        .form input,
+        .form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+        }
+    
+        .detail-container {
+            display: flex;
+            gap: 30px;
+            padding: 30px;
+        }
+    
+        .big-img {
+            height: 200px;
+            object-fit: cover;
+            width: 300px;
+            border-radius: 8px;
+        }
+    
+        .info {
+            max-width: 600px;
+        }
     </style>
 
 </head>
@@ -222,7 +214,7 @@ app.jinja_loader = DictLoader(
 # =========================================
 @app.route("/")
 def index():
-    return render_template("index.html", css=STYLE_CSS, products=products)
+    return render_template("index.html", products=products)
 
 
 @app.route("/add", methods=["GET", "POST"])
@@ -239,13 +231,14 @@ def add_product():
         products.append(product)
         return redirect(url_for("index"))
 
-    return render_template("add.html", css=STYLE_CSS)
+    return render_template("add.html")
 
 
 @app.route("/product/<int:product_id>")
 def detail(product_id):
     product = next((p for p in products if p["id"] == product_id), None)
-    return render_template("detail.html", css=STYLE_CSS, product=product)
+    return render_template("detail.html",
+     product=product)
 
 
 @app.route("/delete/<int:product_id>")
