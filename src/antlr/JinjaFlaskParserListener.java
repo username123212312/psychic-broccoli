@@ -132,15 +132,15 @@ public interface JinjaFlaskParserListener extends ParseTreeListener {
 	 */
 	void exitTripleQuotedTemplate(JinjaFlaskParser.TripleQuotedTemplateContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#htmlContent}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#templateContent}.
 	 * @param ctx the parse tree
 	 */
-	void enterHtmlContent(JinjaFlaskParser.HtmlContentContext ctx);
+	void enterTemplateContent(JinjaFlaskParser.TemplateContentContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#htmlContent}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#templateContent}.
 	 * @param ctx the parse tree
 	 */
-	void exitHtmlContent(JinjaFlaskParser.HtmlContentContext ctx);
+	void exitTemplateContent(JinjaFlaskParser.TemplateContentContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JinjaFlaskParser#jinjaExpr}.
 	 * @param ctx the parse tree
@@ -171,4 +171,14 @@ public interface JinjaFlaskParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitJinjaComment(JinjaFlaskParser.JinjaCommentContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#styleBlock}.
+	 * @param ctx the parse tree
+	 */
+	void enterStyleBlock(JinjaFlaskParser.StyleBlockContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#styleBlock}.
+	 * @param ctx the parse tree
+	 */
+	void exitStyleBlock(JinjaFlaskParser.StyleBlockContext ctx);
 }

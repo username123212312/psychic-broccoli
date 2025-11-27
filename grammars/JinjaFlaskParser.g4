@@ -63,17 +63,20 @@ block
     ;
 
 tripleQuotedTemplate
-    : TRIPLE_DOUBLE_START htmlContent* TRIPLE_DOUBLE_END
-    | TRIPLE_SINGLE_START htmlContent* TRIPLE_SINGLE_END
+    : TRIPLE_DOUBLE_START templateContent* TRIPLE_DOUBLE_END
+    | TRIPLE_SINGLE_START templateContent* TRIPLE_SINGLE_END
     ;
 
-htmlContent
+templateContent
     : HTML_CONTENT
     | jinjaExpr
     | jinjaStmt
     | jinjaComment
+    | styleBlock
     ;
 
 jinjaExpr: JINJA_EXPR_START JINJA_EXPR_CONTENT JINJA_EXPR_END;
 jinjaStmt: JINJA_STMT_START JINJA_STMT_CONTENT JINJA_STMT_END;
 jinjaComment: JINJA_COMMENT_START JINJA_COMMENT_CONTENT JINJA_COMMENT_END;
+
+styleBlock: STYLE_START CSS_CONTENT STYLE_END;

@@ -163,13 +163,13 @@ public class JinjaFlaskParserBaseListener implements JinjaFlaskParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterHtmlContent(JinjaFlaskParser.HtmlContentContext ctx) { }
+	@Override public void enterTemplateContent(JinjaFlaskParser.TemplateContentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitHtmlContent(JinjaFlaskParser.HtmlContentContext ctx) { }
+	@Override public void exitTemplateContent(JinjaFlaskParser.TemplateContentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -206,6 +206,18 @@ public class JinjaFlaskParserBaseListener implements JinjaFlaskParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitJinjaComment(JinjaFlaskParser.JinjaCommentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStyleBlock(JinjaFlaskParser.StyleBlockContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStyleBlock(JinjaFlaskParser.StyleBlockContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

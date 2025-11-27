@@ -44,7 +44,7 @@ mode HTMLMODE;
 STYLE_START: '<style>' -> pushMode(CSSMODE);
 
 // Jinja starts
-JINJA_EXPR_START: '{{' -> pushMode(JINJA_EXPR);
+JINJA_EXPR_START: '{{' -> pushMode(JINJA_EXPR) ;
 JINJA_STMT_START: '{%' -> pushMode(JINJA_STMT);
 JINJA_COMMENT_START: '{#' -> pushMode(JINJA_COMMENT);
 

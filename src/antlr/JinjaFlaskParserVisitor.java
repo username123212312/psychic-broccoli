@@ -86,11 +86,11 @@ public interface JinjaFlaskParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTripleQuotedTemplate(JinjaFlaskParser.TripleQuotedTemplateContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#htmlContent}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#templateContent}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitHtmlContent(JinjaFlaskParser.HtmlContentContext ctx);
+	T visitTemplateContent(JinjaFlaskParser.TemplateContentContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JinjaFlaskParser#jinjaExpr}.
 	 * @param ctx the parse tree
@@ -109,4 +109,10 @@ public interface JinjaFlaskParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitJinjaComment(JinjaFlaskParser.JinjaCommentContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#styleBlock}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStyleBlock(JinjaFlaskParser.StyleBlockContext ctx);
 }
