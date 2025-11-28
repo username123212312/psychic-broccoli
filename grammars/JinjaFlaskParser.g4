@@ -13,6 +13,8 @@ statement
     | assignment
     | globalStmt
     | ifStmt
+    | forLoop
+    | whileLoop
     | functionDef
     | returnStmt
     | exprStmt
@@ -66,6 +68,10 @@ ifStmt
       (ELIF expr (COLON block)?)*
       (ELSE (COLON block)?)?
     ;
+
+forLoop : FOR NAME IN expr COLON block;
+
+whileLoop : WHILE expr COLON block;
 
 // --------------------- BLOCK ---------------------
 block
@@ -173,3 +179,7 @@ routeArgs
 routeOptions
     : NAME ASSIGN LBRACK STRING (COMMA STRING)* RBRACK
     ;
+
+
+
+
