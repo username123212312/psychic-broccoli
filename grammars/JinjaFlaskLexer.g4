@@ -119,9 +119,13 @@ NOT: 'not';
 TRUE: 'True';
 FALSE: 'False';
 NONE: 'None';
+PRINT : 'print' ;
+WHILE : 'while';
+
 
 AT: '@';
-COLON: ':';
+COLON   : ':' ;
+SEMI    : ';' ;
 COMMA: ',';
 ASSIGN: '=';
 EQ: '==';
@@ -134,6 +138,8 @@ PLUS: '+';
 MINUS: '-';
 STAR: '*';
 SLASH: '/';
+SLASHSLASH  : '//' ;
+
 
 LP: {opened++;} '(';
 RP: {opened--;} ')';
@@ -144,7 +150,7 @@ RBRACE: {opened--;} '}';
 DOT: '.';
 
 NAME: [a-zA-Z_][a-zA-Z0-9_]*;
-NUMBER: [0-9]+;
+NUMBER: [0-9]+ ('.' [0-9]+)? ;
 
 STRING: '\'' (~['\r\n])* '\'' | '"' (~["\r\n])* '"';
 

@@ -9,8 +9,17 @@ program: NEWLINE* (statement NEWLINE*)* EOF;
 
 // --- Statements ---
 statement
-    : compoundStmt
-    | simpleStmt
+    : importStmt
+    | tripleQuotedTemplate
+    | decorator
+    | assignment
+    | globalStmt
+    | ifStmt
+    | forLoop
+    | whileLoop
+    | functionDef
+    | returnStmt
+    | exprStmt
     ;
 
 compoundStmt
@@ -59,8 +68,13 @@ importStmt
     | IMPORT NAME (AS NAME)? (COMMA NAME (AS NAME)?)*
     ;
 
-expressionStmt
-    : expression
+forLoop : FOR NAME IN expr COLON block;
+
+whileLoop : WHILE expr COLON block;
+
+// --------------------- BLOCK ---------------------
+block
+    : INDENT statement+ DEDENT
     ;
 
 // =================== HTML/TEMPLATE INTEGRATION (New Rules) ===================
