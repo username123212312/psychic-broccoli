@@ -1,9 +1,12 @@
 // Generated from C:/Users/Rama Alwanni/Desktop/psychic-broccoli-main (1)/grammars/JinjaFlaskLexer.g4 by ANTLR 4.13.1
 
+package antlr;
     import org.antlr.v4.runtime.CommonToken;
     import org.antlr.v4.runtime.Token;
     import java.util.*;
-    import org.antlr.v4.runtime.CharStream; // Added for robust indentation
+    import org.antlr.v4.runtime.CharStream;
+    import org.antlr.v4.runtime.TokenSource;
+    import org.antlr.v4.runtime.misc.Pair;
 
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
@@ -34,13 +37,14 @@ public class JinjaFlaskLexer extends Lexer {
 		JINJA_EXPR_CONTENT=64, JINJA_STMT_END=65, JINJA_STMT_CONTENT=66, JINJA_COMMENT_END=67, 
 		JINJA_COMMENT_CONTENT=68;
 	public static final int
-		HTMLMODE=1, CSSMODE=2, JINJA_EXPR=3, JINJA_STMT=4, JINJA_COMMENT=5;
+		HTMLMODE=1, TAG=2, SCRIPT=3, STYLE=4, JINJA_EXPR=5, JINJA_STMT=6, JINJA_COMMENT=7;
 	public static String[] channelNames = {
 		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"
 	};
 
 	public static String[] modeNames = {
-		"DEFAULT_MODE", "HTMLMODE", "CSSMODE", "JINJA_EXPR", "JINJA_STMT", "JINJA_COMMENT"
+		"DEFAULT_MODE", "HTMLMODE", "TAG", "SCRIPT", "STYLE", "JINJA_EXPR", "JINJA_STMT", 
+		"JINJA_COMMENT"
 	};
 
 	private static String[] makeRuleNames() {
@@ -121,94 +125,50 @@ public class JinjaFlaskLexer extends Lexer {
 	}
 
 
-	    private List<Token> pending = new ArrayList<>();
-	    private Stack<Integer> indents = new Stack<>();
-	    { indents.push(0); }
-	    private int opened = 0; // For tracking open parentheses/brackets
+	  public static final int HIDDEN = 1;
+	  public static final int DEFAULT = Token.DEFAULT_CHANNEL;
 
-	    // Helper method to accurately measure indentation depth from the character stream.
-	    private int getIndentation() {
-	        // Start reading from the current position after the NEWLINE token has been consumed.
-	        int charIndex = _input.index();
-	        int indent = 0;
+	  // A queue where extra tokens are pushed on (see the NEWLINE lexer rule).
+	  private java.util.LinkedList<Token> pending = new java.util.LinkedList<>();
+	  // The stack that keeps track of the indentation level.
+	  private java.util.Stack<Integer> indents = new java.util.Stack<>();
+	  // The amount of opened braces, brackets and parenthesis.
+	  private int opened = 0;
 
-	        while (charIndex < _input.size()) {
-	            int charCode = _input.LA(charIndex - _input.index() + 1); // Peek ahead
+	  // CRITICAL FIX: Ensure the indentation stack is initialized with 0
+	  {
+	      indents.push(0);
+	  }
 
-	            if (charCode == ' ') {
-	                indent++;
-	            } else if (charCode == '\t') {
-	                indent += 4 - (indent % 4);
-	            } else if (charCode == '\r' || charCode == '\n') {
-	                // Ignore empty lines
-	                charIndex++;
-	                continue;
-	            } else {
-	                // Found non-whitespace character (start of a statement)
-	                return indent;
-	            }
-	            charIndex++;
-	        }
-	        return indent; // Should only happen at EOF
+	  // Helper method to emit tokens into the pending queue.
+	  public void emit(Token t) {
+	    super.setToken(t);
+	    pending.offer(t);
+	  }
+
+	  private Token createDedent() {
+	    return commonToken(DEDENT, "<DEDENT>");
+	  }
+
+	  private CommonToken commonToken(int type, String text) {
+	    int stop = this.getCharIndex() - 1;
+	    int start = text.isEmpty() ? stop : stop - text.length() + 1;
+	    return new CommonToken(this._tokenFactorySourcePair, type, DEFAULT_TOKEN_CHANNEL, start, stop);
+	  }
+
+	  static int getIndentationCount(String spaces) {
+	    int count = 0;
+	    for (char ch : spaces.toCharArray()) {
+	      switch (ch) {
+	        case '\t':
+	          count += 8 - (count % 8);
+	          break;
+	        default:
+	          count++;
+	      }
 	    }
-
-	    @Override
-	    public Token nextToken() {
-	        if (!pending.isEmpty()) {
-	            return pending.remove(0);
-	        }
-
-	        Token t = super.nextToken();
-
-	        if (t.getType() == NEWLINE) {
-	            if (opened == 0) {
-	                // CRITICAL: Calculate new indent based on the raw character stream
-	                int newIndent = getIndentation();
-
-	                int previousIndent = indents.isEmpty() ? 0 : indents.peek();
-
-	                if (newIndent > previousIndent) {
-	                    indents.push(newIndent);
-	                    pending.add(commonToken(INDENT, "<INDENT>"));
-	                } else if (newIndent < previousIndent) {
-	                    while (newIndent < previousIndent) {
-	                        indents.pop();
-	                        pending.add(commonToken(DEDENT, "<DEDENT>"));
-	                        previousIndent = indents.isEmpty() ? 0 : indents.peek();
-
-	                        if (previousIndent < newIndent) {
-	                            // Inconsistent indentation, stop unwinding here
-	                            break;
-	                        }
-	                    }
-	                }
-	            }
-	            // Since NEWLINE is hidden, we recursively call nextToken()
-	            return nextToken();
-
-	        } else if (t.getType() == EOF) {
-	            // Unwind stack at EOF
-	            while (!indents.isEmpty() && indents.peek() != 0) {
-	                indents.pop();
-	                pending.add(commonToken(DEDENT, "<DEDENT>"));
-	            }
-	            if (!pending.isEmpty()) {
-	                return pending.remove(0);
-	            }
-	        }
-
-	        return t;
-	    }
-
-	    public Token commonToken(int type, String text) {
-	        // Use the same robust token creation as the last step
-	        CommonToken token = new CommonToken(this._tokenFactory, type, Token.DEFAULT_CHANNEL, this._tokenStartCharIndex, this._input.index() - 1);
-	        token.setText(text);
-	        token.setLine(this._tokenStartLine);
-	        token.setCharPositionInLine(this._tokenStartCharPositionInLine);
-	        token.setTokenIndex(-1); // Virtual token
-	        return token;
-	    }
+	    return count;
+	  }
 
 
 	public JinjaFlaskLexer(CharStream input) {
@@ -257,45 +217,81 @@ public class JinjaFlaskLexer extends Lexer {
 			break;
 		}
 	}
-	private void LP_action(RuleContext _localctx, int actionIndex) {
+	private void NEWLINE_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
 		case 0:
-			 opened++; 
+
+			     String newLine = getText().replaceAll("[^\r\n]+", "");
+			     String spaces = getText().replaceAll("[\r\n]+", "");
+			     int next = _input.LA(1);
+
+			     if (opened > 0 || next == '\r' || next == '\n' || next == '#') {
+			       skip();
+			     }
+			     else {
+			       emit(commonToken(JinjaFlaskLexer.NEWLINE, newLine));
+
+			       int indent = getIndentationCount(spaces);
+			       int previous = indents.peek();
+
+			       if (indent > previous) {
+			         indents.push(indent);
+			         emit(commonToken(JinjaFlaskLexer.INDENT, spaces));
+			       }
+			       else if (indent < previous) {
+			         while(!indents.isEmpty() && indents.peek() > indent) {
+			           this.emit(createDedent());
+			           indents.pop();
+			         }
+			         if (indents.peek() != indent) {
+			            // Indentation error detection
+			         }
+			       }
+			       skip();
+			     }
+			   
+			break;
+		}
+	}
+	private void LP_action(RuleContext _localctx, int actionIndex) {
+		switch (actionIndex) {
+		case 1:
+			opened++;
 			break;
 		}
 	}
 	private void RP_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
-		case 1:
-			 if (opened>0) opened--; 
+		case 2:
+			opened--;
 			break;
 		}
 	}
 	private void LBRACK_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
-		case 2:
-			 opened++; 
+		case 3:
+			opened++;
 			break;
 		}
 	}
 	private void RBRACK_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
-		case 3:
-			 if (opened>0) opened--; 
+		case 4:
+			opened--;
 			break;
 		}
 	}
 	private void LBRACE_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
-		case 4:
-			 opened++; 
+		case 5:
+			opened++;
 			break;
 		}
 	}
 	private void RBRACE_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
-		case 5:
-			 if (opened>0) opened--; 
+		case 6:
+			opened--;
 			break;
 		}
 	}

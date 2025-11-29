@@ -1,11 +1,13 @@
 parser grammar JinjaFlaskParser;
+
+@header {package antlr;}
+
 options { tokenVocab=JinjaFlaskLexer; }
 
-@header { package antlr; }
+// --- Primary Structure ---
+program: NEWLINE* (statement NEWLINE*)* EOF;
 
-prog: statement* EOF #Program;
-
-// --------------------- STATEMENTS ---------------------
+// --- Statements ---
 statement
     : importStmt
     | tripleQuotedTemplate
@@ -20,53 +22,50 @@ statement
     | exprStmt
     ;
 
-// --------------------- SIMPLE STATEMENTS ---------------------
-importStmt
-    : FROM NAME IMPORT NAME (COMMA NAME)* COMMA? (AS NAME)?
-    | IMPORT NAME (COMMA NAME)* COMMA? (AS NAME)?
+compoundStmt
+    : ifStmt
+    | defStmt
+    ;
+
+defStmt
+    : DEF NAME LP RP COLON NEWLINE NEWLINE* block
+    ;
+
+// --- Simple Statements ---
+simpleStmt
+    // CRITICAL: assignmentStmt MUST be listed BEFORE expressionStmt
+    : assignmentStmt
+    | returnStmt
+    | importStmt
+    | globalStmt
+    | expressionStmt
+    ;
+
+// --- Indented Block Structure ---
+ifStmt
+    // Added NEWLINE* to tolerate blank lines between header and block
+    : IF expression COLON NEWLINE NEWLINE* block
+    ( ELIF expression COLON NEWLINE NEWLINE* block )*
+    ( ELSE COLON NEWLINE NEWLINE* block )?
+    ;
+
+// A block requires INDENT, statements, and DEDENT
+block: INDENT (statement NEWLINE*)* DEDENT;
+
+// --- Assignments and Expressions ---
+assignmentStmt: NAME ASSIGN expression;
+
+returnStmt
+    : RETURN expression?
     ;
 
 globalStmt
     : GLOBAL NAME (COMMA NAME)*
     ;
 
-exprStmt
-    : expr
-    ;
-
-decorator
-    : AT attributeAccess LP routeArgs? RP
-    ;
-
-// 🟢 FIX FOR "extraneous input '='": allow attribute/subscript assignment on LHS
-assignment
-    : assignTarget ASSIGN expr
-    ;
-
-// Defines what can be on the left side of the ASSIGN operator
-assignTarget
-    : NAME
-    | attributeAccess
-    | expr LBRACK expr RBRACK // Allows array/dictionary assignment: products[0] = 1
-    ;
-
-returnStmt
-    : RETURN expr?
-    ;
-
-// --------------------- CONTROL FLOW ---------------------
-functionDef
-    : DEF NAME LP paramList? RP (COLON block)?
-    ;
-
-paramList
-    : NAME (COMMA NAME)*
-    ;
-
-ifStmt
-    : IF expr (COLON block)?
-      (ELIF expr (COLON block)?)*
-      (ELSE (COLON block)?)?
+importStmt
+    : FROM expression IMPORT (STAR | NAME (AS NAME)? (COMMA NAME (AS NAME)?)*)
+    | IMPORT NAME (AS NAME)? (COMMA NAME (AS NAME)?)*
     ;
 
 forLoop : FOR NAME IN expr COLON block;
@@ -78,108 +77,71 @@ block
     : INDENT statement+ DEDENT
     ;
 
-// --------------------- EXPRESSIONS ---------------------
-// Organized by precedence (tightest binding first)
-expr
-    // Lowest Precedence: Logical
-    : expr OR expr                               # OrExpr
-    | expr AND expr                              # AndExpr
+// =================== HTML/TEMPLATE INTEGRATION (New Rules) ===================
 
-    // Unary Operators
-    | NOT expr                                   # NotExpr
-
-    // Comparison Operators
-    | expr (EQ | NEQ | GT | LT | GTE | LTE) expr # ComparisonExpr
-
-    // Arithmetic (Add/Subtract)
-    | expr (PLUS | MINUS) expr                   # AddSubExpr
-
-    // Arithmetic (Multiply/Divide)
-    | expr (STAR | SLASH) expr                   # MulDivExpr
-
-    // Highest Precedence: Primary Atoms & Member Access
-    | atom                                       # AtomExpr
-    | expr LBRACK expr RBRACK                    # SubscriptExpr  // products[0]
-    | expr LP argList? RP                        # FnCallExpr     // func(x)
-    | expr DOT NAME                              # AttributeExpr  // request.form
+// Rule to group the multi-token sequence for triple-quoted strings
+// Now uses the integrated HTML parser rules.
+tripleQuotedString
+    : (TRIPLE_DOUBLE_START | TRIPLE_SINGLE_START)
+      document
+      (TRIPLE_DOUBLE_END | TRIPLE_SINGLE_END)
     ;
 
-atom
-    : NAME
-    | NUMBER
-    | STRING
-    | TRUE | FALSE | NONE
-    | tripleQuotedTemplate
-    | listLiteral
-    | dictLiteral
-    | LP expr RP
-    | generatorExpr
+// Integrated HTML Parser Rules:
+document
+    : ( SCRIPTLET | SEA_WS )*
+      ( element ( SCRIPTLET | SEA_WS )* )*
     ;
 
-// --------------------- ARGUMENTS & CALLS ---------------------
-argList
-    : argument (COMMA argument)* COMMA?
+content
+    : ( HTML_TEXT | element | CDATA | SCRIPTLET | JINJA_EXPR_START JINJA_EXPR_CONTENT JINJA_EXPR_END | JINJA_STMT_START JINJA_STMT_CONTENT JINJA_STMT_END | JINJA_COMMENT_START JINJA_COMMENT_CONTENT JINJA_COMMENT_END )*
     ;
 
-argument
-    : expr                 // Positional arg: "index.html"
-    | NAME ASSIGN expr     // Keyword arg: products=products
+element
+    // Closing Tag format: <div> content </div>
+    : TAG_OPEN TAG_NAME ( attribute )* TAG_CLOSE
+      content
+      TAG_OPEN TAG_SLASH TAG_NAME TAG_CLOSE
+    // Self-Closing Tag format: <img src="..." />
+    | TAG_OPEN TAG_NAME ( attribute )* TAG_SLASH_CLOSE
+    // Opening Tag only (Content is parsed in a separate rule if required)
+    | TAG_OPEN TAG_NAME ( attribute )* TAG_CLOSE
     ;
 
-// --------------------- DATA STRUCTURES ---------------------
-// Supports both [1,2] and [p for p in products]
-
-listLiteral
-    : LBRACK (expr (COMMA expr)* COMMA?)? RBRACK # ListElements
-    | LBRACK expr FOR NAME IN expr (IF expr)? RBRACK # ListComp
+attribute
+    : TAG_NAME ( TAG_EQUALS ATTVALUE_VALUE )?
     ;
 
-dictLiteral
-    : LBRACE (entry (COMMA entry)* COMMA?)? RBRACE
+// =================== PYTHON EXPRESSIONS (Unchanged) ===================
+
+expression
+    : comparisonExpression ( (AND | OR) comparisonExpression )* # logicalOp
+    | NOT comparisonExpression                   # notOp
     ;
 
-entry
-    : expr COLON expr
+comparisonExpression
+    : additiveExpression ( (EQ | NEQ | GT | LT | GTE | LTE) additiveExpression )* # comparisonOp
     ;
 
-generatorExpr
-    : LP expr FOR NAME IN expr (IF expr)? RP
+additiveExpression
+    : multiplicativeExpression ( (PLUS | MINUS) multiplicativeExpression )* # additiveOp
     ;
 
-// --------------------- MISC HELPERS ---------------------
-attributeAccess
-    : NAME (DOT NAME)+
+multiplicativeExpression
+    : primaryExpression ( (STAR | SLASH) primaryExpression )* # multiplicativeOp
     ;
 
-// --------------------- TEMPLATES ---------------------
-tripleQuotedTemplate
-    : TRIPLE_DOUBLE_START templateContent* TRIPLE_DOUBLE_END
-    | TRIPLE_SINGLE_START templateContent* TRIPLE_SINGLE_END
+primaryExpression
+    : NUMBER                                              # number
+    | STRING                                              # string
+    | tripleQuotedString                                  # tripleString
+    | TRUE                                                # true
+    | FALSE                                               # false
+    | NONE                                                # none
+    | NAME                                                # name
+    | LP expression RP                                    # parenthesis
+    | LBRACK (expression (COMMA expression)*)? RBRACK     # listLiteral
+
+    // Using the safe, standard combined rule to prevent ambiguity-related crashes.
+    | LBRACE (expression (COLON expression)? (COMMA expression (COLON expression)?)*)? RBRACE # dictOrSetLiteral
     ;
-
-templateContent
-    : HTML_CONTENT
-    | jinjaExpr
-    | jinjaStmt
-    | jinjaComment
-    | styleBlock
-    ;
-
-jinjaExpr: JINJA_EXPR_START JINJA_EXPR_CONTENT? JINJA_EXPR_END;
-jinjaStmt: JINJA_STMT_START JINJA_STMT_CONTENT? JINJA_STMT_END;
-jinjaComment: JINJA_COMMENT_START JINJA_COMMENT_CONTENT? JINJA_COMMENT_END;
-
-styleBlock: STYLE_START CSS_CONTENT STYLE_END;
-
-// --------------------- FLASK ROUTE ARGS ---------------------
-routeArgs
-    : STRING (COMMA routeOptions?)?
-    ;
-
-routeOptions
-    : NAME ASSIGN LBRACK STRING (COMMA STRING)* RBRACK
-    ;
-
-
-
-
