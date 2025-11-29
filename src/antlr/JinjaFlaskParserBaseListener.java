@@ -41,13 +41,25 @@ public class JinjaFlaskParserBaseListener implements JinjaFlaskParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCompoundStmt(JinjaFlaskParser.CompoundStmtContext ctx) { }
+	@Override public void enterDecorator(JinjaFlaskParser.DecoratorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCompoundStmt(JinjaFlaskParser.CompoundStmtContext ctx) { }
+	@Override public void exitDecorator(JinjaFlaskParser.DecoratorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDecoratedDef(JinjaFlaskParser.DecoratedDefContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDecoratedDef(JinjaFlaskParser.DecoratedDefContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -149,13 +161,25 @@ public class JinjaFlaskParserBaseListener implements JinjaFlaskParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpressionStmt(JinjaFlaskParser.ExpressionStmtContext ctx) { }
+	@Override public void enterForLoop(JinjaFlaskParser.ForLoopContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpressionStmt(JinjaFlaskParser.ExpressionStmtContext ctx) { }
+	@Override public void exitForLoop(JinjaFlaskParser.ForLoopContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterWhileLoop(JinjaFlaskParser.WhileLoopContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitWhileLoop(JinjaFlaskParser.WhileLoopContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

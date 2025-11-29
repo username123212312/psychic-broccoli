@@ -23,11 +23,17 @@ public interface JinjaFlaskParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStatement(JinjaFlaskParser.StatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#compoundStmt}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#decorator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCompoundStmt(JinjaFlaskParser.CompoundStmtContext ctx);
+	T visitDecorator(JinjaFlaskParser.DecoratorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#decoratedDef}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDecoratedDef(JinjaFlaskParser.DecoratedDefContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JinjaFlaskParser#defStmt}.
 	 * @param ctx the parse tree
@@ -77,11 +83,17 @@ public interface JinjaFlaskParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitImportStmt(JinjaFlaskParser.ImportStmtContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#expressionStmt}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#forLoop}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpressionStmt(JinjaFlaskParser.ExpressionStmtContext ctx);
+	T visitForLoop(JinjaFlaskParser.ForLoopContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#whileLoop}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhileLoop(JinjaFlaskParser.WhileLoopContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JinjaFlaskParser#tripleQuotedString}.
 	 * @param ctx the parse tree

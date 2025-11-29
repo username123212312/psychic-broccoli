@@ -10,21 +10,29 @@ program: NEWLINE* (statement NEWLINE*)* EOF;
 // --- Statements ---
 statement
     : importStmt
-    | tripleQuotedTemplate
+    | simpleStmt
+    | tripleQuotedString
     | decorator
-    | assignment
+    | decoratedDef
+    | assignmentStmt
     | globalStmt
     | ifStmt
     | forLoop
     | whileLoop
-    | functionDef
+    | defStmt
     | returnStmt
-    | exprStmt
+    | expression
     ;
 
-compoundStmt
-    : ifStmt
-    | defStmt
+// New rule: Definition for a single decorator (@expression NEWLINE)
+decorator
+    : '@' expression NEWLINE
+    ;
+
+// New rule: Defines a function definition optionally preceded by decorators
+decoratedDef
+    : decorator*
+      DEF NAME LP RP COLON NEWLINE NEWLINE* block
     ;
 
 defStmt
@@ -38,7 +46,7 @@ simpleStmt
     | returnStmt
     | importStmt
     | globalStmt
-    | expressionStmt
+    | expression
     ;
 
 // --- Indented Block Structure ---
@@ -68,14 +76,10 @@ importStmt
     | IMPORT NAME (AS NAME)? (COMMA NAME (AS NAME)?)*
     ;
 
-forLoop : FOR NAME IN expr COLON block;
+forLoop : FOR NAME IN expression COLON block;
 
-whileLoop : WHILE expr COLON block;
+whileLoop : WHILE expression COLON block;
 
-// --------------------- BLOCK ---------------------
-block
-    : INDENT statement+ DEDENT
-    ;
 
 // =================== HTML/TEMPLATE INTEGRATION (New Rules) ===================
 

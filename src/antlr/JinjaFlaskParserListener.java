@@ -28,15 +28,25 @@ public interface JinjaFlaskParserListener extends ParseTreeListener {
 	 */
 	void exitStatement(JinjaFlaskParser.StatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#compoundStmt}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#decorator}.
 	 * @param ctx the parse tree
 	 */
-	void enterCompoundStmt(JinjaFlaskParser.CompoundStmtContext ctx);
+	void enterDecorator(JinjaFlaskParser.DecoratorContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#compoundStmt}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#decorator}.
 	 * @param ctx the parse tree
 	 */
-	void exitCompoundStmt(JinjaFlaskParser.CompoundStmtContext ctx);
+	void exitDecorator(JinjaFlaskParser.DecoratorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#decoratedDef}.
+	 * @param ctx the parse tree
+	 */
+	void enterDecoratedDef(JinjaFlaskParser.DecoratedDefContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#decoratedDef}.
+	 * @param ctx the parse tree
+	 */
+	void exitDecoratedDef(JinjaFlaskParser.DecoratedDefContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JinjaFlaskParser#defStmt}.
 	 * @param ctx the parse tree
@@ -118,15 +128,25 @@ public interface JinjaFlaskParserListener extends ParseTreeListener {
 	 */
 	void exitImportStmt(JinjaFlaskParser.ImportStmtContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#expressionStmt}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#forLoop}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpressionStmt(JinjaFlaskParser.ExpressionStmtContext ctx);
+	void enterForLoop(JinjaFlaskParser.ForLoopContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#expressionStmt}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#forLoop}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpressionStmt(JinjaFlaskParser.ExpressionStmtContext ctx);
+	void exitForLoop(JinjaFlaskParser.ForLoopContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#whileLoop}.
+	 * @param ctx the parse tree
+	 */
+	void enterWhileLoop(JinjaFlaskParser.WhileLoopContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#whileLoop}.
+	 * @param ctx the parse tree
+	 */
+	void exitWhileLoop(JinjaFlaskParser.WhileLoopContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JinjaFlaskParser#tripleQuotedString}.
 	 * @param ctx the parse tree
