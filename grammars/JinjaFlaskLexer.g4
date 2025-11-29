@@ -1,108 +1,107 @@
 lexer grammar JinjaFlaskLexer;
 
+// Tokens are defined in the parser file, but we redefine the virtual ones here for reference
+tokens { INDENT, DEDENT }
+
 @lexer::header {
+package antlr;
     import org.antlr.v4.runtime.CommonToken;
     import org.antlr.v4.runtime.Token;
     import java.util.*;
-    import org.antlr.v4.runtime.CharStream; // Added for robust indentation
+    import org.antlr.v4.runtime.CharStream;
+    import org.antlr.v4.runtime.TokenSource;
+    import org.antlr.v4.runtime.misc.Pair;
 }
 
 @lexer::members {
-    private List<Token> pending = new ArrayList<>();
-    private Stack<Integer> indents = new Stack<>();
-    { indents.push(0); }
-    private int opened = 0; // For tracking open parentheses/brackets
+  public static final int HIDDEN = 1;
+  public static final int DEFAULT = Token.DEFAULT_CHANNEL;
 
-    // Helper method to accurately measure indentation depth from the character stream.
-    private int getIndentation() {
-        // Start reading from the current position after the NEWLINE token has been consumed.
-        int charIndex = _input.index();
-        int indent = 0;
+  // A queue where extra tokens are pushed on (see the NEWLINE lexer rule).
+  private java.util.LinkedList<Token> pending = new java.util.LinkedList<>();
+  // The stack that keeps track of the indentation level.
+  private java.util.Stack<Integer> indents = new java.util.Stack<>();
+  // The amount of opened braces, brackets and parenthesis.
+  private int opened = 0;
 
-        while (charIndex < _input.size()) {
-            int charCode = _input.LA(charIndex - _input.index() + 1); // Peek ahead
+  // CRITICAL FIX: Ensure the indentation stack is initialized with 0
+  {
+      indents.push(0);
+  }
 
-            if (charCode == ' ') {
-                indent++;
-            } else if (charCode == '\t') {
-                indent += 4 - (indent % 4);
-            } else if (charCode == '\r' || charCode == '\n') {
-                // Ignore empty lines
-                charIndex++;
-                continue;
-            } else {
-                // Found non-whitespace character (start of a statement)
-                return indent;
-            }
-            charIndex++;
-        }
-        return indent; // Should only happen at EOF
+  // Helper method to emit tokens into the pending queue.
+  public void emit(Token t) {
+    super.setToken(t);
+    pending.offer(t);
+  }
+
+  private Token createDedent() {
+    return commonToken(DEDENT, "<DEDENT>");
+  }
+
+  private CommonToken commonToken(int type, String text) {
+    int stop = this.getCharIndex() - 1;
+    int start = text.isEmpty() ? stop : stop - text.length() + 1;
+    return new CommonToken(this._tokenFactorySourcePair, type, DEFAULT_TOKEN_CHANNEL, start, stop);
+  }
+
+  static int getIndentationCount(String spaces) {
+    int count = 0;
+    for (char ch : spaces.toCharArray()) {
+      switch (ch) {
+        case '\t':
+          count += 8 - (count % 8);
+          break;
+        default:
+          count++;
+      }
     }
-
-    @Override
-    public Token nextToken() {
-        if (!pending.isEmpty()) {
-            return pending.remove(0);
-        }
-
-        Token t = super.nextToken();
-
-        if (t.getType() == NEWLINE) {
-            if (opened == 0) {
-                // CRITICAL: Calculate new indent based on the raw character stream
-                int newIndent = getIndentation();
-
-                int previousIndent = indents.isEmpty() ? 0 : indents.peek();
-
-                if (newIndent > previousIndent) {
-                    indents.push(newIndent);
-                    pending.add(commonToken(INDENT, "<INDENT>"));
-                } else if (newIndent < previousIndent) {
-                    while (newIndent < previousIndent) {
-                        indents.pop();
-                        pending.add(commonToken(DEDENT, "<DEDENT>"));
-                        previousIndent = indents.isEmpty() ? 0 : indents.peek();
-
-                        if (previousIndent < newIndent) {
-                            // Inconsistent indentation, stop unwinding here
-                            break;
-                        }
-                    }
-                }
-            }
-            // Since NEWLINE is hidden, we recursively call nextToken()
-            return nextToken();
-
-        } else if (t.getType() == EOF) {
-            // Unwind stack at EOF
-            while (!indents.isEmpty() && indents.peek() != 0) {
-                indents.pop();
-                pending.add(commonToken(DEDENT, "<DEDENT>"));
-            }
-            if (!pending.isEmpty()) {
-                return pending.remove(0);
-            }
-        }
-
-        return t;
-    }
-
-    public Token commonToken(int type, String text) {
-        // Use the same robust token creation as the last step
-        CommonToken token = new CommonToken(this._tokenFactory, type, Token.DEFAULT_CHANNEL, this._tokenStartCharIndex, this._input.index() - 1);
-        token.setText(text);
-        token.setLine(this._tokenStartLine);
-        token.setCharPositionInLine(this._tokenStartCharPositionInLine);
-        token.setTokenIndex(-1); // Virtual token
-        return token;
-    }
+    return count;
+  }
 }
 
-// =================== DEFAULT MODE (Python) ===================
+// =================== LEXER RULES (Hybrid Indentation) ===================
+
+NEWLINE
+ : ( '\r'? '\n' | '\r' ) [ \t]*
+   {
+     String newLine = getText().replaceAll("[^\r\n]+", "");
+     String spaces = getText().replaceAll("[\r\n]+", "");
+     int next = _input.LA(1);
+
+     if (opened > 0 || next == '\r' || next == '\n' || next == '#') {
+       skip();
+     }
+     else {
+       emit(commonToken(JinjaFlaskLexer.NEWLINE, newLine));
+
+       int indent = getIndentationCount(spaces);
+       int previous = indents.peek();
+
+       if (indent > previous) {
+         indents.push(indent);
+         emit(commonToken(JinjaFlaskLexer.INDENT, spaces));
+       }
+       else if (indent < previous) {
+         while(!indents.isEmpty() && indents.peek() > indent) {
+           this.emit(createDedent());
+           indents.pop();
+         }
+         if (indents.peek() != indent) {
+            // Indentation error detection
+         }
+       }
+       skip();
+     }
+   }
+   -> channel(HIDDEN)
+ ;
+
+// Intra-line whitespace
 WS: [ \t]+ -> skip;
 COMMENT: '#' ~[\r\n]* -> skip;
 
-// --- Keywords (Must be before NAME) ---
+// Tokens
 DEF: 'def';
 RETURN: 'return';
 FROM: 'from';
@@ -121,7 +120,6 @@ TRUE: 'True';
 FALSE: 'False';
 NONE: 'None';
 
-// --- Punctuation ---
 AT: '@';
 COLON: ':';
 COMMA: ',';
@@ -137,62 +135,256 @@ MINUS: '-';
 STAR: '*';
 SLASH: '/';
 
-LP: '(' { opened++; } ;
-RP: ')' { if (opened>0) opened--; } ;
-LBRACK: '[' { opened++; } ;
-RBRACK: ']' { if (opened>0) opened--; } ;
-LBRACE: '{' { opened++; } ;
-RBRACE: '}' { if (opened>0) opened--; } ;
+LP: {opened++;} '(';
+RP: {opened--;} ')';
+LBRACK: {opened++;} '[';
+RBRACK: {opened--;} ']';
+LBRACE: {opened++;} '{';
+RBRACE: {opened--;} '}';
 DOT: '.';
 
 NAME: [a-zA-Z_][a-zA-Z0-9_]*;
 NUMBER: [0-9]+;
 
-// --- Indentation ---
-INDENT: '<INDENT>';
-DEDENT: '<DEDENT>';
+STRING: '\'' (~['\r\n])* '\'' | '"' (~["\r\n])* '"';
 
-NEWLINE
-    :   ('\r'? '\n') [ \t]*
-        -> channel(HIDDEN)
-    ;
 
-// --- Strings ---
-STRING
-    : '\'' (~['\r\n])* '\''
-    | '"' (~["\r\n])* '"'
-    ;
+// =================== GLOBAL JINJA STARTS (Fixes Redefinition) ===================
 
-TRIPLE_DOUBLE_START: '"""' -> pushMode(HTMLMODE);
-TRIPLE_SINGLE_START: '\'\'\'' -> pushMode(HTMLMODE);
-
-OTHER: . ;
-
-// =================== HTMLMODE ===================
-mode HTMLMODE;
-STYLE_START: '<style>' -> pushMode(CSSMODE);
+// These must be defined globally to be visible in both HTMLMODE and STYLE mode
+// without causing redefinition errors.
 JINJA_EXPR_START: '{{' -> pushMode(JINJA_EXPR);
 JINJA_STMT_START: '{%' -> pushMode(JINJA_STMT);
 JINJA_COMMENT_START: '{#' -> pushMode(JINJA_COMMENT);
+
+// Start rules push into HTMLMODE
+TRIPLE_DOUBLE_START: '"""' -> pushMode(HTMLMODE);
+TRIPLE_SINGLE_START: '\'\'\'' -> pushMode(HTMLMODE);
+
+
+// =================== HTML MODE (JinjaFlask Templates) ===================
+
+mode HTMLMODE;
+
+// 1. Jinja Mode Switching is now handled by the global definitions above.
+
+// 2. Triple Quote End (Mode exit)
 TRIPLE_DOUBLE_END: '"""' -> popMode;
 TRIPLE_SINGLE_END: '\'\'\'' -> popMode;
-HTML_CONTENT
-    : ( ~[<{"'] | '<' ~'s' | '{' ~[#{%] | '"' ~'"' | '\'' ~'\'' )+ ;
 
-// =================== CSS MODE ===================
-mode CSSMODE;
-STYLE_END: '</style>' -> popMode;
-CSS_CONTENT: ( ~'<' | '<' ~'/' | '</' ~'s' | '</s' ~'t' | '</st' ~'y' | '</sty' ~'l' | '</styl' ~'e' )+ ;
+// 3. HTML Comment/Declaration Tokens (From provided HTML Lexer)
+HTML_COMMENT
+    : '<!--' .*? '-->' -> channel(HIDDEN)
+    ;
 
-// =================== JINJA MODES ===================
+HTML_CONDITIONAL_COMMENT
+    : '<![' .*? ']>' -> channel(HIDDEN)
+    ;
+
+XML_DECLARATION
+    : '<?xml' .*? '?>' -> channel(HIDDEN)
+    ;
+
+CDATA
+    : '<![CDATA[' .*? ']]>'
+    ;
+
+DTD
+    : '<!' .*? '>' -> channel(HIDDEN)
+    ;
+
+SCRIPTLET
+    : '<%' .*? '%>'
+    ;
+
+SEA_WS
+    : [ \t\r\n]+ -> channel(HIDDEN)
+    ;
+
+// 4. Mode-Pushing Tag Starts
+SCRIPT_OPEN
+    : '<script' ~'>'* '>' -> pushMode(SCRIPT)
+    ;
+
+STYLE_OPEN
+    : '<style' ~'>'* '>' -> pushMode(STYLE)
+    ;
+
+TAG_OPEN
+    : '<' -> pushMode(TAG)
+    ;
+
+// 5. Default Content Text (Must consume everything that isn't a Jinja or HTML start/end)
+HTML_TEXT
+    : ~[<{\\'"]+
+    ;
+
+
+// =================== TAG MODE (Inside <...>) ===================
+mode TAG;
+
+TAG_CLOSE
+    : '>' -> popMode
+    ;
+
+TAG_SLASH_CLOSE
+    : '/>' -> popMode
+    ;
+
+TAG_SLASH
+    : '/'
+    ;
+
+TAG_EQUALS
+    : '='
+    ;
+
+TAG_NAME
+    : TAG_NameChar+
+    ;
+
+TAG_WHITESPACE
+    : [ \t\r\n]+ -> channel(HIDDEN)
+    ;
+
+ATTVALUE_VALUE
+    : '"' ~'"'* '"'
+    | '\'' ~'\''* '\''
+    ;
+
+
+// =================== SCRIPT MODE (Raw Text) ===================
+mode SCRIPT;
+
+SCRIPT_BODY
+    : .*? '</script>' -> popMode
+    ;
+
+
+// =================== STYLE MODE (CSS Parsing) ===================
+mode STYLE;
+
+// 1. Mode Exit (Must be prioritized)
+STYLE_CLOSE
+    : '</style' ~'>'* '>' -> popMode
+    ;
+
+// 2. Jinja transitions are handled by the global start tokens.
+
+// 3. CSS Whitespace & Comments (Skip)
+CSS_WS
+    : [ \t\r\n\f]+ -> skip
+    ;
+
+CSS_COMMENT
+    : '/*' .*? '*/' -> skip
+    ;
+
+// 4. At-Rules Keywords (Unique names, no change)
+AT_IMPORT       : '@import';
+AT_MEDIA        : '@media';
+AT_FONT_FACE    : '@font-face';
+AT_KEYFRAMES    : '@keyframes';
+AT_SUPPORTS     : '@supports';
+
+// 5. Functions & Complex Tokens (CRITICAL: Renamed to avoid conflicts)
+FUNCTION
+    : Name '('
+    ;
+
+CSS_NUMBER // Renamed from NUMBER (Conflict with Python)
+    : [0-9]+ ('.' [0-9]+)?
+    ;
+
+// CRITICAL FIX: Explicitly spell out the repetitions to avoid compilation issues
+// caused by the {N} operator in ANTLR's Java Lexer action generation.
+COLOR_HEX
+    : '#' (
+          HEX_CHAR HEX_CHAR HEX_CHAR                    // #rgb (3 chars)
+        | HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR          // #rgba (4 chars)
+        | HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR // #rrggbb (6 chars)
+        | HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR // #rrggbbaa (8 chars)
+      )
+    ;
+
+CSS_STRING // Renamed from STRING (Conflict with Python)
+    : '"' ( ~["\\\r\n] | '\\' . )* '"'
+    | '\'' ( ~['\\\r\n] | '\\' . )* '\''
+    ;
+
+// 6. Selectors & Identifiers (Unique names, no change)
+HASH
+    : '#' Name
+    ;
+
+CLASS
+    : '.' Name
+    ;
+
+PSEUDO_ELEMENT
+    : '::' Name
+    ;
+
+PSEUDO_CLASS
+    : ':' Name
+    ;
+
+// Generic Identifier (Must be last)
+IDENT
+    : Name
+    ;
+
+// 7. Basic Symbols (CRITICAL: Renamed to avoid conflicts)
+CSS_LBRACE      : '{'; // Renamed from LBRACE
+CSS_RBRACE      : '}'; // Renamed from RBRACE
+CSS_COLON       : ':'; // Renamed from COLON
+SEMICOLON   : ';';
+CSS_LPAREN      : '('; // Renamed from LP
+CSS_RPAREN      : ')'; // Renamed from RP
+CSS_COMMA       : ','; // Renamed from COMMA
+CSS_DOT         : '.'; // Renamed from DOT
+CSS_SLASH       : '/'; // Renamed from SLASH
+PERCENT     : '%';
+CSS_PLUS        : '+'; // Renamed from PLUS
+GREATER     : '>';
+TILDE       : '~';
+CSS_EQUALS      : '='; // Renamed from ASSIGN
+CSS_LBRACKET    : '['; // Renamed from LBRACK
+CSS_RBRACKET    : ']'; // Renamed from RBRACKET
+CSS_ASTERISK    : '*'; // Renamed from STAR
+
+
+// =================== JINJA MODES (From previous JinjaFlask Lexer) ===================
+
 mode JINJA_EXPR;
 JINJA_EXPR_END: '}}' -> popMode;
+// JINJA_EXPR_CONTENT: Match all until '}}'
 JINJA_EXPR_CONTENT: (~'}')+ ;
 
 mode JINJA_STMT;
 JINJA_STMT_END: '%}' -> popMode;
+// JINJA_STMT_CONTENT: Match all until '%}'
 JINJA_STMT_CONTENT: (~'%')+ ;
 
 mode JINJA_COMMENT;
 JINJA_COMMENT_END: '#}' -> popMode;
+// JINJA_COMMENT_CONTENT: Match all until '#}'
 JINJA_COMMENT_CONTENT: (~'#')+ ;
+
+
+// =================== FRAGMENTS (Helper Rules) ===================
+
+fragment
+TAG_NameChar
+    : ~[ \t\r\n"'<>/=-]
+    ;
+
+fragment
+Name
+    : '-'? [a-zA-Z_] [a-zA-Z0-9_-]*
+    ;
+
+fragment
+HEX_CHAR
+    : [0-9a-fA-F]
+    ;
