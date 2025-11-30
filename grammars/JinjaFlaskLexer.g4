@@ -152,7 +152,16 @@ DOT: '.';
 NAME: [a-zA-Z_][a-zA-Z0-9_]*;
 NUMBER: [0-9]+ ('.' [0-9]+)? ;
 
+TRIPLE_DOUBLE_STRING
+    : '"""' ( options {greedy=false;} : . )*? '"""'
+    ;
+
+TRIPLE_SINGLE_STRING
+    : '\'\'\'' ( options {greedy=false;} : . )*? '\'\'\''
+    ;
+
 STRING: '\'' (~['\r\n])* '\'' | '"' (~["\r\n])* '"';
+
 
 
 // =================== GLOBAL JINJA STARTS (Fixes Redefinition) ===================
@@ -286,6 +295,26 @@ CSS_COMMENT
     : '/*' .*? '*/' -> skip
     ;
 
+// 4. Basic Symbols (CRITICAL: Renamed to avoid conflicts)
+CSS_LBRACE      : '{'; // Renamed from LBRACE
+CSS_RBRACE      : '}'; // Renamed from RBRACE
+CSS_COLON       : ':'; // Renamed from COLON
+CSS_SEMICOLON   : ';';
+CSS_LPAREN      : '('; // Renamed from LP
+CSS_RPAREN      : ')'; // Renamed from RP
+CSS_COMMA       : ','; // Renamed from COMMA
+CSS_DOT         : '.'; // Renamed from DOT
+CSS_SLASH       : '/'; // Renamed from SLASH
+CSS_PERCENT     : '%';
+CSS_PLUS        : '+'; // Renamed from PLUS
+CSS_GREATER     : '>';
+CSS_TILDE       : '~';
+CSS_EQUALS      : '='; // Renamed from ASSIGN
+CSS_LBRACKET    : '['; // Renamed from LBRACK
+CSS_RBRACKET    : ']'; // Renamed from RBRACKET
+CSS_ASTERISK    : '*'; // Renamed from STAR
+
+
 // 4. At-Rules Keywords (Unique names, no change)
 AT_IMPORT       : '@import';
 AT_MEDIA        : '@media';
@@ -294,9 +323,10 @@ AT_KEYFRAMES    : '@keyframes';
 AT_SUPPORTS     : '@supports';
 
 // 5. Functions & Complex Tokens (CRITICAL: Renamed to avoid conflicts)
-FUNCTION
-    : Name '('
-    ;
+//
+//FUNCTION
+//    : Name
+//    ;
 
 CSS_NUMBER // Renamed from NUMBER (Conflict with Python)
     : [0-9]+ ('.' [0-9]+)?
@@ -339,25 +369,6 @@ PSEUDO_CLASS
 IDENT
     : Name
     ;
-
-// 7. Basic Symbols (CRITICAL: Renamed to avoid conflicts)
-CSS_LBRACE      : '{'; // Renamed from LBRACE
-CSS_RBRACE      : '}'; // Renamed from RBRACE
-CSS_COLON       : ':'; // Renamed from COLON
-SEMICOLON   : ';';
-CSS_LPAREN      : '('; // Renamed from LP
-CSS_RPAREN      : ')'; // Renamed from RP
-CSS_COMMA       : ','; // Renamed from COMMA
-CSS_DOT         : '.'; // Renamed from DOT
-CSS_SLASH       : '/'; // Renamed from SLASH
-PERCENT     : '%';
-CSS_PLUS        : '+'; // Renamed from PLUS
-GREATER     : '>';
-TILDE       : '~';
-CSS_EQUALS      : '='; // Renamed from ASSIGN
-CSS_LBRACKET    : '['; // Renamed from LBRACK
-CSS_RBRACKET    : ']'; // Renamed from RBRACKET
-CSS_ASTERISK    : '*'; // Renamed from STAR
 
 
 // =================== JINJA MODES (From previous JinjaFlask Lexer) ===================
