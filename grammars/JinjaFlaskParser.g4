@@ -269,7 +269,7 @@ multiplicativeExpression
 primaryExpression
     : NUMBER                                              # number
     | STRING                                              # string
-    //| tripleQuotedString                                  # tripleString
+    | tripleQuotedString                                  # tripleString
     | TRUE                                                # true
     | FALSE                                               # false
     | NONE                                                # none
@@ -277,8 +277,8 @@ primaryExpression
     | LP expression RP                                    # parenthesis
     | LBRACK (expression (COMMA expression)*)? RBRACK     # listLiteral
 
-    | TRIPLE_DOUBLE_STRING                                # tripleDoubleString
-    | TRIPLE_SINGLE_STRING                                # tripleSingleString
+    //| TRIPLE_DOUBLE_STRING                                # tripleDoubleString
+    //| TRIPLE_SINGLE_STRING                                # tripleSingleString
 
     // Using the safe, standard combined rule to prevent ambiguity-related crashes.
     | LBRACE (expression (COLON expression)? (COMMA expression (COLON expression)?)*)? RBRACE # dictOrSetLiteral
