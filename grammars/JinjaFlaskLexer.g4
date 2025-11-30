@@ -152,29 +152,20 @@ DOT: '.';
 NAME: [a-zA-Z_][a-zA-Z0-9_]*;
 NUMBER: [0-9]+ ('.' [0-9]+)? ;
 
-TRIPLE_DOUBLE_STRING
-    : '"""' ( options {greedy=false;} : . )*? '"""'
-    ;
+// TRIPLE_DOUBLE_STRING
+//   : '"""' ( options {greedy=false;} : . )*? '"""'
+//  ;
 
-TRIPLE_SINGLE_STRING
-    : '\'\'\'' ( options {greedy=false;} : . )*? '\'\'\''
-    ;
+//TRIPLE_SINGLE_STRING
+//  : '\'\'\'' ( options {greedy=false;} : . )*? '\'\'\''
+//  ;
 
 STRING: '\'' (~['\r\n])* '\'' | '"' (~["\r\n])* '"';
-
-
-
-// =================== GLOBAL JINJA STARTS (Fixes Redefinition) ===================
-
-// These must be defined globally to be visible in both HTMLMODE and STYLE mode
-// without causing redefinition errors.
-JINJA_EXPR_START: '{{' -> pushMode(JINJA_EXPR);
-JINJA_STMT_START: '{%' -> pushMode(JINJA_STMT);
-JINJA_COMMENT_START: '{#' -> pushMode(JINJA_COMMENT);
 
 // Start rules push into HTMLMODE
 TRIPLE_DOUBLE_START: '"""' -> pushMode(HTMLMODE);
 TRIPLE_SINGLE_START: '\'\'\'' -> pushMode(HTMLMODE);
+
 
 
 // =================== HTML MODE (JinjaFlask Templates) ===================
@@ -186,6 +177,14 @@ mode HTMLMODE;
 // 2. Triple Quote End (Mode exit)
 TRIPLE_DOUBLE_END: '"""' -> popMode;
 TRIPLE_SINGLE_END: '\'\'\'' -> popMode;
+
+// =================== GLOBAL JINJA STARTS (Fixes Redefinition) ===================
+
+// These must be defined globally to be visible in both HTMLMODE and STYLE mode
+// without causing redefinition errors.
+JINJA_EXPR_START: '{{' -> pushMode(JINJA_EXPR);
+JINJA_STMT_START: '{%' -> pushMode(JINJA_STMT);
+JINJA_COMMENT_START: '{#' -> pushMode(JINJA_COMMENT);
 
 // 3. HTML Comment/Declaration Tokens (From provided HTML Lexer)
 HTML_COMMENT
