@@ -185,12 +185,12 @@ styleElement
 //     : (cssStatement | JINJA_STATEMENT)*
 //     ;
 styleContent
-    : ( ruleset | atRule | JINJA_STMT | JINJA_COMMENT )*
+    : ( ruleset | atRule | JINJA_STMT_START | JINJA_COMMENT_START )*
     ;
- cssStatement
-     : ruleset
-     | atRule
-     ;
+cssStatement
+    : ruleset
+    | atRule
+    ;
 
 
  // ----------------------------------------------
@@ -273,7 +273,7 @@ declarationList
  // Declarations & Values
  // ----------------------------------------------
  declarationBlock
-     : ( declaration (CSS_SEMICOLON)? | JINJA_STATEMENT )* ;
+     : ( declaration (CSS_SEMICOLON)? | JINJA_STMT_START )* ;
 
 // declaration
 //     : propertyName CSS_COLON valueList

@@ -37,7 +37,7 @@ public class JinjaFlaskParser extends Parser {
 		COLOR_HEX=103, CSS_STRING=104, HASH=105, CLASS=106, PSEUDO_ELEMENT=107, 
 		PSEUDO_CLASS=108, IDENT=109, JINJA_EXPR_END=110, JINJA_EXPR_CONTENT=111, 
 		JINJA_STMT_END=112, JINJA_STMT_CONTENT=113, JINJA_COMMENT_END=114, JINJA_COMMENT_CONTENT=115, 
-		JINJA_STMT=116, JINJA_COMMENT=117, JINJA_STATEMENT=118;
+		JINJA_STMT=116;
 	public static final int
 		RULE_program = 0, RULE_statement = 1, RULE_compoundStmt = 2, RULE_defStmt = 3, 
 		RULE_simpleStmt = 4, RULE_ifStmt = 5, RULE_block = 6, RULE_assignmentStmt = 7, 
@@ -108,8 +108,7 @@ public class JinjaFlaskParser extends Parser {
 			"AT_IMPORT", "AT_MEDIA", "AT_FONT_FACE", "AT_KEYFRAMES", "AT_SUPPORTS", 
 			"CSS_NUMBER", "COLOR_HEX", "CSS_STRING", "HASH", "CLASS", "PSEUDO_ELEMENT", 
 			"PSEUDO_CLASS", "IDENT", "JINJA_EXPR_END", "JINJA_EXPR_CONTENT", "JINJA_STMT_END", 
-			"JINJA_STMT_CONTENT", "JINJA_COMMENT_END", "JINJA_COMMENT_CONTENT", "JINJA_STMT", 
-			"JINJA_COMMENT", "JINJA_STATEMENT"
+			"JINJA_STMT_CONTENT", "JINJA_COMMENT_END", "JINJA_COMMENT_CONTENT", "JINJA_STMT"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -2052,13 +2051,13 @@ public class JinjaFlaskParser extends Parser {
 		public AtRuleContext atRule(int i) {
 			return getRuleContext(AtRuleContext.class,i);
 		}
-		public List<TerminalNode> JINJA_STMT() { return getTokens(JinjaFlaskParser.JINJA_STMT); }
-		public TerminalNode JINJA_STMT(int i) {
-			return getToken(JinjaFlaskParser.JINJA_STMT, i);
+		public List<TerminalNode> JINJA_STMT_START() { return getTokens(JinjaFlaskParser.JINJA_STMT_START); }
+		public TerminalNode JINJA_STMT_START(int i) {
+			return getToken(JinjaFlaskParser.JINJA_STMT_START, i);
 		}
-		public List<TerminalNode> JINJA_COMMENT() { return getTokens(JinjaFlaskParser.JINJA_COMMENT); }
-		public TerminalNode JINJA_COMMENT(int i) {
-			return getToken(JinjaFlaskParser.JINJA_COMMENT, i);
+		public List<TerminalNode> JINJA_COMMENT_START() { return getTokens(JinjaFlaskParser.JINJA_COMMENT_START); }
+		public TerminalNode JINJA_COMMENT_START(int i) {
+			return getToken(JinjaFlaskParser.JINJA_COMMENT_START, i);
 		}
 		public StyleContentContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -2089,7 +2088,7 @@ public class JinjaFlaskParser extends Parser {
 			setState(368);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((((_la - 96)) & ~0x3f) == 0 && ((1L << (_la - 96)) & 3161663L) != 0)) {
+			while (((((_la - 56)) & ~0x3f) == 0 && ((1L << (_la - 56)) & 17520717788610563L) != 0)) {
 				{
 				setState(366);
 				_errHandler.sync(this);
@@ -2115,16 +2114,16 @@ public class JinjaFlaskParser extends Parser {
 					atRule();
 					}
 					break;
-				case JINJA_STMT:
+				case JINJA_STMT_START:
 					{
 					setState(364);
-					match(JINJA_STMT);
+					match(JINJA_STMT_START);
 					}
 					break;
-				case JINJA_COMMENT:
+				case JINJA_COMMENT_START:
 					{
 					setState(365);
-					match(JINJA_COMMENT);
+					match(JINJA_COMMENT_START);
 					}
 					break;
 				default:
@@ -3750,9 +3749,9 @@ public class JinjaFlaskParser extends Parser {
 		public DeclarationContext declaration(int i) {
 			return getRuleContext(DeclarationContext.class,i);
 		}
-		public List<TerminalNode> JINJA_STATEMENT() { return getTokens(JinjaFlaskParser.JINJA_STATEMENT); }
-		public TerminalNode JINJA_STATEMENT(int i) {
-			return getToken(JinjaFlaskParser.JINJA_STATEMENT, i);
+		public List<TerminalNode> JINJA_STMT() { return getTokens(JinjaFlaskParser.JINJA_STMT); }
+		public TerminalNode JINJA_STMT(int i) {
+			return getToken(JinjaFlaskParser.JINJA_STMT, i);
 		}
 		public List<TerminalNode> CSS_SEMICOLON() { return getTokens(JinjaFlaskParser.CSS_SEMICOLON); }
 		public TerminalNode CSS_SEMICOLON(int i) {
@@ -3787,7 +3786,7 @@ public class JinjaFlaskParser extends Parser {
 			setState(554);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==IDENT || _la==JINJA_STATEMENT) {
+			while (_la==IDENT || _la==JINJA_STMT) {
 				{
 				setState(552);
 				_errHandler.sync(this);
@@ -3808,10 +3807,10 @@ public class JinjaFlaskParser extends Parser {
 
 					}
 					break;
-				case JINJA_STATEMENT:
+				case JINJA_STMT:
 					{
 					setState(551);
-					match(JINJA_STATEMENT);
+					match(JINJA_STMT);
 					}
 					break;
 				default:
@@ -5231,7 +5230,7 @@ public class JinjaFlaskParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001v\u02c2\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u0001t\u02c2\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
 		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002"+
 		"\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0002"+
@@ -5496,8 +5495,8 @@ public class JinjaFlaskParser extends Parser {
 		"\u0165\u0167\u0003&\u0013\u0000\u0166\u0165\u0001\u0000\u0000\u0000\u0166"+
 		"\u0167\u0001\u0000\u0000\u0000\u0167\u0168\u0001\u0000\u0000\u0000\u0168"+
 		"\u0169\u0005M\u0000\u0000\u0169%\u0001\u0000\u0000\u0000\u016a\u016f\u0003"+
-		"*\u0015\u0000\u016b\u016f\u0003D\"\u0000\u016c\u016f\u0005t\u0000\u0000"+
-		"\u016d\u016f\u0005u\u0000\u0000\u016e\u016a\u0001\u0000\u0000\u0000\u016e"+
+		"*\u0015\u0000\u016b\u016f\u0003D\"\u0000\u016c\u016f\u00058\u0000\u0000"+
+		"\u016d\u016f\u00059\u0000\u0000\u016e\u016a\u0001\u0000\u0000\u0000\u016e"+
 		"\u016b\u0001\u0000\u0000\u0000\u016e\u016c\u0001\u0000\u0000\u0000\u016e"+
 		"\u016d\u0001\u0000\u0000\u0000\u016f\u0172\u0001\u0000\u0000\u0000\u0170"+
 		"\u016e\u0001\u0000\u0000\u0000\u0170\u0171\u0001\u0000\u0000\u0000\u0171"+
@@ -5604,7 +5603,7 @@ public class JinjaFlaskParser extends Parser {
 		"\u0000\u0000\u0000\u0221M\u0001\u0000\u0000\u0000\u0222\u0220\u0001\u0000"+
 		"\u0000\u0000\u0223\u0225\u0003P(\u0000\u0224\u0226\u0005S\u0000\u0000"+
 		"\u0225\u0224\u0001\u0000\u0000\u0000\u0225\u0226\u0001\u0000\u0000\u0000"+
-		"\u0226\u0229\u0001\u0000\u0000\u0000\u0227\u0229\u0005v\u0000\u0000\u0228"+
+		"\u0226\u0229\u0001\u0000\u0000\u0000\u0227\u0229\u0005t\u0000\u0000\u0228"+
 		"\u0223\u0001\u0000\u0000\u0000\u0228\u0227\u0001\u0000\u0000\u0000\u0229"+
 		"\u022c\u0001\u0000\u0000\u0000\u022a\u0228\u0001\u0000\u0000\u0000\u022a"+
 		"\u022b\u0001\u0000\u0000\u0000\u022bO\u0001\u0000\u0000\u0000\u022c\u022a"+
