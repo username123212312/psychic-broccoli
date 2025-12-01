@@ -85,48 +85,70 @@ whileLoop : WHILE expression COLON block;
 
 // Rule to group the multi-token sequence for triple-quoted strings
 // Now uses the integrated HTML parser rules.
+//tripleQuotedString
+//    : (TRIPLE_DOUBLE_START | TRIPLE_SINGLE_START)
+//    document
+//      (TRIPLE_DOUBLE_END | TRIPLE_SINGLE_END)
+//    ;
+
 tripleQuotedString
     : (TRIPLE_DOUBLE_START | TRIPLE_SINGLE_START)
-    document
+      document?
       (TRIPLE_DOUBLE_END | TRIPLE_SINGLE_END)
     ;
-
 // Integrated HTML Parser Rules:
+//document
+//    : ( SCRIPTLET | SEA_WS )*
+//      ( element ( SCRIPTLET | SEA_WS )* )*
+//    ;
 document
-    : ( SCRIPTLET | SEA_WS )*
-      ( element ( SCRIPTLET | SEA_WS )* )*
+    : ( SCRIPTLET | SEA_WS | element | HTML_TEXT | JINJA_EXPR_START JINJA_EXPR_CONTENT JINJA_EXPR_END | JINJA_STMT_START JINJA_STMT_CONTENT JINJA_STMT_END | JINJA_COMMENT_START JINJA_COMMENT_CONTENT JINJA_COMMENT_END )*
     ;
 
 content
     : ( HTML_TEXT | element | CDATA | SCRIPTLET | JINJA_EXPR_START JINJA_EXPR_CONTENT JINJA_EXPR_END | JINJA_STMT_START JINJA_STMT_CONTENT JINJA_STMT_END | JINJA_COMMENT_START JINJA_COMMENT_CONTENT JINJA_COMMENT_END )*
     ;
 
+//element
+//    // Closing Tag format: <div> content </div>
+//    : TAG_OPEN TAG_NAME ( attribute )* TAG_CLOSE
+//      content
+//      TAG_OPEN TAG_SLASH TAG_NAME TAG_CLOSE
+//    // Self-Closing Tag format: <img src="..." />
+//    | TAG_OPEN TAG_NAME ( attribute )* TAG_SLASH_CLOSE
+//    // Opening Tag only (Content is parsed in a separate rule if required)
+//    | TAG_OPEN TAG_NAME ( attribute )* TAG_CLOSE
+//    | styleElement
+//    ;
 element
-    // Closing Tag format: <div> content </div>
     : TAG_OPEN TAG_NAME ( attribute )* TAG_CLOSE
-      content
+      document
       TAG_OPEN TAG_SLASH TAG_NAME TAG_CLOSE
-    // Self-Closing Tag format: <img src="..." />
     | TAG_OPEN TAG_NAME ( attribute )* TAG_SLASH_CLOSE
-    // Opening Tag only (Content is parsed in a separate rule if required)
-    | TAG_OPEN TAG_NAME ( attribute )* TAG_CLOSE
+    | SCRIPT_OPEN SCRIPT_BODY?
     | styleElement
     ;
-
+//attribute
+//    : TAG_NAME ( TAG_EQUALS ATTVALUE_VALUE )?
+//    ;
 attribute
     : TAG_NAME ( TAG_EQUALS ATTVALUE_VALUE )?
     ;
 
 // ----------------- CSS PARSING (BASED ON STYLE MODE TOKENS) -----------------
 
- styleElement
-     : STYLE_OPEN styleContent STYLE_CLOSE
-     ;
-
- styleContent
-     : (cssStatement | JINJA_STATEMENT)*
-     ;
-
+// styleElement
+//     : STYLE_OPEN styleContent STYLE_CLOSE
+//     ;
+styleElement
+    : STYLE_OPEN styleContent? STYLE_CLOSE
+    ;
+// styleContent
+//     : (cssStatement | JINJA_STATEMENT)*
+//     ;
+styleContent
+    : ( ruleset | atRule | JINJA_STMT | JINJA_COMMENT )*
+    ;
  cssStatement
      : ruleset
      | atRule
@@ -136,18 +158,26 @@ attribute
  // ----------------------------------------------
  // Rule Sets
  // ----------------------------------------------
- ruleset
-     : selectorGroup CSS_LBRACE declarationBlock CSS_RBRACE
-     ;
-
+// ruleset
+//     : selectorGroup CSS_LBRACE declarationBlock CSS_RBRACE
+//     ;
+ruleset
+    : selectorList CSS_LBRACE declarationList? CSS_RBRACE
+    ;
+selectorList
+    : selector (CSS_COMMA selector)*
+    ;
  selectorGroup
      : selector (CSS_COMMA selector)*
      ;
 
- selector
-     : simpleSelectorSequence ( combinator? simpleSelectorSequence )*
-     ;
+// selector
+//     : simpleSelectorSequence ( combinator? simpleSelectorSequence )*
+//     ;
 
+selector
+    : (IDENT | CSS_ASTERISK | HASH | CLASS | PSEUDO_CLASS | PSEUDO_ELEMENT)+ ( (CSS_GREATER | CSS_PLUS | CSS_TILDE) (IDENT | CSS_ASTERISK | HASH | CLASS | PSEUDO_CLASS | PSEUDO_ELEMENT)+ )*
+    ;
  combinator
      : CSS_PLUS | CSS_GREATER | CSS_TILDE
      ;
@@ -171,12 +201,19 @@ attribute
  // ----------------------------------------------
  // At-Rules
  // ----------------------------------------------
- atRule
-     : AT_IMPORT (CSS_STRING | functionCall) importTerminator
-     | AT_MEDIA mediaQueryList CSS_LBRACE (statement | JINJA_STATEMENT)* CSS_RBRACE
-     | AT_FONT_FACE CSS_LBRACE declarationBlock CSS_RBRACE
-     | AT_KEYFRAMES IDENT CSS_LBRACE (keyframeBlock | JINJA_STATEMENT)* CSS_RBRACE
-     ;
+// atRule
+//     : AT_IMPORT (CSS_STRING | functionCall) importTerminator
+//     | AT_MEDIA mediaQueryList CSS_LBRACE (statement | JINJA_STATEMENT)* CSS_RBRACE
+//     | AT_FONT_FACE CSS_LBRACE declarationBlock CSS_RBRACE
+//     | AT_KEYFRAMES IDENT CSS_LBRACE (keyframeBlock | JINJA_STATEMENT)* CSS_RBRACE
+//     ;
+atRule
+    : (AT_MEDIA | AT_SUPPORTS) anyValue* CSS_LBRACE (ruleset | atRule)* CSS_RBRACE
+    | (AT_IMPORT | AT_KEYFRAMES | AT_FONT_FACE) anyValue* (CSS_LBRACE declarationList? CSS_RBRACE | CSS_SEMICOLON)
+    ;
+declarationList
+    : declaration (CSS_SEMICOLON declaration)* CSS_SEMICOLON?
+    ;
 
  importTerminator
      : mediaQueryList CSS_SEMICOLON
@@ -200,9 +237,15 @@ attribute
  declarationBlock
      : ( declaration (CSS_SEMICOLON)? | JINJA_STATEMENT )* ;
 
- declaration
-     : propertyName CSS_COLON valueList
-     ;
+// declaration
+//     : propertyName CSS_COLON valueList
+//     ;
+declaration
+    : IDENT CSS_COLON anyValue
+    ;
+anyValue
+    : (term | functionCall | CSS_COMMA | CSS_SLASH)+
+    ;
 
  propertyName
      : IDENT
@@ -213,38 +256,48 @@ attribute
      ;
 
  // التعديل الأساسي هنا: إضافة HASH للقائمة
- term
-     : CSS_NUMBER (IDENT | CSS_PERCENT)?
-     | CSS_STRING
-     | IDENT
-     | COLOR_HEX
-     | HASH           // Fix: Allows #ccc to be used as a value even if recognized as HASH
-     | functionCall
-     | JINJA_EXPR
-     | JINJA_STATEMENT
-     | CSS_LPAREN value CSS_RPAREN
-     | CSS_SLASH
-     ;
+// term
+//     : CSS_NUMBER (IDENT | CSS_PERCENT)?
+//     | CSS_STRING
+//     | IDENT
+//     | COLOR_HEX
+//     | HASH           // Fix: Allows #ccc to be used as a value even if recognized as HASH
+//     | functionCall
+//     | JINJA_EXPR
+//     | JINJA_STATEMENT
+//     | CSS_LPAREN value CSS_RPAREN
+//     | CSS_SLASH
+//     ;
+term
+    : (CSS_PLUS | MINUS)? (CSS_NUMBER (IDENT | CSS_PERCENT)?)
+    | CSS_STRING
+    | COLOR_HEX
+    | IDENT
+    | HASH
+    ;
 
- functionCall
-     : IDENT CSS_LPAREN valueList? CSS_RPAREN
-     ;
+// functionCall
+//     : IDENT CSS_LPAREN valueList? CSS_RPAREN
+//     ;
 
- valueList
-     : value (CSS_COMMA (value | functionCall))*
-     ;
-
- // ----------------------------------------------
- // Keyframes
- // ----------------------------------------------
- keyframeBlock
-     : keyframeSelector CSS_LBRACE declarationBlock CSS_RBRACE
-     ;
-
- keyframeSelector
-     : (CSS_NUMBER | CSS_PERCENT) (CSS_COMMA (CSS_NUMBER | CSS_PERCENT))*
-     | IDENT
-     ;
+functionCall
+    : IDENT CSS_LPAREN anyValue? CSS_RPAREN
+    ;
+// valueList
+//     : value (CSS_COMMA (value | functionCall))*
+//     ;
+//
+// // ----------------------------------------------
+// // Keyframes
+// // ----------------------------------------------
+// keyframeBlock
+//     : keyframeSelector CSS_LBRACE declarationBlock CSS_RBRACE
+//     ;
+//
+// keyframeSelector
+//     : (CSS_NUMBER | CSS_PERCENT) (CSS_COMMA (CSS_NUMBER | CSS_PERCENT))*
+//     | IDENT
+//     ;
 
 
 // =================== PYTHON EXPRESSIONS (Unchanged) ===================
@@ -266,20 +319,46 @@ multiplicativeExpression
     : primaryExpression ( (STAR | SLASH) primaryExpression )* # multiplicativeOp
     ;
 
+//primaryExpression
+//    : NUMBER                                              # number
+//    | STRING                                              # string
+//    | tripleQuotedString                                  # tripleString
+//    | TRUE                                                # true
+//    | FALSE                                               # false
+//    | NONE                                                # none
+//    | NAME                                                # name
+//    | LP expression RP                                    # parenthesis
+//    | LBRACK (expression (COMMA expression)*)? RBRACK     # listLiteral
+//
+//    //| TRIPLE_DOUBLE_STRING                                # tripleDoubleString
+//    //| TRIPLE_SINGLE_STRING                                # tripleSingleString
+//
+//    // Using the safe, standard combined rule to prevent ambiguity-related crashes.
+//    | LBRACE (expression (COLON expression)? (COMMA expression (COLON expression)?)*)? RBRACE # dictOrSetLiteral
+//    ;
 primaryExpression
-    : NUMBER                                              # number
-    | STRING                                              # string
-    | tripleQuotedString                                  # tripleString
-    | TRUE                                                # true
-    | FALSE                                               # false
-    | NONE                                                # none
-    | NAME                                                # name
-    | LP expression RP                                    # parenthesis
-    | LBRACK (expression (COMMA expression)*)? RBRACK     # listLiteral
+    : atom (trailer)*  # atomExpression
+    ;
 
-    //| TRIPLE_DOUBLE_STRING                                # tripleDoubleString
-    //| TRIPLE_SINGLE_STRING                                # tripleSingleString
+trailer
+    : LP argumentList? RP      # functionCallTrailer
+    | LBRACK expression RBRACK # subscriptTrailer
+    | DOT NAME                 # attributeAccessTrailer
+    ;
 
-    // Using the safe, standard combined rule to prevent ambiguity-related crashes.
-    | LBRACE (expression (COLON expression)? (COMMA expression (COLON expression)?)*)? RBRACE # dictOrSetLiteral
+atom
+    : NUMBER
+    | STRING
+    | tripleQuotedString
+    | TRUE
+    | FALSE
+    | NONE
+    | NAME
+    | LP expression RP
+    | LBRACK (expression (COMMA expression)*)? RBRACK
+    | LBRACE (expression (COLON expression)? (COMMA expression (COLON expression)?)*)? RBRACE
+    ;
+
+argumentList
+    : expression (COMMA expression)*
     ;
