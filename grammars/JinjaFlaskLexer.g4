@@ -229,11 +229,12 @@ TAG_OPEN
     ;
 
 // 5. Default Content Text (Must consume everything that isn't a Jinja or HTML start/end)
+//HTML_TEXT
+//    : ~[<{\\'"]+
+//    ;
 HTML_TEXT
-    : ~[<{\\'"]+
+    : .
     ;
-
-
 // =================== TAG MODE (Inside <...>) ===================
 mode TAG;
 
