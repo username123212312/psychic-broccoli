@@ -6,7 +6,7 @@
         <PerGrammarGenerationSettings>
           <option name="fileName" value="$PROJECT_DIR$/grammars/JinjaFlaskParser.g4" />
           <option name="autoGen" value="true" />
-          <option name="outputDir" value="C:\Users\Yousef Razzouk\IdeaProjects\compiler_project\src\antlr" />
+          <option name="outputDir" value="C:\Users\TWL\Desktop\psychic-broccoli-main\src\antlr" />
           <option name="libDir" value="" />
           <option name="encoding" value="" />
           <option name="pkg" value="" />
@@ -16,7 +16,7 @@
         <PerGrammarGenerationSettings>
           <option name="fileName" value="$PROJECT_DIR$/grammars/CssParser.g4" />
           <option name="autoGen" value="true" />
-          <option name="outputDir" value="C:\Users\Yousef Razzouk\IdeaProjects\compiler_project\grammars\gen" />
+          <option name="outputDir" value="C:\Users\Rama Alwanni\Desktop\psychic-broccoli-main\src\antlr" />
           <option name="libDir" value="" />
           <option name="encoding" value="" />
           <option name="pkg" value="" />
@@ -33,10 +33,20 @@
           <option name="language" value="" />
           <option name="generateVisitor" value="true" />
         </PerGrammarGenerationSettings>
+        <PerGrammarGenerationSettings>
+          <option name="fileName" value="$PROJECT_DIR$/grammars/htmlParser.g4" />
+          <option name="autoGen" value="true" />
+          <option name="outputDir" value="C:\Users\Rama Alwanni\Desktop\psychic-broccoli-main\src\antlr" />
+          <option name="libDir" value="" />
+          <option name="encoding" value="" />
+          <option name="pkg" value="" />
+          <option name="language" value="" />
+          <option name="generateVisitor" value="true" />
+        </PerGrammarGenerationSettings>
       </list>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_25" default="true" project-jdk-name="openjdk-24 (2)" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" default="true" project-jdk-name="22" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

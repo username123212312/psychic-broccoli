@@ -152,20 +152,20 @@ DOT: '.';
 NAME: [a-zA-Z_][a-zA-Z0-9_]*;
 NUMBER: [0-9]+ ('.' [0-9]+)? ;
 
+// TRIPLE_DOUBLE_STRING
+//   : '"""' ( options {greedy=false;} : . )*? '"""'
+//  ;
+
+//TRIPLE_SINGLE_STRING
+//  : '\'\'\'' ( options {greedy=false;} : . )*? '\'\'\''
+//  ;
+
 STRING: '\'' (~['\r\n])* '\'' | '"' (~["\r\n])* '"';
-
-
-// =================== GLOBAL JINJA STARTS (Fixes Redefinition) ===================
-
-// These must be defined globally to be visible in both HTMLMODE and STYLE mode
-// without causing redefinition errors.
-JINJA_EXPR_START: '{{' -> pushMode(JINJA_EXPR);
-JINJA_STMT_START: '{%' -> pushMode(JINJA_STMT);
-JINJA_COMMENT_START: '{#' -> pushMode(JINJA_COMMENT);
 
 // Start rules push into HTMLMODE
 TRIPLE_DOUBLE_START: '"""' -> pushMode(HTMLMODE);
 TRIPLE_SINGLE_START: '\'\'\'' -> pushMode(HTMLMODE);
+
 
 
 // =================== HTML MODE (JinjaFlask Templates) ===================
@@ -177,6 +177,14 @@ mode HTMLMODE;
 // 2. Triple Quote End (Mode exit)
 TRIPLE_DOUBLE_END: '"""' -> popMode;
 TRIPLE_SINGLE_END: '\'\'\'' -> popMode;
+
+// =================== GLOBAL JINJA STARTS (Fixes Redefinition) ===================
+
+// These must be defined globally to be visible in both HTMLMODE and STYLE mode
+// without causing redefinition errors.
+JINJA_EXPR_START: '{{' -> pushMode(JINJA_EXPR);
+JINJA_STMT_START: '{%' -> pushMode(JINJA_STMT);
+JINJA_COMMENT_START: '{#' -> pushMode(JINJA_COMMENT);
 
 // 3. HTML Comment/Declaration Tokens (From provided HTML Lexer)
 HTML_COMMENT
@@ -221,11 +229,12 @@ TAG_OPEN
     ;
 
 // 5. Default Content Text (Must consume everything that isn't a Jinja or HTML start/end)
+//HTML_TEXT
+//    : ~[<{\\'"]+
+//    ;
 HTML_TEXT
-    : ~[<{\\'"]+
+    : .
     ;
-
-
 // =================== TAG MODE (Inside <...>) ===================
 mode TAG;
 
@@ -286,6 +295,26 @@ CSS_COMMENT
     : '/*' .*? '*/' -> skip
     ;
 
+// 4. Basic Symbols (CRITICAL: Renamed to avoid conflicts)
+CSS_LBRACE      : '{'; // Renamed from LBRACE
+CSS_RBRACE      : '}'; // Renamed from RBRACE
+CSS_COLON       : ':'; // Renamed from COLON
+CSS_SEMICOLON   : ';';
+CSS_LPAREN      : '('; // Renamed from LP
+CSS_RPAREN      : ')'; // Renamed from RP
+CSS_COMMA       : ','; // Renamed from COMMA
+CSS_DOT         : '.'; // Renamed from DOT
+CSS_SLASH       : '/'; // Renamed from SLASH
+CSS_PERCENT     : '%';
+CSS_PLUS        : '+'; // Renamed from PLUS
+CSS_GREATER     : '>';
+CSS_TILDE       : '~';
+CSS_EQUALS      : '='; // Renamed from ASSIGN
+CSS_LBRACKET    : '['; // Renamed from LBRACK
+CSS_RBRACKET    : ']'; // Renamed from RBRACKET
+CSS_ASTERISK    : '*'; // Renamed from STAR
+
+
 // 4. At-Rules Keywords (Unique names, no change)
 AT_IMPORT       : '@import';
 AT_MEDIA        : '@media';
@@ -294,9 +323,10 @@ AT_KEYFRAMES    : '@keyframes';
 AT_SUPPORTS     : '@supports';
 
 // 5. Functions & Complex Tokens (CRITICAL: Renamed to avoid conflicts)
-FUNCTION
-    : Name '('
-    ;
+//
+//FUNCTION
+//    : Name
+//    ;
 
 CSS_NUMBER // Renamed from NUMBER (Conflict with Python)
     : [0-9]+ ('.' [0-9]+)?
@@ -339,25 +369,6 @@ PSEUDO_CLASS
 IDENT
     : Name
     ;
-
-// 7. Basic Symbols (CRITICAL: Renamed to avoid conflicts)
-CSS_LBRACE      : '{'; // Renamed from LBRACE
-CSS_RBRACE      : '}'; // Renamed from RBRACE
-CSS_COLON       : ':'; // Renamed from COLON
-SEMICOLON   : ';';
-CSS_LPAREN      : '('; // Renamed from LP
-CSS_RPAREN      : ')'; // Renamed from RP
-CSS_COMMA       : ','; // Renamed from COMMA
-CSS_DOT         : '.'; // Renamed from DOT
-CSS_SLASH       : '/'; // Renamed from SLASH
-PERCENT     : '%';
-CSS_PLUS        : '+'; // Renamed from PLUS
-GREATER     : '>';
-TILDE       : '~';
-CSS_EQUALS      : '='; // Renamed from ASSIGN
-CSS_LBRACKET    : '['; // Renamed from LBRACK
-CSS_RBRACKET    : ']'; // Renamed from RBRACKET
-CSS_ASTERISK    : '*'; // Renamed from STAR
 
 
 // =================== JINJA MODES (From previous JinjaFlask Lexer) ===================
