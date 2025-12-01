@@ -1,4 +1,4 @@
-// Generated from C:/Users/Rama Alwanni/Desktop/psychic-broccoli-main/grammars/JinjaFlaskParser.g4 by ANTLR 4.13.1
+// Generated from C:/Users/Yousef Razzouk/IdeaProjects/compiler_project/grammars/JinjaFlaskParser.g4 by ANTLR 4.13.2
 package antlr;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -341,18 +341,6 @@ public class JinjaFlaskParserBaseListener implements JinjaFlaskParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSimpleSelector(JinjaFlaskParser.SimpleSelectorContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSimpleSelector(JinjaFlaskParser.SimpleSelectorContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterTypeSelector(JinjaFlaskParser.TypeSelectorContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -665,6 +653,18 @@ public class JinjaFlaskParserBaseListener implements JinjaFlaskParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterTripleString(JinjaFlaskParser.TripleStringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTripleString(JinjaFlaskParser.TripleStringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterTrue(JinjaFlaskParser.TrueContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -732,30 +732,6 @@ public class JinjaFlaskParserBaseListener implements JinjaFlaskParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitListLiteral(JinjaFlaskParser.ListLiteralContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTripleDoubleString(JinjaFlaskParser.TripleDoubleStringContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTripleDoubleString(JinjaFlaskParser.TripleDoubleStringContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTripleSingleString(JinjaFlaskParser.TripleSingleStringContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTripleSingleString(JinjaFlaskParser.TripleSingleStringContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

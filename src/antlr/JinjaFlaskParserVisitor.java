@@ -1,4 +1,4 @@
-// Generated from C:/Users/Rama Alwanni/Desktop/psychic-broccoli-main/grammars/JinjaFlaskParser.g4 by ANTLR 4.13.1
+// Generated from C:/Users/Yousef Razzouk/IdeaProjects/compiler_project/grammars/JinjaFlaskParser.g4 by ANTLR 4.13.2
 package antlr;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -173,12 +173,6 @@ public interface JinjaFlaskParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSimpleSelectorSequence(JinjaFlaskParser.SimpleSelectorSequenceContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#simpleSelector}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSimpleSelector(JinjaFlaskParser.SimpleSelectorContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link JinjaFlaskParser#typeSelector}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -342,6 +336,13 @@ public interface JinjaFlaskParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitString(JinjaFlaskParser.StringContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code tripleString}
+	 * labeled alternative in {@link JinjaFlaskParser#primaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTripleString(JinjaFlaskParser.TripleStringContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code true}
 	 * labeled alternative in {@link JinjaFlaskParser#primaryExpression}.
 	 * @param ctx the parse tree
@@ -383,20 +384,6 @@ public interface JinjaFlaskParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitListLiteral(JinjaFlaskParser.ListLiteralContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code tripleDoubleString}
-	 * labeled alternative in {@link JinjaFlaskParser#primaryExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTripleDoubleString(JinjaFlaskParser.TripleDoubleStringContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code tripleSingleString}
-	 * labeled alternative in {@link JinjaFlaskParser#primaryExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTripleSingleString(JinjaFlaskParser.TripleSingleStringContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code dictOrSetLiteral}
 	 * labeled alternative in {@link JinjaFlaskParser#primaryExpression}.

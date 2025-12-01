@@ -1,4 +1,4 @@
-// Generated from C:/Users/Rama Alwanni/Desktop/psychic-broccoli-main/grammars/JinjaFlaskParser.g4 by ANTLR 4.13.1
+// Generated from C:/Users/Yousef Razzouk/IdeaProjects/compiler_project/grammars/JinjaFlaskParser.g4 by ANTLR 4.13.2
 package antlr;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -278,16 +278,6 @@ public interface JinjaFlaskParserListener extends ParseTreeListener {
 	 */
 	void exitSimpleSelectorSequence(JinjaFlaskParser.SimpleSelectorSequenceContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#simpleSelector}.
-	 * @param ctx the parse tree
-	 */
-	void enterSimpleSelector(JinjaFlaskParser.SimpleSelectorContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#simpleSelector}.
-	 * @param ctx the parse tree
-	 */
-	void exitSimpleSelector(JinjaFlaskParser.SimpleSelectorContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link JinjaFlaskParser#typeSelector}.
 	 * @param ctx the parse tree
 	 */
@@ -562,6 +552,18 @@ public interface JinjaFlaskParserListener extends ParseTreeListener {
 	 */
 	void exitString(JinjaFlaskParser.StringContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code tripleString}
+	 * labeled alternative in {@link JinjaFlaskParser#primaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterTripleString(JinjaFlaskParser.TripleStringContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code tripleString}
+	 * labeled alternative in {@link JinjaFlaskParser#primaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitTripleString(JinjaFlaskParser.TripleStringContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code true}
 	 * labeled alternative in {@link JinjaFlaskParser#primaryExpression}.
 	 * @param ctx the parse tree
@@ -633,30 +635,6 @@ public interface JinjaFlaskParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitListLiteral(JinjaFlaskParser.ListLiteralContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code tripleDoubleString}
-	 * labeled alternative in {@link JinjaFlaskParser#primaryExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterTripleDoubleString(JinjaFlaskParser.TripleDoubleStringContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code tripleDoubleString}
-	 * labeled alternative in {@link JinjaFlaskParser#primaryExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitTripleDoubleString(JinjaFlaskParser.TripleDoubleStringContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code tripleSingleString}
-	 * labeled alternative in {@link JinjaFlaskParser#primaryExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterTripleSingleString(JinjaFlaskParser.TripleSingleStringContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code tripleSingleString}
-	 * labeled alternative in {@link JinjaFlaskParser#primaryExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitTripleSingleString(JinjaFlaskParser.TripleSingleStringContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code dictOrSetLiteral}
 	 * labeled alternative in {@link JinjaFlaskParser#primaryExpression}.

@@ -1,12 +1,10 @@
 package app;
 
-import antlr.JinjaFlaskLexer;
 import antlr.JinjaFlaskParser;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 // CRITICAL IMPORT: Import the custom Lexer class
 import antlr.JinjaFlaskIndentingLexer;
@@ -100,7 +98,7 @@ public class App {
         for (Token t : allTokens) {
             // Only show tokens on the default channel (skipping WS and Comments)
             if (t.getChannel() == Token.DEFAULT_CHANNEL) {
-                String tokenName = JinjaFlaskLexer.VOCABULARY.getSymbolicName(t.getType());
+                String tokenName = JinjaFlaskIndentingLexer.VOCABULARY.getSymbolicName(t.getType());
                 String tokenText = t.getText().replace("\n", "\\n").replace("\r", "\\r");
 
                 // Use the type number if the name is null (for virtual tokens like INDENT/DEDENT)

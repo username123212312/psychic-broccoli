@@ -124,7 +124,7 @@ attribute
      ;
 
  styleContent
-     : (cssStatement | JINJA_STATEMENT)*
+     : (cssStatement | JINJA_STMT_START)*
      ;
 
  cssStatement
@@ -157,9 +157,7 @@ attribute
      | (hash | classSelector | pseudo | attributeSelector)+
      ;
 
- simpleSelector
-     : typeSelector | universal | hash | classSelector | pseudo | attributeSelector
-     ;
+
 
  typeSelector      : IDENT ;
  universal         : CSS_ASTERISK ;
@@ -173,9 +171,9 @@ attribute
  // ----------------------------------------------
  atRule
      : AT_IMPORT (CSS_STRING | functionCall) importTerminator
-     | AT_MEDIA mediaQueryList CSS_LBRACE (statement | JINJA_STATEMENT)* CSS_RBRACE
+     | AT_MEDIA mediaQueryList CSS_LBRACE (statement | JINJA_STMT_START)* CSS_RBRACE
      | AT_FONT_FACE CSS_LBRACE declarationBlock CSS_RBRACE
-     | AT_KEYFRAMES IDENT CSS_LBRACE (keyframeBlock | JINJA_STATEMENT)* CSS_RBRACE
+     | AT_KEYFRAMES IDENT CSS_LBRACE (keyframeBlock | JINJA_STMT_START)* CSS_RBRACE
      ;
 
  importTerminator
@@ -198,7 +196,7 @@ attribute
  // Declarations & Values
  // ----------------------------------------------
  declarationBlock
-     : ( declaration (CSS_SEMICOLON)? | JINJA_STATEMENT )* ;
+     : ( declaration (CSS_SEMICOLON)? | JINJA_STMT_START )* ;
 
  declaration
      : propertyName CSS_COLON valueList
@@ -220,8 +218,8 @@ attribute
      | COLOR_HEX
      | HASH           // Fix: Allows #ccc to be used as a value even if recognized as HASH
      | functionCall
-     | JINJA_EXPR
-     | JINJA_STATEMENT
+     | JINJA_EXPR_START
+     | JINJA_STMT_START
      | CSS_LPAREN value CSS_RPAREN
      | CSS_SLASH
      ;
