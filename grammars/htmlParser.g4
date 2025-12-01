@@ -30,8 +30,6 @@ element
 attribute
     : TAG_NAME ( TAG_EQUALS ATTVALUE_VALUE )?
     ;
-
-
 //
 //screen
 //    : header_text? button? section_title? section_content?
