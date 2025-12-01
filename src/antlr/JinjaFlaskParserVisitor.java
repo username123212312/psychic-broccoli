@@ -23,17 +23,11 @@ public interface JinjaFlaskParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStatement(JinjaFlaskParser.StatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#decorator}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#compoundStmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDecorator(JinjaFlaskParser.DecoratorContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#decoratedDef}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDecoratedDef(JinjaFlaskParser.DecoratedDefContext ctx);
+	T visitCompoundStmt(JinjaFlaskParser.CompoundStmtContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JinjaFlaskParser#defStmt}.
 	 * @param ctx the parse tree

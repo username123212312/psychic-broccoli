@@ -41,25 +41,13 @@ public class JinjaFlaskParserBaseListener implements JinjaFlaskParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDecorator(JinjaFlaskParser.DecoratorContext ctx) { }
+	@Override public void enterCompoundStmt(JinjaFlaskParser.CompoundStmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDecorator(JinjaFlaskParser.DecoratorContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterDecoratedDef(JinjaFlaskParser.DecoratedDefContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitDecoratedDef(JinjaFlaskParser.DecoratedDefContext ctx) { }
+	@Override public void exitCompoundStmt(JinjaFlaskParser.CompoundStmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

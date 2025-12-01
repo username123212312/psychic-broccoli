@@ -5,50 +5,75 @@ parser grammar JinjaFlaskParser;
 options { tokenVocab=JinjaFlaskLexer; }
 
 // --- Primary Structure ---
-program: NEWLINE* (statement NEWLINE*)* EOF;
+//program: NEWLINE* (statement NEWLINE*)* EOF;
 
-// --- Statements ---
+program: (NEWLINE | statement)* EOF;
+
+//// --- Statements ---
+//statement
+//    : importStmt
+//    | simpleStmt
+//    | tripleQuotedString
+//    | decorator
+//    | decoratedDef
+//    | assignmentStmt
+//    | globalStmt
+//    | ifStmt
+//    | forLoop
+//    | whileLoop
+//    | defStmt
+//    | returnStmt
+//    | expression
+//    ;
 statement
-    : importStmt
-    | simpleStmt
-    | tripleQuotedString
-    | decorator
-    | decoratedDef
-    | assignmentStmt
-    | globalStmt
-    | ifStmt
+    : simpleStmt
+    | compoundStmt
+    ;
+compoundStmt
+    : ifStmt
     | forLoop
     | whileLoop
     | defStmt
-    | returnStmt
-    | expression
+//    | decoratedDef
+//    | decorator
     ;
 
 // New rule: Definition for a single decorator (@expression NEWLINE)
-decorator
-    : '@' expression NEWLINE
-    ;
+//decorator
+//    : '@' expression NEWLINE
+//    ;
+//
+//// New rule: Defines a function definition optionally preceded by decorators
+//decoratedDef
+//    : decorator*
+//      DEF NAME LP RP COLON NEWLINE NEWLINE* block
+//    ;
 
-// New rule: Defines a function definition optionally preceded by decorators
-decoratedDef
-    : decorator*
-      DEF NAME LP RP COLON NEWLINE NEWLINE* block
-    ;
+//defStmt
+//    : DEF NAME LP RP COLON NEWLINE NEWLINE* block
+//    ;
 
 defStmt
-    : DEF NAME LP RP COLON NEWLINE NEWLINE* block
+    : (AT expression NEWLINE)*
+      DEF NAME LP RP COLON block
     ;
 
 // --- Simple Statements ---
+//simpleStmt
+//    // CRITICAL: assignmentStmt MUST be listed BEFORE expressionStmt
+//    : assignmentStmt
+//    | returnStmt
+//    | importStmt
+//    | globalStmt
+//    | expression
+//    ;
 simpleStmt
-    // CRITICAL: assignmentStmt MUST be listed BEFORE expressionStmt
     : assignmentStmt
-    | returnStmt
+    | expression
     | importStmt
     | globalStmt
-    | expression
+    | returnStmt
     ;
-
 // --- Indented Block Structure ---
 ifStmt
     // Added NEWLINE* to tolerate blank lines between header and block
@@ -101,8 +126,21 @@ tripleQuotedString
 //    : ( SCRIPTLET | SEA_WS )*
 //      ( element ( SCRIPTLET | SEA_WS )* )*
 //    ;
+
+
 document
-    : ( SCRIPTLET | SEA_WS | element | HTML_TEXT | JINJA_EXPR_START JINJA_EXPR_CONTENT JINJA_EXPR_END | JINJA_STMT_START JINJA_STMT_CONTENT JINJA_STMT_END | JINJA_COMMENT_START JINJA_COMMENT_CONTENT JINJA_COMMENT_END )*
+    : (
+        ~ (TRIPLE_DOUBLE_END | TRIPLE_SINGLE_END)
+        (
+            SCRIPTLET
+            | SEA_WS
+            | element
+            | HTML_TEXT
+            | JINJA_EXPR_START JINJA_EXPR_CONTENT JINJA_EXPR_END
+            | JINJA_STMT_START JINJA_STMT_CONTENT JINJA_STMT_END
+            | JINJA_COMMENT_START JINJA_COMMENT_CONTENT JINJA_COMMENT_END
+        )
+      )*
     ;
 
 content

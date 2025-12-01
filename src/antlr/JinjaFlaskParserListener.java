@@ -28,25 +28,15 @@ public interface JinjaFlaskParserListener extends ParseTreeListener {
 	 */
 	void exitStatement(JinjaFlaskParser.StatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#decorator}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#compoundStmt}.
 	 * @param ctx the parse tree
 	 */
-	void enterDecorator(JinjaFlaskParser.DecoratorContext ctx);
+	void enterCompoundStmt(JinjaFlaskParser.CompoundStmtContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#decorator}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#compoundStmt}.
 	 * @param ctx the parse tree
 	 */
-	void exitDecorator(JinjaFlaskParser.DecoratorContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#decoratedDef}.
-	 * @param ctx the parse tree
-	 */
-	void enterDecoratedDef(JinjaFlaskParser.DecoratedDefContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#decoratedDef}.
-	 * @param ctx the parse tree
-	 */
-	void exitDecoratedDef(JinjaFlaskParser.DecoratedDefContext ctx);
+	void exitCompoundStmt(JinjaFlaskParser.CompoundStmtContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JinjaFlaskParser#defStmt}.
 	 * @param ctx the parse tree

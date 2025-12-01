@@ -32,14 +32,7 @@ public class JinjaFlaskParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> 
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDecorator(JinjaFlaskParser.DecoratorContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitDecoratedDef(JinjaFlaskParser.DecoratedDefContext ctx) { return visitChildren(ctx); }
+	@Override public T visitCompoundStmt(JinjaFlaskParser.CompoundStmtContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
