@@ -28,195 +28,475 @@ public interface JinjaFlaskParserListener extends ParseTreeListener {
 	 */
 	void exitStatement(JinjaFlaskParser.StatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#compoundStmt}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#simple_stmt}.
 	 * @param ctx the parse tree
 	 */
-	void enterCompoundStmt(JinjaFlaskParser.CompoundStmtContext ctx);
+	void enterSimple_stmt(JinjaFlaskParser.Simple_stmtContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#compoundStmt}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#simple_stmt}.
 	 * @param ctx the parse tree
 	 */
-	void exitCompoundStmt(JinjaFlaskParser.CompoundStmtContext ctx);
+	void exitSimple_stmt(JinjaFlaskParser.Simple_stmtContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#defStmt}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#small_stmt}.
 	 * @param ctx the parse tree
 	 */
-	void enterDefStmt(JinjaFlaskParser.DefStmtContext ctx);
+	void enterSmall_stmt(JinjaFlaskParser.Small_stmtContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#defStmt}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#small_stmt}.
 	 * @param ctx the parse tree
 	 */
-	void exitDefStmt(JinjaFlaskParser.DefStmtContext ctx);
+	void exitSmall_stmt(JinjaFlaskParser.Small_stmtContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#simpleStmt}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#compound_stmt}.
 	 * @param ctx the parse tree
 	 */
-	void enterSimpleStmt(JinjaFlaskParser.SimpleStmtContext ctx);
+	void enterCompound_stmt(JinjaFlaskParser.Compound_stmtContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#simpleStmt}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#compound_stmt}.
 	 * @param ctx the parse tree
 	 */
-	void exitSimpleStmt(JinjaFlaskParser.SimpleStmtContext ctx);
+	void exitCompound_stmt(JinjaFlaskParser.Compound_stmtContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#ifStmt}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#assign_stmt}.
 	 * @param ctx the parse tree
 	 */
-	void enterIfStmt(JinjaFlaskParser.IfStmtContext ctx);
+	void enterAssign_stmt(JinjaFlaskParser.Assign_stmtContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#ifStmt}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#assign_stmt}.
 	 * @param ctx the parse tree
 	 */
-	void exitIfStmt(JinjaFlaskParser.IfStmtContext ctx);
+	void exitAssign_stmt(JinjaFlaskParser.Assign_stmtContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#block}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#template_literal}.
 	 * @param ctx the parse tree
 	 */
-	void enterBlock(JinjaFlaskParser.BlockContext ctx);
+	void enterTemplate_literal(JinjaFlaskParser.Template_literalContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#block}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#template_literal}.
 	 * @param ctx the parse tree
 	 */
-	void exitBlock(JinjaFlaskParser.BlockContext ctx);
+	void exitTemplate_literal(JinjaFlaskParser.Template_literalContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#assignmentStmt}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#html_content}.
 	 * @param ctx the parse tree
 	 */
-	void enterAssignmentStmt(JinjaFlaskParser.AssignmentStmtContext ctx);
+	void enterHtml_content(JinjaFlaskParser.Html_contentContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#assignmentStmt}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#html_content}.
 	 * @param ctx the parse tree
 	 */
-	void exitAssignmentStmt(JinjaFlaskParser.AssignmentStmtContext ctx);
+	void exitHtml_content(JinjaFlaskParser.Html_contentContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#returnStmt}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#import_stmt}.
 	 * @param ctx the parse tree
 	 */
-	void enterReturnStmt(JinjaFlaskParser.ReturnStmtContext ctx);
+	void enterImport_stmt(JinjaFlaskParser.Import_stmtContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#returnStmt}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#import_stmt}.
 	 * @param ctx the parse tree
 	 */
-	void exitReturnStmt(JinjaFlaskParser.ReturnStmtContext ctx);
+	void exitImport_stmt(JinjaFlaskParser.Import_stmtContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#globalStmt}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#import_name}.
 	 * @param ctx the parse tree
 	 */
-	void enterGlobalStmt(JinjaFlaskParser.GlobalStmtContext ctx);
+	void enterImport_name(JinjaFlaskParser.Import_nameContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#globalStmt}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#import_name}.
 	 * @param ctx the parse tree
 	 */
-	void exitGlobalStmt(JinjaFlaskParser.GlobalStmtContext ctx);
+	void exitImport_name(JinjaFlaskParser.Import_nameContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#importStmt}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#import_from}.
 	 * @param ctx the parse tree
 	 */
-	void enterImportStmt(JinjaFlaskParser.ImportStmtContext ctx);
+	void enterImport_from(JinjaFlaskParser.Import_fromContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#importStmt}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#import_from}.
 	 * @param ctx the parse tree
 	 */
-	void exitImportStmt(JinjaFlaskParser.ImportStmtContext ctx);
+	void exitImport_from(JinjaFlaskParser.Import_fromContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#forLoop}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#import_as_names}.
 	 * @param ctx the parse tree
 	 */
-	void enterForLoop(JinjaFlaskParser.ForLoopContext ctx);
+	void enterImport_as_names(JinjaFlaskParser.Import_as_namesContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#forLoop}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#import_as_names}.
 	 * @param ctx the parse tree
 	 */
-	void exitForLoop(JinjaFlaskParser.ForLoopContext ctx);
+	void exitImport_as_names(JinjaFlaskParser.Import_as_namesContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#whileLoop}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#import_as_name}.
 	 * @param ctx the parse tree
 	 */
-	void enterWhileLoop(JinjaFlaskParser.WhileLoopContext ctx);
+	void enterImport_as_name(JinjaFlaskParser.Import_as_nameContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#whileLoop}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#import_as_name}.
 	 * @param ctx the parse tree
 	 */
-	void exitWhileLoop(JinjaFlaskParser.WhileLoopContext ctx);
+	void exitImport_as_name(JinjaFlaskParser.Import_as_nameContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#tripleQuotedString}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#dotted_name}.
 	 * @param ctx the parse tree
 	 */
-	void enterTripleQuotedString(JinjaFlaskParser.TripleQuotedStringContext ctx);
+	void enterDotted_name(JinjaFlaskParser.Dotted_nameContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#tripleQuotedString}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#dotted_name}.
 	 * @param ctx the parse tree
 	 */
-	void exitTripleQuotedString(JinjaFlaskParser.TripleQuotedStringContext ctx);
+	void exitDotted_name(JinjaFlaskParser.Dotted_nameContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#document}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#global_stmt}.
 	 * @param ctx the parse tree
 	 */
-	void enterDocument(JinjaFlaskParser.DocumentContext ctx);
+	void enterGlobal_stmt(JinjaFlaskParser.Global_stmtContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#document}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#global_stmt}.
 	 * @param ctx the parse tree
 	 */
-	void exitDocument(JinjaFlaskParser.DocumentContext ctx);
+	void exitGlobal_stmt(JinjaFlaskParser.Global_stmtContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#content}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#decorated}.
 	 * @param ctx the parse tree
 	 */
-	void enterContent(JinjaFlaskParser.ContentContext ctx);
+	void enterDecorated(JinjaFlaskParser.DecoratedContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#content}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#decorated}.
 	 * @param ctx the parse tree
 	 */
-	void exitContent(JinjaFlaskParser.ContentContext ctx);
+	void exitDecorated(JinjaFlaskParser.DecoratedContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#element}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#decorators}.
 	 * @param ctx the parse tree
 	 */
-	void enterElement(JinjaFlaskParser.ElementContext ctx);
+	void enterDecorators(JinjaFlaskParser.DecoratorsContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#element}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#decorators}.
 	 * @param ctx the parse tree
 	 */
-	void exitElement(JinjaFlaskParser.ElementContext ctx);
+	void exitDecorators(JinjaFlaskParser.DecoratorsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#attribute}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#decorator}.
 	 * @param ctx the parse tree
 	 */
-	void enterAttribute(JinjaFlaskParser.AttributeContext ctx);
+	void enterDecorator(JinjaFlaskParser.DecoratorContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#attribute}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#decorator}.
 	 * @param ctx the parse tree
 	 */
-	void exitAttribute(JinjaFlaskParser.AttributeContext ctx);
+	void exitDecorator(JinjaFlaskParser.DecoratorContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#styleElement}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#func_def}.
 	 * @param ctx the parse tree
 	 */
-	void enterStyleElement(JinjaFlaskParser.StyleElementContext ctx);
+	void enterFunc_def(JinjaFlaskParser.Func_defContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#styleElement}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#func_def}.
 	 * @param ctx the parse tree
 	 */
-	void exitStyleElement(JinjaFlaskParser.StyleElementContext ctx);
+	void exitFunc_def(JinjaFlaskParser.Func_defContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#styleContent}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#parameters}.
 	 * @param ctx the parse tree
 	 */
-	void enterStyleContent(JinjaFlaskParser.StyleContentContext ctx);
+	void enterParameters(JinjaFlaskParser.ParametersContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#styleContent}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#parameters}.
 	 * @param ctx the parse tree
 	 */
-	void exitStyleContent(JinjaFlaskParser.StyleContentContext ctx);
+	void exitParameters(JinjaFlaskParser.ParametersContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#cssStatement}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#typedargslist}.
 	 * @param ctx the parse tree
 	 */
-	void enterCssStatement(JinjaFlaskParser.CssStatementContext ctx);
+	void enterTypedargslist(JinjaFlaskParser.TypedargslistContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#cssStatement}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#typedargslist}.
 	 * @param ctx the parse tree
 	 */
-	void exitCssStatement(JinjaFlaskParser.CssStatementContext ctx);
+	void exitTypedargslist(JinjaFlaskParser.TypedargslistContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#if_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterIf_stmt(JinjaFlaskParser.If_stmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#if_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitIf_stmt(JinjaFlaskParser.If_stmtContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#return_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturn_stmt(JinjaFlaskParser.Return_stmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#return_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturn_stmt(JinjaFlaskParser.Return_stmtContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#flow_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterFlow_stmt(JinjaFlaskParser.Flow_stmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#flow_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitFlow_stmt(JinjaFlaskParser.Flow_stmtContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#suite}.
+	 * @param ctx the parse tree
+	 */
+	void enterSuite(JinjaFlaskParser.SuiteContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#suite}.
+	 * @param ctx the parse tree
+	 */
+	void exitSuite(JinjaFlaskParser.SuiteContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#testlist}.
+	 * @param ctx the parse tree
+	 */
+	void enterTestlist(JinjaFlaskParser.TestlistContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#testlist}.
+	 * @param ctx the parse tree
+	 */
+	void exitTestlist(JinjaFlaskParser.TestlistContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#test}.
+	 * @param ctx the parse tree
+	 */
+	void enterTest(JinjaFlaskParser.TestContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#test}.
+	 * @param ctx the parse tree
+	 */
+	void exitTest(JinjaFlaskParser.TestContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#or_test}.
+	 * @param ctx the parse tree
+	 */
+	void enterOr_test(JinjaFlaskParser.Or_testContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#or_test}.
+	 * @param ctx the parse tree
+	 */
+	void exitOr_test(JinjaFlaskParser.Or_testContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#and_test}.
+	 * @param ctx the parse tree
+	 */
+	void enterAnd_test(JinjaFlaskParser.And_testContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#and_test}.
+	 * @param ctx the parse tree
+	 */
+	void exitAnd_test(JinjaFlaskParser.And_testContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#not_test}.
+	 * @param ctx the parse tree
+	 */
+	void enterNot_test(JinjaFlaskParser.Not_testContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#not_test}.
+	 * @param ctx the parse tree
+	 */
+	void exitNot_test(JinjaFlaskParser.Not_testContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#comparison}.
+	 * @param ctx the parse tree
+	 */
+	void enterComparison(JinjaFlaskParser.ComparisonContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#comparison}.
+	 * @param ctx the parse tree
+	 */
+	void exitComparison(JinjaFlaskParser.ComparisonContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#comp_op}.
+	 * @param ctx the parse tree
+	 */
+	void enterComp_op(JinjaFlaskParser.Comp_opContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#comp_op}.
+	 * @param ctx the parse tree
+	 */
+	void exitComp_op(JinjaFlaskParser.Comp_opContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpr(JinjaFlaskParser.ExprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpr(JinjaFlaskParser.ExprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#term}.
+	 * @param ctx the parse tree
+	 */
+	void enterTerm(JinjaFlaskParser.TermContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#term}.
+	 * @param ctx the parse tree
+	 */
+	void exitTerm(JinjaFlaskParser.TermContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#factor}.
+	 * @param ctx the parse tree
+	 */
+	void enterFactor(JinjaFlaskParser.FactorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#factor}.
+	 * @param ctx the parse tree
+	 */
+	void exitFactor(JinjaFlaskParser.FactorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#power}.
+	 * @param ctx the parse tree
+	 */
+	void enterPower(JinjaFlaskParser.PowerContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#power}.
+	 * @param ctx the parse tree
+	 */
+	void exitPower(JinjaFlaskParser.PowerContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#atom_expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterAtom_expr(JinjaFlaskParser.Atom_exprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#atom_expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitAtom_expr(JinjaFlaskParser.Atom_exprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#trailer}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrailer(JinjaFlaskParser.TrailerContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#trailer}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrailer(JinjaFlaskParser.TrailerContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#atom}.
+	 * @param ctx the parse tree
+	 */
+	void enterAtom(JinjaFlaskParser.AtomContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#atom}.
+	 * @param ctx the parse tree
+	 */
+	void exitAtom(JinjaFlaskParser.AtomContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#list_content}.
+	 * @param ctx the parse tree
+	 */
+	void enterList_content(JinjaFlaskParser.List_contentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#list_content}.
+	 * @param ctx the parse tree
+	 */
+	void exitList_content(JinjaFlaskParser.List_contentContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#comp_for}.
+	 * @param ctx the parse tree
+	 */
+	void enterComp_for(JinjaFlaskParser.Comp_forContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#comp_for}.
+	 * @param ctx the parse tree
+	 */
+	void exitComp_for(JinjaFlaskParser.Comp_forContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#dict_maker}.
+	 * @param ctx the parse tree
+	 */
+	void enterDict_maker(JinjaFlaskParser.Dict_makerContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#dict_maker}.
+	 * @param ctx the parse tree
+	 */
+	void exitDict_maker(JinjaFlaskParser.Dict_makerContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#arglist}.
+	 * @param ctx the parse tree
+	 */
+	void enterArglist(JinjaFlaskParser.ArglistContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#arglist}.
+	 * @param ctx the parse tree
+	 */
+	void exitArglist(JinjaFlaskParser.ArglistContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#argument}.
+	 * @param ctx the parse tree
+	 */
+	void enterArgument(JinjaFlaskParser.ArgumentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#argument}.
+	 * @param ctx the parse tree
+	 */
+	void exitArgument(JinjaFlaskParser.ArgumentContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#htmlElement}.
+	 * @param ctx the parse tree
+	 */
+	void enterHtmlElement(JinjaFlaskParser.HtmlElementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#htmlElement}.
+	 * @param ctx the parse tree
+	 */
+	void exitHtmlElement(JinjaFlaskParser.HtmlElementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#tag_content}.
+	 * @param ctx the parse tree
+	 */
+	void enterTag_content(JinjaFlaskParser.Tag_contentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#tag_content}.
+	 * @param ctx the parse tree
+	 */
+	void exitTag_content(JinjaFlaskParser.Tag_contentContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#style_content}.
+	 * @param ctx the parse tree
+	 */
+	void enterStyle_content(JinjaFlaskParser.Style_contentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#style_content}.
+	 * @param ctx the parse tree
+	 */
+	void exitStyle_content(JinjaFlaskParser.Style_contentContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#stylesheet}.
+	 * @param ctx the parse tree
+	 */
+	void enterStylesheet(JinjaFlaskParser.StylesheetContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#stylesheet}.
+	 * @param ctx the parse tree
+	 */
+	void exitStylesheet(JinjaFlaskParser.StylesheetContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#css_statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterCss_statement(JinjaFlaskParser.Css_statementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#css_statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitCss_statement(JinjaFlaskParser.Css_statementContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JinjaFlaskParser#ruleset}.
 	 * @param ctx the parse tree
@@ -227,16 +507,6 @@ public interface JinjaFlaskParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitRuleset(JinjaFlaskParser.RulesetContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#selectorList}.
-	 * @param ctx the parse tree
-	 */
-	void enterSelectorList(JinjaFlaskParser.SelectorListContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#selectorList}.
-	 * @param ctx the parse tree
-	 */
-	void exitSelectorList(JinjaFlaskParser.SelectorListContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JinjaFlaskParser#selectorGroup}.
 	 * @param ctx the parse tree
@@ -277,16 +547,6 @@ public interface JinjaFlaskParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSimpleSelectorSequence(JinjaFlaskParser.SimpleSelectorSequenceContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#simpleSelector}.
-	 * @param ctx the parse tree
-	 */
-	void enterSimpleSelector(JinjaFlaskParser.SimpleSelectorContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#simpleSelector}.
-	 * @param ctx the parse tree
-	 */
-	void exitSimpleSelector(JinjaFlaskParser.SimpleSelectorContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JinjaFlaskParser#typeSelector}.
 	 * @param ctx the parse tree
@@ -358,16 +618,6 @@ public interface JinjaFlaskParserListener extends ParseTreeListener {
 	 */
 	void exitAtRule(JinjaFlaskParser.AtRuleContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#declarationList}.
-	 * @param ctx the parse tree
-	 */
-	void enterDeclarationList(JinjaFlaskParser.DeclarationListContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#declarationList}.
-	 * @param ctx the parse tree
-	 */
-	void exitDeclarationList(JinjaFlaskParser.DeclarationListContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link JinjaFlaskParser#importTerminator}.
 	 * @param ctx the parse tree
 	 */
@@ -418,16 +668,6 @@ public interface JinjaFlaskParserListener extends ParseTreeListener {
 	 */
 	void exitDeclaration(JinjaFlaskParser.DeclarationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#anyValue}.
-	 * @param ctx the parse tree
-	 */
-	void enterAnyValue(JinjaFlaskParser.AnyValueContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#anyValue}.
-	 * @param ctx the parse tree
-	 */
-	void exitAnyValue(JinjaFlaskParser.AnyValueContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link JinjaFlaskParser#propertyName}.
 	 * @param ctx the parse tree
 	 */
@@ -438,161 +678,303 @@ public interface JinjaFlaskParserListener extends ParseTreeListener {
 	 */
 	void exitPropertyName(JinjaFlaskParser.PropertyNameContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#value}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#css_value}.
 	 * @param ctx the parse tree
 	 */
-	void enterValue(JinjaFlaskParser.ValueContext ctx);
+	void enterCss_value(JinjaFlaskParser.Css_valueContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#value}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#css_value}.
 	 * @param ctx the parse tree
 	 */
-	void exitValue(JinjaFlaskParser.ValueContext ctx);
+	void exitCss_value(JinjaFlaskParser.Css_valueContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#term}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#css_term}.
 	 * @param ctx the parse tree
 	 */
-	void enterTerm(JinjaFlaskParser.TermContext ctx);
+	void enterCss_term(JinjaFlaskParser.Css_termContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#term}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#css_term}.
 	 * @param ctx the parse tree
 	 */
-	void exitTerm(JinjaFlaskParser.TermContext ctx);
+	void exitCss_term(JinjaFlaskParser.Css_termContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#functionCall}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#css_functionCall}.
 	 * @param ctx the parse tree
 	 */
-	void enterFunctionCall(JinjaFlaskParser.FunctionCallContext ctx);
+	void enterCss_functionCall(JinjaFlaskParser.Css_functionCallContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#functionCall}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#css_functionCall}.
 	 * @param ctx the parse tree
 	 */
-	void exitFunctionCall(JinjaFlaskParser.FunctionCallContext ctx);
+	void exitCss_functionCall(JinjaFlaskParser.Css_functionCallContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code logicalOp}
-	 * labeled alternative in {@link JinjaFlaskParser#expression}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#css_valueList}.
 	 * @param ctx the parse tree
 	 */
-	void enterLogicalOp(JinjaFlaskParser.LogicalOpContext ctx);
+	void enterCss_valueList(JinjaFlaskParser.Css_valueListContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code logicalOp}
-	 * labeled alternative in {@link JinjaFlaskParser#expression}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#css_valueList}.
 	 * @param ctx the parse tree
 	 */
-	void exitLogicalOp(JinjaFlaskParser.LogicalOpContext ctx);
+	void exitCss_valueList(JinjaFlaskParser.Css_valueListContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code notOp}
-	 * labeled alternative in {@link JinjaFlaskParser#expression}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#keyframeBlock}.
 	 * @param ctx the parse tree
 	 */
-	void enterNotOp(JinjaFlaskParser.NotOpContext ctx);
+	void enterKeyframeBlock(JinjaFlaskParser.KeyframeBlockContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code notOp}
-	 * labeled alternative in {@link JinjaFlaskParser#expression}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#keyframeBlock}.
 	 * @param ctx the parse tree
 	 */
-	void exitNotOp(JinjaFlaskParser.NotOpContext ctx);
+	void exitKeyframeBlock(JinjaFlaskParser.KeyframeBlockContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code comparisonOp}
-	 * labeled alternative in {@link JinjaFlaskParser#comparisonExpression}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#keyframeSelector}.
 	 * @param ctx the parse tree
 	 */
-	void enterComparisonOp(JinjaFlaskParser.ComparisonOpContext ctx);
+	void enterKeyframeSelector(JinjaFlaskParser.KeyframeSelectorContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code comparisonOp}
-	 * labeled alternative in {@link JinjaFlaskParser#comparisonExpression}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#keyframeSelector}.
 	 * @param ctx the parse tree
 	 */
-	void exitComparisonOp(JinjaFlaskParser.ComparisonOpContext ctx);
+	void exitKeyframeSelector(JinjaFlaskParser.KeyframeSelectorContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code additiveOp}
-	 * labeled alternative in {@link JinjaFlaskParser#additiveExpression}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#jinjaStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterAdditiveOp(JinjaFlaskParser.AdditiveOpContext ctx);
+	void enterJinjaStatement(JinjaFlaskParser.JinjaStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code additiveOp}
-	 * labeled alternative in {@link JinjaFlaskParser#additiveExpression}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#jinjaStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitAdditiveOp(JinjaFlaskParser.AdditiveOpContext ctx);
+	void exitJinjaStatement(JinjaFlaskParser.JinjaStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code multiplicativeOp}
-	 * labeled alternative in {@link JinjaFlaskParser#multiplicativeExpression}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#jStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterMultiplicativeOp(JinjaFlaskParser.MultiplicativeOpContext ctx);
+	void enterJStatement(JinjaFlaskParser.JStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code multiplicativeOp}
-	 * labeled alternative in {@link JinjaFlaskParser#multiplicativeExpression}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#jStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitMultiplicativeOp(JinjaFlaskParser.MultiplicativeOpContext ctx);
+	void exitJStatement(JinjaFlaskParser.JStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code atomExpression}
-	 * labeled alternative in {@link JinjaFlaskParser#primaryExpression}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#jRawStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterAtomExpression(JinjaFlaskParser.AtomExpressionContext ctx);
+	void enterJRawStatement(JinjaFlaskParser.JRawStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code atomExpression}
-	 * labeled alternative in {@link JinjaFlaskParser#primaryExpression}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#jRawStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitAtomExpression(JinjaFlaskParser.AtomExpressionContext ctx);
+	void exitJRawStatement(JinjaFlaskParser.JRawStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code functionCallTrailer}
-	 * labeled alternative in {@link JinjaFlaskParser#trailer}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#jIfStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterFunctionCallTrailer(JinjaFlaskParser.FunctionCallTrailerContext ctx);
+	void enterJIfStatement(JinjaFlaskParser.JIfStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code functionCallTrailer}
-	 * labeled alternative in {@link JinjaFlaskParser#trailer}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#jIfStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitFunctionCallTrailer(JinjaFlaskParser.FunctionCallTrailerContext ctx);
+	void exitJIfStatement(JinjaFlaskParser.JIfStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code subscriptTrailer}
-	 * labeled alternative in {@link JinjaFlaskParser#trailer}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#jForStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterSubscriptTrailer(JinjaFlaskParser.SubscriptTrailerContext ctx);
+	void enterJForStatement(JinjaFlaskParser.JForStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code subscriptTrailer}
-	 * labeled alternative in {@link JinjaFlaskParser#trailer}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#jForStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitSubscriptTrailer(JinjaFlaskParser.SubscriptTrailerContext ctx);
+	void exitJForStatement(JinjaFlaskParser.JForStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code attributeAccessTrailer}
-	 * labeled alternative in {@link JinjaFlaskParser#trailer}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#jTargetList}.
 	 * @param ctx the parse tree
 	 */
-	void enterAttributeAccessTrailer(JinjaFlaskParser.AttributeAccessTrailerContext ctx);
+	void enterJTargetList(JinjaFlaskParser.JTargetListContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code attributeAccessTrailer}
-	 * labeled alternative in {@link JinjaFlaskParser#trailer}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#jTargetList}.
 	 * @param ctx the parse tree
 	 */
-	void exitAttributeAccessTrailer(JinjaFlaskParser.AttributeAccessTrailerContext ctx);
+	void exitJTargetList(JinjaFlaskParser.JTargetListContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#atom}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#jinjaExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterAtom(JinjaFlaskParser.AtomContext ctx);
+	void enterJinjaExpression(JinjaFlaskParser.JinjaExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#atom}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#jinjaExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitAtom(JinjaFlaskParser.AtomContext ctx);
+	void exitJinjaExpression(JinjaFlaskParser.JinjaExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#argumentList}.
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#jExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterArgumentList(JinjaFlaskParser.ArgumentListContext ctx);
+	void enterJExpression(JinjaFlaskParser.JExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#argumentList}.
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#jExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitArgumentList(JinjaFlaskParser.ArgumentListContext ctx);
+	void exitJExpression(JinjaFlaskParser.JExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#jFilter}.
+	 * @param ctx the parse tree
+	 */
+	void enterJFilter(JinjaFlaskParser.JFilterContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#jFilter}.
+	 * @param ctx the parse tree
+	 */
+	void exitJFilter(JinjaFlaskParser.JFilterContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#jTestExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterJTestExpr(JinjaFlaskParser.JTestExprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#jTestExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitJTestExpr(JinjaFlaskParser.JTestExprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#jOrTest}.
+	 * @param ctx the parse tree
+	 */
+	void enterJOrTest(JinjaFlaskParser.JOrTestContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#jOrTest}.
+	 * @param ctx the parse tree
+	 */
+	void exitJOrTest(JinjaFlaskParser.JOrTestContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#jAndTest}.
+	 * @param ctx the parse tree
+	 */
+	void enterJAndTest(JinjaFlaskParser.JAndTestContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#jAndTest}.
+	 * @param ctx the parse tree
+	 */
+	void exitJAndTest(JinjaFlaskParser.JAndTestContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#jNotTest}.
+	 * @param ctx the parse tree
+	 */
+	void enterJNotTest(JinjaFlaskParser.JNotTestContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#jNotTest}.
+	 * @param ctx the parse tree
+	 */
+	void exitJNotTest(JinjaFlaskParser.JNotTestContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#jComparison}.
+	 * @param ctx the parse tree
+	 */
+	void enterJComparison(JinjaFlaskParser.JComparisonContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#jComparison}.
+	 * @param ctx the parse tree
+	 */
+	void exitJComparison(JinjaFlaskParser.JComparisonContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#jCompOp}.
+	 * @param ctx the parse tree
+	 */
+	void enterJCompOp(JinjaFlaskParser.JCompOpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#jCompOp}.
+	 * @param ctx the parse tree
+	 */
+	void exitJCompOp(JinjaFlaskParser.JCompOpContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#jMathExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterJMathExpr(JinjaFlaskParser.JMathExprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#jMathExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitJMathExpr(JinjaFlaskParser.JMathExprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#jTerm}.
+	 * @param ctx the parse tree
+	 */
+	void enterJTerm(JinjaFlaskParser.JTermContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#jTerm}.
+	 * @param ctx the parse tree
+	 */
+	void exitJTerm(JinjaFlaskParser.JTermContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#jFactor}.
+	 * @param ctx the parse tree
+	 */
+	void enterJFactor(JinjaFlaskParser.JFactorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#jFactor}.
+	 * @param ctx the parse tree
+	 */
+	void exitJFactor(JinjaFlaskParser.JFactorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#jAtomExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterJAtomExpr(JinjaFlaskParser.JAtomExprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#jAtomExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitJAtomExpr(JinjaFlaskParser.JAtomExprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#jTrailer}.
+	 * @param ctx the parse tree
+	 */
+	void enterJTrailer(JinjaFlaskParser.JTrailerContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#jTrailer}.
+	 * @param ctx the parse tree
+	 */
+	void exitJTrailer(JinjaFlaskParser.JTrailerContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#jAtom}.
+	 * @param ctx the parse tree
+	 */
+	void enterJAtom(JinjaFlaskParser.JAtomContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#jAtom}.
+	 * @param ctx the parse tree
+	 */
+	void exitJAtom(JinjaFlaskParser.JAtomContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#jTestExprList}.
+	 * @param ctx the parse tree
+	 */
+	void enterJTestExprList(JinjaFlaskParser.JTestExprListContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#jTestExprList}.
+	 * @param ctx the parse tree
+	 */
+	void exitJTestExprList(JinjaFlaskParser.JTestExprListContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#jArgumentList}.
+	 * @param ctx the parse tree
+	 */
+	void enterJArgumentList(JinjaFlaskParser.JArgumentListContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#jArgumentList}.
+	 * @param ctx the parse tree
+	 */
+	void exitJArgumentList(JinjaFlaskParser.JArgumentListContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaFlaskParser#jDictMaker}.
+	 * @param ctx the parse tree
+	 */
+	void enterJDictMaker(JinjaFlaskParser.JDictMakerContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaFlaskParser#jDictMaker}.
+	 * @param ctx the parse tree
+	 */
+	void exitJDictMaker(JinjaFlaskParser.JDictMakerContext ctx);
 }

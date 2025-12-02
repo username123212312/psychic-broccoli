@@ -89,6 +89,7 @@ NEWLINE
          }
          if (indents.peek() != indent) {
             // Indentation error detection
+            // throw new InputMismatchException("Indentation error: Expected " + indents.peek() + ", got " + indent);
          }
        }
        skip();
@@ -101,7 +102,7 @@ NEWLINE
 WS: [ \t]+ -> skip;
 COMMENT: '#' ~[\r\n]* -> skip;
 
-// Tokens
+// Tokens (Top-level Python/Flask code)
 DEF: 'def';
 RETURN: 'return';
 FROM: 'from';
@@ -121,7 +122,7 @@ FALSE: 'False';
 NONE: 'None';
 PRINT : 'print' ;
 WHILE : 'while';
-
+ARROW : '->';
 
 AT: '@';
 COLON   : ':' ;
@@ -152,14 +153,6 @@ DOT: '.';
 NAME: [a-zA-Z_][a-zA-Z0-9_]*;
 NUMBER: [0-9]+ ('.' [0-9]+)? ;
 
-// TRIPLE_DOUBLE_STRING
-//   : '"""' ( options {greedy=false;} : . )*? '"""'
-//  ;
-
-//TRIPLE_SINGLE_STRING
-//  : '\'\'\'' ( options {greedy=false;} : . )*? '\'\'\''
-//  ;
-
 STRING: '\'' (~['\r\n])* '\'' | '"' (~["\r\n])* '"';
 
 // Start rules push into HTMLMODE
@@ -167,28 +160,22 @@ TRIPLE_DOUBLE_START: '"""' -> pushMode(HTMLMODE);
 TRIPLE_SINGLE_START: '\'\'\'' -> pushMode(HTMLMODE);
 
 
-
 // =================== HTML MODE (JinjaFlask Templates) ===================
 
 mode HTMLMODE;
 
-// 1. Jinja Mode Switching is now handled by the global definitions above.
 
-// 2. Triple Quote End (Mode exit)
 TRIPLE_DOUBLE_END: '"""' -> popMode;
 TRIPLE_SINGLE_END: '\'\'\'' -> popMode;
 
 // =================== GLOBAL JINJA STARTS (Fixes Redefinition) ===================
 
-// These must be defined globally to be visible in both HTMLMODE and STYLE mode
-// without causing redefinition errors.
 JINJA_EXPR_START: '{{' -> pushMode(JINJA_EXPR);
 JINJA_STMT_START: '{%' -> pushMode(JINJA_STMT);
 JINJA_COMMENT_START: '{#' -> pushMode(JINJA_COMMENT);
 
-// 3. HTML Comment/Declaration Tokens (From provided HTML Lexer)
 HTML_COMMENT
-    : '<!--' .*? '-->' -> channel(HIDDEN)
+    : 'd' -> channel(HIDDEN)
     ;
 
 HTML_CONDITIONAL_COMMENT
@@ -228,10 +215,6 @@ TAG_OPEN
     : '<' -> pushMode(TAG)
     ;
 
-// 5. Default Content Text (Must consume everything that isn't a Jinja or HTML start/end)
-//HTML_TEXT
-//    : ~[<{\\'"]+
-//    ;
 HTML_TEXT
     : .
     ;
@@ -275,7 +258,6 @@ SCRIPT_BODY
     : .*? '</script>' -> popMode
     ;
 
-
 // =================== STYLE MODE (CSS Parsing) ===================
 mode STYLE;
 
@@ -283,8 +265,6 @@ mode STYLE;
 STYLE_CLOSE
     : '</style' ~'>'* '>' -> popMode
     ;
-
-// 2. Jinja transitions are handled by the global start tokens.
 
 // 3. CSS Whitespace & Comments (Skip)
 CSS_WS
@@ -333,13 +313,12 @@ CSS_NUMBER // Renamed from NUMBER (Conflict with Python)
     ;
 
 // CRITICAL FIX: Explicitly spell out the repetitions to avoid compilation issues
-// caused by the {N} operator in ANTLR's Java Lexer action generation.
 COLOR_HEX
     : '#' (
-          HEX_CHAR HEX_CHAR HEX_CHAR                    // #rgb (3 chars)
-        | HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR          // #rgba (4 chars)
-        | HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR // #rrggbb (6 chars)
-        | HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR // #rrggbbaa (8 chars)
+          HEX_CHAR HEX_CHAR HEX_CHAR
+        | HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR
+        | HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR
+        | HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR HEX_CHAR
       )
     ;
 
@@ -371,23 +350,114 @@ IDENT
     ;
 
 
-// =================== JINJA MODES (From previous JinjaFlask Lexer) ===================
+// =================== JINJA MODES (Corrected to tokenize content) ===================
 
 mode JINJA_EXPR;
+
+// 1. Mode Exit
 JINJA_EXPR_END: '}}' -> popMode;
-// JINJA_EXPR_CONTENT: Match all until '}}'
-JINJA_EXPR_CONTENT: (~'}')+ ;
+
+// 2. Jinja Whitespace
+J_WS : [ \t\r\n]+ -> skip ;
+
+// 3. Literals & Identifiers (Prefixed with J_)
+J_NUMBER : [0-9]+ ('.' [0-9]+)? ;
+J_STRING
+    : '"' ( ~["\\] | '\\' . )* '"'
+    | '\'' ( ~['\\] | '\\' . )* '\''
+    ;
+J_NAME : [A-Za-z_][A-Za-z0-9_]* ;
+
+// 4. Jinja/Python Operators/Delimiters
+J_PLUS        : '+';
+J_MINUS       : '-';
+J_TIMES       : '*';
+J_DIVIDE      : '/';
+J_MOD         : '%';
+J_POW         : '**';
+
+J_EQ          : '==';
+J_NE          : '!=';
+J_LE          : '<=';
+J_LT          : '<';
+J_GE          : '>=';
+J_GT          : '>';
+
+J_ASSIGN      : '=';
+J_DOT         : '.';
+J_COMMA       : ',';
+J_PIPE        : '|'; // For filters
+
+J_LPAREN      : '(';
+J_RPAREN      : ')';
+J_LBRACK      : '[';
+J_RBRACK      : ']';
+J_LBRACE      : '{';
+J_RBRACE      : '}';
+J_COLON       : ':';
 
 mode JINJA_STMT;
+
+// 1. Mode Exit
 JINJA_STMT_END: '%}' -> popMode;
-// JINJA_STMT_CONTENT: Match all until '%}'
-JINJA_STMT_CONTENT: (~'%')+ ;
+
+// 2. Keywords
+J_IF      : 'if' ;
+J_ELIF    : 'elif' ;
+J_ELSE    : 'else' ;
+J_ENDIF   : 'endif' ;
+
+J_FOR     : 'for' ;
+J_IN      : 'in' ;
+J_ENDFOR  : 'endfor' ;
+
+J_SET     : 'set' ;
+J_RAW     : 'raw' ;
+J_ENDRAW  : 'endraw' ;
+
+J_OR      : 'or' ;
+J_AND     : 'and' ;
+J_NOT     : 'not' ;
+
+// 3. Re-use the same tokens as JINJA_EXPR (J_WS, J_NUMBER, J_NAME, J_PLUS, etc.)
+J_WS_STMT : [ \t\r\n]+ -> skip ;
+
+J_NUMBER_STMT : [0-9]+ ('.' [0-9]+)? ;
+J_STRING_STMT
+    : '"' ( ~["\\] | '\\' . )* '"'
+    | '\'' ( ~['\\] | '\\' . )* '\''
+    ;
+J_NAME_STMT : [A-Za-z_][A-Za-z0-9_]* ;
+
+J_PLUS_STMT        : '+';
+J_MINUS_STMT       : '-';
+J_TIMES_STMT       : '*';
+J_DIVIDE_STMT      : '/';
+J_MOD_STMT         : '%';
+J_POW_STMT         : '**';
+
+J_EQ_STMT          : '==';
+J_NE_STMT          : '!=';
+J_LE_STMT          : '<=';
+J_LT_STMT          : '<';
+J_GE_STMT          : '>=';
+J_GT_STMT          : '>';
+
+J_ASSIGN_STMT      : '=';
+J_DOT_STMT         : '.';
+J_COMMA_STMT       : ',';
+J_PIPE_STMT        : '|';
+
+J_LPAREN_STMT      : '(';
+J_RPAREN_STMT      : ')';
+J_LBRACK_STMT      : '[';
+J_RBRACK_STMT      : ']';
+
 
 mode JINJA_COMMENT;
 JINJA_COMMENT_END: '#}' -> popMode;
 // JINJA_COMMENT_CONTENT: Match all until '#}'
-JINJA_COMMENT_CONTENT: (~'#')+ ;
-
+JINJA_COMMENT_CONTENT: . ; // CRITICAL FIX: Match any single character until the end tag is hit
 
 // =================== FRAGMENTS (Helper Rules) ===================
 
