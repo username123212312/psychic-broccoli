@@ -1,4 +1,4 @@
-// Generated from C:/Users/center/psychic-broccoli/grammars/JinjaFlaskParser.g4 by ANTLR 4.13.2
+// Generated from C:/Users/Yousef Razzouk/IdeaProjects/compiler_project/grammars/JinjaFlaskParser.g4 by ANTLR 4.13.2
 package antlr;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -467,16 +467,6 @@ public interface JinjaFlaskParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTag_content(JinjaFlaskParser.Tag_contentContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#style_content}.
-	 * @param ctx the parse tree
-	 */
-	void enterStyle_content(JinjaFlaskParser.Style_contentContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#style_content}.
-	 * @param ctx the parse tree
-	 */
-	void exitStyle_content(JinjaFlaskParser.Style_contentContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JinjaFlaskParser#stylesheet}.
 	 * @param ctx the parse tree
@@ -1397,16 +1387,6 @@ public interface JinjaFlaskParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIdent(JinjaFlaskParser.IdentContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JinjaFlaskParser#css_ws}.
-	 * @param ctx the parse tree
-	 */
-	void enterCss_ws(JinjaFlaskParser.Css_wsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JinjaFlaskParser#css_ws}.
-	 * @param ctx the parse tree
-	 */
-	void exitCss_ws(JinjaFlaskParser.Css_wsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JinjaFlaskParser#jinjaStatement}.
 	 * @param ctx the parse tree

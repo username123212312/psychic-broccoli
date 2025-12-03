@@ -1,4 +1,4 @@
-// Generated from C:/Users/center/psychic-broccoli/grammars/JinjaFlaskParser.g4 by ANTLR 4.13.2
+// Generated from C:/Users/Yousef Razzouk/IdeaProjects/compiler_project/grammars/JinjaFlaskParser.g4 by ANTLR 4.13.2
 package antlr;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -286,12 +286,6 @@ public interface JinjaFlaskParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitTag_content(JinjaFlaskParser.Tag_contentContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#style_content}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitStyle_content(JinjaFlaskParser.Style_contentContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JinjaFlaskParser#stylesheet}.
 	 * @param ctx the parse tree
@@ -840,12 +834,6 @@ public interface JinjaFlaskParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitIdent(JinjaFlaskParser.IdentContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#css_ws}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCss_ws(JinjaFlaskParser.Css_wsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JinjaFlaskParser#jinjaStatement}.
 	 * @param ctx the parse tree

@@ -286,7 +286,7 @@ argument
 htmlElement
     : TAG_OPEN tag_content* (TAG_CLOSE | TAG_SLASH_CLOSE) // e.g., <div class="prod">
     | SCRIPT_OPEN SCRIPT_BODY                            // <script>...</script>
-    | STYLE_OPEN style_content STYLE_CLOSE               // <style>...</style>
+    | STYLE_OPEN stylesheet STYLE_CLOSE               // <style>...</style>
     | XML_DECLARATION
     | CDATA
     | DTD
@@ -301,32 +301,31 @@ tag_content
     | TAG_EQUALS
     ;
 
-style_content // Rule to consume the CSS tokens within the <style> block
-    : stylesheet;
+
 
 stylesheet
-    : css_ws (charset ( CSS_COMMENT | Space | Cdo | Cdc)*)* (imports ( CSS_COMMENT | Space | Cdo | Cdc)*)* (
-        namespace_ ( CSS_COMMENT | Space | Cdo | Cdc)*
-    )* (nestedStatement ( CSS_COMMENT | Space | Cdo | Cdc)*)* EOF
+    :  (charset ( Comment | Space | Cdo | Cdc)*)* (imports ( Comment | Space | Cdo | Cdc)*)* (
+        namespace_ ( Comment | Space | Cdo | Cdc)*
+    )* (nestedStatement ( Comment | Space | Cdo | Cdc)*)* EOF
     ;
 
 charset
-    : Charset css_ws String_ css_ws CSS_SEMICOLON css_ws # goodCharset
-    | Charset css_ws String_ css_ws        # badCharset
+    : Charset  String_  SemiColon  # goodCharset
+    | Charset  String_         # badCharset
     ;
 
 imports
-    : Import css_ws (String_ | url) css_ws mediaQueryList CSS_SEMICOLON css_ws # goodImport
-    | Import css_ws ( String_ | url) css_ws CSS_SEMICOLON css_ws               # goodImport
-    | Import css_ws ( String_ | url) css_ws mediaQueryList       # badImport
-    | Import css_ws ( String_ | url) css_ws                      # badImport
+    : Import  (String_ | url)  mediaQueryList SemiColon  # goodImport
+    | Import  ( String_ | url)  SemiColon                # goodImport
+    | Import  ( String_ | url)  mediaQueryList       # badImport
+    | Import  ( String_ | url)                       # badImport
     ;
 
 // Namespaces
 // https://www.w3.org/TR/css-namespaces-3/
 namespace_
-    : Namespace css_ws (namespacePrefix css_ws)? (String_ | url) css_ws CSS_SEMICOLON css_ws # goodNamespace
-    | Namespace css_ws (namespacePrefix css_ws)? ( String_ | url) css_ws       # badNamespace
+    : Namespace  (namespacePrefix )? (String_ | url)  SemiColon  # goodNamespace
+    | Namespace  (namespacePrefix )? ( String_ | url)        # badNamespace
     ;
 
 namespacePrefix
@@ -336,16 +335,16 @@ namespacePrefix
 // Media queries
 // https://www.w3.org/TR/css3-mediaqueries/
 media
-    : Media css_ws mediaQueryList groupRuleBody css_ws
+    : Media  mediaQueryList groupRuleBody
     ;
 
 mediaQueryList
-    : (mediaQuery ( CSS_COMMA css_ws mediaQuery)*)? css_ws
+    : (mediaQuery ( Comma  mediaQuery)*)?
     ;
 
 mediaQuery
-    : (MediaOnly | Not)? css_ws mediaType css_ws (And css_ws mediaExpression)*
-    | mediaExpression ( And css_ws mediaExpression)*
+    : (MediaOnly | Not)?  mediaType  (And  mediaExpression)*
+    | mediaExpression ( And  mediaExpression)*
     ;
 
 mediaType
@@ -353,38 +352,38 @@ mediaType
     ;
 
 mediaExpression
-    : CSS_LPAREN css_ws mediaFeature (CSS_COLON css_ws expr)? CSS_RPAREN css_ws
-    // Grammar allocss_ws for 'and(', which gets tokenized as Function. In practice, people always insert space before CSS_LPAREN to have it work on Chrome.
+    : OpenParen  mediaFeature (Colon  css_expr)? CloseParen
+    // Grammar allo for 'and(', which gets tokenized as Function. In practice, people always insert space before OpenParen to have it work on Chrome.
     ;
 
 mediaFeature
-    : ident css_ws
+    : ident
     ;
 
 // Page
 page
-    : Page css_ws pseudoPage? CSS_LBRACE css_ws declaration? (CSS_SEMICOLON css_ws declaration?)* CSS_RBRACE css_ws
+    : Page  pseudoPage? OpenBrace  declaration? (SemiColon  declaration?)* CloseBrace
     ;
 
 pseudoPage
-    : CSS_COLON ident css_ws
+    : Colon ident
     ;
 
 // Selectors
 // https://www.w3.org/TR/css3-selectors/
 selectorGroup
-    : selector (CSS_COMMA css_ws selector)*
+    : selector (Comma  selector)*
     ;
 
 selector
-    : simpleSelectorSequence css_ws (combinator simpleSelectorSequence css_ws)*
+    : simpleSelectorSequence  (combinator simpleSelectorSequence)*
     ;
 
 combinator
-    : CSS_PLUS css_ws
-    | CSS_GREATER css_ws
-    | CSS_TILDE css_ws
-    | Space css_ws
+    : Plus
+    | Greater
+    | Tilde
+    | Space
     ;
 
 simpleSelectorSequence
@@ -397,7 +396,7 @@ typeSelector
     ;
 
 typeNamespacePrefix
-    : (ident | CSS_ASTERISK)? CSS_PIPE
+    : (ident | Multiply)? Pipe
     ;
 
 elementName
@@ -405,42 +404,42 @@ elementName
     ;
 
 universal
-    : typeNamespacePrefix? CSS_ASTERISK
+    : typeNamespacePrefix? Multiply
     ;
 
 className
-    : CSS_DOT ident
+    : Dot ident
     ;
 
 attrib
-    : CSS_LBRACKET css_ws typeNamespacePrefix? ident css_ws (
-        (PrefixMatch | SuffixMatch | SubstringMatch | CSS_EQUALS | Includes | DashMatch) css_ws (
+    : OpenBracket  typeNamespacePrefix? ident  (
+        (PrefixMatch | SuffixMatch | SubstringMatch | Equal | Includes | DashMatch)  (
             ident
             | String_
-        ) css_ws
-    )? CSS_RBRACKET
+        )
+    )? CloseBracket
     ;
 
 pseudo
-    /* '::' starts a pseudo-element, CSS_COLON a pseudo-class */
+    /* '::' starts a pseudo-element, Colon a pseudo-class */
     /* Exceptions: :first-line, :first-letter, :before And :after. */
     /* Note that pseudo-elements are restricted to one per selector And */
     /* occur MediaOnly in the last simple_selector_sequence. */
-    : CSS_COLON CSS_COLON? (ident | functionalPseudo)
+    : Colon Colon? (ident | functionalPseudo)
     ;
 
 functionalPseudo
-    : Function_ css_ws expression CSS_RPAREN
+    : Function_  expression CloseParen
     ;
 
 expression
     /* In CSS3, the expressions are identifiers, strings, */
     /* or of the form "an+b" */
-    : (( CSS_PLUS | CSS_MINUS | Dimension | UnknownDimension | Number | String_ | ident) css_ws)+
+    : (( Plus | Minus | Dimension | UnknownDimension | Number | String_ | ident) )+
     ;
 
 negation
-    : PseudoNot css_ws negationArg css_ws CSS_RPAREN
+    : PseudoNot  negationArg  CloseParen
     ;
 
 negationArg
@@ -454,123 +453,123 @@ negationArg
 
 // Rules
 operator_
-    : CSS_SLASH css_ws   # goodOperator
-    | CSS_COMMA css_ws # goodOperator
-    | Space css_ws # goodOperator
-    | CSS_EQUALS css_ws   # badOperator // IE filter and DXImageTransform function
+    : Divide    # goodOperator
+    | Comma  # goodOperator
+    | Space  # goodOperator
+    | Equal    # badOperator // IE filter and DXImageTransform function
     ;
 
 property_
-    : ident css_ws    # goodProperty
-    | Variable css_ws # goodProperty
-    | CSS_ASTERISK ident   # badProperty // IE hacks
-    | CSS_UNDERSCORE ident   # badProperty // IE hacks
+    : ident     # goodProperty
+    | Variable  # goodProperty
+    | Multiply ident   # badProperty // IE hacks
+    | '_' ident   # badProperty // IE hacks
     ;
 
 ruleset
-    : selectorGroup CSS_LBRACE css_ws declarationList? CSS_RBRACE css_ws # knownRuleset
-    | any_* CSS_LBRACE css_ws declarationList? CSS_RBRACE css_ws         # unknownRuleset
+    : selectorGroup OpenBrace  declarationList? CloseBrace  # knownRuleset
+    | any_* OpenBrace  declarationList? CloseBrace          # unknownRuleset
     ;
 
 declarationList
-    : (CSS_SEMICOLON css_ws)* declaration css_ws (CSS_SEMICOLON css_ws declaration?)*
+    : (SemiColon )* declaration  (SemiColon  declaration?)*
     ;
 
 declaration
-    : property_ CSS_COLON css_ws css_expr prio? # knownDeclaration
-    | property_ CSS_COLON css_ws value      # unknownDeclaration
+    : property_ Colon  css_expr prio? # knownDeclaration
+    | property_ Colon  value      # unknownDeclaration
     ;
 
 prio
-    : Important css_ws
+    : Important
     ;
 
 value
-    : (any_ | block | AtKeyword css_ws)+
+    : (any_ | block | AtKeyword )+
     ;
 
 css_expr
-    : css_term (operator_? term)*
+    : css_term (operator_? css_term)*
     ;
 
 css_term
-    : number css_ws           # knownTerm
-    | percentage css_ws       # knownTerm
-    | dimension css_ws        # knownTerm
-    | String_ css_ws          # knownTerm
-    | UnicodeRange css_ws     # knownTerm
-    | ident css_ws            # knownTerm
+    : number            # knownTerm
+    | percentage        # knownTerm
+    | dimension         # knownTerm
+    | String_           # knownTerm
+    | UnicodeRange      # knownTerm
+    | ident             # knownTerm
     | var_                # knownTerm
-    | url css_ws              # knownTerm
+    | url               # knownTerm
     | hexcolor            # knownTerm
     | calc                # knownTerm
     | function_           # knownTerm
-    | unknownDimension css_ws # unknownTerm
+    | unknownDimension  # unknownTerm
     | dxImageTransform    # badTerm
     ;
 
 function_
-    : Function_ css_ws css_expr CSS_RPAREN css_ws
+    : Function_  css_expr CloseParen
     ;
 
 dxImageTransform
-    : DxImageTransform css_ws css_expr CSS_RPAREN css_ws // IE DXImageTransform function
+    : DxImageTransform  css_expr CloseParen  // IE DXImageTransform function
     ;
 
 hexcolor
-    : Hash css_ws
+    : Hash
     ;
 
 number
-    : (CSS_PLUS | CSS_MINUS)? Number
+    : (Plus | Minus)? Number
     ;
 
 percentage
-    : (CSS_PLUS | CSS_MINUS)? Percentage
+    : (Plus | Minus)? Percentage
     ;
 
 dimension
-    : (CSS_PLUS | CSS_MINUS)? Dimension
+    : (Plus | Minus)? Dimension
     ;
 
 unknownDimension
-    : (CSS_PLUS | CSS_MINUS)? UnknownDimension
+    : (Plus | Minus)? UnknownDimension
     ;
 
 // Error handling
 any_
-    : ident css_ws
-    | number css_ws
-    | percentage css_ws
-    | dimension css_ws
-    | unknownDimension css_ws
-    | String_ css_ws
-    //| Delim css_ws    // Not implemented yet
-    | url css_ws
-    | Hash css_ws
-    | UnicodeRange css_ws
-    | Includes css_ws
-    | DashMatch css_ws
-    | CSS_COLON css_ws
-    | Function_ css_ws ( any_ | unused)* CSS_RPAREN css_ws
-    | CSS_LPAREN css_ws ( any_ | unused)* CSS_RPAREN css_ws
-    | CSS_LBRACKET css_ws ( any_ | unused)* CSS_RBRACKET css_ws
+    : ident
+    | number
+    | percentage
+    | dimension
+    | unknownDimension
+    | String_
+    //| Delim     // Not implemented yet
+    | url
+    | Hash
+    | UnicodeRange
+    | Includes
+    | DashMatch
+    | Colon
+    | Function_  ( any_ | unused)* CloseParen
+    | OpenParen  ( any_ | unused)* CloseParen
+    | OpenBracket  ( any_ | unused)* CloseBracket
     ;
 
 atRule
-    : AtKeyword css_ws any_* (block | CSS_SEMICOLON css_ws) # unknownAtRule
+    : AtKeyword  any_* (block | SemiColon ) # unknownAtRule
     ;
 
 unused
     : block
-    | AtKeyword css_ws
-    | CSS_SEMICOLON css_ws
-    | Cdo css_ws
-    | Cdc css_ws
+    | AtKeyword
+    | SemiColon
+    | Cdo
+    | Cdc
     ;
 
 block
-    : CSS_LBRACE css_ws (declarationList | nestedStatement | any_ | block | AtKeyword css_ws | CSS_SEMICOLON css_ws)* CSS_RBRACE css_ws
+    : OpenBrace  (declarationList | nestedStatement | any_ | block | AtKeyword  | SemiColon )* CloseBrace
     ;
 
 // Conditional
@@ -589,11 +588,11 @@ nestedStatement
     ;
 
 groupRuleBody
-    : CSS_LBRACE css_ws nestedStatement* CSS_RBRACE css_ws
+    : OpenBrace  nestedStatement* CloseBrace
     ;
 
 supportsRule
-    : Supports css_ws supportsCondition css_ws groupRuleBody
+    : Supports  supportsCondition  groupRuleBody
     ;
 
 supportsCondition
@@ -604,120 +603,120 @@ supportsCondition
     ;
 
 supportsConditionInParens
-    : CSS_LPAREN css_ws supportsCondition css_ws CSS_RPAREN
+    : OpenParen  supportsCondition  CloseParen
     | supportsDeclarationCondition
     | generalEnclosed
     ;
 
 supportsNegation
-    : Not css_ws Space css_ws supportsConditionInParens
+    : Not  Space  supportsConditionInParens
     ;
 
 supportsConjunction
-    : supportsConditionInParens (css_ws Space css_ws And css_ws Space css_ws supportsConditionInParens)+
+    : supportsConditionInParens ( Space  And  Space  supportsConditionInParens)+
     ;
 
 supportsDisjunction
-    : supportsConditionInParens (css_ws Space css_ws Or css_ws Space css_ws supportsConditionInParens)+
+    : supportsConditionInParens ( Space  Or  Space  supportsConditionInParens)+
     ;
 
 supportsDeclarationCondition
-    : CSS_LPAREN css_ws declaration CSS_RPAREN
+    : OpenParen  declaration CloseParen
     ;
 
 generalEnclosed
-    : (Function_ | CSS_LPAREN) (any_ | unused)* CSS_RPAREN
+    : (Function_ | OpenParen) (any_ | unused)* CloseParen
     ;
 
 // Url
 // https://www.w3.org/TR/css3-values/#urls
 url
-    : Url_ css_ws String_ css_ws CSS_RPAREN
+    : Url_  String_  CloseParen
     | Url
     ;
 
 // Variable
 // https://www.w3.org/TR/css-variables-1
 var_
-    : Var css_ws Variable css_ws CSS_RPAREN css_ws
+    : Var  Variable  CloseParen
     ;
 
 // Calc
 // https://www.w3.org/TR/css3-values/#calc-syntax
 calc
-    : Calc css_ws calcSum CSS_RPAREN css_ws
+    : Calc  calcSum CloseParen
     ;
 
 calcSum
-    : calcProduct (Space css_ws ( CSS_PLUS | CSS_MINUS) css_ws Space css_ws calcProduct)*
+    : calcProduct (Space  ( Plus | Minus)  Space  calcProduct)*
     ;
 
 calcProduct
-    : calcValue (CSS_ASTERISK css_ws calcValue | CSS_SLASH css_ws number css_ws)*
+    : calcValue (Multiply  calcValue | Divide  number )*
     ;
 
 calcValue
-    : number css_ws
-    | dimension css_ws
-    | unknownDimension css_ws
-    | percentage css_ws
-    | CSS_LPAREN css_ws calcSum CSS_RPAREN css_ws
+    : number
+    | dimension
+    | unknownDimension
+    | percentage
+    | OpenParen  calcSum CloseParen
     ;
 
 // Font face
 // https://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#font-face-rule
 fontFaceRule
-    : FontFace css_ws CSS_LBRACE css_ws fontFaceDeclaration? (CSS_SEMICOLON css_ws fontFaceDeclaration?)* CSS_RBRACE css_ws
+    : FontFace  OpenBrace  fontFaceDeclaration? (SemiColon  fontFaceDeclaration?)* CloseBrace
     ;
 
 fontFaceDeclaration
-    : property_ CSS_COLON css_ws css_expr  # knownFontFaceDeclaration
-    | property_ CSS_COLON css_ws value # unknownFontFaceDeclaration
+    : property_ Colon  css_expr # knownFontFaceDeclaration
+    | property_ Colon  value # unknownFontFaceDeclaration
     ;
 
 // Animations
 // https://www.w3.org/TR/css3-animations/
 keyframesRule
-    : Keyframes css_ws Space css_ws ident css_ws CSS_LBRACE css_ws keyframeBlock* CSS_RBRACE css_ws
+    : Keyframes  Space  ident  OpenBrace  keyframeBlock* CloseBrace
     ;
 
 keyframeBlock
-    : (keyframeSelector CSS_LBRACE css_ws declarationList? CSS_RBRACE css_ws)
+    : (keyframeSelector OpenBrace  declarationList? CloseBrace )
     ;
 
 keyframeSelector
-    : (From | To | Percentage) css_ws (CSS_COMMA css_ws ( From | To | Percentage) css_ws)*
+    : (From | To | Percentage)  (Comma  ( From | To | Percentage) )*
     ;
 
 // Viewport
 // https://www.w3.org/TR/css-device-adapt-1/
 viewport
-    : Viewport css_ws CSS_LBRACE css_ws declarationList? CSS_RBRACE css_ws
+    : Viewport  OpenBrace  declarationList? CloseBrace
     ;
 
 // Counter style
 // https://www.w3.org/TR/css-counter-styles-3/
 counterStyle
-    : CounterStyle css_ws ident css_ws CSS_LBRACE css_ws declarationList? CSS_RBRACE css_ws
+    : CounterStyle  ident  OpenBrace  declarationList? CloseBrace
     ;
 
 // Font feature values
 // https://www.w3.org/TR/css-fonts-3/
 fontFeatureValuesRule
-    : FontFeatureValues css_ws fontFamilyNameList css_ws CSS_LBRACE css_ws featureValueBlock* CSS_RBRACE css_ws
+    : FontFeatureValues  fontFamilyNameList  OpenBrace  featureValueBlock* CloseBrace
     ;
 
 fontFamilyNameList
-    : fontFamilyName (css_ws CSS_COMMA css_ws fontFamilyName)*
+    : fontFamilyName ( Comma  fontFamilyName)*
     ;
 
 fontFamilyName
     : String_
-    | ident ( css_ws ident)*
+    | ident (  ident)*
     ;
 
 featureValueBlock
-    : featureType css_ws CSS_LBRACE css_ws featureValueDefinition? (css_ws CSS_SEMICOLON css_ws featureValueDefinition?)* CSS_RBRACE css_ws
+    : featureType  OpenBrace  featureValueDefinition? ( SemiColon  featureValueDefinition?)* CloseBrace
     ;
 
 featureType
@@ -725,7 +724,7 @@ featureType
     ;
 
 featureValueDefinition
-    : ident css_ws CSS_COLON css_ws number (css_ws number)*
+    : ident  Colon  number ( number)*
     ;
 
 // The specific words can be identifiers too
@@ -739,11 +738,13 @@ ident
     | To
     ;
 
+// Comments might be part of CSS hacks, thus pass them to visitor to decide whether to skip
+// Spaces are significant around '+' '-' OpenParen, thus they should not be skipped
+
+
 // CSS_COMMENTs might be part of CSS hacks, thus pass them to visitor to decide whether to skip
 // Spaces are significant around '+' '-' CSS_LPAREN, thus they should not be skipped
-css_ws
-    : (CSS_COMMENT | Space)*
-    ;
+
 // CSS Entry Point
 //stylesheet
 //    : (css_statement | JINJA_STMT_START jStatement JINJA_STMT_END)* EOF
@@ -886,7 +887,7 @@ jStatement
     ;
 
 jRawStatement
-    : J_RAW html_content J_ENDRAW // Allocss_ws parsing raw block recursively
+    : J_RAW html_content J_ENDRAW // Allo parsing raw block recursively
     ;
 
 // Jinja Control Flow: IF block
@@ -928,7 +929,7 @@ jFilter
     : J_NAME ( J_LPAREN jArgumentList? J_RPAREN )? // filter | length(args)
     ;
 
-// The rest of the expression grammar follocss_ws the Python structure from Step 3,
+// The rest of the expression grammar follo the Python structure from Step 3,
 // but uses the J_ prefixed tokens (J_NAME, J_PLUS, J_EQ, J_IN, etc.).
 
 jTestExpr : jOrTest;

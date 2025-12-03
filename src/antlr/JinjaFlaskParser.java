@@ -1,4 +1,4 @@
-// Generated from C:/Users/center/psychic-broccoli/grammars/JinjaFlaskParser.g4 by ANTLR 4.13.2
+// Generated from C:/Users/Yousef Razzouk/IdeaProjects/compiler_project/grammars/JinjaFlaskParser.g4 by ANTLR 4.13.2
 package antlr;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -29,32 +29,30 @@ public class JinjaFlaskParser extends Parser {
 		DTD=63, SCRIPTLET=64, SEA_WS=65, SCRIPT_OPEN=66, STYLE_OPEN=67, TAG_OPEN=68, 
 		HTML_TEXT=69, TAG_CLOSE=70, TAG_SLASH_CLOSE=71, TAG_SLASH=72, TAG_EQUALS=73, 
 		TAG_NAME=74, TAG_WHITESPACE=75, ATTVALUE_VALUE=76, SCRIPT_BODY=77, STYLE_CLOSE=78, 
-		CSS_WS=79, CSS_COMMENT=80, CSS_LBRACE=81, CSS_RBRACE=82, CSS_COLON=83, 
-		CSS_SEMICOLON=84, CSS_UNDERSCORE=85, CSS_PIPE=86, CSS_LPAREN=87, CSS_RPAREN=88, 
-		CSS_COMMA=89, CSS_DOT=90, CSS_SLASH=91, CSS_PERCENT=92, CSS_PLUS=93, CSS_MINUS=94, 
-		CSS_GREATER=95, CSS_TILDE=96, CSS_EQUALS=97, CSS_LBRACKET=98, CSS_RBRACKET=99, 
-		CSS_ASTERISK=100, Comment=101, Url=102, Space=103, Cdo=104, Cdc=105, Includes=106, 
-		DashMatch=107, Hash=108, Import=109, Page=110, Media=111, Namespace=112, 
-		Charset=113, Important=114, Percentage=115, Url_=116, UnicodeRange=117, 
-		MediaOnly=118, Not=119, And=120, Dimension=121, UnknownDimension=122, 
-		PseudoNot=123, Number=124, String_=125, PrefixMatch=126, SuffixMatch=127, 
-		SubstringMatch=128, FontFace=129, Supports=130, Or=131, Keyframes=132, 
-		From=133, To=134, Calc=135, Viewport=136, CounterStyle=137, FontFeatureValues=138, 
-		DxImageTransform=139, AtKeyword=140, Variable=141, Var=142, Ident=143, 
-		Function_=144, UnexpectedCharacter=145, JINJA_EXPR_END=146, J_WS=147, 
-		J_NUMBER=148, J_STRING=149, J_NAME=150, J_PLUS=151, J_MINUS=152, J_TIMES=153, 
-		J_DIVIDE=154, J_MOD=155, J_POW=156, J_EQ=157, J_NE=158, J_LE=159, J_LT=160, 
-		J_GE=161, J_GT=162, J_ASSIGN=163, J_DOT=164, J_COMMA=165, J_PIPE=166, 
-		J_LPAREN=167, J_RPAREN=168, J_LBRACK=169, J_RBRACK=170, J_LBRACE=171, 
-		J_RBRACE=172, J_COLON=173, JINJA_STMT_END=174, J_IF=175, J_ELIF=176, J_ELSE=177, 
-		J_ENDIF=178, J_FOR=179, J_IN=180, J_ENDFOR=181, J_SET=182, J_RAW=183, 
-		J_ENDRAW=184, J_OR=185, J_AND=186, J_NOT=187, J_WS_STMT=188, J_NUMBER_STMT=189, 
-		J_STRING_STMT=190, J_NAME_STMT=191, J_PLUS_STMT=192, J_MINUS_STMT=193, 
-		J_TIMES_STMT=194, J_DIVIDE_STMT=195, J_MOD_STMT=196, J_POW_STMT=197, J_EQ_STMT=198, 
-		J_NE_STMT=199, J_LE_STMT=200, J_LT_STMT=201, J_GE_STMT=202, J_GT_STMT=203, 
-		J_ASSIGN_STMT=204, J_DOT_STMT=205, J_COMMA_STMT=206, J_PIPE_STMT=207, 
-		J_LPAREN_STMT=208, J_RPAREN_STMT=209, J_LBRACK_STMT=210, J_RBRACK_STMT=211, 
-		JINJA_COMMENT_END=212, JINJA_COMMENT_CONTENT=213;
+		Plus=79, Minus=80, Greater=81, Comma=82, Tilde=83, OpenBracket=84, CloseBracket=85, 
+		OpenParen=86, CloseParen=87, OpenBrace=88, CloseBrace=89, SemiColon=90, 
+		Equal=91, Colon=92, Dot=93, Multiply=94, Divide=95, Pipe=96, Underscore=97, 
+		Comment=98, Url=99, Space=100, Cdo=101, Cdc=102, Includes=103, DashMatch=104, 
+		Hash=105, Import=106, Page=107, Media=108, Namespace=109, Charset=110, 
+		Important=111, Percentage=112, Url_=113, UnicodeRange=114, MediaOnly=115, 
+		Not=116, And=117, Dimension=118, UnknownDimension=119, PseudoNot=120, 
+		Number=121, String_=122, PrefixMatch=123, SuffixMatch=124, SubstringMatch=125, 
+		FontFace=126, Supports=127, Or=128, Keyframes=129, From=130, To=131, Calc=132, 
+		Viewport=133, CounterStyle=134, FontFeatureValues=135, DxImageTransform=136, 
+		AtKeyword=137, Variable=138, Var=139, Ident=140, Function_=141, UnexpectedCharacter=142, 
+		JINJA_EXPR_END=143, J_WS=144, J_NUMBER=145, J_STRING=146, J_NAME=147, 
+		J_PLUS=148, J_MINUS=149, J_TIMES=150, J_DIVIDE=151, J_MOD=152, J_POW=153, 
+		J_EQ=154, J_NE=155, J_LE=156, J_LT=157, J_GE=158, J_GT=159, J_ASSIGN=160, 
+		J_DOT=161, J_COMMA=162, J_PIPE=163, J_LPAREN=164, J_RPAREN=165, J_LBRACK=166, 
+		J_RBRACK=167, J_LBRACE=168, J_RBRACE=169, J_COLON=170, JINJA_STMT_END=171, 
+		J_IF=172, J_ELIF=173, J_ELSE=174, J_ENDIF=175, J_FOR=176, J_IN=177, J_ENDFOR=178, 
+		J_SET=179, J_RAW=180, J_ENDRAW=181, J_OR=182, J_AND=183, J_NOT=184, J_WS_STMT=185, 
+		J_NUMBER_STMT=186, J_STRING_STMT=187, J_NAME_STMT=188, J_PLUS_STMT=189, 
+		J_MINUS_STMT=190, J_TIMES_STMT=191, J_DIVIDE_STMT=192, J_MOD_STMT=193, 
+		J_POW_STMT=194, J_EQ_STMT=195, J_NE_STMT=196, J_LE_STMT=197, J_LT_STMT=198, 
+		J_GE_STMT=199, J_GT_STMT=200, J_ASSIGN_STMT=201, J_DOT_STMT=202, J_COMMA_STMT=203, 
+		J_PIPE_STMT=204, J_LPAREN_STMT=205, J_RPAREN_STMT=206, J_LBRACK_STMT=207, 
+		J_RBRACK_STMT=208, JINJA_COMMENT_END=209, JINJA_COMMENT_CONTENT=210;
 	public static final int
 		RULE_program = 0, RULE_statement = 1, RULE_simple_stmt = 2, RULE_small_stmt = 3, 
 		RULE_compound_stmt = 4, RULE_assign_stmt = 5, RULE_template_literal = 6, 
@@ -68,36 +66,35 @@ public class JinjaFlaskParser extends Parser {
 		RULE_factor = 34, RULE_power = 35, RULE_atom_expr = 36, RULE_trailer = 37, 
 		RULE_atom = 38, RULE_list_content = 39, RULE_comp_for = 40, RULE_dict_maker = 41, 
 		RULE_arglist = 42, RULE_argument = 43, RULE_htmlElement = 44, RULE_tag_content = 45, 
-		RULE_style_content = 46, RULE_stylesheet = 47, RULE_charset = 48, RULE_imports = 49, 
-		RULE_namespace_ = 50, RULE_namespacePrefix = 51, RULE_media = 52, RULE_mediaQueryList = 53, 
-		RULE_mediaQuery = 54, RULE_mediaType = 55, RULE_mediaExpression = 56, 
-		RULE_mediaFeature = 57, RULE_page = 58, RULE_pseudoPage = 59, RULE_selectorGroup = 60, 
-		RULE_selector = 61, RULE_combinator = 62, RULE_simpleSelectorSequence = 63, 
-		RULE_typeSelector = 64, RULE_typeNamespacePrefix = 65, RULE_elementName = 66, 
-		RULE_universal = 67, RULE_className = 68, RULE_attrib = 69, RULE_pseudo = 70, 
-		RULE_functionalPseudo = 71, RULE_expression = 72, RULE_negation = 73, 
-		RULE_negationArg = 74, RULE_operator_ = 75, RULE_property_ = 76, RULE_ruleset = 77, 
-		RULE_declarationList = 78, RULE_declaration = 79, RULE_prio = 80, RULE_value = 81, 
-		RULE_css_expr = 82, RULE_css_term = 83, RULE_function_ = 84, RULE_dxImageTransform = 85, 
-		RULE_hexcolor = 86, RULE_number = 87, RULE_percentage = 88, RULE_dimension = 89, 
-		RULE_unknownDimension = 90, RULE_any_ = 91, RULE_atRule = 92, RULE_unused = 93, 
-		RULE_block = 94, RULE_nestedStatement = 95, RULE_groupRuleBody = 96, RULE_supportsRule = 97, 
-		RULE_supportsCondition = 98, RULE_supportsConditionInParens = 99, RULE_supportsNegation = 100, 
-		RULE_supportsConjunction = 101, RULE_supportsDisjunction = 102, RULE_supportsDeclarationCondition = 103, 
-		RULE_generalEnclosed = 104, RULE_url = 105, RULE_var_ = 106, RULE_calc = 107, 
-		RULE_calcSum = 108, RULE_calcProduct = 109, RULE_calcValue = 110, RULE_fontFaceRule = 111, 
-		RULE_fontFaceDeclaration = 112, RULE_keyframesRule = 113, RULE_keyframeBlock = 114, 
-		RULE_keyframeSelector = 115, RULE_viewport = 116, RULE_counterStyle = 117, 
-		RULE_fontFeatureValuesRule = 118, RULE_fontFamilyNameList = 119, RULE_fontFamilyName = 120, 
-		RULE_featureValueBlock = 121, RULE_featureType = 122, RULE_featureValueDefinition = 123, 
-		RULE_ident = 124, RULE_css_ws = 125, RULE_jinjaStatement = 126, RULE_jStatement = 127, 
-		RULE_jRawStatement = 128, RULE_jIfStatement = 129, RULE_jForStatement = 130, 
-		RULE_jTargetList = 131, RULE_jinjaExpression = 132, RULE_jExpression = 133, 
-		RULE_jFilter = 134, RULE_jTestExpr = 135, RULE_jOrTest = 136, RULE_jAndTest = 137, 
-		RULE_jNotTest = 138, RULE_jComparison = 139, RULE_jCompOp = 140, RULE_jMathExpr = 141, 
-		RULE_jTerm = 142, RULE_jFactor = 143, RULE_jAtomExpr = 144, RULE_jTrailer = 145, 
-		RULE_jAtom = 146, RULE_jTestExprList = 147, RULE_jArgumentList = 148, 
-		RULE_jDictMaker = 149;
+		RULE_stylesheet = 46, RULE_charset = 47, RULE_imports = 48, RULE_namespace_ = 49, 
+		RULE_namespacePrefix = 50, RULE_media = 51, RULE_mediaQueryList = 52, 
+		RULE_mediaQuery = 53, RULE_mediaType = 54, RULE_mediaExpression = 55, 
+		RULE_mediaFeature = 56, RULE_page = 57, RULE_pseudoPage = 58, RULE_selectorGroup = 59, 
+		RULE_selector = 60, RULE_combinator = 61, RULE_simpleSelectorSequence = 62, 
+		RULE_typeSelector = 63, RULE_typeNamespacePrefix = 64, RULE_elementName = 65, 
+		RULE_universal = 66, RULE_className = 67, RULE_attrib = 68, RULE_pseudo = 69, 
+		RULE_functionalPseudo = 70, RULE_expression = 71, RULE_negation = 72, 
+		RULE_negationArg = 73, RULE_operator_ = 74, RULE_property_ = 75, RULE_ruleset = 76, 
+		RULE_declarationList = 77, RULE_declaration = 78, RULE_prio = 79, RULE_value = 80, 
+		RULE_css_expr = 81, RULE_css_term = 82, RULE_function_ = 83, RULE_dxImageTransform = 84, 
+		RULE_hexcolor = 85, RULE_number = 86, RULE_percentage = 87, RULE_dimension = 88, 
+		RULE_unknownDimension = 89, RULE_any_ = 90, RULE_atRule = 91, RULE_unused = 92, 
+		RULE_block = 93, RULE_nestedStatement = 94, RULE_groupRuleBody = 95, RULE_supportsRule = 96, 
+		RULE_supportsCondition = 97, RULE_supportsConditionInParens = 98, RULE_supportsNegation = 99, 
+		RULE_supportsConjunction = 100, RULE_supportsDisjunction = 101, RULE_supportsDeclarationCondition = 102, 
+		RULE_generalEnclosed = 103, RULE_url = 104, RULE_var_ = 105, RULE_calc = 106, 
+		RULE_calcSum = 107, RULE_calcProduct = 108, RULE_calcValue = 109, RULE_fontFaceRule = 110, 
+		RULE_fontFaceDeclaration = 111, RULE_keyframesRule = 112, RULE_keyframeBlock = 113, 
+		RULE_keyframeSelector = 114, RULE_viewport = 115, RULE_counterStyle = 116, 
+		RULE_fontFeatureValuesRule = 117, RULE_fontFamilyNameList = 118, RULE_fontFamilyName = 119, 
+		RULE_featureValueBlock = 120, RULE_featureType = 121, RULE_featureValueDefinition = 122, 
+		RULE_ident = 123, RULE_jinjaStatement = 124, RULE_jStatement = 125, RULE_jRawStatement = 126, 
+		RULE_jIfStatement = 127, RULE_jForStatement = 128, RULE_jTargetList = 129, 
+		RULE_jinjaExpression = 130, RULE_jExpression = 131, RULE_jFilter = 132, 
+		RULE_jTestExpr = 133, RULE_jOrTest = 134, RULE_jAndTest = 135, RULE_jNotTest = 136, 
+		RULE_jComparison = 137, RULE_jCompOp = 138, RULE_jMathExpr = 139, RULE_jTerm = 140, 
+		RULE_jFactor = 141, RULE_jAtomExpr = 142, RULE_jTrailer = 143, RULE_jAtom = 144, 
+		RULE_jTestExprList = 145, RULE_jArgumentList = 146, RULE_jDictMaker = 147;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"program", "statement", "simple_stmt", "small_stmt", "compound_stmt", 
@@ -107,27 +104,27 @@ public class JinjaFlaskParser extends Parser {
 			"if_stmt", "return_stmt", "flow_stmt", "suite", "testlist", "test", "or_test", 
 			"and_test", "not_test", "comparison", "comp_op", "expr", "term", "factor", 
 			"power", "atom_expr", "trailer", "atom", "list_content", "comp_for", 
-			"dict_maker", "arglist", "argument", "htmlElement", "tag_content", "style_content", 
-			"stylesheet", "charset", "imports", "namespace_", "namespacePrefix", 
-			"media", "mediaQueryList", "mediaQuery", "mediaType", "mediaExpression", 
-			"mediaFeature", "page", "pseudoPage", "selectorGroup", "selector", "combinator", 
-			"simpleSelectorSequence", "typeSelector", "typeNamespacePrefix", "elementName", 
-			"universal", "className", "attrib", "pseudo", "functionalPseudo", "expression", 
-			"negation", "negationArg", "operator_", "property_", "ruleset", "declarationList", 
-			"declaration", "prio", "value", "css_expr", "css_term", "function_", 
-			"dxImageTransform", "hexcolor", "number", "percentage", "dimension", 
-			"unknownDimension", "any_", "atRule", "unused", "block", "nestedStatement", 
-			"groupRuleBody", "supportsRule", "supportsCondition", "supportsConditionInParens", 
-			"supportsNegation", "supportsConjunction", "supportsDisjunction", "supportsDeclarationCondition", 
+			"dict_maker", "arglist", "argument", "htmlElement", "tag_content", "stylesheet", 
+			"charset", "imports", "namespace_", "namespacePrefix", "media", "mediaQueryList", 
+			"mediaQuery", "mediaType", "mediaExpression", "mediaFeature", "page", 
+			"pseudoPage", "selectorGroup", "selector", "combinator", "simpleSelectorSequence", 
+			"typeSelector", "typeNamespacePrefix", "elementName", "universal", "className", 
+			"attrib", "pseudo", "functionalPseudo", "expression", "negation", "negationArg", 
+			"operator_", "property_", "ruleset", "declarationList", "declaration", 
+			"prio", "value", "css_expr", "css_term", "function_", "dxImageTransform", 
+			"hexcolor", "number", "percentage", "dimension", "unknownDimension", 
+			"any_", "atRule", "unused", "block", "nestedStatement", "groupRuleBody", 
+			"supportsRule", "supportsCondition", "supportsConditionInParens", "supportsNegation", 
+			"supportsConjunction", "supportsDisjunction", "supportsDeclarationCondition", 
 			"generalEnclosed", "url", "var_", "calc", "calcSum", "calcProduct", "calcValue", 
 			"fontFaceRule", "fontFaceDeclaration", "keyframesRule", "keyframeBlock", 
 			"keyframeSelector", "viewport", "counterStyle", "fontFeatureValuesRule", 
 			"fontFamilyNameList", "fontFamilyName", "featureValueBlock", "featureType", 
-			"featureValueDefinition", "ident", "css_ws", "jinjaStatement", "jStatement", 
-			"jRawStatement", "jIfStatement", "jForStatement", "jTargetList", "jinjaExpression", 
-			"jExpression", "jFilter", "jTestExpr", "jOrTest", "jAndTest", "jNotTest", 
-			"jComparison", "jCompOp", "jMathExpr", "jTerm", "jFactor", "jAtomExpr", 
-			"jTrailer", "jAtom", "jTestExprList", "jArgumentList", "jDictMaker"
+			"featureValueDefinition", "ident", "jinjaStatement", "jStatement", "jRawStatement", 
+			"jIfStatement", "jForStatement", "jTargetList", "jinjaExpression", "jExpression", 
+			"jFilter", "jTestExpr", "jOrTest", "jAndTest", "jNotTest", "jComparison", 
+			"jCompOp", "jMathExpr", "jTerm", "jFactor", "jAtomExpr", "jTrailer", 
+			"jAtom", "jTestExprList", "jArgumentList", "jDictMaker"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -141,19 +138,19 @@ public class JinjaFlaskParser extends Parser {
 			"'//'", null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, null, "'{{'", "'{%'", "'{#'", "'d'", null, null, null, null, 
 			null, null, null, null, null, null, null, "'/>'", null, null, null, null, 
+			null, null, null, null, null, null, null, "'~'", null, null, null, null, 
 			null, null, null, null, null, null, null, null, null, "'_'", null, null, 
-			null, null, null, null, null, null, null, null, "'~'", null, null, null, 
-			null, null, null, null, "'<!--'", "'-->'", "'~='", "'|='", null, null, 
-			null, null, null, "'@charset '", null, null, "'url('", null, null, null, 
-			null, null, null, null, null, null, "'^='", "'$='", "'*='", null, null, 
-			null, null, null, null, "'calc('", null, null, null, null, null, null, 
-			"'var('", null, null, null, "'}}'", null, null, null, null, null, null, 
+			null, "'<!--'", "'-->'", "'~='", "'|='", null, null, null, null, null, 
+			"'@charset '", null, null, "'url('", null, null, null, null, null, null, 
+			null, null, null, "'^='", "'$='", "'*='", null, null, null, null, null, 
+			null, "'calc('", null, null, null, null, null, null, "'var('", null, 
+			null, null, "'}}'", null, null, null, null, null, null, null, null, null, 
 			null, null, null, null, null, null, null, null, null, null, null, null, 
-			null, null, null, null, null, null, null, null, null, "'%}'", null, null, 
-			null, "'endif'", null, null, "'endfor'", "'set'", "'raw'", "'endraw'", 
+			null, null, null, null, null, null, "'%}'", null, null, null, "'endif'", 
+			null, null, "'endfor'", "'set'", "'raw'", "'endraw'", null, null, null, 
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, null, null, null, null, null, null, null, null, null, null, 
-			null, null, null, "'#}'"
+			"'#}'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -170,16 +167,15 @@ public class JinjaFlaskParser extends Parser {
 			"XML_DECLARATION", "CDATA", "DTD", "SCRIPTLET", "SEA_WS", "SCRIPT_OPEN", 
 			"STYLE_OPEN", "TAG_OPEN", "HTML_TEXT", "TAG_CLOSE", "TAG_SLASH_CLOSE", 
 			"TAG_SLASH", "TAG_EQUALS", "TAG_NAME", "TAG_WHITESPACE", "ATTVALUE_VALUE", 
-			"SCRIPT_BODY", "STYLE_CLOSE", "CSS_WS", "CSS_COMMENT", "CSS_LBRACE", 
-			"CSS_RBRACE", "CSS_COLON", "CSS_SEMICOLON", "CSS_UNDERSCORE", "CSS_PIPE", 
-			"CSS_LPAREN", "CSS_RPAREN", "CSS_COMMA", "CSS_DOT", "CSS_SLASH", "CSS_PERCENT", 
-			"CSS_PLUS", "CSS_MINUS", "CSS_GREATER", "CSS_TILDE", "CSS_EQUALS", "CSS_LBRACKET", 
-			"CSS_RBRACKET", "CSS_ASTERISK", "Comment", "Url", "Space", "Cdo", "Cdc", 
-			"Includes", "DashMatch", "Hash", "Import", "Page", "Media", "Namespace", 
-			"Charset", "Important", "Percentage", "Url_", "UnicodeRange", "MediaOnly", 
-			"Not", "And", "Dimension", "UnknownDimension", "PseudoNot", "Number", 
-			"String_", "PrefixMatch", "SuffixMatch", "SubstringMatch", "FontFace", 
-			"Supports", "Or", "Keyframes", "From", "To", "Calc", "Viewport", "CounterStyle", 
+			"SCRIPT_BODY", "STYLE_CLOSE", "Plus", "Minus", "Greater", "Comma", "Tilde", 
+			"OpenBracket", "CloseBracket", "OpenParen", "CloseParen", "OpenBrace", 
+			"CloseBrace", "SemiColon", "Equal", "Colon", "Dot", "Multiply", "Divide", 
+			"Pipe", "Underscore", "Comment", "Url", "Space", "Cdo", "Cdc", "Includes", 
+			"DashMatch", "Hash", "Import", "Page", "Media", "Namespace", "Charset", 
+			"Important", "Percentage", "Url_", "UnicodeRange", "MediaOnly", "Not", 
+			"And", "Dimension", "UnknownDimension", "PseudoNot", "Number", "String_", 
+			"PrefixMatch", "SuffixMatch", "SubstringMatch", "FontFace", "Supports", 
+			"Or", "Keyframes", "From", "To", "Calc", "Viewport", "CounterStyle", 
 			"FontFeatureValues", "DxImageTransform", "AtKeyword", "Variable", "Var", 
 			"Ident", "Function_", "UnexpectedCharacter", "JINJA_EXPR_END", "J_WS", 
 			"J_NUMBER", "J_STRING", "J_NAME", "J_PLUS", "J_MINUS", "J_TIMES", "J_DIVIDE", 
@@ -285,33 +281,33 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(304);
+			setState(300);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 4033421310495688L) != 0)) {
 				{
-				setState(302);
+				setState(298);
 				_errHandler.sync(this);
 				switch ( getInterpreter().adaptivePredict(_input,0,_ctx) ) {
 				case 1:
 					{
-					setState(300);
+					setState(296);
 					statement();
 					}
 					break;
 				case 2:
 					{
-					setState(301);
+					setState(297);
 					match(NEWLINE);
 					}
 					break;
 				}
 				}
-				setState(306);
+				setState(302);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(307);
+			setState(303);
 			match(EOF);
 			}
 		}
@@ -357,7 +353,7 @@ public class JinjaFlaskParser extends Parser {
 		StatementContext _localctx = new StatementContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_statement);
 		try {
-			setState(311);
+			setState(307);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case DEF:
@@ -365,7 +361,7 @@ public class JinjaFlaskParser extends Parser {
 			case AT:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(309);
+				setState(305);
 				compound_stmt();
 				}
 				break;
@@ -388,7 +384,7 @@ public class JinjaFlaskParser extends Parser {
 			case STRING:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(310);
+				setState(306);
 				simple_stmt();
 				}
 				break;
@@ -447,35 +443,35 @@ public class JinjaFlaskParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(321);
+			setState(317);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 4033420974949248L) != 0)) {
 				{
-				setState(313);
+				setState(309);
 				small_stmt();
-				setState(318);
+				setState(314);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
 				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 					if ( _alt==1 ) {
 						{
 						{
-						setState(314);
+						setState(310);
 						match(SEMI);
-						setState(315);
+						setState(311);
 						small_stmt();
 						}
 						} 
 					}
-					setState(320);
+					setState(316);
 					_errHandler.sync(this);
 					_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
 				}
 				}
 			}
 
-			setState(323);
+			setState(319);
 			_la = _input.LA(1);
 			if ( !(_la==NEWLINE || _la==SEMI) ) {
 			_errHandler.recoverInline(this);
@@ -541,48 +537,48 @@ public class JinjaFlaskParser extends Parser {
 		Small_stmtContext _localctx = new Small_stmtContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_small_stmt);
 		try {
-			setState(331);
+			setState(327);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(325);
+				setState(321);
 				assign_stmt();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(326);
+				setState(322);
 				import_stmt();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(327);
+				setState(323);
 				return_stmt();
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(328);
+				setState(324);
 				global_stmt();
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(329);
+				setState(325);
 				expr();
 				}
 				break;
 			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(330);
+				setState(326);
 				flow_stmt();
 				}
 				break;
@@ -633,27 +629,27 @@ public class JinjaFlaskParser extends Parser {
 		Compound_stmtContext _localctx = new Compound_stmtContext(_ctx, getState());
 		enterRule(_localctx, 8, RULE_compound_stmt);
 		try {
-			setState(336);
+			setState(332);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case IF:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(333);
+				setState(329);
 				if_stmt();
 				}
 				break;
 			case DEF:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(334);
+				setState(330);
 				func_def();
 				}
 				break;
 			case AT:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(335);
+				setState(331);
 				decorated();
 				}
 				break;
@@ -707,11 +703,11 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(338);
+			setState(334);
 			match(NAME);
-			setState(339);
+			setState(335);
 			match(ASSIGN);
-			setState(342);
+			setState(338);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case NOT:
@@ -727,14 +723,14 @@ public class JinjaFlaskParser extends Parser {
 			case NUMBER:
 			case STRING:
 				{
-				setState(340);
+				setState(336);
 				test();
 				}
 				break;
 			case TRIPLE_DOUBLE_START:
 			case TRIPLE_SINGLE_START:
 				{
-				setState(341);
+				setState(337);
 				template_literal();
 				}
 				break;
@@ -786,28 +782,28 @@ public class JinjaFlaskParser extends Parser {
 		Template_literalContext _localctx = new Template_literalContext(_ctx, getState());
 		enterRule(_localctx, 12, RULE_template_literal);
 		try {
-			setState(352);
+			setState(348);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case TRIPLE_DOUBLE_START:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(344);
+				setState(340);
 				match(TRIPLE_DOUBLE_START);
-				setState(345);
+				setState(341);
 				html_content();
-				setState(346);
+				setState(342);
 				match(TRIPLE_DOUBLE_END);
 				}
 				break;
 			case TRIPLE_SINGLE_START:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(348);
+				setState(344);
 				match(TRIPLE_SINGLE_START);
-				setState(349);
+				setState(345);
 				html_content();
-				setState(350);
+				setState(346);
 				match(TRIPLE_SINGLE_END);
 				}
 				break;
@@ -876,12 +872,12 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(360);
+			setState(356);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (((((_la - 56)) & ~0x3f) == 0 && ((1L << (_la - 56)) & 15843L) != 0)) {
 				{
-				setState(358);
+				setState(354);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case XML_DECLARATION:
@@ -892,25 +888,25 @@ public class JinjaFlaskParser extends Parser {
 				case STYLE_OPEN:
 				case TAG_OPEN:
 					{
-					setState(354);
+					setState(350);
 					htmlElement();
 					}
 					break;
 				case JINJA_STMT_START:
 					{
-					setState(355);
+					setState(351);
 					jinjaStatement();
 					}
 					break;
 				case JINJA_EXPR_START:
 					{
-					setState(356);
+					setState(352);
 					jinjaExpression();
 					}
 					break;
 				case HTML_TEXT:
 					{
-					setState(357);
+					setState(353);
 					match(HTML_TEXT);
 					}
 					break;
@@ -918,7 +914,7 @@ public class JinjaFlaskParser extends Parser {
 					throw new NoViableAltException(this);
 				}
 				}
-				setState(362);
+				setState(358);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -966,20 +962,20 @@ public class JinjaFlaskParser extends Parser {
 		Import_stmtContext _localctx = new Import_stmtContext(_ctx, getState());
 		enterRule(_localctx, 16, RULE_import_stmt);
 		try {
-			setState(365);
+			setState(361);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case IMPORT:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(363);
+				setState(359);
 				import_name();
 				}
 				break;
 			case FROM:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(364);
+				setState(360);
 				import_from();
 				}
 				break;
@@ -1032,18 +1028,18 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(367);
+			setState(363);
 			match(IMPORT);
-			setState(368);
+			setState(364);
 			dotted_name();
-			setState(371);
+			setState(367);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==AS) {
 				{
-				setState(369);
+				setState(365);
 				match(AS);
-				setState(370);
+				setState(366);
 				match(NAME);
 				}
 			}
@@ -1097,24 +1093,24 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(373);
+			setState(369);
 			match(FROM);
-			setState(374);
+			setState(370);
 			dotted_name();
-			setState(375);
+			setState(371);
 			match(IMPORT);
-			setState(378);
+			setState(374);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case STAR:
 				{
-				setState(376);
+				setState(372);
 				match(STAR);
 				}
 				break;
 			case NAME:
 				{
-				setState(377);
+				setState(373);
 				import_as_names();
 				}
 				break;
@@ -1172,21 +1168,21 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(380);
+			setState(376);
 			import_as_name();
-			setState(385);
+			setState(381);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				setState(381);
+				setState(377);
 				match(COMMA);
-				setState(382);
+				setState(378);
 				import_as_name();
 				}
 				}
-				setState(387);
+				setState(383);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -1236,16 +1232,16 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(388);
+			setState(384);
 			match(NAME);
-			setState(391);
+			setState(387);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==AS) {
 				{
-				setState(389);
+				setState(385);
 				match(AS);
-				setState(390);
+				setState(386);
 				match(NAME);
 				}
 			}
@@ -1299,21 +1295,21 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(393);
+			setState(389);
 			match(NAME);
-			setState(398);
+			setState(394);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==DOT) {
 				{
 				{
-				setState(394);
+				setState(390);
 				match(DOT);
-				setState(395);
+				setState(391);
 				match(NAME);
 				}
 				}
-				setState(400);
+				setState(396);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -1367,23 +1363,23 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(401);
+			setState(397);
 			match(GLOBAL);
-			setState(402);
+			setState(398);
 			match(NAME);
-			setState(407);
+			setState(403);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				setState(403);
+				setState(399);
 				match(COMMA);
-				setState(404);
+				setState(400);
 				match(NAME);
 				}
 				}
-				setState(409);
+				setState(405);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -1433,9 +1429,9 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(410);
+			setState(406);
 			decorators();
-			setState(411);
+			setState(407);
 			func_def();
 			}
 		}
@@ -1484,17 +1480,17 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(414); 
+			setState(410); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(413);
+				setState(409);
 				decorator();
 				}
 				}
-				setState(416); 
+				setState(412); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==AT );
@@ -1549,33 +1545,33 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(418);
+			setState(414);
 			match(AT);
-			setState(419);
+			setState(415);
 			dotted_name();
-			setState(425);
+			setState(421);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==LP) {
 				{
-				setState(420);
+				setState(416);
 				match(LP);
-				setState(422);
+				setState(418);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 4033420975407104L) != 0)) {
 					{
-					setState(421);
+					setState(417);
 					arglist();
 					}
 				}
 
-				setState(424);
+				setState(420);
 				match(RP);
 				}
 			}
 
-			setState(427);
+			setState(423);
 			match(NEWLINE);
 			}
 		}
@@ -1631,27 +1627,27 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(429);
+			setState(425);
 			match(DEF);
-			setState(430);
+			setState(426);
 			match(NAME);
-			setState(431);
+			setState(427);
 			parameters();
-			setState(434);
+			setState(430);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==ARROW) {
 				{
-				setState(432);
+				setState(428);
 				match(ARROW);
-				setState(433);
+				setState(429);
 				test();
 				}
 			}
 
-			setState(436);
+			setState(432);
 			match(COLON);
-			setState(437);
+			setState(433);
 			suite();
 			}
 		}
@@ -1699,19 +1695,19 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(439);
+			setState(435);
 			match(LP);
-			setState(441);
+			setState(437);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==NAME) {
 				{
-				setState(440);
+				setState(436);
 				typedargslist();
 				}
 			}
 
-			setState(443);
+			setState(439);
 			match(RP);
 			}
 		}
@@ -1762,21 +1758,21 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(445);
+			setState(441);
 			match(NAME);
-			setState(450);
+			setState(446);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				setState(446);
+				setState(442);
 				match(COMMA);
-				setState(447);
+				setState(443);
 				match(NAME);
 				}
 				}
-				setState(452);
+				setState(448);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -1843,44 +1839,44 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(453);
+			setState(449);
 			match(IF);
-			setState(454);
+			setState(450);
 			test();
-			setState(455);
+			setState(451);
 			match(COLON);
-			setState(456);
+			setState(452);
 			suite();
-			setState(464);
+			setState(460);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==ELIF) {
 				{
 				{
-				setState(457);
+				setState(453);
 				match(ELIF);
-				setState(458);
+				setState(454);
 				test();
-				setState(459);
+				setState(455);
 				match(COLON);
-				setState(460);
+				setState(456);
 				suite();
 				}
 				}
-				setState(466);
+				setState(462);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(470);
+			setState(466);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==ELSE) {
 				{
-				setState(467);
+				setState(463);
 				match(ELSE);
-				setState(468);
+				setState(464);
 				match(COLON);
-				setState(469);
+				setState(465);
 				suite();
 				}
 			}
@@ -1930,14 +1926,14 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(472);
+			setState(468);
 			match(RETURN);
-			setState(474);
+			setState(470);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 4033420975407104L) != 0)) {
 				{
-				setState(473);
+				setState(469);
 				testlist();
 				}
 			}
@@ -1985,7 +1981,7 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(476);
+			setState(472);
 			return_stmt();
 			}
 		}
@@ -2038,38 +2034,38 @@ public class JinjaFlaskParser extends Parser {
 		enterRule(_localctx, 48, RULE_suite);
 		int _la;
 		try {
-			setState(488);
+			setState(484);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,28,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(478);
+				setState(474);
 				simple_stmt();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(479);
+				setState(475);
 				match(NEWLINE);
-				setState(480);
+				setState(476);
 				match(INDENT);
-				setState(482); 
+				setState(478); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				do {
 					{
 					{
-					setState(481);
+					setState(477);
 					statement();
 					}
 					}
-					setState(484); 
+					setState(480); 
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 4033421310495688L) != 0) );
-				setState(486);
+				setState(482);
 				match(DEDENT);
 				}
 				break;
@@ -2124,21 +2120,21 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(490);
+			setState(486);
 			test();
-			setState(495);
+			setState(491);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				setState(491);
+				setState(487);
 				match(COMMA);
-				setState(492);
+				setState(488);
 				test();
 				}
 				}
-				setState(497);
+				setState(493);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -2185,7 +2181,7 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(498);
+			setState(494);
 			or_test();
 			}
 		}
@@ -2238,21 +2234,21 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(500);
+			setState(496);
 			and_test();
-			setState(505);
+			setState(501);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==OR) {
 				{
 				{
-				setState(501);
+				setState(497);
 				match(OR);
-				setState(502);
+				setState(498);
 				and_test();
 				}
 				}
-				setState(507);
+				setState(503);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -2307,21 +2303,21 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(508);
+			setState(504);
 			not_test();
-			setState(513);
+			setState(509);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==AND) {
 				{
 				{
-				setState(509);
+				setState(505);
 				match(AND);
-				setState(510);
+				setState(506);
 				not_test();
 				}
 				}
-				setState(515);
+				setState(511);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -2370,15 +2366,15 @@ public class JinjaFlaskParser extends Parser {
 		Not_testContext _localctx = new Not_testContext(_ctx, getState());
 		enterRule(_localctx, 58, RULE_not_test);
 		try {
-			setState(519);
+			setState(515);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case NOT:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(516);
+				setState(512);
 				match(NOT);
-				setState(517);
+				setState(513);
 				not_test();
 				}
 				break;
@@ -2395,7 +2391,7 @@ public class JinjaFlaskParser extends Parser {
 			case STRING:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(518);
+				setState(514);
 				comparison();
 				}
 				break;
@@ -2454,23 +2450,23 @@ public class JinjaFlaskParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(521);
+			setState(517);
 			expr();
-			setState(527);
+			setState(523);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,33,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(522);
+					setState(518);
 					comp_op();
-					setState(523);
+					setState(519);
 					expr();
 					}
 					} 
 				}
-				setState(529);
+				setState(525);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,33,_ctx);
 			}
@@ -2520,64 +2516,64 @@ public class JinjaFlaskParser extends Parser {
 		Comp_opContext _localctx = new Comp_opContext(_ctx, getState());
 		enterRule(_localctx, 62, RULE_comp_op);
 		try {
-			setState(539);
+			setState(535);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case LT:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(530);
+				setState(526);
 				match(LT);
 				}
 				break;
 			case GT:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(531);
+				setState(527);
 				match(GT);
 				}
 				break;
 			case EQ:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(532);
+				setState(528);
 				match(EQ);
 				}
 				break;
 			case NEQ:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(533);
+				setState(529);
 				match(NEQ);
 				}
 				break;
 			case GTE:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(534);
+				setState(530);
 				match(GTE);
 				}
 				break;
 			case LTE:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(535);
+				setState(531);
 				match(LTE);
 				}
 				break;
 			case IN:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(536);
+				setState(532);
 				match(IN);
 				}
 				break;
 			case NOT:
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(537);
+				setState(533);
 				match(NOT);
-				setState(538);
+				setState(534);
 				match(IN);
 				}
 				break;
@@ -2638,15 +2634,15 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(541);
+			setState(537);
 			term();
-			setState(546);
+			setState(542);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==PLUS || _la==MINUS) {
 				{
 				{
-				setState(542);
+				setState(538);
 				_la = _input.LA(1);
 				if ( !(_la==PLUS || _la==MINUS) ) {
 				_errHandler.recoverInline(this);
@@ -2656,11 +2652,11 @@ public class JinjaFlaskParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(543);
+				setState(539);
 				term();
 				}
 				}
-				setState(548);
+				setState(544);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -2723,15 +2719,15 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(549);
+			setState(545);
 			factor();
-			setState(554);
+			setState(550);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 3848290697216L) != 0)) {
 				{
 				{
-				setState(550);
+				setState(546);
 				_la = _input.LA(1);
 				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 3848290697216L) != 0)) ) {
 				_errHandler.recoverInline(this);
@@ -2741,11 +2737,11 @@ public class JinjaFlaskParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(551);
+				setState(547);
 				factor();
 				}
 				}
-				setState(556);
+				setState(552);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -2796,14 +2792,14 @@ public class JinjaFlaskParser extends Parser {
 		enterRule(_localctx, 68, RULE_factor);
 		int _la;
 		try {
-			setState(560);
+			setState(556);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case PLUS:
 			case MINUS:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(557);
+				setState(553);
 				_la = _input.LA(1);
 				if ( !(_la==PLUS || _la==MINUS) ) {
 				_errHandler.recoverInline(this);
@@ -2813,7 +2809,7 @@ public class JinjaFlaskParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(558);
+				setState(554);
 				factor();
 				}
 				break;
@@ -2828,7 +2824,7 @@ public class JinjaFlaskParser extends Parser {
 			case STRING:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(559);
+				setState(555);
 				power();
 				}
 				break;
@@ -2877,7 +2873,7 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(562);
+			setState(558);
 			atom_expr();
 			}
 		}
@@ -2925,27 +2921,25 @@ public class JinjaFlaskParser extends Parser {
 	public final Atom_exprContext atom_expr() throws RecognitionException {
 		Atom_exprContext _localctx = new Atom_exprContext(_ctx, getState());
 		enterRule(_localctx, 72, RULE_atom_expr);
+		int _la;
 		try {
-			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(564);
+			setState(560);
 			atom();
-			setState(568);
+			setState(564);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,38,_ctx);
-			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1 ) {
-					{
-					{
-					setState(565);
-					trailer();
-					}
-					} 
+			_la = _input.LA(1);
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 303465209266176L) != 0)) {
+				{
+				{
+				setState(561);
+				trailer();
 				}
-				setState(570);
+				}
+				setState(566);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,38,_ctx);
+				_la = _input.LA(1);
 			}
 			}
 		}
@@ -2998,45 +2992,45 @@ public class JinjaFlaskParser extends Parser {
 		enterRule(_localctx, 74, RULE_trailer);
 		int _la;
 		try {
-			setState(582);
+			setState(578);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case LP:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(571);
+				setState(567);
 				match(LP);
-				setState(573);
+				setState(569);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 4033420975407104L) != 0)) {
 					{
-					setState(572);
+					setState(568);
 					arglist();
 					}
 				}
 
-				setState(575);
+				setState(571);
 				match(RP);
 				}
 				break;
 			case LBRACK:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(576);
+				setState(572);
 				match(LBRACK);
-				setState(577);
+				setState(573);
 				test();
-				setState(578);
+				setState(574);
 				match(RBRACK);
 				}
 				break;
 			case DOT:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(580);
+				setState(576);
 				match(DOT);
-				setState(581);
+				setState(577);
 				match(NAME);
 				}
 				break;
@@ -3105,124 +3099,117 @@ public class JinjaFlaskParser extends Parser {
 		enterRule(_localctx, 76, RULE_atom);
 		int _la;
 		try {
-			int _alt;
-			setState(609);
+			setState(605);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case NAME:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(584);
+				setState(580);
 				match(NAME);
 				}
 				break;
 			case NUMBER:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(585);
+				setState(581);
 				match(NUMBER);
 				}
 				break;
 			case STRING:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(587); 
+				setState(583); 
 				_errHandler.sync(this);
-				_alt = 1;
+				_la = _input.LA(1);
 				do {
-					switch (_alt) {
-					case 1:
-						{
-						{
-						setState(586);
-						match(STRING);
-						}
-						}
-						break;
-					default:
-						throw new NoViableAltException(this);
+					{
+					{
+					setState(582);
+					match(STRING);
 					}
-					setState(589); 
+					}
+					setState(585); 
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,41,_ctx);
-				} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
+					_la = _input.LA(1);
+				} while ( _la==STRING );
 				}
 				break;
 			case NONE:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(591);
+				setState(587);
 				match(NONE);
 				}
 				break;
 			case TRUE:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(592);
+				setState(588);
 				match(TRUE);
 				}
 				break;
 			case FALSE:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(593);
+				setState(589);
 				match(FALSE);
 				}
 				break;
 			case LP:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(594);
+				setState(590);
 				match(LP);
-				setState(596);
+				setState(592);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 4033420975407104L) != 0)) {
 					{
-					setState(595);
+					setState(591);
 					test();
 					}
 				}
 
-				setState(598);
+				setState(594);
 				match(RP);
 				}
 				break;
 			case LBRACK:
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(599);
+				setState(595);
 				match(LBRACK);
-				setState(601);
+				setState(597);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 4033420975407104L) != 0)) {
 					{
-					setState(600);
+					setState(596);
 					list_content();
 					}
 				}
 
-				setState(603);
+				setState(599);
 				match(RBRACK);
 				}
 				break;
 			case LBRACE:
 				enterOuterAlt(_localctx, 9);
 				{
-				setState(604);
+				setState(600);
 				match(LBRACE);
-				setState(606);
+				setState(602);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 4033420975407104L) != 0)) {
 					{
-					setState(605);
+					setState(601);
 					dict_maker();
 					}
 				}
 
-				setState(608);
+				setState(604);
 				match(RBRACE);
 				}
 				break;
@@ -3280,36 +3267,36 @@ public class JinjaFlaskParser extends Parser {
 		enterRule(_localctx, 78, RULE_list_content);
 		int _la;
 		try {
-			setState(622);
+			setState(618);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,47,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(611);
+				setState(607);
 				test();
-				setState(612);
+				setState(608);
 				comp_for();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(614);
+				setState(610);
 				test();
-				setState(619);
+				setState(615);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==COMMA) {
 					{
 					{
-					setState(615);
+					setState(611);
 					match(COMMA);
-					setState(616);
+					setState(612);
 					test();
 					}
 					}
-					setState(621);
+					setState(617);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -3368,27 +3355,27 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(624);
+			setState(620);
 			match(FOR);
-			setState(625);
+			setState(621);
 			test();
-			setState(626);
+			setState(622);
 			match(IN);
-			setState(627);
+			setState(623);
 			test();
-			setState(632);
+			setState(628);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==IF) {
 				{
 				{
-				setState(628);
+				setState(624);
 				match(IF);
-				setState(629);
+				setState(625);
 				test();
 				}
 				}
-				setState(634);
+				setState(630);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -3447,29 +3434,29 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(635);
+			setState(631);
 			test();
-			setState(636);
+			setState(632);
 			match(COLON);
-			setState(637);
+			setState(633);
 			test();
-			setState(645);
+			setState(641);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				setState(638);
+				setState(634);
 				match(COMMA);
-				setState(639);
+				setState(635);
 				test();
-				setState(640);
+				setState(636);
 				match(COLON);
-				setState(641);
+				setState(637);
 				test();
 				}
 				}
-				setState(647);
+				setState(643);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -3524,21 +3511,21 @@ public class JinjaFlaskParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(648);
+			setState(644);
 			argument();
-			setState(653);
+			setState(649);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				setState(649);
+				setState(645);
 				match(COMMA);
-				setState(650);
+				setState(646);
 				argument();
 				}
 				}
-				setState(655);
+				setState(651);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -3585,24 +3572,24 @@ public class JinjaFlaskParser extends Parser {
 		ArgumentContext _localctx = new ArgumentContext(_ctx, getState());
 		enterRule(_localctx, 86, RULE_argument);
 		try {
-			setState(660);
+			setState(656);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,51,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(656);
+				setState(652);
 				test();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(657);
+				setState(653);
 				match(NAME);
-				setState(658);
+				setState(654);
 				match(ASSIGN);
-				setState(659);
+				setState(655);
 				test();
 				}
 				break;
@@ -3633,8 +3620,8 @@ public class JinjaFlaskParser extends Parser {
 		public TerminalNode SCRIPT_OPEN() { return getToken(JinjaFlaskParser.SCRIPT_OPEN, 0); }
 		public TerminalNode SCRIPT_BODY() { return getToken(JinjaFlaskParser.SCRIPT_BODY, 0); }
 		public TerminalNode STYLE_OPEN() { return getToken(JinjaFlaskParser.STYLE_OPEN, 0); }
-		public Style_contentContext style_content() {
-			return getRuleContext(Style_contentContext.class,0);
+		public StylesheetContext stylesheet() {
+			return getRuleContext(StylesheetContext.class,0);
 		}
 		public TerminalNode STYLE_CLOSE() { return getToken(JinjaFlaskParser.STYLE_CLOSE, 0); }
 		public TerminalNode XML_DECLARATION() { return getToken(JinjaFlaskParser.XML_DECLARATION, 0); }
@@ -3665,29 +3652,29 @@ public class JinjaFlaskParser extends Parser {
 		enterRule(_localctx, 88, RULE_htmlElement);
 		int _la;
 		try {
-			setState(680);
+			setState(676);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case TAG_OPEN:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(662);
+				setState(658);
 				match(TAG_OPEN);
-				setState(666);
+				setState(662);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (((((_la - 56)) & ~0x3f) == 0 && ((1L << (_la - 56)) & 458755L) != 0)) {
 					{
 					{
-					setState(663);
+					setState(659);
 					tag_content();
 					}
 					}
-					setState(668);
+					setState(664);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
-				setState(669);
+				setState(665);
 				_la = _input.LA(1);
 				if ( !(_la==TAG_CLOSE || _la==TAG_SLASH_CLOSE) ) {
 				_errHandler.recoverInline(this);
@@ -3702,48 +3689,48 @@ public class JinjaFlaskParser extends Parser {
 			case SCRIPT_OPEN:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(670);
+				setState(666);
 				match(SCRIPT_OPEN);
-				setState(671);
+				setState(667);
 				match(SCRIPT_BODY);
 				}
 				break;
 			case STYLE_OPEN:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(672);
+				setState(668);
 				match(STYLE_OPEN);
-				setState(673);
-				style_content();
-				setState(674);
+				setState(669);
+				stylesheet();
+				setState(670);
 				match(STYLE_CLOSE);
 				}
 				break;
 			case XML_DECLARATION:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(676);
+				setState(672);
 				match(XML_DECLARATION);
 				}
 				break;
 			case CDATA:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(677);
+				setState(673);
 				match(CDATA);
 				}
 				break;
 			case DTD:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(678);
+				setState(674);
 				match(DTD);
 				}
 				break;
 			case SCRIPTLET:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(679);
+				setState(675);
 				match(SCRIPTLET);
 				}
 				break;
@@ -3797,22 +3784,22 @@ public class JinjaFlaskParser extends Parser {
 		Tag_contentContext _localctx = new Tag_contentContext(_ctx, getState());
 		enterRule(_localctx, 90, RULE_tag_content);
 		try {
-			setState(691);
+			setState(687);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case TAG_NAME:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(682);
+				setState(678);
 				match(TAG_NAME);
-				setState(685);
+				setState(681);
 				_errHandler.sync(this);
 				switch ( getInterpreter().adaptivePredict(_input,54,_ctx) ) {
 				case 1:
 					{
-					setState(683);
+					setState(679);
 					match(TAG_EQUALS);
-					setState(684);
+					setState(680);
 					match(ATTVALUE_VALUE);
 					}
 					break;
@@ -3822,28 +3809,28 @@ public class JinjaFlaskParser extends Parser {
 			case JINJA_EXPR_START:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(687);
+				setState(683);
 				jinjaExpression();
 				}
 				break;
 			case JINJA_STMT_START:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(688);
+				setState(684);
 				jinjaStatement();
 				}
 				break;
 			case TAG_SLASH:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(689);
+				setState(685);
 				match(TAG_SLASH);
 				}
 				break;
 			case TAG_EQUALS:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(690);
+				setState(686);
 				match(TAG_EQUALS);
 				}
 				break;
@@ -3863,55 +3850,7 @@ public class JinjaFlaskParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class Style_contentContext extends ParserRuleContext {
-		public StylesheetContext stylesheet() {
-			return getRuleContext(StylesheetContext.class,0);
-		}
-		public Style_contentContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_style_content; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof JinjaFlaskParserListener ) ((JinjaFlaskParserListener)listener).enterStyle_content(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof JinjaFlaskParserListener ) ((JinjaFlaskParserListener)listener).exitStyle_content(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof JinjaFlaskParserVisitor ) return ((JinjaFlaskParserVisitor<? extends T>)visitor).visitStyle_content(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final Style_contentContext style_content() throws RecognitionException {
-		Style_contentContext _localctx = new Style_contentContext(_ctx, getState());
-		enterRule(_localctx, 92, RULE_style_content);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(693);
-			stylesheet();
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
 	public static class StylesheetContext extends ParserRuleContext {
-		public Css_wsContext css_ws() {
-			return getRuleContext(Css_wsContext.class,0);
-		}
 		public TerminalNode EOF() { return getToken(JinjaFlaskParser.EOF, 0); }
 		public List<CharsetContext> charset() {
 			return getRuleContexts(CharsetContext.class);
@@ -3937,9 +3876,9 @@ public class JinjaFlaskParser extends Parser {
 		public NestedStatementContext nestedStatement(int i) {
 			return getRuleContext(NestedStatementContext.class,i);
 		}
-		public List<TerminalNode> CSS_COMMENT() { return getTokens(JinjaFlaskParser.CSS_COMMENT); }
-		public TerminalNode CSS_COMMENT(int i) {
-			return getToken(JinjaFlaskParser.CSS_COMMENT, i);
+		public List<TerminalNode> Comment() { return getTokens(JinjaFlaskParser.Comment); }
+		public TerminalNode Comment(int i) {
+			return getToken(JinjaFlaskParser.Comment, i);
 		}
 		public List<TerminalNode> Space() { return getTokens(JinjaFlaskParser.Space); }
 		public TerminalNode Space(int i) {
@@ -3974,30 +3913,28 @@ public class JinjaFlaskParser extends Parser {
 
 	public final StylesheetContext stylesheet() throws RecognitionException {
 		StylesheetContext _localctx = new StylesheetContext(_ctx, getState());
-		enterRule(_localctx, 94, RULE_stylesheet);
+		enterRule(_localctx, 92, RULE_stylesheet);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(695);
-			css_ws();
-			setState(705);
+			setState(698);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==Charset) {
 				{
 				{
-				setState(696);
+				setState(689);
 				charset();
-				setState(700);
+				setState(693);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (((((_la - 80)) & ~0x3f) == 0 && ((1L << (_la - 80)) & 58720257L) != 0)) {
+				while (((((_la - 98)) & ~0x3f) == 0 && ((1L << (_la - 98)) & 29L) != 0)) {
 					{
 					{
-					setState(697);
+					setState(690);
 					_la = _input.LA(1);
-					if ( !(((((_la - 80)) & ~0x3f) == 0 && ((1L << (_la - 80)) & 58720257L) != 0)) ) {
+					if ( !(((((_la - 98)) & ~0x3f) == 0 && ((1L << (_la - 98)) & 29L) != 0)) ) {
 					_errHandler.recoverInline(this);
 					}
 					else {
@@ -4007,33 +3944,33 @@ public class JinjaFlaskParser extends Parser {
 					}
 					}
 					}
-					setState(702);
+					setState(695);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
 				}
 				}
-				setState(707);
+				setState(700);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(717);
+			setState(710);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==Import) {
 				{
 				{
-				setState(708);
+				setState(701);
 				imports();
-				setState(712);
+				setState(705);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (((((_la - 80)) & ~0x3f) == 0 && ((1L << (_la - 80)) & 58720257L) != 0)) {
+				while (((((_la - 98)) & ~0x3f) == 0 && ((1L << (_la - 98)) & 29L) != 0)) {
 					{
 					{
-					setState(709);
+					setState(702);
 					_la = _input.LA(1);
-					if ( !(((((_la - 80)) & ~0x3f) == 0 && ((1L << (_la - 80)) & 58720257L) != 0)) ) {
+					if ( !(((((_la - 98)) & ~0x3f) == 0 && ((1L << (_la - 98)) & 29L) != 0)) ) {
 					_errHandler.recoverInline(this);
 					}
 					else {
@@ -4043,33 +3980,69 @@ public class JinjaFlaskParser extends Parser {
 					}
 					}
 					}
-					setState(714);
+					setState(707);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
 				}
 				}
-				setState(719);
+				setState(712);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(729);
+			setState(722);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==Namespace) {
 				{
 				{
-				setState(720);
+				setState(713);
 				namespace_();
+				setState(717);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				while (((((_la - 98)) & ~0x3f) == 0 && ((1L << (_la - 98)) & 29L) != 0)) {
+					{
+					{
+					setState(714);
+					_la = _input.LA(1);
+					if ( !(((((_la - 98)) & ~0x3f) == 0 && ((1L << (_la - 98)) & 29L) != 0)) ) {
+					_errHandler.recoverInline(this);
+					}
+					else {
+						if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+						_errHandler.reportMatch(this);
+						consume();
+					}
+					}
+					}
+					setState(719);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+				}
+				}
+				}
 				setState(724);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (((((_la - 80)) & ~0x3f) == 0 && ((1L << (_la - 80)) & 58720257L) != 0)) {
+			}
+			setState(734);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			while (((((_la - 79)) & ~0x3f) == 0 && ((1L << (_la - 79)) & 7340744239645647523L) != 0)) {
+				{
+				{
+				setState(725);
+				nestedStatement();
+				setState(729);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				while (((((_la - 98)) & ~0x3f) == 0 && ((1L << (_la - 98)) & 29L) != 0)) {
 					{
 					{
-					setState(721);
+					setState(726);
 					_la = _input.LA(1);
-					if ( !(((((_la - 80)) & ~0x3f) == 0 && ((1L << (_la - 80)) & 58720257L) != 0)) ) {
+					if ( !(((((_la - 98)) & ~0x3f) == 0 && ((1L << (_la - 98)) & 29L) != 0)) ) {
 					_errHandler.recoverInline(this);
 					}
 					else {
@@ -4079,53 +4052,17 @@ public class JinjaFlaskParser extends Parser {
 					}
 					}
 					}
-					setState(726);
+					setState(731);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
 				}
 				}
-				setState(731);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			}
-			setState(741);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while (((((_la - 81)) & ~0x3f) == 0 && ((1L << (_la - 81)) & -3765255594417966491L) != 0)) {
-				{
-				{
-				setState(732);
-				nestedStatement();
 				setState(736);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (((((_la - 80)) & ~0x3f) == 0 && ((1L << (_la - 80)) & 58720257L) != 0)) {
-					{
-					{
-					setState(733);
-					_la = _input.LA(1);
-					if ( !(((((_la - 80)) & ~0x3f) == 0 && ((1L << (_la - 80)) & 58720257L) != 0)) ) {
-					_errHandler.recoverInline(this);
-					}
-					else {
-						if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-						_errHandler.reportMatch(this);
-						consume();
-					}
-					}
-					}
-					setState(738);
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-				}
-				}
-				}
-				setState(743);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
 			}
-			setState(744);
+			setState(737);
 			match(EOF);
 			}
 		}
@@ -4155,12 +4092,6 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class BadCharsetContext extends CharsetContext {
 		public TerminalNode Charset() { return getToken(JinjaFlaskParser.Charset, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
 		public TerminalNode String_() { return getToken(JinjaFlaskParser.String_, 0); }
 		public BadCharsetContext(CharsetContext ctx) { copyFrom(ctx); }
 		@Override
@@ -4180,14 +4111,8 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class GoodCharsetContext extends CharsetContext {
 		public TerminalNode Charset() { return getToken(JinjaFlaskParser.Charset, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
 		public TerminalNode String_() { return getToken(JinjaFlaskParser.String_, 0); }
-		public TerminalNode CSS_SEMICOLON() { return getToken(JinjaFlaskParser.CSS_SEMICOLON, 0); }
+		public TerminalNode SemiColon() { return getToken(JinjaFlaskParser.SemiColon, 0); }
 		public GoodCharsetContext(CharsetContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -4206,41 +4131,31 @@ public class JinjaFlaskParser extends Parser {
 
 	public final CharsetContext charset() throws RecognitionException {
 		CharsetContext _localctx = new CharsetContext(_ctx, getState());
-		enterRule(_localctx, 96, RULE_charset);
+		enterRule(_localctx, 94, RULE_charset);
 		try {
-			setState(758);
+			setState(744);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,64,_ctx) ) {
 			case 1:
 				_localctx = new GoodCharsetContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(746);
+				setState(739);
 				match(Charset);
-				setState(747);
-				css_ws();
-				setState(748);
+				setState(740);
 				match(String_);
-				setState(749);
-				css_ws();
-				setState(750);
-				match(CSS_SEMICOLON);
-				setState(751);
-				css_ws();
+				setState(741);
+				match(SemiColon);
 				}
 				break;
 			case 2:
 				_localctx = new BadCharsetContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(753);
+				setState(742);
 				match(Charset);
-				setState(754);
-				css_ws();
-				setState(755);
+				setState(743);
 				match(String_);
-				setState(756);
-				css_ws();
 				}
 				break;
 			}
@@ -4271,12 +4186,6 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class BadImportContext extends ImportsContext {
 		public TerminalNode Import() { return getToken(JinjaFlaskParser.Import, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
 		public MediaQueryListContext mediaQueryList() {
 			return getRuleContext(MediaQueryListContext.class,0);
 		}
@@ -4302,16 +4211,10 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class GoodImportContext extends ImportsContext {
 		public TerminalNode Import() { return getToken(JinjaFlaskParser.Import, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
 		public MediaQueryListContext mediaQueryList() {
 			return getRuleContext(MediaQueryListContext.class,0);
 		}
-		public TerminalNode CSS_SEMICOLON() { return getToken(JinjaFlaskParser.CSS_SEMICOLON, 0); }
+		public TerminalNode SemiColon() { return getToken(JinjaFlaskParser.SemiColon, 0); }
 		public TerminalNode String_() { return getToken(JinjaFlaskParser.String_, 0); }
 		public UrlContext url() {
 			return getRuleContext(UrlContext.class,0);
@@ -4334,113 +4237,97 @@ public class JinjaFlaskParser extends Parser {
 
 	public final ImportsContext imports() throws RecognitionException {
 		ImportsContext _localctx = new ImportsContext(_ctx, getState());
-		enterRule(_localctx, 98, RULE_imports);
+		enterRule(_localctx, 96, RULE_imports);
 		try {
-			setState(798);
+			setState(771);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,69,_ctx) ) {
 			case 1:
 				_localctx = new GoodImportContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(760);
+				setState(746);
 				match(Import);
-				setState(761);
-				css_ws();
-				setState(764);
+				setState(749);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case String_:
 					{
-					setState(762);
+					setState(747);
 					match(String_);
 					}
 					break;
 				case Url:
 				case Url_:
 					{
-					setState(763);
+					setState(748);
 					url();
 					}
 					break;
 				default:
 					throw new NoViableAltException(this);
 				}
-				setState(766);
-				css_ws();
-				setState(767);
+				setState(751);
 				mediaQueryList();
-				setState(768);
-				match(CSS_SEMICOLON);
-				setState(769);
-				css_ws();
+				setState(752);
+				match(SemiColon);
 				}
 				break;
 			case 2:
 				_localctx = new GoodImportContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(771);
+				setState(754);
 				match(Import);
-				setState(772);
-				css_ws();
-				setState(775);
+				setState(757);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case String_:
 					{
-					setState(773);
+					setState(755);
 					match(String_);
 					}
 					break;
 				case Url:
 				case Url_:
 					{
-					setState(774);
+					setState(756);
 					url();
 					}
 					break;
 				default:
 					throw new NoViableAltException(this);
 				}
-				setState(777);
-				css_ws();
-				setState(778);
-				match(CSS_SEMICOLON);
-				setState(779);
-				css_ws();
+				setState(759);
+				match(SemiColon);
 				}
 				break;
 			case 3:
 				_localctx = new BadImportContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(781);
+				setState(760);
 				match(Import);
-				setState(782);
-				css_ws();
-				setState(785);
+				setState(763);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case String_:
 					{
-					setState(783);
+					setState(761);
 					match(String_);
 					}
 					break;
 				case Url:
 				case Url_:
 					{
-					setState(784);
+					setState(762);
 					url();
 					}
 					break;
 				default:
 					throw new NoViableAltException(this);
 				}
-				setState(787);
-				css_ws();
-				setState(788);
+				setState(765);
 				mediaQueryList();
 				}
 				break;
@@ -4448,31 +4335,27 @@ public class JinjaFlaskParser extends Parser {
 				_localctx = new BadImportContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(790);
+				setState(766);
 				match(Import);
-				setState(791);
-				css_ws();
-				setState(794);
+				setState(769);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case String_:
 					{
-					setState(792);
+					setState(767);
 					match(String_);
 					}
 					break;
 				case Url:
 				case Url_:
 					{
-					setState(793);
+					setState(768);
 					url();
 					}
 					break;
 				default:
 					throw new NoViableAltException(this);
 				}
-				setState(796);
-				css_ws();
 				}
 				break;
 			}
@@ -4503,13 +4386,7 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class GoodNamespaceContext extends Namespace_Context {
 		public TerminalNode Namespace() { return getToken(JinjaFlaskParser.Namespace, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
-		public TerminalNode CSS_SEMICOLON() { return getToken(JinjaFlaskParser.CSS_SEMICOLON, 0); }
+		public TerminalNode SemiColon() { return getToken(JinjaFlaskParser.SemiColon, 0); }
 		public TerminalNode String_() { return getToken(JinjaFlaskParser.String_, 0); }
 		public UrlContext url() {
 			return getRuleContext(UrlContext.class,0);
@@ -4535,12 +4412,6 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class BadNamespaceContext extends Namespace_Context {
 		public TerminalNode Namespace() { return getToken(JinjaFlaskParser.Namespace, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
 		public TerminalNode String_() { return getToken(JinjaFlaskParser.String_, 0); }
 		public UrlContext url() {
 			return getRuleContext(UrlContext.class,0);
@@ -4566,100 +4437,86 @@ public class JinjaFlaskParser extends Parser {
 
 	public final Namespace_Context namespace_() throws RecognitionException {
 		Namespace_Context _localctx = new Namespace_Context(_ctx, getState());
-		enterRule(_localctx, 100, RULE_namespace_);
+		enterRule(_localctx, 98, RULE_namespace_);
 		int _la;
 		try {
-			setState(828);
+			setState(790);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,74,_ctx) ) {
 			case 1:
 				_localctx = new GoodNamespaceContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(800);
+				setState(773);
 				match(Namespace);
-				setState(801);
-				css_ws();
-				setState(805);
+				setState(775);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 118)) & ~0x3f) == 0 && ((1L << (_la - 118)) & 33660935L) != 0)) {
+				if (((((_la - 115)) & ~0x3f) == 0 && ((1L << (_la - 115)) & 33660935L) != 0)) {
 					{
-					setState(802);
+					setState(774);
 					namespacePrefix();
-					setState(803);
-					css_ws();
 					}
 				}
 
-				setState(809);
+				setState(779);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case String_:
 					{
-					setState(807);
+					setState(777);
 					match(String_);
 					}
 					break;
 				case Url:
 				case Url_:
 					{
-					setState(808);
+					setState(778);
 					url();
 					}
 					break;
 				default:
 					throw new NoViableAltException(this);
 				}
-				setState(811);
-				css_ws();
-				setState(812);
-				match(CSS_SEMICOLON);
-				setState(813);
-				css_ws();
+				setState(781);
+				match(SemiColon);
 				}
 				break;
 			case 2:
 				_localctx = new BadNamespaceContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(815);
+				setState(782);
 				match(Namespace);
-				setState(816);
-				css_ws();
-				setState(820);
+				setState(784);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 118)) & ~0x3f) == 0 && ((1L << (_la - 118)) & 33660935L) != 0)) {
+				if (((((_la - 115)) & ~0x3f) == 0 && ((1L << (_la - 115)) & 33660935L) != 0)) {
 					{
-					setState(817);
+					setState(783);
 					namespacePrefix();
-					setState(818);
-					css_ws();
 					}
 				}
 
-				setState(824);
+				setState(788);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case String_:
 					{
-					setState(822);
+					setState(786);
 					match(String_);
 					}
 					break;
 				case Url:
 				case Url_:
 					{
-					setState(823);
+					setState(787);
 					url();
 					}
 					break;
 				default:
 					throw new NoViableAltException(this);
 				}
-				setState(826);
-				css_ws();
 				}
 				break;
 			}
@@ -4701,11 +4558,11 @@ public class JinjaFlaskParser extends Parser {
 
 	public final NamespacePrefixContext namespacePrefix() throws RecognitionException {
 		NamespacePrefixContext _localctx = new NamespacePrefixContext(_ctx, getState());
-		enterRule(_localctx, 102, RULE_namespacePrefix);
+		enterRule(_localctx, 100, RULE_namespacePrefix);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(830);
+			setState(792);
 			ident();
 			}
 		}
@@ -4723,12 +4580,6 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class MediaContext extends ParserRuleContext {
 		public TerminalNode Media() { return getToken(JinjaFlaskParser.Media, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
 		public MediaQueryListContext mediaQueryList() {
 			return getRuleContext(MediaQueryListContext.class,0);
 		}
@@ -4756,20 +4607,16 @@ public class JinjaFlaskParser extends Parser {
 
 	public final MediaContext media() throws RecognitionException {
 		MediaContext _localctx = new MediaContext(_ctx, getState());
-		enterRule(_localctx, 104, RULE_media);
+		enterRule(_localctx, 102, RULE_media);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(832);
+			setState(794);
 			match(Media);
-			setState(833);
-			css_ws();
-			setState(834);
+			setState(795);
 			mediaQueryList();
-			setState(835);
+			setState(796);
 			groupRuleBody();
-			setState(836);
-			css_ws();
 			}
 		}
 		catch (RecognitionException re) {
@@ -4785,21 +4632,15 @@ public class JinjaFlaskParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class MediaQueryListContext extends ParserRuleContext {
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
 		public List<MediaQueryContext> mediaQuery() {
 			return getRuleContexts(MediaQueryContext.class);
 		}
 		public MediaQueryContext mediaQuery(int i) {
 			return getRuleContext(MediaQueryContext.class,i);
 		}
-		public List<TerminalNode> CSS_COMMA() { return getTokens(JinjaFlaskParser.CSS_COMMA); }
-		public TerminalNode CSS_COMMA(int i) {
-			return getToken(JinjaFlaskParser.CSS_COMMA, i);
+		public List<TerminalNode> Comma() { return getTokens(JinjaFlaskParser.Comma); }
+		public TerminalNode Comma(int i) {
+			return getToken(JinjaFlaskParser.Comma, i);
 		}
 		public MediaQueryListContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -4822,41 +4663,37 @@ public class JinjaFlaskParser extends Parser {
 
 	public final MediaQueryListContext mediaQueryList() throws RecognitionException {
 		MediaQueryListContext _localctx = new MediaQueryListContext(_ctx, getState());
-		enterRule(_localctx, 106, RULE_mediaQueryList);
+		enterRule(_localctx, 104, RULE_mediaQueryList);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(848);
+			setState(806);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,76,_ctx) ) {
 			case 1:
 				{
-				setState(838);
+				setState(798);
 				mediaQuery();
-				setState(845);
+				setState(803);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (_la==CSS_COMMA) {
+				while (_la==Comma) {
 					{
 					{
-					setState(839);
-					match(CSS_COMMA);
-					setState(840);
-					css_ws();
-					setState(841);
+					setState(799);
+					match(Comma);
+					setState(800);
 					mediaQuery();
 					}
 					}
-					setState(847);
+					setState(805);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
 				}
 				break;
 			}
-			setState(850);
-			css_ws();
 			}
 		}
 		catch (RecognitionException re) {
@@ -4872,12 +4709,6 @@ public class JinjaFlaskParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class MediaQueryContext extends ParserRuleContext {
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
 		public MediaTypeContext mediaType() {
 			return getRuleContext(MediaTypeContext.class,0);
 		}
@@ -4914,15 +4745,13 @@ public class JinjaFlaskParser extends Parser {
 
 	public final MediaQueryContext mediaQuery() throws RecognitionException {
 		MediaQueryContext _localctx = new MediaQueryContext(_ctx, getState());
-		enterRule(_localctx, 108, RULE_mediaQuery);
+		enterRule(_localctx, 106, RULE_mediaQuery);
 		int _la;
 		try {
 			int _alt;
-			setState(877);
+			setState(827);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case CSS_COMMENT:
-			case Space:
 			case MediaOnly:
 			case Not:
 			case And:
@@ -4932,12 +4761,12 @@ public class JinjaFlaskParser extends Parser {
 			case Ident:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(853);
+				setState(809);
 				_errHandler.sync(this);
 				switch ( getInterpreter().adaptivePredict(_input,77,_ctx) ) {
 				case 1:
 					{
-					setState(852);
+					setState(808);
 					_la = _input.LA(1);
 					if ( !(_la==MediaOnly || _la==Not) ) {
 					_errHandler.recoverInline(this);
@@ -4950,56 +4779,48 @@ public class JinjaFlaskParser extends Parser {
 					}
 					break;
 				}
-				setState(855);
-				css_ws();
-				setState(856);
+				setState(811);
 				mediaType();
-				setState(857);
-				css_ws();
-				setState(864);
+				setState(816);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,78,_ctx);
 				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 					if ( _alt==1 ) {
 						{
 						{
-						setState(858);
+						setState(812);
 						match(And);
-						setState(859);
-						css_ws();
-						setState(860);
+						setState(813);
 						mediaExpression();
 						}
 						} 
 					}
-					setState(866);
+					setState(818);
 					_errHandler.sync(this);
 					_alt = getInterpreter().adaptivePredict(_input,78,_ctx);
 				}
 				}
 				break;
-			case CSS_LPAREN:
+			case OpenParen:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(867);
+				setState(819);
 				mediaExpression();
-				setState(874);
+				setState(824);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,79,_ctx);
 				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 					if ( _alt==1 ) {
 						{
 						{
-						setState(868);
+						setState(820);
 						match(And);
-						setState(869);
-						css_ws();
-						setState(870);
+						setState(821);
 						mediaExpression();
 						}
 						} 
 					}
-					setState(876);
+					setState(826);
 					_errHandler.sync(this);
 					_alt = getInterpreter().adaptivePredict(_input,79,_ctx);
 				}
@@ -5046,11 +4867,11 @@ public class JinjaFlaskParser extends Parser {
 
 	public final MediaTypeContext mediaType() throws RecognitionException {
 		MediaTypeContext _localctx = new MediaTypeContext(_ctx, getState());
-		enterRule(_localctx, 110, RULE_mediaType);
+		enterRule(_localctx, 108, RULE_mediaType);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(879);
+			setState(829);
 			ident();
 			}
 		}
@@ -5067,20 +4888,14 @@ public class JinjaFlaskParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class MediaExpressionContext extends ParserRuleContext {
-		public TerminalNode CSS_LPAREN() { return getToken(JinjaFlaskParser.CSS_LPAREN, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
+		public TerminalNode OpenParen() { return getToken(JinjaFlaskParser.OpenParen, 0); }
 		public MediaFeatureContext mediaFeature() {
 			return getRuleContext(MediaFeatureContext.class,0);
 		}
-		public TerminalNode CSS_RPAREN() { return getToken(JinjaFlaskParser.CSS_RPAREN, 0); }
-		public TerminalNode CSS_COLON() { return getToken(JinjaFlaskParser.CSS_COLON, 0); }
-		public ExprContext expr() {
-			return getRuleContext(ExprContext.class,0);
+		public TerminalNode CloseParen() { return getToken(JinjaFlaskParser.CloseParen, 0); }
+		public TerminalNode Colon() { return getToken(JinjaFlaskParser.Colon, 0); }
+		public Css_exprContext css_expr() {
+			return getRuleContext(Css_exprContext.class,0);
 		}
 		public MediaExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -5103,35 +4918,29 @@ public class JinjaFlaskParser extends Parser {
 
 	public final MediaExpressionContext mediaExpression() throws RecognitionException {
 		MediaExpressionContext _localctx = new MediaExpressionContext(_ctx, getState());
-		enterRule(_localctx, 112, RULE_mediaExpression);
+		enterRule(_localctx, 110, RULE_mediaExpression);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(881);
-			match(CSS_LPAREN);
-			setState(882);
-			css_ws();
-			setState(883);
+			setState(831);
+			match(OpenParen);
+			setState(832);
 			mediaFeature();
-			setState(888);
+			setState(835);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (_la==CSS_COLON) {
+			if (_la==Colon) {
 				{
-				setState(884);
-				match(CSS_COLON);
-				setState(885);
-				css_ws();
-				setState(886);
-				expr();
+				setState(833);
+				match(Colon);
+				setState(834);
+				css_expr();
 				}
 			}
 
-			setState(890);
-			match(CSS_RPAREN);
-			setState(891);
-			css_ws();
+			setState(837);
+			match(CloseParen);
 			}
 		}
 		catch (RecognitionException re) {
@@ -5149,9 +4958,6 @@ public class JinjaFlaskParser extends Parser {
 	public static class MediaFeatureContext extends ParserRuleContext {
 		public IdentContext ident() {
 			return getRuleContext(IdentContext.class,0);
-		}
-		public Css_wsContext css_ws() {
-			return getRuleContext(Css_wsContext.class,0);
 		}
 		public MediaFeatureContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -5174,14 +4980,12 @@ public class JinjaFlaskParser extends Parser {
 
 	public final MediaFeatureContext mediaFeature() throws RecognitionException {
 		MediaFeatureContext _localctx = new MediaFeatureContext(_ctx, getState());
-		enterRule(_localctx, 114, RULE_mediaFeature);
+		enterRule(_localctx, 112, RULE_mediaFeature);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(893);
+			setState(839);
 			ident();
-			setState(894);
-			css_ws();
 			}
 		}
 		catch (RecognitionException re) {
@@ -5198,14 +5002,8 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class PageContext extends ParserRuleContext {
 		public TerminalNode Page() { return getToken(JinjaFlaskParser.Page, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
-		public TerminalNode CSS_LBRACE() { return getToken(JinjaFlaskParser.CSS_LBRACE, 0); }
-		public TerminalNode CSS_RBRACE() { return getToken(JinjaFlaskParser.CSS_RBRACE, 0); }
+		public TerminalNode OpenBrace() { return getToken(JinjaFlaskParser.OpenBrace, 0); }
+		public TerminalNode CloseBrace() { return getToken(JinjaFlaskParser.CloseBrace, 0); }
 		public PseudoPageContext pseudoPage() {
 			return getRuleContext(PseudoPageContext.class,0);
 		}
@@ -5215,9 +5013,9 @@ public class JinjaFlaskParser extends Parser {
 		public DeclarationContext declaration(int i) {
 			return getRuleContext(DeclarationContext.class,i);
 		}
-		public List<TerminalNode> CSS_SEMICOLON() { return getTokens(JinjaFlaskParser.CSS_SEMICOLON); }
-		public TerminalNode CSS_SEMICOLON(int i) {
-			return getToken(JinjaFlaskParser.CSS_SEMICOLON, i);
+		public List<TerminalNode> SemiColon() { return getTokens(JinjaFlaskParser.SemiColon); }
+		public TerminalNode SemiColon(int i) {
+			return getToken(JinjaFlaskParser.SemiColon, i);
 		}
 		public PageContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -5240,69 +5038,61 @@ public class JinjaFlaskParser extends Parser {
 
 	public final PageContext page() throws RecognitionException {
 		PageContext _localctx = new PageContext(_ctx, getState());
-		enterRule(_localctx, 116, RULE_page);
+		enterRule(_localctx, 114, RULE_page);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(896);
+			setState(841);
 			match(Page);
-			setState(897);
-			css_ws();
-			setState(899);
+			setState(843);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (_la==CSS_COLON) {
+			if (_la==Colon) {
 				{
-				setState(898);
+				setState(842);
 				pseudoPage();
 				}
 			}
 
-			setState(901);
-			match(CSS_LBRACE);
-			setState(902);
-			css_ws();
-			setState(904);
+			setState(845);
+			match(OpenBrace);
+			setState(847);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((((_la - 85)) & ~0x3f) == 0 && ((1L << (_la - 85)) & 361202823993524225L) != 0)) {
+			if (((((_la - 94)) & ~0x3f) == 0 && ((1L << (_la - 94)) & 88184283201545L) != 0)) {
 				{
-				setState(903);
+				setState(846);
 				declaration();
 				}
 			}
 
-			setState(913);
+			setState(855);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==CSS_SEMICOLON) {
+			while (_la==SemiColon) {
 				{
 				{
-				setState(906);
-				match(CSS_SEMICOLON);
-				setState(907);
-				css_ws();
-				setState(909);
+				setState(849);
+				match(SemiColon);
+				setState(851);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 85)) & ~0x3f) == 0 && ((1L << (_la - 85)) & 361202823993524225L) != 0)) {
+				if (((((_la - 94)) & ~0x3f) == 0 && ((1L << (_la - 94)) & 88184283201545L) != 0)) {
 					{
-					setState(908);
+					setState(850);
 					declaration();
 					}
 				}
 
 				}
 				}
-				setState(915);
+				setState(857);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(916);
-			match(CSS_RBRACE);
-			setState(917);
-			css_ws();
+			setState(858);
+			match(CloseBrace);
 			}
 		}
 		catch (RecognitionException re) {
@@ -5318,12 +5108,9 @@ public class JinjaFlaskParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class PseudoPageContext extends ParserRuleContext {
-		public TerminalNode CSS_COLON() { return getToken(JinjaFlaskParser.CSS_COLON, 0); }
+		public TerminalNode Colon() { return getToken(JinjaFlaskParser.Colon, 0); }
 		public IdentContext ident() {
 			return getRuleContext(IdentContext.class,0);
-		}
-		public Css_wsContext css_ws() {
-			return getRuleContext(Css_wsContext.class,0);
 		}
 		public PseudoPageContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -5346,16 +5133,14 @@ public class JinjaFlaskParser extends Parser {
 
 	public final PseudoPageContext pseudoPage() throws RecognitionException {
 		PseudoPageContext _localctx = new PseudoPageContext(_ctx, getState());
-		enterRule(_localctx, 118, RULE_pseudoPage);
+		enterRule(_localctx, 116, RULE_pseudoPage);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(919);
-			match(CSS_COLON);
-			setState(920);
+			setState(860);
+			match(Colon);
+			setState(861);
 			ident();
-			setState(921);
-			css_ws();
 			}
 		}
 		catch (RecognitionException re) {
@@ -5377,15 +5162,9 @@ public class JinjaFlaskParser extends Parser {
 		public SelectorContext selector(int i) {
 			return getRuleContext(SelectorContext.class,i);
 		}
-		public List<TerminalNode> CSS_COMMA() { return getTokens(JinjaFlaskParser.CSS_COMMA); }
-		public TerminalNode CSS_COMMA(int i) {
-			return getToken(JinjaFlaskParser.CSS_COMMA, i);
-		}
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
+		public List<TerminalNode> Comma() { return getTokens(JinjaFlaskParser.Comma); }
+		public TerminalNode Comma(int i) {
+			return getToken(JinjaFlaskParser.Comma, i);
 		}
 		public SelectorGroupContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -5408,28 +5187,26 @@ public class JinjaFlaskParser extends Parser {
 
 	public final SelectorGroupContext selectorGroup() throws RecognitionException {
 		SelectorGroupContext _localctx = new SelectorGroupContext(_ctx, getState());
-		enterRule(_localctx, 120, RULE_selectorGroup);
+		enterRule(_localctx, 118, RULE_selectorGroup);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(923);
+			setState(863);
 			selector();
-			setState(930);
+			setState(868);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==CSS_COMMA) {
+			while (_la==Comma) {
 				{
 				{
-				setState(924);
-				match(CSS_COMMA);
-				setState(925);
-				css_ws();
-				setState(926);
+				setState(864);
+				match(Comma);
+				setState(865);
 				selector();
 				}
 				}
-				setState(932);
+				setState(870);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -5453,12 +5230,6 @@ public class JinjaFlaskParser extends Parser {
 		}
 		public SimpleSelectorSequenceContext simpleSelectorSequence(int i) {
 			return getRuleContext(SimpleSelectorSequenceContext.class,i);
-		}
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
 		}
 		public List<CombinatorContext> combinator() {
 			return getRuleContexts(CombinatorContext.class);
@@ -5487,30 +5258,26 @@ public class JinjaFlaskParser extends Parser {
 
 	public final SelectorContext selector() throws RecognitionException {
 		SelectorContext _localctx = new SelectorContext(_ctx, getState());
-		enterRule(_localctx, 122, RULE_selector);
+		enterRule(_localctx, 120, RULE_selector);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(933);
+			setState(871);
 			simpleSelectorSequence();
-			setState(934);
-			css_ws();
-			setState(941);
+			setState(877);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((((_la - 93)) & ~0x3f) == 0 && ((1L << (_la - 93)) & 1037L) != 0)) {
+			while (((((_la - 79)) & ~0x3f) == 0 && ((1L << (_la - 79)) & 2097173L) != 0)) {
 				{
 				{
-				setState(935);
+				setState(872);
 				combinator();
-				setState(936);
+				setState(873);
 				simpleSelectorSequence();
-				setState(937);
-				css_ws();
 				}
 				}
-				setState(943);
+				setState(879);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -5529,12 +5296,9 @@ public class JinjaFlaskParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class CombinatorContext extends ParserRuleContext {
-		public TerminalNode CSS_PLUS() { return getToken(JinjaFlaskParser.CSS_PLUS, 0); }
-		public Css_wsContext css_ws() {
-			return getRuleContext(Css_wsContext.class,0);
-		}
-		public TerminalNode CSS_GREATER() { return getToken(JinjaFlaskParser.CSS_GREATER, 0); }
-		public TerminalNode CSS_TILDE() { return getToken(JinjaFlaskParser.CSS_TILDE, 0); }
+		public TerminalNode Plus() { return getToken(JinjaFlaskParser.Plus, 0); }
+		public TerminalNode Greater() { return getToken(JinjaFlaskParser.Greater, 0); }
+		public TerminalNode Tilde() { return getToken(JinjaFlaskParser.Tilde, 0); }
 		public TerminalNode Space() { return getToken(JinjaFlaskParser.Space, 0); }
 		public CombinatorContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -5557,49 +5321,21 @@ public class JinjaFlaskParser extends Parser {
 
 	public final CombinatorContext combinator() throws RecognitionException {
 		CombinatorContext _localctx = new CombinatorContext(_ctx, getState());
-		enterRule(_localctx, 124, RULE_combinator);
+		enterRule(_localctx, 122, RULE_combinator);
+		int _la;
 		try {
-			setState(952);
-			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case CSS_PLUS:
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(944);
-				match(CSS_PLUS);
-				setState(945);
-				css_ws();
-				}
-				break;
-			case CSS_GREATER:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(946);
-				match(CSS_GREATER);
-				setState(947);
-				css_ws();
-				}
-				break;
-			case CSS_TILDE:
-				enterOuterAlt(_localctx, 3);
-				{
-				setState(948);
-				match(CSS_TILDE);
-				setState(949);
-				css_ws();
-				}
-				break;
-			case Space:
-				enterOuterAlt(_localctx, 4);
-				{
-				setState(950);
-				match(Space);
-				setState(951);
-				css_ws();
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(880);
+			_la = _input.LA(1);
+			if ( !(((((_la - 79)) & ~0x3f) == 0 && ((1L << (_la - 79)) & 2097173L) != 0)) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -5670,14 +5406,14 @@ public class JinjaFlaskParser extends Parser {
 
 	public final SimpleSelectorSequenceContext simpleSelectorSequence() throws RecognitionException {
 		SimpleSelectorSequenceContext _localctx = new SimpleSelectorSequenceContext(_ctx, getState());
-		enterRule(_localctx, 126, RULE_simpleSelectorSequence);
+		enterRule(_localctx, 124, RULE_simpleSelectorSequence);
 		int _la;
 		try {
-			setState(977);
+			setState(905);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case CSS_PIPE:
-			case CSS_ASTERISK:
+			case Multiply:
+			case Pipe:
 			case MediaOnly:
 			case Not:
 			case And:
@@ -5687,57 +5423,57 @@ public class JinjaFlaskParser extends Parser {
 			case Ident:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(956);
+				setState(884);
 				_errHandler.sync(this);
-				switch ( getInterpreter().adaptivePredict(_input,89,_ctx) ) {
+				switch ( getInterpreter().adaptivePredict(_input,88,_ctx) ) {
 				case 1:
 					{
-					setState(954);
+					setState(882);
 					typeSelector();
 					}
 					break;
 				case 2:
 					{
-					setState(955);
+					setState(883);
 					universal();
 					}
 					break;
 				}
-				setState(965);
+				setState(893);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (((((_la - 83)) & ~0x3f) == 0 && ((1L << (_la - 83)) & 1099545215105L) != 0)) {
+				while (((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & 68721574657L) != 0)) {
 					{
-					setState(963);
+					setState(891);
 					_errHandler.sync(this);
 					switch (_input.LA(1)) {
 					case Hash:
 						{
-						setState(958);
+						setState(886);
 						match(Hash);
 						}
 						break;
-					case CSS_DOT:
+					case Dot:
 						{
-						setState(959);
+						setState(887);
 						className();
 						}
 						break;
-					case CSS_LBRACKET:
+					case OpenBracket:
 						{
-						setState(960);
+						setState(888);
 						attrib();
 						}
 						break;
-					case CSS_COLON:
+					case Colon:
 						{
-						setState(961);
+						setState(889);
 						pseudo();
 						}
 						break;
 					case PseudoNot:
 						{
-						setState(962);
+						setState(890);
 						negation();
 						}
 						break;
@@ -5745,54 +5481,54 @@ public class JinjaFlaskParser extends Parser {
 						throw new NoViableAltException(this);
 					}
 					}
-					setState(967);
+					setState(895);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
 				}
 				break;
-			case CSS_COLON:
-			case CSS_DOT:
-			case CSS_LBRACKET:
+			case OpenBracket:
+			case Colon:
+			case Dot:
 			case Hash:
 			case PseudoNot:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(973); 
+				setState(901); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				do {
 					{
-					setState(973);
+					setState(901);
 					_errHandler.sync(this);
 					switch (_input.LA(1)) {
 					case Hash:
 						{
-						setState(968);
+						setState(896);
 						match(Hash);
 						}
 						break;
-					case CSS_DOT:
+					case Dot:
 						{
-						setState(969);
+						setState(897);
 						className();
 						}
 						break;
-					case CSS_LBRACKET:
+					case OpenBracket:
 						{
-						setState(970);
+						setState(898);
 						attrib();
 						}
 						break;
-					case CSS_COLON:
+					case Colon:
 						{
-						setState(971);
+						setState(899);
 						pseudo();
 						}
 						break;
 					case PseudoNot:
 						{
-						setState(972);
+						setState(900);
 						negation();
 						}
 						break;
@@ -5800,10 +5536,10 @@ public class JinjaFlaskParser extends Parser {
 						throw new NoViableAltException(this);
 					}
 					}
-					setState(975); 
+					setState(903); 
 					_errHandler.sync(this);
 					_la = _input.LA(1);
-				} while ( ((((_la - 83)) & ~0x3f) == 0 && ((1L << (_la - 83)) & 1099545215105L) != 0) );
+				} while ( ((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & 68721574657L) != 0) );
 				}
 				break;
 			default:
@@ -5850,21 +5586,21 @@ public class JinjaFlaskParser extends Parser {
 
 	public final TypeSelectorContext typeSelector() throws RecognitionException {
 		TypeSelectorContext _localctx = new TypeSelectorContext(_ctx, getState());
-		enterRule(_localctx, 128, RULE_typeSelector);
+		enterRule(_localctx, 126, RULE_typeSelector);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(980);
+			setState(908);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,95,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,94,_ctx) ) {
 			case 1:
 				{
-				setState(979);
+				setState(907);
 				typeNamespacePrefix();
 				}
 				break;
 			}
-			setState(982);
+			setState(910);
 			elementName();
 			}
 		}
@@ -5881,11 +5617,11 @@ public class JinjaFlaskParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class TypeNamespacePrefixContext extends ParserRuleContext {
-		public TerminalNode CSS_PIPE() { return getToken(JinjaFlaskParser.CSS_PIPE, 0); }
+		public TerminalNode Pipe() { return getToken(JinjaFlaskParser.Pipe, 0); }
 		public IdentContext ident() {
 			return getRuleContext(IdentContext.class,0);
 		}
-		public TerminalNode CSS_ASTERISK() { return getToken(JinjaFlaskParser.CSS_ASTERISK, 0); }
+		public TerminalNode Multiply() { return getToken(JinjaFlaskParser.Multiply, 0); }
 		public TypeNamespacePrefixContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -5907,11 +5643,11 @@ public class JinjaFlaskParser extends Parser {
 
 	public final TypeNamespacePrefixContext typeNamespacePrefix() throws RecognitionException {
 		TypeNamespacePrefixContext _localctx = new TypeNamespacePrefixContext(_ctx, getState());
-		enterRule(_localctx, 130, RULE_typeNamespacePrefix);
+		enterRule(_localctx, 128, RULE_typeNamespacePrefix);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(986);
+			setState(914);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case MediaOnly:
@@ -5922,23 +5658,23 @@ public class JinjaFlaskParser extends Parser {
 			case To:
 			case Ident:
 				{
-				setState(984);
+				setState(912);
 				ident();
 				}
 				break;
-			case CSS_ASTERISK:
+			case Multiply:
 				{
-				setState(985);
-				match(CSS_ASTERISK);
+				setState(913);
+				match(Multiply);
 				}
 				break;
-			case CSS_PIPE:
+			case Pipe:
 				break;
 			default:
 				break;
 			}
-			setState(988);
-			match(CSS_PIPE);
+			setState(916);
+			match(Pipe);
 			}
 		}
 		catch (RecognitionException re) {
@@ -5978,11 +5714,11 @@ public class JinjaFlaskParser extends Parser {
 
 	public final ElementNameContext elementName() throws RecognitionException {
 		ElementNameContext _localctx = new ElementNameContext(_ctx, getState());
-		enterRule(_localctx, 132, RULE_elementName);
+		enterRule(_localctx, 130, RULE_elementName);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(990);
+			setState(918);
 			ident();
 			}
 		}
@@ -5999,7 +5735,7 @@ public class JinjaFlaskParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class UniversalContext extends ParserRuleContext {
-		public TerminalNode CSS_ASTERISK() { return getToken(JinjaFlaskParser.CSS_ASTERISK, 0); }
+		public TerminalNode Multiply() { return getToken(JinjaFlaskParser.Multiply, 0); }
 		public TypeNamespacePrefixContext typeNamespacePrefix() {
 			return getRuleContext(TypeNamespacePrefixContext.class,0);
 		}
@@ -6024,22 +5760,22 @@ public class JinjaFlaskParser extends Parser {
 
 	public final UniversalContext universal() throws RecognitionException {
 		UniversalContext _localctx = new UniversalContext(_ctx, getState());
-		enterRule(_localctx, 134, RULE_universal);
+		enterRule(_localctx, 132, RULE_universal);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(993);
+			setState(921);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,97,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,96,_ctx) ) {
 			case 1:
 				{
-				setState(992);
+				setState(920);
 				typeNamespacePrefix();
 				}
 				break;
 			}
-			setState(995);
-			match(CSS_ASTERISK);
+			setState(923);
+			match(Multiply);
 			}
 		}
 		catch (RecognitionException re) {
@@ -6055,7 +5791,7 @@ public class JinjaFlaskParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ClassNameContext extends ParserRuleContext {
-		public TerminalNode CSS_DOT() { return getToken(JinjaFlaskParser.CSS_DOT, 0); }
+		public TerminalNode Dot() { return getToken(JinjaFlaskParser.Dot, 0); }
 		public IdentContext ident() {
 			return getRuleContext(IdentContext.class,0);
 		}
@@ -6080,13 +5816,13 @@ public class JinjaFlaskParser extends Parser {
 
 	public final ClassNameContext className() throws RecognitionException {
 		ClassNameContext _localctx = new ClassNameContext(_ctx, getState());
-		enterRule(_localctx, 136, RULE_className);
+		enterRule(_localctx, 134, RULE_className);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(997);
-			match(CSS_DOT);
-			setState(998);
+			setState(925);
+			match(Dot);
+			setState(926);
 			ident();
 			}
 		}
@@ -6103,27 +5839,21 @@ public class JinjaFlaskParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class AttribContext extends ParserRuleContext {
-		public TerminalNode CSS_LBRACKET() { return getToken(JinjaFlaskParser.CSS_LBRACKET, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
+		public TerminalNode OpenBracket() { return getToken(JinjaFlaskParser.OpenBracket, 0); }
 		public List<IdentContext> ident() {
 			return getRuleContexts(IdentContext.class);
 		}
 		public IdentContext ident(int i) {
 			return getRuleContext(IdentContext.class,i);
 		}
-		public TerminalNode CSS_RBRACKET() { return getToken(JinjaFlaskParser.CSS_RBRACKET, 0); }
+		public TerminalNode CloseBracket() { return getToken(JinjaFlaskParser.CloseBracket, 0); }
 		public TypeNamespacePrefixContext typeNamespacePrefix() {
 			return getRuleContext(TypeNamespacePrefixContext.class,0);
 		}
 		public TerminalNode PrefixMatch() { return getToken(JinjaFlaskParser.PrefixMatch, 0); }
 		public TerminalNode SuffixMatch() { return getToken(JinjaFlaskParser.SuffixMatch, 0); }
 		public TerminalNode SubstringMatch() { return getToken(JinjaFlaskParser.SubstringMatch, 0); }
-		public TerminalNode CSS_EQUALS() { return getToken(JinjaFlaskParser.CSS_EQUALS, 0); }
+		public TerminalNode Equal() { return getToken(JinjaFlaskParser.Equal, 0); }
 		public TerminalNode Includes() { return getToken(JinjaFlaskParser.Includes, 0); }
 		public TerminalNode DashMatch() { return getToken(JinjaFlaskParser.DashMatch, 0); }
 		public TerminalNode String_() { return getToken(JinjaFlaskParser.String_, 0); }
@@ -6148,37 +5878,33 @@ public class JinjaFlaskParser extends Parser {
 
 	public final AttribContext attrib() throws RecognitionException {
 		AttribContext _localctx = new AttribContext(_ctx, getState());
-		enterRule(_localctx, 138, RULE_attrib);
+		enterRule(_localctx, 136, RULE_attrib);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1000);
-			match(CSS_LBRACKET);
-			setState(1001);
-			css_ws();
-			setState(1003);
+			setState(928);
+			match(OpenBracket);
+			setState(930);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,98,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,97,_ctx) ) {
 			case 1:
 				{
-				setState(1002);
+				setState(929);
 				typeNamespacePrefix();
 				}
 				break;
 			}
-			setState(1005);
+			setState(932);
 			ident();
-			setState(1006);
-			css_ws();
-			setState(1015);
+			setState(938);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((((_la - 97)) & ~0x3f) == 0 && ((1L << (_la - 97)) & 3758097921L) != 0)) {
+			if (((((_la - 91)) & ~0x3f) == 0 && ((1L << (_la - 91)) & 30064783361L) != 0)) {
 				{
-				setState(1007);
+				setState(933);
 				_la = _input.LA(1);
-				if ( !(((((_la - 97)) & ~0x3f) == 0 && ((1L << (_la - 97)) & 3758097921L) != 0)) ) {
+				if ( !(((((_la - 91)) & ~0x3f) == 0 && ((1L << (_la - 91)) & 30064783361L) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -6186,9 +5912,7 @@ public class JinjaFlaskParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(1008);
-				css_ws();
-				setState(1011);
+				setState(936);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case MediaOnly:
@@ -6199,26 +5923,24 @@ public class JinjaFlaskParser extends Parser {
 				case To:
 				case Ident:
 					{
-					setState(1009);
+					setState(934);
 					ident();
 					}
 					break;
 				case String_:
 					{
-					setState(1010);
+					setState(935);
 					match(String_);
 					}
 					break;
 				default:
 					throw new NoViableAltException(this);
 				}
-				setState(1013);
-				css_ws();
 				}
 			}
 
-			setState(1017);
-			match(CSS_RBRACKET);
+			setState(940);
+			match(CloseBracket);
 			}
 		}
 		catch (RecognitionException re) {
@@ -6234,9 +5956,9 @@ public class JinjaFlaskParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class PseudoContext extends ParserRuleContext {
-		public List<TerminalNode> CSS_COLON() { return getTokens(JinjaFlaskParser.CSS_COLON); }
-		public TerminalNode CSS_COLON(int i) {
-			return getToken(JinjaFlaskParser.CSS_COLON, i);
+		public List<TerminalNode> Colon() { return getTokens(JinjaFlaskParser.Colon); }
+		public TerminalNode Colon(int i) {
+			return getToken(JinjaFlaskParser.Colon, i);
 		}
 		public IdentContext ident() {
 			return getRuleContext(IdentContext.class,0);
@@ -6265,24 +5987,24 @@ public class JinjaFlaskParser extends Parser {
 
 	public final PseudoContext pseudo() throws RecognitionException {
 		PseudoContext _localctx = new PseudoContext(_ctx, getState());
-		enterRule(_localctx, 140, RULE_pseudo);
+		enterRule(_localctx, 138, RULE_pseudo);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1019);
-			match(CSS_COLON);
-			setState(1021);
+			setState(942);
+			match(Colon);
+			setState(944);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (_la==CSS_COLON) {
+			if (_la==Colon) {
 				{
-				setState(1020);
-				match(CSS_COLON);
+				setState(943);
+				match(Colon);
 				}
 			}
 
-			setState(1025);
+			setState(948);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case MediaOnly:
@@ -6293,13 +6015,13 @@ public class JinjaFlaskParser extends Parser {
 			case To:
 			case Ident:
 				{
-				setState(1023);
+				setState(946);
 				ident();
 				}
 				break;
 			case Function_:
 				{
-				setState(1024);
+				setState(947);
 				functionalPseudo();
 				}
 				break;
@@ -6322,13 +6044,10 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class FunctionalPseudoContext extends ParserRuleContext {
 		public TerminalNode Function_() { return getToken(JinjaFlaskParser.Function_, 0); }
-		public Css_wsContext css_ws() {
-			return getRuleContext(Css_wsContext.class,0);
-		}
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
-		public TerminalNode CSS_RPAREN() { return getToken(JinjaFlaskParser.CSS_RPAREN, 0); }
+		public TerminalNode CloseParen() { return getToken(JinjaFlaskParser.CloseParen, 0); }
 		public FunctionalPseudoContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -6350,18 +6069,16 @@ public class JinjaFlaskParser extends Parser {
 
 	public final FunctionalPseudoContext functionalPseudo() throws RecognitionException {
 		FunctionalPseudoContext _localctx = new FunctionalPseudoContext(_ctx, getState());
-		enterRule(_localctx, 142, RULE_functionalPseudo);
+		enterRule(_localctx, 140, RULE_functionalPseudo);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1027);
+			setState(950);
 			match(Function_);
-			setState(1028);
-			css_ws();
-			setState(1029);
+			setState(951);
 			expression();
-			setState(1030);
-			match(CSS_RPAREN);
+			setState(952);
+			match(CloseParen);
 			}
 		}
 		catch (RecognitionException re) {
@@ -6377,19 +6094,13 @@ public class JinjaFlaskParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ExpressionContext extends ParserRuleContext {
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
+		public List<TerminalNode> Plus() { return getTokens(JinjaFlaskParser.Plus); }
+		public TerminalNode Plus(int i) {
+			return getToken(JinjaFlaskParser.Plus, i);
 		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
-		public List<TerminalNode> CSS_PLUS() { return getTokens(JinjaFlaskParser.CSS_PLUS); }
-		public TerminalNode CSS_PLUS(int i) {
-			return getToken(JinjaFlaskParser.CSS_PLUS, i);
-		}
-		public List<TerminalNode> CSS_MINUS() { return getTokens(JinjaFlaskParser.CSS_MINUS); }
-		public TerminalNode CSS_MINUS(int i) {
-			return getToken(JinjaFlaskParser.CSS_MINUS, i);
+		public List<TerminalNode> Minus() { return getTokens(JinjaFlaskParser.Minus); }
+		public TerminalNode Minus(int i) {
+			return getToken(JinjaFlaskParser.Minus, i);
 		}
 		public List<TerminalNode> Dimension() { return getTokens(JinjaFlaskParser.Dimension); }
 		public TerminalNode Dimension(int i) {
@@ -6434,53 +6145,53 @@ public class JinjaFlaskParser extends Parser {
 
 	public final ExpressionContext expression() throws RecognitionException {
 		ExpressionContext _localctx = new ExpressionContext(_ctx, getState());
-		enterRule(_localctx, 144, RULE_expression);
+		enterRule(_localctx, 142, RULE_expression);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1042); 
+			setState(963); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(1039);
+				setState(961);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
-				case CSS_PLUS:
+				case Plus:
 					{
-					setState(1032);
-					match(CSS_PLUS);
+					setState(954);
+					match(Plus);
 					}
 					break;
-				case CSS_MINUS:
+				case Minus:
 					{
-					setState(1033);
-					match(CSS_MINUS);
+					setState(955);
+					match(Minus);
 					}
 					break;
 				case Dimension:
 					{
-					setState(1034);
+					setState(956);
 					match(Dimension);
 					}
 					break;
 				case UnknownDimension:
 					{
-					setState(1035);
+					setState(957);
 					match(UnknownDimension);
 					}
 					break;
 				case Number:
 					{
-					setState(1036);
+					setState(958);
 					match(Number);
 					}
 					break;
 				case String_:
 					{
-					setState(1037);
+					setState(959);
 					match(String_);
 					}
 					break;
@@ -6492,21 +6203,19 @@ public class JinjaFlaskParser extends Parser {
 				case To:
 				case Ident:
 					{
-					setState(1038);
+					setState(960);
 					ident();
 					}
 					break;
 				default:
 					throw new NoViableAltException(this);
 				}
-				setState(1041);
-				css_ws();
 				}
 				}
-				setState(1044); 
+				setState(965); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( ((((_la - 93)) & ~0x3f) == 0 && ((1L << (_la - 93)) & 1129480802271235L) != 0) );
+			} while ( ((((_la - 79)) & ~0x3f) == 0 && ((1L << (_la - 79)) & 2313176683051483139L) != 0) );
 			}
 		}
 		catch (RecognitionException re) {
@@ -6523,16 +6232,10 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class NegationContext extends ParserRuleContext {
 		public TerminalNode PseudoNot() { return getToken(JinjaFlaskParser.PseudoNot, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
 		public NegationArgContext negationArg() {
 			return getRuleContext(NegationArgContext.class,0);
 		}
-		public TerminalNode CSS_RPAREN() { return getToken(JinjaFlaskParser.CSS_RPAREN, 0); }
+		public TerminalNode CloseParen() { return getToken(JinjaFlaskParser.CloseParen, 0); }
 		public NegationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -6554,20 +6257,16 @@ public class JinjaFlaskParser extends Parser {
 
 	public final NegationContext negation() throws RecognitionException {
 		NegationContext _localctx = new NegationContext(_ctx, getState());
-		enterRule(_localctx, 146, RULE_negation);
+		enterRule(_localctx, 144, RULE_negation);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1046);
+			setState(967);
 			match(PseudoNot);
-			setState(1047);
-			css_ws();
-			setState(1048);
+			setState(968);
 			negationArg();
-			setState(1049);
-			css_ws();
-			setState(1050);
-			match(CSS_RPAREN);
+			setState(969);
+			match(CloseParen);
 			}
 		}
 		catch (RecognitionException re) {
@@ -6620,50 +6319,50 @@ public class JinjaFlaskParser extends Parser {
 
 	public final NegationArgContext negationArg() throws RecognitionException {
 		NegationArgContext _localctx = new NegationArgContext(_ctx, getState());
-		enterRule(_localctx, 148, RULE_negationArg);
+		enterRule(_localctx, 146, RULE_negationArg);
 		try {
-			setState(1058);
+			setState(977);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,105,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,104,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(1052);
+				setState(971);
 				typeSelector();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(1053);
+				setState(972);
 				universal();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(1054);
+				setState(973);
 				match(Hash);
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(1055);
+				setState(974);
 				className();
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(1056);
+				setState(975);
 				attrib();
 				}
 				break;
 			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(1057);
+				setState(976);
 				pseudo();
 				}
 				break;
@@ -6694,10 +6393,7 @@ public class JinjaFlaskParser extends Parser {
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class BadOperatorContext extends Operator_Context {
-		public TerminalNode CSS_EQUALS() { return getToken(JinjaFlaskParser.CSS_EQUALS, 0); }
-		public Css_wsContext css_ws() {
-			return getRuleContext(Css_wsContext.class,0);
-		}
+		public TerminalNode Equal() { return getToken(JinjaFlaskParser.Equal, 0); }
 		public BadOperatorContext(Operator_Context ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -6715,11 +6411,8 @@ public class JinjaFlaskParser extends Parser {
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class GoodOperatorContext extends Operator_Context {
-		public TerminalNode CSS_SLASH() { return getToken(JinjaFlaskParser.CSS_SLASH, 0); }
-		public Css_wsContext css_ws() {
-			return getRuleContext(Css_wsContext.class,0);
-		}
-		public TerminalNode CSS_COMMA() { return getToken(JinjaFlaskParser.CSS_COMMA, 0); }
+		public TerminalNode Divide() { return getToken(JinjaFlaskParser.Divide, 0); }
+		public TerminalNode Comma() { return getToken(JinjaFlaskParser.Comma, 0); }
 		public TerminalNode Space() { return getToken(JinjaFlaskParser.Space, 0); }
 		public GoodOperatorContext(Operator_Context ctx) { copyFrom(ctx); }
 		@Override
@@ -6739,49 +6432,41 @@ public class JinjaFlaskParser extends Parser {
 
 	public final Operator_Context operator_() throws RecognitionException {
 		Operator_Context _localctx = new Operator_Context(_ctx, getState());
-		enterRule(_localctx, 150, RULE_operator_);
+		enterRule(_localctx, 148, RULE_operator_);
 		try {
-			setState(1068);
+			setState(983);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case CSS_SLASH:
+			case Divide:
 				_localctx = new GoodOperatorContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(1060);
-				match(CSS_SLASH);
-				setState(1061);
-				css_ws();
+				setState(979);
+				match(Divide);
 				}
 				break;
-			case CSS_COMMA:
+			case Comma:
 				_localctx = new GoodOperatorContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(1062);
-				match(CSS_COMMA);
-				setState(1063);
-				css_ws();
+				setState(980);
+				match(Comma);
 				}
 				break;
 			case Space:
 				_localctx = new GoodOperatorContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(1064);
+				setState(981);
 				match(Space);
-				setState(1065);
-				css_ws();
 				}
 				break;
-			case CSS_EQUALS:
+			case Equal:
 				_localctx = new BadOperatorContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(1066);
-				match(CSS_EQUALS);
-				setState(1067);
-				css_ws();
+				setState(982);
+				match(Equal);
 				}
 				break;
 			default:
@@ -6813,11 +6498,11 @@ public class JinjaFlaskParser extends Parser {
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class BadPropertyContext extends Property_Context {
-		public TerminalNode CSS_ASTERISK() { return getToken(JinjaFlaskParser.CSS_ASTERISK, 0); }
+		public TerminalNode Multiply() { return getToken(JinjaFlaskParser.Multiply, 0); }
 		public IdentContext ident() {
 			return getRuleContext(IdentContext.class,0);
 		}
-		public TerminalNode CSS_UNDERSCORE() { return getToken(JinjaFlaskParser.CSS_UNDERSCORE, 0); }
+		public TerminalNode Underscore() { return getToken(JinjaFlaskParser.Underscore, 0); }
 		public BadPropertyContext(Property_Context ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -6838,9 +6523,6 @@ public class JinjaFlaskParser extends Parser {
 		public IdentContext ident() {
 			return getRuleContext(IdentContext.class,0);
 		}
-		public Css_wsContext css_ws() {
-			return getRuleContext(Css_wsContext.class,0);
-		}
 		public TerminalNode Variable() { return getToken(JinjaFlaskParser.Variable, 0); }
 		public GoodPropertyContext(Property_Context ctx) { copyFrom(ctx); }
 		@Override
@@ -6860,9 +6542,9 @@ public class JinjaFlaskParser extends Parser {
 
 	public final Property_Context property_() throws RecognitionException {
 		Property_Context _localctx = new Property_Context(_ctx, getState());
-		enterRule(_localctx, 152, RULE_property_);
+		enterRule(_localctx, 150, RULE_property_);
 		try {
-			setState(1079);
+			setState(991);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case MediaOnly:
@@ -6875,39 +6557,35 @@ public class JinjaFlaskParser extends Parser {
 				_localctx = new GoodPropertyContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(1070);
+				setState(985);
 				ident();
-				setState(1071);
-				css_ws();
 				}
 				break;
 			case Variable:
 				_localctx = new GoodPropertyContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(1073);
+				setState(986);
 				match(Variable);
-				setState(1074);
-				css_ws();
 				}
 				break;
-			case CSS_ASTERISK:
+			case Multiply:
 				_localctx = new BadPropertyContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(1075);
-				match(CSS_ASTERISK);
-				setState(1076);
+				setState(987);
+				match(Multiply);
+				setState(988);
 				ident();
 				}
 				break;
-			case CSS_UNDERSCORE:
+			case Underscore:
 				_localctx = new BadPropertyContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(1077);
-				match(CSS_UNDERSCORE);
-				setState(1078);
+				setState(989);
+				match(Underscore);
+				setState(990);
 				ident();
 				}
 				break;
@@ -6940,14 +6618,8 @@ public class JinjaFlaskParser extends Parser {
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class UnknownRulesetContext extends RulesetContext {
-		public TerminalNode CSS_LBRACE() { return getToken(JinjaFlaskParser.CSS_LBRACE, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
-		public TerminalNode CSS_RBRACE() { return getToken(JinjaFlaskParser.CSS_RBRACE, 0); }
+		public TerminalNode OpenBrace() { return getToken(JinjaFlaskParser.OpenBrace, 0); }
+		public TerminalNode CloseBrace() { return getToken(JinjaFlaskParser.CloseBrace, 0); }
 		public List<Any_Context> any_() {
 			return getRuleContexts(Any_Context.class);
 		}
@@ -6977,14 +6649,8 @@ public class JinjaFlaskParser extends Parser {
 		public SelectorGroupContext selectorGroup() {
 			return getRuleContext(SelectorGroupContext.class,0);
 		}
-		public TerminalNode CSS_LBRACE() { return getToken(JinjaFlaskParser.CSS_LBRACE, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
-		public TerminalNode CSS_RBRACE() { return getToken(JinjaFlaskParser.CSS_RBRACE, 0); }
+		public TerminalNode OpenBrace() { return getToken(JinjaFlaskParser.OpenBrace, 0); }
+		public TerminalNode CloseBrace() { return getToken(JinjaFlaskParser.CloseBrace, 0); }
 		public DeclarationListContext declarationList() {
 			return getRuleContext(DeclarationListContext.class,0);
 		}
@@ -7006,74 +6672,66 @@ public class JinjaFlaskParser extends Parser {
 
 	public final RulesetContext ruleset() throws RecognitionException {
 		RulesetContext _localctx = new RulesetContext(_ctx, getState());
-		enterRule(_localctx, 154, RULE_ruleset);
+		enterRule(_localctx, 152, RULE_ruleset);
 		int _la;
 		try {
-			setState(1104);
+			setState(1011);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,111,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,110,_ctx) ) {
 			case 1:
 				_localctx = new KnownRulesetContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(1081);
+				setState(993);
 				selectorGroup();
-				setState(1082);
-				match(CSS_LBRACE);
-				setState(1083);
-				css_ws();
-				setState(1085);
+				setState(994);
+				match(OpenBrace);
+				setState(996);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & 722405647987048451L) != 0)) {
+				if (((((_la - 90)) & ~0x3f) == 0 && ((1L << (_la - 90)) & 1410948531224721L) != 0)) {
 					{
-					setState(1084);
+					setState(995);
 					declarationList();
 					}
 				}
 
-				setState(1087);
-				match(CSS_RBRACE);
-				setState(1088);
-				css_ws();
+				setState(998);
+				match(CloseBrace);
 				}
 				break;
 			case 2:
 				_localctx = new UnknownRulesetContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(1093);
+				setState(1003);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (((((_la - 83)) & ~0x3f) == 0 && ((1L << (_la - 83)) & 3462431380863486993L) != 0)) {
+				while (((((_la - 79)) & ~0x3f) == 0 && ((1L << (_la - 79)) & 6924862761726910627L) != 0)) {
 					{
 					{
-					setState(1090);
+					setState(1000);
 					any_();
 					}
 					}
-					setState(1095);
+					setState(1005);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
-				setState(1096);
-				match(CSS_LBRACE);
-				setState(1097);
-				css_ws();
-				setState(1099);
+				setState(1006);
+				match(OpenBrace);
+				setState(1008);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & 722405647987048451L) != 0)) {
+				if (((((_la - 90)) & ~0x3f) == 0 && ((1L << (_la - 90)) & 1410948531224721L) != 0)) {
 					{
-					setState(1098);
+					setState(1007);
 					declarationList();
 					}
 				}
 
-				setState(1101);
-				match(CSS_RBRACE);
-				setState(1102);
-				css_ws();
+				setState(1010);
+				match(CloseBrace);
 				}
 				break;
 			}
@@ -7097,15 +6755,9 @@ public class JinjaFlaskParser extends Parser {
 		public DeclarationContext declaration(int i) {
 			return getRuleContext(DeclarationContext.class,i);
 		}
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
-		public List<TerminalNode> CSS_SEMICOLON() { return getTokens(JinjaFlaskParser.CSS_SEMICOLON); }
-		public TerminalNode CSS_SEMICOLON(int i) {
-			return getToken(JinjaFlaskParser.CSS_SEMICOLON, i);
+		public List<TerminalNode> SemiColon() { return getTokens(JinjaFlaskParser.SemiColon); }
+		public TerminalNode SemiColon(int i) {
+			return getToken(JinjaFlaskParser.SemiColon, i);
 		}
 		public DeclarationListContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -7128,49 +6780,43 @@ public class JinjaFlaskParser extends Parser {
 
 	public final DeclarationListContext declarationList() throws RecognitionException {
 		DeclarationListContext _localctx = new DeclarationListContext(_ctx, getState());
-		enterRule(_localctx, 156, RULE_declarationList);
+		enterRule(_localctx, 154, RULE_declarationList);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1110);
+			setState(1016);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==CSS_SEMICOLON) {
+			while (_la==SemiColon) {
 				{
 				{
-				setState(1106);
-				match(CSS_SEMICOLON);
-				setState(1107);
-				css_ws();
+				setState(1013);
+				match(SemiColon);
 				}
 				}
-				setState(1112);
+				setState(1018);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(1113);
+			setState(1019);
 			declaration();
-			setState(1114);
-			css_ws();
-			setState(1122);
+			setState(1026);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,114,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,113,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(1115);
-					match(CSS_SEMICOLON);
-					setState(1116);
-					css_ws();
-					setState(1118);
+					setState(1020);
+					match(SemiColon);
+					setState(1022);
 					_errHandler.sync(this);
-					switch ( getInterpreter().adaptivePredict(_input,113,_ctx) ) {
+					switch ( getInterpreter().adaptivePredict(_input,112,_ctx) ) {
 					case 1:
 						{
-						setState(1117);
+						setState(1021);
 						declaration();
 						}
 						break;
@@ -7178,9 +6824,9 @@ public class JinjaFlaskParser extends Parser {
 					}
 					} 
 				}
-				setState(1124);
+				setState(1028);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,114,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,113,_ctx);
 			}
 			}
 		}
@@ -7212,10 +6858,7 @@ public class JinjaFlaskParser extends Parser {
 		public Property_Context property_() {
 			return getRuleContext(Property_Context.class,0);
 		}
-		public TerminalNode CSS_COLON() { return getToken(JinjaFlaskParser.CSS_COLON, 0); }
-		public Css_wsContext css_ws() {
-			return getRuleContext(Css_wsContext.class,0);
-		}
+		public TerminalNode Colon() { return getToken(JinjaFlaskParser.Colon, 0); }
 		public ValueContext value() {
 			return getRuleContext(ValueContext.class,0);
 		}
@@ -7239,10 +6882,7 @@ public class JinjaFlaskParser extends Parser {
 		public Property_Context property_() {
 			return getRuleContext(Property_Context.class,0);
 		}
-		public TerminalNode CSS_COLON() { return getToken(JinjaFlaskParser.CSS_COLON, 0); }
-		public Css_wsContext css_ws() {
-			return getRuleContext(Css_wsContext.class,0);
-		}
+		public TerminalNode Colon() { return getToken(JinjaFlaskParser.Colon, 0); }
 		public Css_exprContext css_expr() {
 			return getRuleContext(Css_exprContext.class,0);
 		}
@@ -7267,30 +6907,28 @@ public class JinjaFlaskParser extends Parser {
 
 	public final DeclarationContext declaration() throws RecognitionException {
 		DeclarationContext _localctx = new DeclarationContext(_ctx, getState());
-		enterRule(_localctx, 158, RULE_declaration);
+		enterRule(_localctx, 156, RULE_declaration);
 		int _la;
 		try {
-			setState(1137);
+			setState(1039);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,116,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,115,_ctx) ) {
 			case 1:
 				_localctx = new KnownDeclarationContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(1125);
+				setState(1029);
 				property_();
-				setState(1126);
-				match(CSS_COLON);
-				setState(1127);
-				css_ws();
-				setState(1128);
+				setState(1030);
+				match(Colon);
+				setState(1031);
 				css_expr();
-				setState(1130);
+				setState(1033);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==Important) {
 					{
-					setState(1129);
+					setState(1032);
 					prio();
 					}
 				}
@@ -7301,13 +6939,11 @@ public class JinjaFlaskParser extends Parser {
 				_localctx = new UnknownDeclarationContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(1132);
+				setState(1035);
 				property_();
-				setState(1133);
-				match(CSS_COLON);
-				setState(1134);
-				css_ws();
-				setState(1135);
+				setState(1036);
+				match(Colon);
+				setState(1037);
 				value();
 				}
 				break;
@@ -7327,9 +6963,6 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class PrioContext extends ParserRuleContext {
 		public TerminalNode Important() { return getToken(JinjaFlaskParser.Important, 0); }
-		public Css_wsContext css_ws() {
-			return getRuleContext(Css_wsContext.class,0);
-		}
 		public PrioContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -7351,14 +6984,12 @@ public class JinjaFlaskParser extends Parser {
 
 	public final PrioContext prio() throws RecognitionException {
 		PrioContext _localctx = new PrioContext(_ctx, getState());
-		enterRule(_localctx, 160, RULE_prio);
+		enterRule(_localctx, 158, RULE_prio);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1139);
+			setState(1041);
 			match(Important);
-			setState(1140);
-			css_ws();
 			}
 		}
 		catch (RecognitionException re) {
@@ -7390,12 +7021,6 @@ public class JinjaFlaskParser extends Parser {
 		public TerminalNode AtKeyword(int i) {
 			return getToken(JinjaFlaskParser.AtKeyword, i);
 		}
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
 		public ValueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -7417,26 +7042,26 @@ public class JinjaFlaskParser extends Parser {
 
 	public final ValueContext value() throws RecognitionException {
 		ValueContext _localctx = new ValueContext(_ctx, getState());
-		enterRule(_localctx, 162, RULE_value);
+		enterRule(_localctx, 160, RULE_value);
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1146); 
+			setState(1046); 
 			_errHandler.sync(this);
 			_alt = 1;
 			do {
 				switch (_alt) {
 				case 1:
 					{
-					setState(1146);
+					setState(1046);
 					_errHandler.sync(this);
 					switch (_input.LA(1)) {
-					case CSS_COLON:
-					case CSS_LPAREN:
-					case CSS_PLUS:
-					case CSS_MINUS:
-					case CSS_LBRACKET:
+					case Plus:
+					case Minus:
+					case OpenBracket:
+					case OpenParen:
+					case Colon:
 					case Url:
 					case Includes:
 					case DashMatch:
@@ -7457,22 +7082,20 @@ public class JinjaFlaskParser extends Parser {
 					case Ident:
 					case Function_:
 						{
-						setState(1142);
+						setState(1043);
 						any_();
 						}
 						break;
-					case CSS_LBRACE:
+					case OpenBrace:
 						{
-						setState(1143);
+						setState(1044);
 						block();
 						}
 						break;
 					case AtKeyword:
 						{
-						setState(1144);
+						setState(1045);
 						match(AtKeyword);
-						setState(1145);
-						css_ws();
 						}
 						break;
 					default:
@@ -7483,9 +7106,9 @@ public class JinjaFlaskParser extends Parser {
 				default:
 					throw new NoViableAltException(this);
 				}
-				setState(1148); 
+				setState(1048); 
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,118,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,117,_ctx);
 			} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
 			}
 		}
@@ -7502,14 +7125,11 @@ public class JinjaFlaskParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class Css_exprContext extends ParserRuleContext {
-		public Css_termContext css_term() {
-			return getRuleContext(Css_termContext.class,0);
+		public List<Css_termContext> css_term() {
+			return getRuleContexts(Css_termContext.class);
 		}
-		public List<TermContext> term() {
-			return getRuleContexts(TermContext.class);
-		}
-		public TermContext term(int i) {
-			return getRuleContext(TermContext.class,i);
+		public Css_termContext css_term(int i) {
+			return getRuleContext(Css_termContext.class,i);
 		}
 		public List<Operator_Context> operator_() {
 			return getRuleContexts(Operator_Context.class);
@@ -7538,39 +7158,39 @@ public class JinjaFlaskParser extends Parser {
 
 	public final Css_exprContext css_expr() throws RecognitionException {
 		Css_exprContext _localctx = new Css_exprContext(_ctx, getState());
-		enterRule(_localctx, 164, RULE_css_expr);
+		enterRule(_localctx, 162, RULE_css_expr);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1150);
+			setState(1050);
 			css_term();
-			setState(1157);
+			setState(1057);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,120,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,119,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(1152);
+					setState(1052);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
-					if (((((_la - 89)) & ~0x3f) == 0 && ((1L << (_la - 89)) & 16645L) != 0)) {
+					if (((((_la - 82)) & ~0x3f) == 0 && ((1L << (_la - 82)) & 270849L) != 0)) {
 						{
-						setState(1151);
+						setState(1051);
 						operator_();
 						}
 					}
 
-					setState(1154);
-					term();
+					setState(1054);
+					css_term();
 					}
 					} 
 				}
-				setState(1159);
+				setState(1059);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,120,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,119,_ctx);
 			}
 			}
 		}
@@ -7622,9 +7242,6 @@ public class JinjaFlaskParser extends Parser {
 		public NumberContext number() {
 			return getRuleContext(NumberContext.class,0);
 		}
-		public Css_wsContext css_ws() {
-			return getRuleContext(Css_wsContext.class,0);
-		}
 		public PercentageContext percentage() {
 			return getRuleContext(PercentageContext.class,0);
 		}
@@ -7671,9 +7288,6 @@ public class JinjaFlaskParser extends Parser {
 		public UnknownDimensionContext unknownDimension() {
 			return getRuleContext(UnknownDimensionContext.class,0);
 		}
-		public Css_wsContext css_ws() {
-			return getRuleContext(Css_wsContext.class,0);
-		}
 		public UnknownTermContext(Css_termContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -7692,76 +7306,64 @@ public class JinjaFlaskParser extends Parser {
 
 	public final Css_termContext css_term() throws RecognitionException {
 		Css_termContext _localctx = new Css_termContext(_ctx, getState());
-		enterRule(_localctx, 166, RULE_css_term);
+		enterRule(_localctx, 164, RULE_css_term);
 		try {
-			setState(1187);
+			setState(1073);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,121,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,120,_ctx) ) {
 			case 1:
 				_localctx = new KnownTermContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(1160);
+				setState(1060);
 				number();
-				setState(1161);
-				css_ws();
 				}
 				break;
 			case 2:
 				_localctx = new KnownTermContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(1163);
+				setState(1061);
 				percentage();
-				setState(1164);
-				css_ws();
 				}
 				break;
 			case 3:
 				_localctx = new KnownTermContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(1166);
+				setState(1062);
 				dimension();
-				setState(1167);
-				css_ws();
 				}
 				break;
 			case 4:
 				_localctx = new KnownTermContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(1169);
+				setState(1063);
 				match(String_);
-				setState(1170);
-				css_ws();
 				}
 				break;
 			case 5:
 				_localctx = new KnownTermContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(1171);
+				setState(1064);
 				match(UnicodeRange);
-				setState(1172);
-				css_ws();
 				}
 				break;
 			case 6:
 				_localctx = new KnownTermContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(1173);
+				setState(1065);
 				ident();
-				setState(1174);
-				css_ws();
 				}
 				break;
 			case 7:
 				_localctx = new KnownTermContext(_localctx);
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(1176);
+				setState(1066);
 				var_();
 				}
 				break;
@@ -7769,17 +7371,15 @@ public class JinjaFlaskParser extends Parser {
 				_localctx = new KnownTermContext(_localctx);
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(1177);
+				setState(1067);
 				url();
-				setState(1178);
-				css_ws();
 				}
 				break;
 			case 9:
 				_localctx = new KnownTermContext(_localctx);
 				enterOuterAlt(_localctx, 9);
 				{
-				setState(1180);
+				setState(1068);
 				hexcolor();
 				}
 				break;
@@ -7787,7 +7387,7 @@ public class JinjaFlaskParser extends Parser {
 				_localctx = new KnownTermContext(_localctx);
 				enterOuterAlt(_localctx, 10);
 				{
-				setState(1181);
+				setState(1069);
 				calc();
 				}
 				break;
@@ -7795,7 +7395,7 @@ public class JinjaFlaskParser extends Parser {
 				_localctx = new KnownTermContext(_localctx);
 				enterOuterAlt(_localctx, 11);
 				{
-				setState(1182);
+				setState(1070);
 				function_();
 				}
 				break;
@@ -7803,17 +7403,15 @@ public class JinjaFlaskParser extends Parser {
 				_localctx = new UnknownTermContext(_localctx);
 				enterOuterAlt(_localctx, 12);
 				{
-				setState(1183);
+				setState(1071);
 				unknownDimension();
-				setState(1184);
-				css_ws();
 				}
 				break;
 			case 13:
 				_localctx = new BadTermContext(_localctx);
 				enterOuterAlt(_localctx, 13);
 				{
-				setState(1186);
+				setState(1072);
 				dxImageTransform();
 				}
 				break;
@@ -7833,16 +7431,10 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class Function_Context extends ParserRuleContext {
 		public TerminalNode Function_() { return getToken(JinjaFlaskParser.Function_, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
 		public Css_exprContext css_expr() {
 			return getRuleContext(Css_exprContext.class,0);
 		}
-		public TerminalNode CSS_RPAREN() { return getToken(JinjaFlaskParser.CSS_RPAREN, 0); }
+		public TerminalNode CloseParen() { return getToken(JinjaFlaskParser.CloseParen, 0); }
 		public Function_Context(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -7864,20 +7456,16 @@ public class JinjaFlaskParser extends Parser {
 
 	public final Function_Context function_() throws RecognitionException {
 		Function_Context _localctx = new Function_Context(_ctx, getState());
-		enterRule(_localctx, 168, RULE_function_);
+		enterRule(_localctx, 166, RULE_function_);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1189);
+			setState(1075);
 			match(Function_);
-			setState(1190);
-			css_ws();
-			setState(1191);
+			setState(1076);
 			css_expr();
-			setState(1192);
-			match(CSS_RPAREN);
-			setState(1193);
-			css_ws();
+			setState(1077);
+			match(CloseParen);
 			}
 		}
 		catch (RecognitionException re) {
@@ -7894,16 +7482,10 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class DxImageTransformContext extends ParserRuleContext {
 		public TerminalNode DxImageTransform() { return getToken(JinjaFlaskParser.DxImageTransform, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
 		public Css_exprContext css_expr() {
 			return getRuleContext(Css_exprContext.class,0);
 		}
-		public TerminalNode CSS_RPAREN() { return getToken(JinjaFlaskParser.CSS_RPAREN, 0); }
+		public TerminalNode CloseParen() { return getToken(JinjaFlaskParser.CloseParen, 0); }
 		public DxImageTransformContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -7925,20 +7507,16 @@ public class JinjaFlaskParser extends Parser {
 
 	public final DxImageTransformContext dxImageTransform() throws RecognitionException {
 		DxImageTransformContext _localctx = new DxImageTransformContext(_ctx, getState());
-		enterRule(_localctx, 170, RULE_dxImageTransform);
+		enterRule(_localctx, 168, RULE_dxImageTransform);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1195);
+			setState(1079);
 			match(DxImageTransform);
-			setState(1196);
-			css_ws();
-			setState(1197);
+			setState(1080);
 			css_expr();
-			setState(1198);
-			match(CSS_RPAREN);
-			setState(1199);
-			css_ws();
+			setState(1081);
+			match(CloseParen);
 			}
 		}
 		catch (RecognitionException re) {
@@ -7955,9 +7533,6 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class HexcolorContext extends ParserRuleContext {
 		public TerminalNode Hash() { return getToken(JinjaFlaskParser.Hash, 0); }
-		public Css_wsContext css_ws() {
-			return getRuleContext(Css_wsContext.class,0);
-		}
 		public HexcolorContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -7979,14 +7554,12 @@ public class JinjaFlaskParser extends Parser {
 
 	public final HexcolorContext hexcolor() throws RecognitionException {
 		HexcolorContext _localctx = new HexcolorContext(_ctx, getState());
-		enterRule(_localctx, 172, RULE_hexcolor);
+		enterRule(_localctx, 170, RULE_hexcolor);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1201);
+			setState(1083);
 			match(Hash);
-			setState(1202);
-			css_ws();
 			}
 		}
 		catch (RecognitionException re) {
@@ -8003,8 +7576,8 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class NumberContext extends ParserRuleContext {
 		public TerminalNode Number() { return getToken(JinjaFlaskParser.Number, 0); }
-		public TerminalNode CSS_PLUS() { return getToken(JinjaFlaskParser.CSS_PLUS, 0); }
-		public TerminalNode CSS_MINUS() { return getToken(JinjaFlaskParser.CSS_MINUS, 0); }
+		public TerminalNode Plus() { return getToken(JinjaFlaskParser.Plus, 0); }
+		public TerminalNode Minus() { return getToken(JinjaFlaskParser.Minus, 0); }
 		public NumberContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -8026,19 +7599,19 @@ public class JinjaFlaskParser extends Parser {
 
 	public final NumberContext number() throws RecognitionException {
 		NumberContext _localctx = new NumberContext(_ctx, getState());
-		enterRule(_localctx, 174, RULE_number);
+		enterRule(_localctx, 172, RULE_number);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1205);
+			setState(1086);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (_la==CSS_PLUS || _la==CSS_MINUS) {
+			if (_la==Plus || _la==Minus) {
 				{
-				setState(1204);
+				setState(1085);
 				_la = _input.LA(1);
-				if ( !(_la==CSS_PLUS || _la==CSS_MINUS) ) {
+				if ( !(_la==Plus || _la==Minus) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -8049,7 +7622,7 @@ public class JinjaFlaskParser extends Parser {
 				}
 			}
 
-			setState(1207);
+			setState(1088);
 			match(Number);
 			}
 		}
@@ -8067,8 +7640,8 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class PercentageContext extends ParserRuleContext {
 		public TerminalNode Percentage() { return getToken(JinjaFlaskParser.Percentage, 0); }
-		public TerminalNode CSS_PLUS() { return getToken(JinjaFlaskParser.CSS_PLUS, 0); }
-		public TerminalNode CSS_MINUS() { return getToken(JinjaFlaskParser.CSS_MINUS, 0); }
+		public TerminalNode Plus() { return getToken(JinjaFlaskParser.Plus, 0); }
+		public TerminalNode Minus() { return getToken(JinjaFlaskParser.Minus, 0); }
 		public PercentageContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -8090,19 +7663,19 @@ public class JinjaFlaskParser extends Parser {
 
 	public final PercentageContext percentage() throws RecognitionException {
 		PercentageContext _localctx = new PercentageContext(_ctx, getState());
-		enterRule(_localctx, 176, RULE_percentage);
+		enterRule(_localctx, 174, RULE_percentage);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1210);
+			setState(1091);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (_la==CSS_PLUS || _la==CSS_MINUS) {
+			if (_la==Plus || _la==Minus) {
 				{
-				setState(1209);
+				setState(1090);
 				_la = _input.LA(1);
-				if ( !(_la==CSS_PLUS || _la==CSS_MINUS) ) {
+				if ( !(_la==Plus || _la==Minus) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -8113,7 +7686,7 @@ public class JinjaFlaskParser extends Parser {
 				}
 			}
 
-			setState(1212);
+			setState(1093);
 			match(Percentage);
 			}
 		}
@@ -8131,8 +7704,8 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class DimensionContext extends ParserRuleContext {
 		public TerminalNode Dimension() { return getToken(JinjaFlaskParser.Dimension, 0); }
-		public TerminalNode CSS_PLUS() { return getToken(JinjaFlaskParser.CSS_PLUS, 0); }
-		public TerminalNode CSS_MINUS() { return getToken(JinjaFlaskParser.CSS_MINUS, 0); }
+		public TerminalNode Plus() { return getToken(JinjaFlaskParser.Plus, 0); }
+		public TerminalNode Minus() { return getToken(JinjaFlaskParser.Minus, 0); }
 		public DimensionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -8154,19 +7727,19 @@ public class JinjaFlaskParser extends Parser {
 
 	public final DimensionContext dimension() throws RecognitionException {
 		DimensionContext _localctx = new DimensionContext(_ctx, getState());
-		enterRule(_localctx, 178, RULE_dimension);
+		enterRule(_localctx, 176, RULE_dimension);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1215);
+			setState(1096);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (_la==CSS_PLUS || _la==CSS_MINUS) {
+			if (_la==Plus || _la==Minus) {
 				{
-				setState(1214);
+				setState(1095);
 				_la = _input.LA(1);
-				if ( !(_la==CSS_PLUS || _la==CSS_MINUS) ) {
+				if ( !(_la==Plus || _la==Minus) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -8177,7 +7750,7 @@ public class JinjaFlaskParser extends Parser {
 				}
 			}
 
-			setState(1217);
+			setState(1098);
 			match(Dimension);
 			}
 		}
@@ -8195,8 +7768,8 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class UnknownDimensionContext extends ParserRuleContext {
 		public TerminalNode UnknownDimension() { return getToken(JinjaFlaskParser.UnknownDimension, 0); }
-		public TerminalNode CSS_PLUS() { return getToken(JinjaFlaskParser.CSS_PLUS, 0); }
-		public TerminalNode CSS_MINUS() { return getToken(JinjaFlaskParser.CSS_MINUS, 0); }
+		public TerminalNode Plus() { return getToken(JinjaFlaskParser.Plus, 0); }
+		public TerminalNode Minus() { return getToken(JinjaFlaskParser.Minus, 0); }
 		public UnknownDimensionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -8218,19 +7791,19 @@ public class JinjaFlaskParser extends Parser {
 
 	public final UnknownDimensionContext unknownDimension() throws RecognitionException {
 		UnknownDimensionContext _localctx = new UnknownDimensionContext(_ctx, getState());
-		enterRule(_localctx, 180, RULE_unknownDimension);
+		enterRule(_localctx, 178, RULE_unknownDimension);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1220);
+			setState(1101);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (_la==CSS_PLUS || _la==CSS_MINUS) {
+			if (_la==Plus || _la==Minus) {
 				{
-				setState(1219);
+				setState(1100);
 				_la = _input.LA(1);
-				if ( !(_la==CSS_PLUS || _la==CSS_MINUS) ) {
+				if ( !(_la==Plus || _la==Minus) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -8241,7 +7814,7 @@ public class JinjaFlaskParser extends Parser {
 				}
 			}
 
-			setState(1222);
+			setState(1103);
 			match(UnknownDimension);
 			}
 		}
@@ -8260,12 +7833,6 @@ public class JinjaFlaskParser extends Parser {
 	public static class Any_Context extends ParserRuleContext {
 		public IdentContext ident() {
 			return getRuleContext(IdentContext.class,0);
-		}
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
 		}
 		public NumberContext number() {
 			return getRuleContext(NumberContext.class,0);
@@ -8287,9 +7854,9 @@ public class JinjaFlaskParser extends Parser {
 		public TerminalNode UnicodeRange() { return getToken(JinjaFlaskParser.UnicodeRange, 0); }
 		public TerminalNode Includes() { return getToken(JinjaFlaskParser.Includes, 0); }
 		public TerminalNode DashMatch() { return getToken(JinjaFlaskParser.DashMatch, 0); }
-		public TerminalNode CSS_COLON() { return getToken(JinjaFlaskParser.CSS_COLON, 0); }
+		public TerminalNode Colon() { return getToken(JinjaFlaskParser.Colon, 0); }
 		public TerminalNode Function_() { return getToken(JinjaFlaskParser.Function_, 0); }
-		public TerminalNode CSS_RPAREN() { return getToken(JinjaFlaskParser.CSS_RPAREN, 0); }
+		public TerminalNode CloseParen() { return getToken(JinjaFlaskParser.CloseParen, 0); }
 		public List<Any_Context> any_() {
 			return getRuleContexts(Any_Context.class);
 		}
@@ -8302,9 +7869,9 @@ public class JinjaFlaskParser extends Parser {
 		public UnusedContext unused(int i) {
 			return getRuleContext(UnusedContext.class,i);
 		}
-		public TerminalNode CSS_LPAREN() { return getToken(JinjaFlaskParser.CSS_LPAREN, 0); }
-		public TerminalNode CSS_LBRACKET() { return getToken(JinjaFlaskParser.CSS_LBRACKET, 0); }
-		public TerminalNode CSS_RBRACKET() { return getToken(JinjaFlaskParser.CSS_RBRACKET, 0); }
+		public TerminalNode OpenParen() { return getToken(JinjaFlaskParser.OpenParen, 0); }
+		public TerminalNode OpenBracket() { return getToken(JinjaFlaskParser.OpenBracket, 0); }
+		public TerminalNode CloseBracket() { return getToken(JinjaFlaskParser.CloseBracket, 0); }
 		public Any_Context(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -8326,140 +7893,114 @@ public class JinjaFlaskParser extends Parser {
 
 	public final Any_Context any_() throws RecognitionException {
 		Any_Context _localctx = new Any_Context(_ctx, getState());
-		enterRule(_localctx, 182, RULE_any_);
+		enterRule(_localctx, 180, RULE_any_);
 		int _la;
 		try {
-			setState(1290);
+			setState(1144);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,132,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,131,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(1224);
+				setState(1105);
 				ident();
-				setState(1225);
-				css_ws();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(1227);
+				setState(1106);
 				number();
-				setState(1228);
-				css_ws();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(1230);
+				setState(1107);
 				percentage();
-				setState(1231);
-				css_ws();
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(1233);
+				setState(1108);
 				dimension();
-				setState(1234);
-				css_ws();
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(1236);
+				setState(1109);
 				unknownDimension();
-				setState(1237);
-				css_ws();
 				}
 				break;
 			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(1239);
+				setState(1110);
 				match(String_);
-				setState(1240);
-				css_ws();
 				}
 				break;
 			case 7:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(1241);
+				setState(1111);
 				url();
-				setState(1242);
-				css_ws();
 				}
 				break;
 			case 8:
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(1244);
+				setState(1112);
 				match(Hash);
-				setState(1245);
-				css_ws();
 				}
 				break;
 			case 9:
 				enterOuterAlt(_localctx, 9);
 				{
-				setState(1246);
+				setState(1113);
 				match(UnicodeRange);
-				setState(1247);
-				css_ws();
 				}
 				break;
 			case 10:
 				enterOuterAlt(_localctx, 10);
 				{
-				setState(1248);
+				setState(1114);
 				match(Includes);
-				setState(1249);
-				css_ws();
 				}
 				break;
 			case 11:
 				enterOuterAlt(_localctx, 11);
 				{
-				setState(1250);
+				setState(1115);
 				match(DashMatch);
-				setState(1251);
-				css_ws();
 				}
 				break;
 			case 12:
 				enterOuterAlt(_localctx, 12);
 				{
-				setState(1252);
-				match(CSS_COLON);
-				setState(1253);
-				css_ws();
+				setState(1116);
+				match(Colon);
 				}
 				break;
 			case 13:
 				enterOuterAlt(_localctx, 13);
 				{
-				setState(1254);
+				setState(1117);
 				match(Function_);
-				setState(1255);
-				css_ws();
-				setState(1260);
+				setState(1122);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (((((_la - 81)) & ~0x3f) == 0 && ((1L << (_la - 81)) & -4020557797927014323L) != 0)) {
+				while (((((_la - 79)) & ~0x3f) == 0 && ((1L << (_la - 79)) & 7213093137891207843L) != 0)) {
 					{
-					setState(1258);
+					setState(1120);
 					_errHandler.sync(this);
 					switch (_input.LA(1)) {
-					case CSS_COLON:
-					case CSS_LPAREN:
-					case CSS_PLUS:
-					case CSS_MINUS:
-					case CSS_LBRACKET:
+					case Plus:
+					case Minus:
+					case OpenBracket:
+					case OpenParen:
+					case Colon:
 					case Url:
 					case Includes:
 					case DashMatch:
@@ -8480,17 +8021,17 @@ public class JinjaFlaskParser extends Parser {
 					case Ident:
 					case Function_:
 						{
-						setState(1256);
+						setState(1118);
 						any_();
 						}
 						break;
-					case CSS_LBRACE:
-					case CSS_SEMICOLON:
+					case OpenBrace:
+					case SemiColon:
 					case Cdo:
 					case Cdc:
 					case AtKeyword:
 						{
-						setState(1257);
+						setState(1119);
 						unused();
 						}
 						break;
@@ -8498,36 +8039,32 @@ public class JinjaFlaskParser extends Parser {
 						throw new NoViableAltException(this);
 					}
 					}
-					setState(1262);
+					setState(1124);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
-				setState(1263);
-				match(CSS_RPAREN);
-				setState(1264);
-				css_ws();
+				setState(1125);
+				match(CloseParen);
 				}
 				break;
 			case 14:
 				enterOuterAlt(_localctx, 14);
 				{
-				setState(1266);
-				match(CSS_LPAREN);
-				setState(1267);
-				css_ws();
-				setState(1272);
+				setState(1126);
+				match(OpenParen);
+				setState(1131);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (((((_la - 81)) & ~0x3f) == 0 && ((1L << (_la - 81)) & -4020557797927014323L) != 0)) {
+				while (((((_la - 79)) & ~0x3f) == 0 && ((1L << (_la - 79)) & 7213093137891207843L) != 0)) {
 					{
-					setState(1270);
+					setState(1129);
 					_errHandler.sync(this);
 					switch (_input.LA(1)) {
-					case CSS_COLON:
-					case CSS_LPAREN:
-					case CSS_PLUS:
-					case CSS_MINUS:
-					case CSS_LBRACKET:
+					case Plus:
+					case Minus:
+					case OpenBracket:
+					case OpenParen:
+					case Colon:
 					case Url:
 					case Includes:
 					case DashMatch:
@@ -8548,17 +8085,17 @@ public class JinjaFlaskParser extends Parser {
 					case Ident:
 					case Function_:
 						{
-						setState(1268);
+						setState(1127);
 						any_();
 						}
 						break;
-					case CSS_LBRACE:
-					case CSS_SEMICOLON:
+					case OpenBrace:
+					case SemiColon:
 					case Cdo:
 					case Cdc:
 					case AtKeyword:
 						{
-						setState(1269);
+						setState(1128);
 						unused();
 						}
 						break;
@@ -8566,36 +8103,32 @@ public class JinjaFlaskParser extends Parser {
 						throw new NoViableAltException(this);
 					}
 					}
-					setState(1274);
+					setState(1133);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
-				setState(1275);
-				match(CSS_RPAREN);
-				setState(1276);
-				css_ws();
+				setState(1134);
+				match(CloseParen);
 				}
 				break;
 			case 15:
 				enterOuterAlt(_localctx, 15);
 				{
-				setState(1278);
-				match(CSS_LBRACKET);
-				setState(1279);
-				css_ws();
-				setState(1284);
+				setState(1135);
+				match(OpenBracket);
+				setState(1140);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (((((_la - 81)) & ~0x3f) == 0 && ((1L << (_la - 81)) & -4020557797927014323L) != 0)) {
+				while (((((_la - 79)) & ~0x3f) == 0 && ((1L << (_la - 79)) & 7213093137891207843L) != 0)) {
 					{
-					setState(1282);
+					setState(1138);
 					_errHandler.sync(this);
 					switch (_input.LA(1)) {
-					case CSS_COLON:
-					case CSS_LPAREN:
-					case CSS_PLUS:
-					case CSS_MINUS:
-					case CSS_LBRACKET:
+					case Plus:
+					case Minus:
+					case OpenBracket:
+					case OpenParen:
+					case Colon:
 					case Url:
 					case Includes:
 					case DashMatch:
@@ -8616,17 +8149,17 @@ public class JinjaFlaskParser extends Parser {
 					case Ident:
 					case Function_:
 						{
-						setState(1280);
+						setState(1136);
 						any_();
 						}
 						break;
-					case CSS_LBRACE:
-					case CSS_SEMICOLON:
+					case OpenBrace:
+					case SemiColon:
 					case Cdo:
 					case Cdc:
 					case AtKeyword:
 						{
-						setState(1281);
+						setState(1137);
 						unused();
 						}
 						break;
@@ -8634,14 +8167,12 @@ public class JinjaFlaskParser extends Parser {
 						throw new NoViableAltException(this);
 					}
 					}
-					setState(1286);
+					setState(1142);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
-				setState(1287);
-				match(CSS_RBRACKET);
-				setState(1288);
-				css_ws();
+				setState(1143);
+				match(CloseBracket);
 				}
 				break;
 			}
@@ -8672,16 +8203,10 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class UnknownAtRuleContext extends AtRuleContext {
 		public TerminalNode AtKeyword() { return getToken(JinjaFlaskParser.AtKeyword, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
 		public BlockContext block() {
 			return getRuleContext(BlockContext.class,0);
 		}
-		public TerminalNode CSS_SEMICOLON() { return getToken(JinjaFlaskParser.CSS_SEMICOLON, 0); }
+		public TerminalNode SemiColon() { return getToken(JinjaFlaskParser.SemiColon, 0); }
 		public List<Any_Context> any_() {
 			return getRuleContexts(Any_Context.class);
 		}
@@ -8706,45 +8231,41 @@ public class JinjaFlaskParser extends Parser {
 
 	public final AtRuleContext atRule() throws RecognitionException {
 		AtRuleContext _localctx = new AtRuleContext(_ctx, getState());
-		enterRule(_localctx, 184, RULE_atRule);
+		enterRule(_localctx, 182, RULE_atRule);
 		int _la;
 		try {
 			_localctx = new UnknownAtRuleContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1292);
+			setState(1146);
 			match(AtKeyword);
-			setState(1293);
-			css_ws();
-			setState(1297);
+			setState(1150);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((((_la - 83)) & ~0x3f) == 0 && ((1L << (_la - 83)) & 3462431380863486993L) != 0)) {
+			while (((((_la - 79)) & ~0x3f) == 0 && ((1L << (_la - 79)) & 6924862761726910627L) != 0)) {
 				{
 				{
-				setState(1294);
+				setState(1147);
 				any_();
 				}
 				}
-				setState(1299);
+				setState(1152);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(1303);
+			setState(1155);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case CSS_LBRACE:
+			case OpenBrace:
 				{
-				setState(1300);
+				setState(1153);
 				block();
 				}
 				break;
-			case CSS_SEMICOLON:
+			case SemiColon:
 				{
-				setState(1301);
-				match(CSS_SEMICOLON);
-				setState(1302);
-				css_ws();
+				setState(1154);
+				match(SemiColon);
 				}
 				break;
 			default:
@@ -8769,10 +8290,7 @@ public class JinjaFlaskParser extends Parser {
 			return getRuleContext(BlockContext.class,0);
 		}
 		public TerminalNode AtKeyword() { return getToken(JinjaFlaskParser.AtKeyword, 0); }
-		public Css_wsContext css_ws() {
-			return getRuleContext(Css_wsContext.class,0);
-		}
-		public TerminalNode CSS_SEMICOLON() { return getToken(JinjaFlaskParser.CSS_SEMICOLON, 0); }
+		public TerminalNode SemiColon() { return getToken(JinjaFlaskParser.SemiColon, 0); }
 		public TerminalNode Cdo() { return getToken(JinjaFlaskParser.Cdo, 0); }
 		public TerminalNode Cdc() { return getToken(JinjaFlaskParser.Cdc, 0); }
 		public UnusedContext(ParserRuleContext parent, int invokingState) {
@@ -8796,52 +8314,44 @@ public class JinjaFlaskParser extends Parser {
 
 	public final UnusedContext unused() throws RecognitionException {
 		UnusedContext _localctx = new UnusedContext(_ctx, getState());
-		enterRule(_localctx, 186, RULE_unused);
+		enterRule(_localctx, 184, RULE_unused);
 		try {
-			setState(1314);
+			setState(1162);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case CSS_LBRACE:
+			case OpenBrace:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(1305);
+				setState(1157);
 				block();
 				}
 				break;
 			case AtKeyword:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(1306);
+				setState(1158);
 				match(AtKeyword);
-				setState(1307);
-				css_ws();
 				}
 				break;
-			case CSS_SEMICOLON:
+			case SemiColon:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(1308);
-				match(CSS_SEMICOLON);
-				setState(1309);
-				css_ws();
+				setState(1159);
+				match(SemiColon);
 				}
 				break;
 			case Cdo:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(1310);
+				setState(1160);
 				match(Cdo);
-				setState(1311);
-				css_ws();
 				}
 				break;
 			case Cdc:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(1312);
+				setState(1161);
 				match(Cdc);
-				setState(1313);
-				css_ws();
 				}
 				break;
 			default:
@@ -8861,14 +8371,8 @@ public class JinjaFlaskParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class BlockContext extends ParserRuleContext {
-		public TerminalNode CSS_LBRACE() { return getToken(JinjaFlaskParser.CSS_LBRACE, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
-		public TerminalNode CSS_RBRACE() { return getToken(JinjaFlaskParser.CSS_RBRACE, 0); }
+		public TerminalNode OpenBrace() { return getToken(JinjaFlaskParser.OpenBrace, 0); }
+		public TerminalNode CloseBrace() { return getToken(JinjaFlaskParser.CloseBrace, 0); }
 		public List<DeclarationListContext> declarationList() {
 			return getRuleContexts(DeclarationListContext.class);
 		}
@@ -8897,9 +8401,9 @@ public class JinjaFlaskParser extends Parser {
 		public TerminalNode AtKeyword(int i) {
 			return getToken(JinjaFlaskParser.AtKeyword, i);
 		}
-		public List<TerminalNode> CSS_SEMICOLON() { return getTokens(JinjaFlaskParser.CSS_SEMICOLON); }
-		public TerminalNode CSS_SEMICOLON(int i) {
-			return getToken(JinjaFlaskParser.CSS_SEMICOLON, i);
+		public List<TerminalNode> SemiColon() { return getTokens(JinjaFlaskParser.SemiColon); }
+		public TerminalNode SemiColon(int i) {
+			return getToken(JinjaFlaskParser.SemiColon, i);
 		}
 		public BlockContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -8922,73 +8426,65 @@ public class JinjaFlaskParser extends Parser {
 
 	public final BlockContext block() throws RecognitionException {
 		BlockContext _localctx = new BlockContext(_ctx, getState());
-		enterRule(_localctx, 188, RULE_block);
+		enterRule(_localctx, 186, RULE_block);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1316);
-			match(CSS_LBRACE);
-			setState(1317);
-			css_ws();
-			setState(1328);
+			setState(1164);
+			match(OpenBrace);
+			setState(1173);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((((_la - 81)) & ~0x3f) == 0 && ((1L << (_la - 81)) & -2612334089811119491L) != 0)) {
+			while (((((_la - 79)) & ~0x3f) == 0 && ((1L << (_la - 79)) & 7917204991949335203L) != 0)) {
 				{
-				setState(1326);
+				setState(1171);
 				_errHandler.sync(this);
-				switch ( getInterpreter().adaptivePredict(_input,136,_ctx) ) {
+				switch ( getInterpreter().adaptivePredict(_input,135,_ctx) ) {
 				case 1:
 					{
-					setState(1318);
+					setState(1165);
 					declarationList();
 					}
 					break;
 				case 2:
 					{
-					setState(1319);
+					setState(1166);
 					nestedStatement();
 					}
 					break;
 				case 3:
 					{
-					setState(1320);
+					setState(1167);
 					any_();
 					}
 					break;
 				case 4:
 					{
-					setState(1321);
+					setState(1168);
 					block();
 					}
 					break;
 				case 5:
 					{
-					setState(1322);
+					setState(1169);
 					match(AtKeyword);
-					setState(1323);
-					css_ws();
 					}
 					break;
 				case 6:
 					{
-					setState(1324);
-					match(CSS_SEMICOLON);
-					setState(1325);
-					css_ws();
+					setState(1170);
+					match(SemiColon);
 					}
 					break;
 				}
 				}
-				setState(1330);
+				setState(1175);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(1331);
-			match(CSS_RBRACE);
-			setState(1332);
-			css_ws();
+			setState(1176);
+			match(CloseBrace);
 			}
 		}
 		catch (RecognitionException re) {
@@ -9055,20 +8551,20 @@ public class JinjaFlaskParser extends Parser {
 
 	public final NestedStatementContext nestedStatement() throws RecognitionException {
 		NestedStatementContext _localctx = new NestedStatementContext(_ctx, getState());
-		enterRule(_localctx, 190, RULE_nestedStatement);
+		enterRule(_localctx, 188, RULE_nestedStatement);
 		try {
-			setState(1344);
+			setState(1188);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case CSS_LBRACE:
-			case CSS_COLON:
-			case CSS_PIPE:
-			case CSS_LPAREN:
-			case CSS_DOT:
-			case CSS_PLUS:
-			case CSS_MINUS:
-			case CSS_LBRACKET:
-			case CSS_ASTERISK:
+			case Plus:
+			case Minus:
+			case OpenBracket:
+			case OpenParen:
+			case OpenBrace:
+			case Colon:
+			case Dot:
+			case Multiply:
+			case Pipe:
 			case Url:
 			case Includes:
 			case DashMatch:
@@ -9091,70 +8587,70 @@ public class JinjaFlaskParser extends Parser {
 			case Function_:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(1334);
+				setState(1178);
 				ruleset();
 				}
 				break;
 			case Media:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(1335);
+				setState(1179);
 				media();
 				}
 				break;
 			case Page:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(1336);
+				setState(1180);
 				page();
 				}
 				break;
 			case FontFace:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(1337);
+				setState(1181);
 				fontFaceRule();
 				}
 				break;
 			case Keyframes:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(1338);
+				setState(1182);
 				keyframesRule();
 				}
 				break;
 			case Supports:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(1339);
+				setState(1183);
 				supportsRule();
 				}
 				break;
 			case Viewport:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(1340);
+				setState(1184);
 				viewport();
 				}
 				break;
 			case CounterStyle:
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(1341);
+				setState(1185);
 				counterStyle();
 				}
 				break;
 			case FontFeatureValues:
 				enterOuterAlt(_localctx, 9);
 				{
-				setState(1342);
+				setState(1186);
 				fontFeatureValuesRule();
 				}
 				break;
 			case AtKeyword:
 				enterOuterAlt(_localctx, 10);
 				{
-				setState(1343);
+				setState(1187);
 				atRule();
 				}
 				break;
@@ -9175,14 +8671,8 @@ public class JinjaFlaskParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class GroupRuleBodyContext extends ParserRuleContext {
-		public TerminalNode CSS_LBRACE() { return getToken(JinjaFlaskParser.CSS_LBRACE, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
-		public TerminalNode CSS_RBRACE() { return getToken(JinjaFlaskParser.CSS_RBRACE, 0); }
+		public TerminalNode OpenBrace() { return getToken(JinjaFlaskParser.OpenBrace, 0); }
+		public TerminalNode CloseBrace() { return getToken(JinjaFlaskParser.CloseBrace, 0); }
 		public List<NestedStatementContext> nestedStatement() {
 			return getRuleContexts(NestedStatementContext.class);
 		}
@@ -9210,33 +8700,29 @@ public class JinjaFlaskParser extends Parser {
 
 	public final GroupRuleBodyContext groupRuleBody() throws RecognitionException {
 		GroupRuleBodyContext _localctx = new GroupRuleBodyContext(_ctx, getState());
-		enterRule(_localctx, 192, RULE_groupRuleBody);
+		enterRule(_localctx, 190, RULE_groupRuleBody);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1346);
-			match(CSS_LBRACE);
-			setState(1347);
-			css_ws();
-			setState(1351);
+			setState(1190);
+			match(OpenBrace);
+			setState(1194);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((((_la - 81)) & ~0x3f) == 0 && ((1L << (_la - 81)) & -3765255594417966491L) != 0)) {
+			while (((((_la - 79)) & ~0x3f) == 0 && ((1L << (_la - 79)) & 7340744239645647523L) != 0)) {
 				{
 				{
-				setState(1348);
+				setState(1191);
 				nestedStatement();
 				}
 				}
-				setState(1353);
+				setState(1196);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(1354);
-			match(CSS_RBRACE);
-			setState(1355);
-			css_ws();
+			setState(1197);
+			match(CloseBrace);
 			}
 		}
 		catch (RecognitionException re) {
@@ -9253,12 +8739,6 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class SupportsRuleContext extends ParserRuleContext {
 		public TerminalNode Supports() { return getToken(JinjaFlaskParser.Supports, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
 		public SupportsConditionContext supportsCondition() {
 			return getRuleContext(SupportsConditionContext.class,0);
 		}
@@ -9286,19 +8766,15 @@ public class JinjaFlaskParser extends Parser {
 
 	public final SupportsRuleContext supportsRule() throws RecognitionException {
 		SupportsRuleContext _localctx = new SupportsRuleContext(_ctx, getState());
-		enterRule(_localctx, 194, RULE_supportsRule);
+		enterRule(_localctx, 192, RULE_supportsRule);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1357);
+			setState(1199);
 			match(Supports);
-			setState(1358);
-			css_ws();
-			setState(1359);
+			setState(1200);
 			supportsCondition();
-			setState(1360);
-			css_ws();
-			setState(1361);
+			setState(1201);
 			groupRuleBody();
 			}
 		}
@@ -9348,36 +8824,36 @@ public class JinjaFlaskParser extends Parser {
 
 	public final SupportsConditionContext supportsCondition() throws RecognitionException {
 		SupportsConditionContext _localctx = new SupportsConditionContext(_ctx, getState());
-		enterRule(_localctx, 196, RULE_supportsCondition);
+		enterRule(_localctx, 194, RULE_supportsCondition);
 		try {
-			setState(1367);
+			setState(1207);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,140,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,139,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(1363);
+				setState(1203);
 				supportsNegation();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(1364);
+				setState(1204);
 				supportsConjunction();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(1365);
+				setState(1205);
 				supportsDisjunction();
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(1366);
+				setState(1206);
 				supportsConditionInParens();
 				}
 				break;
@@ -9396,17 +8872,11 @@ public class JinjaFlaskParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class SupportsConditionInParensContext extends ParserRuleContext {
-		public TerminalNode CSS_LPAREN() { return getToken(JinjaFlaskParser.CSS_LPAREN, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
+		public TerminalNode OpenParen() { return getToken(JinjaFlaskParser.OpenParen, 0); }
 		public SupportsConditionContext supportsCondition() {
 			return getRuleContext(SupportsConditionContext.class,0);
 		}
-		public TerminalNode CSS_RPAREN() { return getToken(JinjaFlaskParser.CSS_RPAREN, 0); }
+		public TerminalNode CloseParen() { return getToken(JinjaFlaskParser.CloseParen, 0); }
 		public SupportsDeclarationConditionContext supportsDeclarationCondition() {
 			return getRuleContext(SupportsDeclarationConditionContext.class,0);
 		}
@@ -9434,37 +8904,33 @@ public class JinjaFlaskParser extends Parser {
 
 	public final SupportsConditionInParensContext supportsConditionInParens() throws RecognitionException {
 		SupportsConditionInParensContext _localctx = new SupportsConditionInParensContext(_ctx, getState());
-		enterRule(_localctx, 198, RULE_supportsConditionInParens);
+		enterRule(_localctx, 196, RULE_supportsConditionInParens);
 		try {
-			setState(1377);
+			setState(1215);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,141,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,140,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(1369);
-				match(CSS_LPAREN);
-				setState(1370);
-				css_ws();
-				setState(1371);
+				setState(1209);
+				match(OpenParen);
+				setState(1210);
 				supportsCondition();
-				setState(1372);
-				css_ws();
-				setState(1373);
-				match(CSS_RPAREN);
+				setState(1211);
+				match(CloseParen);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(1375);
+				setState(1213);
 				supportsDeclarationCondition();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(1376);
+				setState(1214);
 				generalEnclosed();
 				}
 				break;
@@ -9484,12 +8950,6 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class SupportsNegationContext extends ParserRuleContext {
 		public TerminalNode Not() { return getToken(JinjaFlaskParser.Not, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
 		public TerminalNode Space() { return getToken(JinjaFlaskParser.Space, 0); }
 		public SupportsConditionInParensContext supportsConditionInParens() {
 			return getRuleContext(SupportsConditionInParensContext.class,0);
@@ -9515,19 +8975,15 @@ public class JinjaFlaskParser extends Parser {
 
 	public final SupportsNegationContext supportsNegation() throws RecognitionException {
 		SupportsNegationContext _localctx = new SupportsNegationContext(_ctx, getState());
-		enterRule(_localctx, 200, RULE_supportsNegation);
+		enterRule(_localctx, 198, RULE_supportsNegation);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1379);
+			setState(1217);
 			match(Not);
-			setState(1380);
-			css_ws();
-			setState(1381);
+			setState(1218);
 			match(Space);
-			setState(1382);
-			css_ws();
-			setState(1383);
+			setState(1219);
 			supportsConditionInParens();
 			}
 		}
@@ -9549,12 +9005,6 @@ public class JinjaFlaskParser extends Parser {
 		}
 		public SupportsConditionInParensContext supportsConditionInParens(int i) {
 			return getRuleContext(SupportsConditionInParensContext.class,i);
-		}
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
 		}
 		public List<TerminalNode> Space() { return getTokens(JinjaFlaskParser.Space); }
 		public TerminalNode Space(int i) {
@@ -9585,47 +9035,33 @@ public class JinjaFlaskParser extends Parser {
 
 	public final SupportsConjunctionContext supportsConjunction() throws RecognitionException {
 		SupportsConjunctionContext _localctx = new SupportsConjunctionContext(_ctx, getState());
-		enterRule(_localctx, 202, RULE_supportsConjunction);
+		enterRule(_localctx, 200, RULE_supportsConjunction);
+		int _la;
 		try {
-			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1385);
+			setState(1221);
 			supportsConditionInParens();
-			setState(1395); 
+			setState(1226); 
 			_errHandler.sync(this);
-			_alt = 1;
+			_la = _input.LA(1);
 			do {
-				switch (_alt) {
-				case 1:
-					{
-					{
-					setState(1386);
-					css_ws();
-					setState(1387);
-					match(Space);
-					setState(1388);
-					css_ws();
-					setState(1389);
-					match(And);
-					setState(1390);
-					css_ws();
-					setState(1391);
-					match(Space);
-					setState(1392);
-					css_ws();
-					setState(1393);
-					supportsConditionInParens();
-					}
-					}
-					break;
-				default:
-					throw new NoViableAltException(this);
+				{
+				{
+				setState(1222);
+				match(Space);
+				setState(1223);
+				match(And);
+				setState(1224);
+				match(Space);
+				setState(1225);
+				supportsConditionInParens();
 				}
-				setState(1397); 
+				}
+				setState(1228); 
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,142,_ctx);
-			} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
+				_la = _input.LA(1);
+			} while ( _la==Space );
 			}
 		}
 		catch (RecognitionException re) {
@@ -9646,12 +9082,6 @@ public class JinjaFlaskParser extends Parser {
 		}
 		public SupportsConditionInParensContext supportsConditionInParens(int i) {
 			return getRuleContext(SupportsConditionInParensContext.class,i);
-		}
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
 		}
 		public List<TerminalNode> Space() { return getTokens(JinjaFlaskParser.Space); }
 		public TerminalNode Space(int i) {
@@ -9682,47 +9112,33 @@ public class JinjaFlaskParser extends Parser {
 
 	public final SupportsDisjunctionContext supportsDisjunction() throws RecognitionException {
 		SupportsDisjunctionContext _localctx = new SupportsDisjunctionContext(_ctx, getState());
-		enterRule(_localctx, 204, RULE_supportsDisjunction);
+		enterRule(_localctx, 202, RULE_supportsDisjunction);
+		int _la;
 		try {
-			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1399);
+			setState(1230);
 			supportsConditionInParens();
-			setState(1409); 
+			setState(1235); 
 			_errHandler.sync(this);
-			_alt = 1;
+			_la = _input.LA(1);
 			do {
-				switch (_alt) {
-				case 1:
-					{
-					{
-					setState(1400);
-					css_ws();
-					setState(1401);
-					match(Space);
-					setState(1402);
-					css_ws();
-					setState(1403);
-					match(Or);
-					setState(1404);
-					css_ws();
-					setState(1405);
-					match(Space);
-					setState(1406);
-					css_ws();
-					setState(1407);
-					supportsConditionInParens();
-					}
-					}
-					break;
-				default:
-					throw new NoViableAltException(this);
+				{
+				{
+				setState(1231);
+				match(Space);
+				setState(1232);
+				match(Or);
+				setState(1233);
+				match(Space);
+				setState(1234);
+				supportsConditionInParens();
 				}
-				setState(1411); 
+				}
+				setState(1237); 
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,143,_ctx);
-			} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
+				_la = _input.LA(1);
+			} while ( _la==Space );
 			}
 		}
 		catch (RecognitionException re) {
@@ -9738,14 +9154,11 @@ public class JinjaFlaskParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class SupportsDeclarationConditionContext extends ParserRuleContext {
-		public TerminalNode CSS_LPAREN() { return getToken(JinjaFlaskParser.CSS_LPAREN, 0); }
-		public Css_wsContext css_ws() {
-			return getRuleContext(Css_wsContext.class,0);
-		}
+		public TerminalNode OpenParen() { return getToken(JinjaFlaskParser.OpenParen, 0); }
 		public DeclarationContext declaration() {
 			return getRuleContext(DeclarationContext.class,0);
 		}
-		public TerminalNode CSS_RPAREN() { return getToken(JinjaFlaskParser.CSS_RPAREN, 0); }
+		public TerminalNode CloseParen() { return getToken(JinjaFlaskParser.CloseParen, 0); }
 		public SupportsDeclarationConditionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -9767,18 +9180,16 @@ public class JinjaFlaskParser extends Parser {
 
 	public final SupportsDeclarationConditionContext supportsDeclarationCondition() throws RecognitionException {
 		SupportsDeclarationConditionContext _localctx = new SupportsDeclarationConditionContext(_ctx, getState());
-		enterRule(_localctx, 206, RULE_supportsDeclarationCondition);
+		enterRule(_localctx, 204, RULE_supportsDeclarationCondition);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1413);
-			match(CSS_LPAREN);
-			setState(1414);
-			css_ws();
-			setState(1415);
+			setState(1239);
+			match(OpenParen);
+			setState(1240);
 			declaration();
-			setState(1416);
-			match(CSS_RPAREN);
+			setState(1241);
+			match(CloseParen);
 			}
 		}
 		catch (RecognitionException re) {
@@ -9794,9 +9205,9 @@ public class JinjaFlaskParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class GeneralEnclosedContext extends ParserRuleContext {
-		public TerminalNode CSS_RPAREN() { return getToken(JinjaFlaskParser.CSS_RPAREN, 0); }
+		public TerminalNode CloseParen() { return getToken(JinjaFlaskParser.CloseParen, 0); }
 		public TerminalNode Function_() { return getToken(JinjaFlaskParser.Function_, 0); }
-		public TerminalNode CSS_LPAREN() { return getToken(JinjaFlaskParser.CSS_LPAREN, 0); }
+		public TerminalNode OpenParen() { return getToken(JinjaFlaskParser.OpenParen, 0); }
 		public List<Any_Context> any_() {
 			return getRuleContexts(Any_Context.class);
 		}
@@ -9830,14 +9241,14 @@ public class JinjaFlaskParser extends Parser {
 
 	public final GeneralEnclosedContext generalEnclosed() throws RecognitionException {
 		GeneralEnclosedContext _localctx = new GeneralEnclosedContext(_ctx, getState());
-		enterRule(_localctx, 208, RULE_generalEnclosed);
+		enterRule(_localctx, 206, RULE_generalEnclosed);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1418);
+			setState(1243);
 			_la = _input.LA(1);
-			if ( !(_la==CSS_LPAREN || _la==Function_) ) {
+			if ( !(_la==OpenParen || _la==Function_) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -9845,19 +9256,19 @@ public class JinjaFlaskParser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(1423);
+			setState(1248);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((((_la - 81)) & ~0x3f) == 0 && ((1L << (_la - 81)) & -4020557797927014323L) != 0)) {
+			while (((((_la - 79)) & ~0x3f) == 0 && ((1L << (_la - 79)) & 7213093137891207843L) != 0)) {
 				{
-				setState(1421);
+				setState(1246);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
-				case CSS_COLON:
-				case CSS_LPAREN:
-				case CSS_PLUS:
-				case CSS_MINUS:
-				case CSS_LBRACKET:
+				case Plus:
+				case Minus:
+				case OpenBracket:
+				case OpenParen:
+				case Colon:
 				case Url:
 				case Includes:
 				case DashMatch:
@@ -9878,17 +9289,17 @@ public class JinjaFlaskParser extends Parser {
 				case Ident:
 				case Function_:
 					{
-					setState(1419);
+					setState(1244);
 					any_();
 					}
 					break;
-				case CSS_LBRACE:
-				case CSS_SEMICOLON:
+				case OpenBrace:
+				case SemiColon:
 				case Cdo:
 				case Cdc:
 				case AtKeyword:
 					{
-					setState(1420);
+					setState(1245);
 					unused();
 					}
 					break;
@@ -9896,12 +9307,12 @@ public class JinjaFlaskParser extends Parser {
 					throw new NoViableAltException(this);
 				}
 				}
-				setState(1425);
+				setState(1250);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(1426);
-			match(CSS_RPAREN);
+			setState(1251);
+			match(CloseParen);
 			}
 		}
 		catch (RecognitionException re) {
@@ -9918,14 +9329,8 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class UrlContext extends ParserRuleContext {
 		public TerminalNode Url_() { return getToken(JinjaFlaskParser.Url_, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
 		public TerminalNode String_() { return getToken(JinjaFlaskParser.String_, 0); }
-		public TerminalNode CSS_RPAREN() { return getToken(JinjaFlaskParser.CSS_RPAREN, 0); }
+		public TerminalNode CloseParen() { return getToken(JinjaFlaskParser.CloseParen, 0); }
 		public TerminalNode Url() { return getToken(JinjaFlaskParser.Url, 0); }
 		public UrlContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -9948,30 +9353,26 @@ public class JinjaFlaskParser extends Parser {
 
 	public final UrlContext url() throws RecognitionException {
 		UrlContext _localctx = new UrlContext(_ctx, getState());
-		enterRule(_localctx, 210, RULE_url);
+		enterRule(_localctx, 208, RULE_url);
 		try {
-			setState(1435);
+			setState(1257);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case Url_:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(1428);
+				setState(1253);
 				match(Url_);
-				setState(1429);
-				css_ws();
-				setState(1430);
+				setState(1254);
 				match(String_);
-				setState(1431);
-				css_ws();
-				setState(1432);
-				match(CSS_RPAREN);
+				setState(1255);
+				match(CloseParen);
 				}
 				break;
 			case Url:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(1434);
+				setState(1256);
 				match(Url);
 				}
 				break;
@@ -9993,14 +9394,8 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class Var_Context extends ParserRuleContext {
 		public TerminalNode Var() { return getToken(JinjaFlaskParser.Var, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
 		public TerminalNode Variable() { return getToken(JinjaFlaskParser.Variable, 0); }
-		public TerminalNode CSS_RPAREN() { return getToken(JinjaFlaskParser.CSS_RPAREN, 0); }
+		public TerminalNode CloseParen() { return getToken(JinjaFlaskParser.CloseParen, 0); }
 		public Var_Context(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -10022,22 +9417,16 @@ public class JinjaFlaskParser extends Parser {
 
 	public final Var_Context var_() throws RecognitionException {
 		Var_Context _localctx = new Var_Context(_ctx, getState());
-		enterRule(_localctx, 212, RULE_var_);
+		enterRule(_localctx, 210, RULE_var_);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1437);
+			setState(1259);
 			match(Var);
-			setState(1438);
-			css_ws();
-			setState(1439);
+			setState(1260);
 			match(Variable);
-			setState(1440);
-			css_ws();
-			setState(1441);
-			match(CSS_RPAREN);
-			setState(1442);
-			css_ws();
+			setState(1261);
+			match(CloseParen);
 			}
 		}
 		catch (RecognitionException re) {
@@ -10054,16 +9443,10 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class CalcContext extends ParserRuleContext {
 		public TerminalNode Calc() { return getToken(JinjaFlaskParser.Calc, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
 		public CalcSumContext calcSum() {
 			return getRuleContext(CalcSumContext.class,0);
 		}
-		public TerminalNode CSS_RPAREN() { return getToken(JinjaFlaskParser.CSS_RPAREN, 0); }
+		public TerminalNode CloseParen() { return getToken(JinjaFlaskParser.CloseParen, 0); }
 		public CalcContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -10085,20 +9468,16 @@ public class JinjaFlaskParser extends Parser {
 
 	public final CalcContext calc() throws RecognitionException {
 		CalcContext _localctx = new CalcContext(_ctx, getState());
-		enterRule(_localctx, 214, RULE_calc);
+		enterRule(_localctx, 212, RULE_calc);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1444);
+			setState(1263);
 			match(Calc);
-			setState(1445);
-			css_ws();
-			setState(1446);
+			setState(1264);
 			calcSum();
-			setState(1447);
-			match(CSS_RPAREN);
-			setState(1448);
-			css_ws();
+			setState(1265);
+			match(CloseParen);
 			}
 		}
 		catch (RecognitionException re) {
@@ -10124,19 +9503,13 @@ public class JinjaFlaskParser extends Parser {
 		public TerminalNode Space(int i) {
 			return getToken(JinjaFlaskParser.Space, i);
 		}
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
+		public List<TerminalNode> Plus() { return getTokens(JinjaFlaskParser.Plus); }
+		public TerminalNode Plus(int i) {
+			return getToken(JinjaFlaskParser.Plus, i);
 		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
-		public List<TerminalNode> CSS_PLUS() { return getTokens(JinjaFlaskParser.CSS_PLUS); }
-		public TerminalNode CSS_PLUS(int i) {
-			return getToken(JinjaFlaskParser.CSS_PLUS, i);
-		}
-		public List<TerminalNode> CSS_MINUS() { return getTokens(JinjaFlaskParser.CSS_MINUS); }
-		public TerminalNode CSS_MINUS(int i) {
-			return getToken(JinjaFlaskParser.CSS_MINUS, i);
+		public List<TerminalNode> Minus() { return getTokens(JinjaFlaskParser.Minus); }
+		public TerminalNode Minus(int i) {
+			return getToken(JinjaFlaskParser.Minus, i);
 		}
 		public CalcSumContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -10159,26 +9532,24 @@ public class JinjaFlaskParser extends Parser {
 
 	public final CalcSumContext calcSum() throws RecognitionException {
 		CalcSumContext _localctx = new CalcSumContext(_ctx, getState());
-		enterRule(_localctx, 216, RULE_calcSum);
+		enterRule(_localctx, 214, RULE_calcSum);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1450);
+			setState(1267);
 			calcProduct();
-			setState(1461);
+			setState(1274);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==Space) {
 				{
 				{
-				setState(1451);
+				setState(1268);
 				match(Space);
-				setState(1452);
-				css_ws();
-				setState(1453);
+				setState(1269);
 				_la = _input.LA(1);
-				if ( !(_la==CSS_PLUS || _la==CSS_MINUS) ) {
+				if ( !(_la==Plus || _la==Minus) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -10186,17 +9557,13 @@ public class JinjaFlaskParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(1454);
-				css_ws();
-				setState(1455);
+				setState(1270);
 				match(Space);
-				setState(1456);
-				css_ws();
-				setState(1457);
+				setState(1271);
 				calcProduct();
 				}
 				}
-				setState(1463);
+				setState(1276);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -10221,19 +9588,13 @@ public class JinjaFlaskParser extends Parser {
 		public CalcValueContext calcValue(int i) {
 			return getRuleContext(CalcValueContext.class,i);
 		}
-		public List<TerminalNode> CSS_ASTERISK() { return getTokens(JinjaFlaskParser.CSS_ASTERISK); }
-		public TerminalNode CSS_ASTERISK(int i) {
-			return getToken(JinjaFlaskParser.CSS_ASTERISK, i);
+		public List<TerminalNode> Multiply() { return getTokens(JinjaFlaskParser.Multiply); }
+		public TerminalNode Multiply(int i) {
+			return getToken(JinjaFlaskParser.Multiply, i);
 		}
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
-		public List<TerminalNode> CSS_SLASH() { return getTokens(JinjaFlaskParser.CSS_SLASH); }
-		public TerminalNode CSS_SLASH(int i) {
-			return getToken(JinjaFlaskParser.CSS_SLASH, i);
+		public List<TerminalNode> Divide() { return getTokens(JinjaFlaskParser.Divide); }
+		public TerminalNode Divide(int i) {
+			return getToken(JinjaFlaskParser.Divide, i);
 		}
 		public List<NumberContext> number() {
 			return getRuleContexts(NumberContext.class);
@@ -10262,48 +9623,42 @@ public class JinjaFlaskParser extends Parser {
 
 	public final CalcProductContext calcProduct() throws RecognitionException {
 		CalcProductContext _localctx = new CalcProductContext(_ctx, getState());
-		enterRule(_localctx, 218, RULE_calcProduct);
+		enterRule(_localctx, 216, RULE_calcProduct);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1464);
+			setState(1277);
 			calcValue();
-			setState(1476);
+			setState(1284);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==CSS_SLASH || _la==CSS_ASTERISK) {
+			while (_la==Multiply || _la==Divide) {
 				{
-				setState(1474);
+				setState(1282);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
-				case CSS_ASTERISK:
+				case Multiply:
 					{
-					setState(1465);
-					match(CSS_ASTERISK);
-					setState(1466);
-					css_ws();
-					setState(1467);
+					setState(1278);
+					match(Multiply);
+					setState(1279);
 					calcValue();
 					}
 					break;
-				case CSS_SLASH:
+				case Divide:
 					{
-					setState(1469);
-					match(CSS_SLASH);
-					setState(1470);
-					css_ws();
-					setState(1471);
+					setState(1280);
+					match(Divide);
+					setState(1281);
 					number();
-					setState(1472);
-					css_ws();
 					}
 					break;
 				default:
 					throw new NoViableAltException(this);
 				}
 				}
-				setState(1478);
+				setState(1286);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -10325,12 +9680,6 @@ public class JinjaFlaskParser extends Parser {
 		public NumberContext number() {
 			return getRuleContext(NumberContext.class,0);
 		}
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
 		public DimensionContext dimension() {
 			return getRuleContext(DimensionContext.class,0);
 		}
@@ -10340,11 +9689,11 @@ public class JinjaFlaskParser extends Parser {
 		public PercentageContext percentage() {
 			return getRuleContext(PercentageContext.class,0);
 		}
-		public TerminalNode CSS_LPAREN() { return getToken(JinjaFlaskParser.CSS_LPAREN, 0); }
+		public TerminalNode OpenParen() { return getToken(JinjaFlaskParser.OpenParen, 0); }
 		public CalcSumContext calcSum() {
 			return getRuleContext(CalcSumContext.class,0);
 		}
-		public TerminalNode CSS_RPAREN() { return getToken(JinjaFlaskParser.CSS_RPAREN, 0); }
+		public TerminalNode CloseParen() { return getToken(JinjaFlaskParser.CloseParen, 0); }
 		public CalcValueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -10366,60 +9715,48 @@ public class JinjaFlaskParser extends Parser {
 
 	public final CalcValueContext calcValue() throws RecognitionException {
 		CalcValueContext _localctx = new CalcValueContext(_ctx, getState());
-		enterRule(_localctx, 220, RULE_calcValue);
+		enterRule(_localctx, 218, RULE_calcValue);
 		try {
-			setState(1497);
+			setState(1295);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,150,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,149,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(1479);
+				setState(1287);
 				number();
-				setState(1480);
-				css_ws();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(1482);
+				setState(1288);
 				dimension();
-				setState(1483);
-				css_ws();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(1485);
+				setState(1289);
 				unknownDimension();
-				setState(1486);
-				css_ws();
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(1488);
+				setState(1290);
 				percentage();
-				setState(1489);
-				css_ws();
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(1491);
-				match(CSS_LPAREN);
-				setState(1492);
-				css_ws();
-				setState(1493);
+				setState(1291);
+				match(OpenParen);
+				setState(1292);
 				calcSum();
-				setState(1494);
-				match(CSS_RPAREN);
-				setState(1495);
-				css_ws();
+				setState(1293);
+				match(CloseParen);
 				}
 				break;
 			}
@@ -10438,23 +9775,17 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class FontFaceRuleContext extends ParserRuleContext {
 		public TerminalNode FontFace() { return getToken(JinjaFlaskParser.FontFace, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
-		public TerminalNode CSS_LBRACE() { return getToken(JinjaFlaskParser.CSS_LBRACE, 0); }
-		public TerminalNode CSS_RBRACE() { return getToken(JinjaFlaskParser.CSS_RBRACE, 0); }
+		public TerminalNode OpenBrace() { return getToken(JinjaFlaskParser.OpenBrace, 0); }
+		public TerminalNode CloseBrace() { return getToken(JinjaFlaskParser.CloseBrace, 0); }
 		public List<FontFaceDeclarationContext> fontFaceDeclaration() {
 			return getRuleContexts(FontFaceDeclarationContext.class);
 		}
 		public FontFaceDeclarationContext fontFaceDeclaration(int i) {
 			return getRuleContext(FontFaceDeclarationContext.class,i);
 		}
-		public List<TerminalNode> CSS_SEMICOLON() { return getTokens(JinjaFlaskParser.CSS_SEMICOLON); }
-		public TerminalNode CSS_SEMICOLON(int i) {
-			return getToken(JinjaFlaskParser.CSS_SEMICOLON, i);
+		public List<TerminalNode> SemiColon() { return getTokens(JinjaFlaskParser.SemiColon); }
+		public TerminalNode SemiColon(int i) {
+			return getToken(JinjaFlaskParser.SemiColon, i);
 		}
 		public FontFaceRuleContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -10477,59 +9808,51 @@ public class JinjaFlaskParser extends Parser {
 
 	public final FontFaceRuleContext fontFaceRule() throws RecognitionException {
 		FontFaceRuleContext _localctx = new FontFaceRuleContext(_ctx, getState());
-		enterRule(_localctx, 222, RULE_fontFaceRule);
+		enterRule(_localctx, 220, RULE_fontFaceRule);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1499);
+			setState(1297);
 			match(FontFace);
-			setState(1500);
-			css_ws();
-			setState(1501);
-			match(CSS_LBRACE);
-			setState(1502);
-			css_ws();
-			setState(1504);
+			setState(1298);
+			match(OpenBrace);
+			setState(1300);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((((_la - 85)) & ~0x3f) == 0 && ((1L << (_la - 85)) & 361202823993524225L) != 0)) {
+			if (((((_la - 94)) & ~0x3f) == 0 && ((1L << (_la - 94)) & 88184283201545L) != 0)) {
 				{
-				setState(1503);
+				setState(1299);
 				fontFaceDeclaration();
 				}
 			}
 
-			setState(1513);
+			setState(1308);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==CSS_SEMICOLON) {
+			while (_la==SemiColon) {
 				{
 				{
-				setState(1506);
-				match(CSS_SEMICOLON);
-				setState(1507);
-				css_ws();
-				setState(1509);
+				setState(1302);
+				match(SemiColon);
+				setState(1304);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 85)) & ~0x3f) == 0 && ((1L << (_la - 85)) & 361202823993524225L) != 0)) {
+				if (((((_la - 94)) & ~0x3f) == 0 && ((1L << (_la - 94)) & 88184283201545L) != 0)) {
 					{
-					setState(1508);
+					setState(1303);
 					fontFaceDeclaration();
 					}
 				}
 
 				}
 				}
-				setState(1515);
+				setState(1310);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(1516);
-			match(CSS_RBRACE);
-			setState(1517);
-			css_ws();
+			setState(1311);
+			match(CloseBrace);
 			}
 		}
 		catch (RecognitionException re) {
@@ -10560,10 +9883,7 @@ public class JinjaFlaskParser extends Parser {
 		public Property_Context property_() {
 			return getRuleContext(Property_Context.class,0);
 		}
-		public TerminalNode CSS_COLON() { return getToken(JinjaFlaskParser.CSS_COLON, 0); }
-		public Css_wsContext css_ws() {
-			return getRuleContext(Css_wsContext.class,0);
-		}
+		public TerminalNode Colon() { return getToken(JinjaFlaskParser.Colon, 0); }
 		public Css_exprContext css_expr() {
 			return getRuleContext(Css_exprContext.class,0);
 		}
@@ -10587,10 +9907,7 @@ public class JinjaFlaskParser extends Parser {
 		public Property_Context property_() {
 			return getRuleContext(Property_Context.class,0);
 		}
-		public TerminalNode CSS_COLON() { return getToken(JinjaFlaskParser.CSS_COLON, 0); }
-		public Css_wsContext css_ws() {
-			return getRuleContext(Css_wsContext.class,0);
-		}
+		public TerminalNode Colon() { return getToken(JinjaFlaskParser.Colon, 0); }
 		public ValueContext value() {
 			return getRuleContext(ValueContext.class,0);
 		}
@@ -10612,22 +9929,20 @@ public class JinjaFlaskParser extends Parser {
 
 	public final FontFaceDeclarationContext fontFaceDeclaration() throws RecognitionException {
 		FontFaceDeclarationContext _localctx = new FontFaceDeclarationContext(_ctx, getState());
-		enterRule(_localctx, 224, RULE_fontFaceDeclaration);
+		enterRule(_localctx, 222, RULE_fontFaceDeclaration);
 		try {
-			setState(1529);
+			setState(1321);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,154,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,153,_ctx) ) {
 			case 1:
 				_localctx = new KnownFontFaceDeclarationContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(1519);
+				setState(1313);
 				property_();
-				setState(1520);
-				match(CSS_COLON);
-				setState(1521);
-				css_ws();
-				setState(1522);
+				setState(1314);
+				match(Colon);
+				setState(1315);
 				css_expr();
 				}
 				break;
@@ -10635,13 +9950,11 @@ public class JinjaFlaskParser extends Parser {
 				_localctx = new UnknownFontFaceDeclarationContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(1524);
+				setState(1317);
 				property_();
-				setState(1525);
-				match(CSS_COLON);
-				setState(1526);
-				css_ws();
-				setState(1527);
+				setState(1318);
+				match(Colon);
+				setState(1319);
 				value();
 				}
 				break;
@@ -10661,18 +9974,12 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class KeyframesRuleContext extends ParserRuleContext {
 		public TerminalNode Keyframes() { return getToken(JinjaFlaskParser.Keyframes, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
 		public TerminalNode Space() { return getToken(JinjaFlaskParser.Space, 0); }
 		public IdentContext ident() {
 			return getRuleContext(IdentContext.class,0);
 		}
-		public TerminalNode CSS_LBRACE() { return getToken(JinjaFlaskParser.CSS_LBRACE, 0); }
-		public TerminalNode CSS_RBRACE() { return getToken(JinjaFlaskParser.CSS_RBRACE, 0); }
+		public TerminalNode OpenBrace() { return getToken(JinjaFlaskParser.OpenBrace, 0); }
+		public TerminalNode CloseBrace() { return getToken(JinjaFlaskParser.CloseBrace, 0); }
 		public List<KeyframeBlockContext> keyframeBlock() {
 			return getRuleContexts(KeyframeBlockContext.class);
 		}
@@ -10700,45 +10007,35 @@ public class JinjaFlaskParser extends Parser {
 
 	public final KeyframesRuleContext keyframesRule() throws RecognitionException {
 		KeyframesRuleContext _localctx = new KeyframesRuleContext(_ctx, getState());
-		enterRule(_localctx, 226, RULE_keyframesRule);
+		enterRule(_localctx, 224, RULE_keyframesRule);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1531);
+			setState(1323);
 			match(Keyframes);
-			setState(1532);
-			css_ws();
-			setState(1533);
+			setState(1324);
 			match(Space);
-			setState(1534);
-			css_ws();
-			setState(1535);
+			setState(1325);
 			ident();
-			setState(1536);
-			css_ws();
-			setState(1537);
-			match(CSS_LBRACE);
-			setState(1538);
-			css_ws();
-			setState(1542);
+			setState(1326);
+			match(OpenBrace);
+			setState(1330);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((((_la - 115)) & ~0x3f) == 0 && ((1L << (_la - 115)) & 786433L) != 0)) {
+			while (((((_la - 112)) & ~0x3f) == 0 && ((1L << (_la - 112)) & 786433L) != 0)) {
 				{
 				{
-				setState(1539);
+				setState(1327);
 				keyframeBlock();
 				}
 				}
-				setState(1544);
+				setState(1332);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(1545);
-			match(CSS_RBRACE);
-			setState(1546);
-			css_ws();
+			setState(1333);
+			match(CloseBrace);
 			}
 		}
 		catch (RecognitionException re) {
@@ -10757,14 +10054,8 @@ public class JinjaFlaskParser extends Parser {
 		public KeyframeSelectorContext keyframeSelector() {
 			return getRuleContext(KeyframeSelectorContext.class,0);
 		}
-		public TerminalNode CSS_LBRACE() { return getToken(JinjaFlaskParser.CSS_LBRACE, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
-		public TerminalNode CSS_RBRACE() { return getToken(JinjaFlaskParser.CSS_RBRACE, 0); }
+		public TerminalNode OpenBrace() { return getToken(JinjaFlaskParser.OpenBrace, 0); }
+		public TerminalNode CloseBrace() { return getToken(JinjaFlaskParser.CloseBrace, 0); }
 		public DeclarationListContext declarationList() {
 			return getRuleContext(DeclarationListContext.class,0);
 		}
@@ -10789,32 +10080,28 @@ public class JinjaFlaskParser extends Parser {
 
 	public final KeyframeBlockContext keyframeBlock() throws RecognitionException {
 		KeyframeBlockContext _localctx = new KeyframeBlockContext(_ctx, getState());
-		enterRule(_localctx, 228, RULE_keyframeBlock);
+		enterRule(_localctx, 226, RULE_keyframeBlock);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
-			setState(1548);
+			setState(1335);
 			keyframeSelector();
-			setState(1549);
-			match(CSS_LBRACE);
-			setState(1550);
-			css_ws();
-			setState(1552);
+			setState(1336);
+			match(OpenBrace);
+			setState(1338);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & 722405647987048451L) != 0)) {
+			if (((((_la - 90)) & ~0x3f) == 0 && ((1L << (_la - 90)) & 1410948531224721L) != 0)) {
 				{
-				setState(1551);
+				setState(1337);
 				declarationList();
 				}
 			}
 
-			setState(1554);
-			match(CSS_RBRACE);
-			setState(1555);
-			css_ws();
+			setState(1340);
+			match(CloseBrace);
 			}
 			}
 		}
@@ -10831,12 +10118,6 @@ public class JinjaFlaskParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class KeyframeSelectorContext extends ParserRuleContext {
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
 		public List<TerminalNode> From() { return getTokens(JinjaFlaskParser.From); }
 		public TerminalNode From(int i) {
 			return getToken(JinjaFlaskParser.From, i);
@@ -10849,9 +10130,9 @@ public class JinjaFlaskParser extends Parser {
 		public TerminalNode Percentage(int i) {
 			return getToken(JinjaFlaskParser.Percentage, i);
 		}
-		public List<TerminalNode> CSS_COMMA() { return getTokens(JinjaFlaskParser.CSS_COMMA); }
-		public TerminalNode CSS_COMMA(int i) {
-			return getToken(JinjaFlaskParser.CSS_COMMA, i);
+		public List<TerminalNode> Comma() { return getTokens(JinjaFlaskParser.Comma); }
+		public TerminalNode Comma(int i) {
+			return getToken(JinjaFlaskParser.Comma, i);
 		}
 		public KeyframeSelectorContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -10874,14 +10155,14 @@ public class JinjaFlaskParser extends Parser {
 
 	public final KeyframeSelectorContext keyframeSelector() throws RecognitionException {
 		KeyframeSelectorContext _localctx = new KeyframeSelectorContext(_ctx, getState());
-		enterRule(_localctx, 230, RULE_keyframeSelector);
+		enterRule(_localctx, 228, RULE_keyframeSelector);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1557);
+			setState(1342);
 			_la = _input.LA(1);
-			if ( !(((((_la - 115)) & ~0x3f) == 0 && ((1L << (_la - 115)) & 786433L) != 0)) ) {
+			if ( !(((((_la - 112)) & ~0x3f) == 0 && ((1L << (_la - 112)) & 786433L) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -10889,21 +10170,17 @@ public class JinjaFlaskParser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(1558);
-			css_ws();
-			setState(1566);
+			setState(1347);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==CSS_COMMA) {
+			while (_la==Comma) {
 				{
 				{
-				setState(1559);
-				match(CSS_COMMA);
-				setState(1560);
-				css_ws();
-				setState(1561);
+				setState(1343);
+				match(Comma);
+				setState(1344);
 				_la = _input.LA(1);
-				if ( !(((((_la - 115)) & ~0x3f) == 0 && ((1L << (_la - 115)) & 786433L) != 0)) ) {
+				if ( !(((((_la - 112)) & ~0x3f) == 0 && ((1L << (_la - 112)) & 786433L) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -10911,11 +10188,9 @@ public class JinjaFlaskParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(1562);
-				css_ws();
 				}
 				}
-				setState(1568);
+				setState(1349);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -10935,14 +10210,8 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class ViewportContext extends ParserRuleContext {
 		public TerminalNode Viewport() { return getToken(JinjaFlaskParser.Viewport, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
-		public TerminalNode CSS_LBRACE() { return getToken(JinjaFlaskParser.CSS_LBRACE, 0); }
-		public TerminalNode CSS_RBRACE() { return getToken(JinjaFlaskParser.CSS_RBRACE, 0); }
+		public TerminalNode OpenBrace() { return getToken(JinjaFlaskParser.OpenBrace, 0); }
+		public TerminalNode CloseBrace() { return getToken(JinjaFlaskParser.CloseBrace, 0); }
 		public DeclarationListContext declarationList() {
 			return getRuleContext(DeclarationListContext.class,0);
 		}
@@ -10967,33 +10236,27 @@ public class JinjaFlaskParser extends Parser {
 
 	public final ViewportContext viewport() throws RecognitionException {
 		ViewportContext _localctx = new ViewportContext(_ctx, getState());
-		enterRule(_localctx, 232, RULE_viewport);
+		enterRule(_localctx, 230, RULE_viewport);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1569);
+			setState(1350);
 			match(Viewport);
-			setState(1570);
-			css_ws();
-			setState(1571);
-			match(CSS_LBRACE);
-			setState(1572);
-			css_ws();
-			setState(1574);
+			setState(1351);
+			match(OpenBrace);
+			setState(1353);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & 722405647987048451L) != 0)) {
+			if (((((_la - 90)) & ~0x3f) == 0 && ((1L << (_la - 90)) & 1410948531224721L) != 0)) {
 				{
-				setState(1573);
+				setState(1352);
 				declarationList();
 				}
 			}
 
-			setState(1576);
-			match(CSS_RBRACE);
-			setState(1577);
-			css_ws();
+			setState(1355);
+			match(CloseBrace);
 			}
 		}
 		catch (RecognitionException re) {
@@ -11010,17 +10273,11 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class CounterStyleContext extends ParserRuleContext {
 		public TerminalNode CounterStyle() { return getToken(JinjaFlaskParser.CounterStyle, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
 		public IdentContext ident() {
 			return getRuleContext(IdentContext.class,0);
 		}
-		public TerminalNode CSS_LBRACE() { return getToken(JinjaFlaskParser.CSS_LBRACE, 0); }
-		public TerminalNode CSS_RBRACE() { return getToken(JinjaFlaskParser.CSS_RBRACE, 0); }
+		public TerminalNode OpenBrace() { return getToken(JinjaFlaskParser.OpenBrace, 0); }
+		public TerminalNode CloseBrace() { return getToken(JinjaFlaskParser.CloseBrace, 0); }
 		public DeclarationListContext declarationList() {
 			return getRuleContext(DeclarationListContext.class,0);
 		}
@@ -11045,37 +10302,29 @@ public class JinjaFlaskParser extends Parser {
 
 	public final CounterStyleContext counterStyle() throws RecognitionException {
 		CounterStyleContext _localctx = new CounterStyleContext(_ctx, getState());
-		enterRule(_localctx, 234, RULE_counterStyle);
+		enterRule(_localctx, 232, RULE_counterStyle);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1579);
+			setState(1357);
 			match(CounterStyle);
-			setState(1580);
-			css_ws();
-			setState(1581);
+			setState(1358);
 			ident();
-			setState(1582);
-			css_ws();
-			setState(1583);
-			match(CSS_LBRACE);
-			setState(1584);
-			css_ws();
-			setState(1586);
+			setState(1359);
+			match(OpenBrace);
+			setState(1361);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & 722405647987048451L) != 0)) {
+			if (((((_la - 90)) & ~0x3f) == 0 && ((1L << (_la - 90)) & 1410948531224721L) != 0)) {
 				{
-				setState(1585);
+				setState(1360);
 				declarationList();
 				}
 			}
 
-			setState(1588);
-			match(CSS_RBRACE);
-			setState(1589);
-			css_ws();
+			setState(1363);
+			match(CloseBrace);
 			}
 		}
 		catch (RecognitionException re) {
@@ -11092,17 +10341,11 @@ public class JinjaFlaskParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class FontFeatureValuesRuleContext extends ParserRuleContext {
 		public TerminalNode FontFeatureValues() { return getToken(JinjaFlaskParser.FontFeatureValues, 0); }
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
 		public FontFamilyNameListContext fontFamilyNameList() {
 			return getRuleContext(FontFamilyNameListContext.class,0);
 		}
-		public TerminalNode CSS_LBRACE() { return getToken(JinjaFlaskParser.CSS_LBRACE, 0); }
-		public TerminalNode CSS_RBRACE() { return getToken(JinjaFlaskParser.CSS_RBRACE, 0); }
+		public TerminalNode OpenBrace() { return getToken(JinjaFlaskParser.OpenBrace, 0); }
+		public TerminalNode CloseBrace() { return getToken(JinjaFlaskParser.CloseBrace, 0); }
 		public List<FeatureValueBlockContext> featureValueBlock() {
 			return getRuleContexts(FeatureValueBlockContext.class);
 		}
@@ -11130,41 +10373,33 @@ public class JinjaFlaskParser extends Parser {
 
 	public final FontFeatureValuesRuleContext fontFeatureValuesRule() throws RecognitionException {
 		FontFeatureValuesRuleContext _localctx = new FontFeatureValuesRuleContext(_ctx, getState());
-		enterRule(_localctx, 236, RULE_fontFeatureValuesRule);
+		enterRule(_localctx, 234, RULE_fontFeatureValuesRule);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1591);
+			setState(1365);
 			match(FontFeatureValues);
-			setState(1592);
-			css_ws();
-			setState(1593);
+			setState(1366);
 			fontFamilyNameList();
-			setState(1594);
-			css_ws();
-			setState(1595);
-			match(CSS_LBRACE);
-			setState(1596);
-			css_ws();
-			setState(1600);
+			setState(1367);
+			match(OpenBrace);
+			setState(1371);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==AtKeyword) {
 				{
 				{
-				setState(1597);
+				setState(1368);
 				featureValueBlock();
 				}
 				}
-				setState(1602);
+				setState(1373);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(1603);
-			match(CSS_RBRACE);
-			setState(1604);
-			css_ws();
+			setState(1374);
+			match(CloseBrace);
 			}
 		}
 		catch (RecognitionException re) {
@@ -11186,15 +10421,9 @@ public class JinjaFlaskParser extends Parser {
 		public FontFamilyNameContext fontFamilyName(int i) {
 			return getRuleContext(FontFamilyNameContext.class,i);
 		}
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
-		public List<TerminalNode> CSS_COMMA() { return getTokens(JinjaFlaskParser.CSS_COMMA); }
-		public TerminalNode CSS_COMMA(int i) {
-			return getToken(JinjaFlaskParser.CSS_COMMA, i);
+		public List<TerminalNode> Comma() { return getTokens(JinjaFlaskParser.Comma); }
+		public TerminalNode Comma(int i) {
+			return getToken(JinjaFlaskParser.Comma, i);
 		}
 		public FontFamilyNameListContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -11217,34 +10446,28 @@ public class JinjaFlaskParser extends Parser {
 
 	public final FontFamilyNameListContext fontFamilyNameList() throws RecognitionException {
 		FontFamilyNameListContext _localctx = new FontFamilyNameListContext(_ctx, getState());
-		enterRule(_localctx, 238, RULE_fontFamilyNameList);
+		enterRule(_localctx, 236, RULE_fontFamilyNameList);
+		int _la;
 		try {
-			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1606);
+			setState(1376);
 			fontFamilyName();
-			setState(1614);
+			setState(1381);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,161,_ctx);
-			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1 ) {
-					{
-					{
-					setState(1607);
-					css_ws();
-					setState(1608);
-					match(CSS_COMMA);
-					setState(1609);
-					css_ws();
-					setState(1610);
-					fontFamilyName();
-					}
-					} 
+			_la = _input.LA(1);
+			while (_la==Comma) {
+				{
+				{
+				setState(1377);
+				match(Comma);
+				setState(1378);
+				fontFamilyName();
 				}
-				setState(1616);
+				}
+				setState(1383);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,161,_ctx);
+				_la = _input.LA(1);
 			}
 			}
 		}
@@ -11268,12 +10491,6 @@ public class JinjaFlaskParser extends Parser {
 		public IdentContext ident(int i) {
 			return getRuleContext(IdentContext.class,i);
 		}
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
 		public FontFamilyNameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -11295,16 +10512,16 @@ public class JinjaFlaskParser extends Parser {
 
 	public final FontFamilyNameContext fontFamilyName() throws RecognitionException {
 		FontFamilyNameContext _localctx = new FontFamilyNameContext(_ctx, getState());
-		enterRule(_localctx, 240, RULE_fontFamilyName);
+		enterRule(_localctx, 238, RULE_fontFamilyName);
+		int _la;
 		try {
-			int _alt;
-			setState(1627);
+			setState(1392);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case String_:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(1617);
+				setState(1384);
 				match(String_);
 				}
 				break;
@@ -11317,25 +10534,21 @@ public class JinjaFlaskParser extends Parser {
 			case Ident:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(1618);
+				setState(1385);
 				ident();
-				setState(1624);
+				setState(1389);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,162,_ctx);
-				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-					if ( _alt==1 ) {
-						{
-						{
-						setState(1619);
-						css_ws();
-						setState(1620);
-						ident();
-						}
-						} 
+				_la = _input.LA(1);
+				while (((((_la - 115)) & ~0x3f) == 0 && ((1L << (_la - 115)) & 33660935L) != 0)) {
+					{
+					{
+					setState(1386);
+					ident();
 					}
-					setState(1626);
+					}
+					setState(1391);
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,162,_ctx);
+					_la = _input.LA(1);
 				}
 				}
 				break;
@@ -11359,23 +10572,17 @@ public class JinjaFlaskParser extends Parser {
 		public FeatureTypeContext featureType() {
 			return getRuleContext(FeatureTypeContext.class,0);
 		}
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
-		public TerminalNode CSS_LBRACE() { return getToken(JinjaFlaskParser.CSS_LBRACE, 0); }
-		public TerminalNode CSS_RBRACE() { return getToken(JinjaFlaskParser.CSS_RBRACE, 0); }
+		public TerminalNode OpenBrace() { return getToken(JinjaFlaskParser.OpenBrace, 0); }
+		public TerminalNode CloseBrace() { return getToken(JinjaFlaskParser.CloseBrace, 0); }
 		public List<FeatureValueDefinitionContext> featureValueDefinition() {
 			return getRuleContexts(FeatureValueDefinitionContext.class);
 		}
 		public FeatureValueDefinitionContext featureValueDefinition(int i) {
 			return getRuleContext(FeatureValueDefinitionContext.class,i);
 		}
-		public List<TerminalNode> CSS_SEMICOLON() { return getTokens(JinjaFlaskParser.CSS_SEMICOLON); }
-		public TerminalNode CSS_SEMICOLON(int i) {
-			return getToken(JinjaFlaskParser.CSS_SEMICOLON, i);
+		public List<TerminalNode> SemiColon() { return getTokens(JinjaFlaskParser.SemiColon); }
+		public TerminalNode SemiColon(int i) {
+			return getToken(JinjaFlaskParser.SemiColon, i);
 		}
 		public FeatureValueBlockContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -11398,61 +10605,51 @@ public class JinjaFlaskParser extends Parser {
 
 	public final FeatureValueBlockContext featureValueBlock() throws RecognitionException {
 		FeatureValueBlockContext _localctx = new FeatureValueBlockContext(_ctx, getState());
-		enterRule(_localctx, 242, RULE_featureValueBlock);
+		enterRule(_localctx, 240, RULE_featureValueBlock);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1629);
+			setState(1394);
 			featureType();
-			setState(1630);
-			css_ws();
-			setState(1631);
-			match(CSS_LBRACE);
-			setState(1632);
-			css_ws();
-			setState(1634);
+			setState(1395);
+			match(OpenBrace);
+			setState(1397);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((((_la - 118)) & ~0x3f) == 0 && ((1L << (_la - 118)) & 33660935L) != 0)) {
+			if (((((_la - 115)) & ~0x3f) == 0 && ((1L << (_la - 115)) & 33660935L) != 0)) {
 				{
-				setState(1633);
+				setState(1396);
 				featureValueDefinition();
 				}
 			}
 
-			setState(1644);
+			setState(1405);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((((_la - 80)) & ~0x3f) == 0 && ((1L << (_la - 80)) & 8388625L) != 0)) {
+			while (_la==SemiColon) {
 				{
 				{
-				setState(1636);
-				css_ws();
-				setState(1637);
-				match(CSS_SEMICOLON);
-				setState(1638);
-				css_ws();
-				setState(1640);
+				setState(1399);
+				match(SemiColon);
+				setState(1401);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 118)) & ~0x3f) == 0 && ((1L << (_la - 118)) & 33660935L) != 0)) {
+				if (((((_la - 115)) & ~0x3f) == 0 && ((1L << (_la - 115)) & 33660935L) != 0)) {
 					{
-					setState(1639);
+					setState(1400);
 					featureValueDefinition();
 					}
 				}
 
 				}
 				}
-				setState(1646);
+				setState(1407);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(1647);
-			match(CSS_RBRACE);
-			setState(1648);
-			css_ws();
+			setState(1408);
+			match(CloseBrace);
 			}
 		}
 		catch (RecognitionException re) {
@@ -11490,11 +10687,11 @@ public class JinjaFlaskParser extends Parser {
 
 	public final FeatureTypeContext featureType() throws RecognitionException {
 		FeatureTypeContext _localctx = new FeatureTypeContext(_ctx, getState());
-		enterRule(_localctx, 244, RULE_featureType);
+		enterRule(_localctx, 242, RULE_featureType);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1650);
+			setState(1410);
 			match(AtKeyword);
 			}
 		}
@@ -11514,13 +10711,7 @@ public class JinjaFlaskParser extends Parser {
 		public IdentContext ident() {
 			return getRuleContext(IdentContext.class,0);
 		}
-		public List<Css_wsContext> css_ws() {
-			return getRuleContexts(Css_wsContext.class);
-		}
-		public Css_wsContext css_ws(int i) {
-			return getRuleContext(Css_wsContext.class,i);
-		}
-		public TerminalNode CSS_COLON() { return getToken(JinjaFlaskParser.CSS_COLON, 0); }
+		public TerminalNode Colon() { return getToken(JinjaFlaskParser.Colon, 0); }
 		public List<NumberContext> number() {
 			return getRuleContexts(NumberContext.class);
 		}
@@ -11548,38 +10739,30 @@ public class JinjaFlaskParser extends Parser {
 
 	public final FeatureValueDefinitionContext featureValueDefinition() throws RecognitionException {
 		FeatureValueDefinitionContext _localctx = new FeatureValueDefinitionContext(_ctx, getState());
-		enterRule(_localctx, 246, RULE_featureValueDefinition);
+		enterRule(_localctx, 244, RULE_featureValueDefinition);
+		int _la;
 		try {
-			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1652);
+			setState(1412);
 			ident();
-			setState(1653);
-			css_ws();
-			setState(1654);
-			match(CSS_COLON);
-			setState(1655);
-			css_ws();
-			setState(1656);
+			setState(1413);
+			match(Colon);
+			setState(1414);
 			number();
-			setState(1662);
+			setState(1418);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,167,_ctx);
-			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1 ) {
-					{
-					{
-					setState(1657);
-					css_ws();
-					setState(1658);
-					number();
-					}
-					} 
+			_la = _input.LA(1);
+			while (((((_la - 79)) & ~0x3f) == 0 && ((1L << (_la - 79)) & 4398046511107L) != 0)) {
+				{
+				{
+				setState(1415);
+				number();
 				}
-				setState(1664);
+				}
+				setState(1420);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,167,_ctx);
+				_la = _input.LA(1);
 			}
 			}
 		}
@@ -11624,94 +10807,20 @@ public class JinjaFlaskParser extends Parser {
 
 	public final IdentContext ident() throws RecognitionException {
 		IdentContext _localctx = new IdentContext(_ctx, getState());
-		enterRule(_localctx, 248, RULE_ident);
+		enterRule(_localctx, 246, RULE_ident);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1665);
+			setState(1421);
 			_la = _input.LA(1);
-			if ( !(((((_la - 118)) & ~0x3f) == 0 && ((1L << (_la - 118)) & 33660935L) != 0)) ) {
+			if ( !(((((_la - 115)) & ~0x3f) == 0 && ((1L << (_la - 115)) & 33660935L) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
 				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
 				_errHandler.reportMatch(this);
 				consume();
-			}
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class Css_wsContext extends ParserRuleContext {
-		public List<TerminalNode> CSS_COMMENT() { return getTokens(JinjaFlaskParser.CSS_COMMENT); }
-		public TerminalNode CSS_COMMENT(int i) {
-			return getToken(JinjaFlaskParser.CSS_COMMENT, i);
-		}
-		public List<TerminalNode> Space() { return getTokens(JinjaFlaskParser.Space); }
-		public TerminalNode Space(int i) {
-			return getToken(JinjaFlaskParser.Space, i);
-		}
-		public Css_wsContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_css_ws; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof JinjaFlaskParserListener ) ((JinjaFlaskParserListener)listener).enterCss_ws(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof JinjaFlaskParserListener ) ((JinjaFlaskParserListener)listener).exitCss_ws(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof JinjaFlaskParserVisitor ) return ((JinjaFlaskParserVisitor<? extends T>)visitor).visitCss_ws(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final Css_wsContext css_ws() throws RecognitionException {
-		Css_wsContext _localctx = new Css_wsContext(_ctx, getState());
-		enterRule(_localctx, 250, RULE_css_ws);
-		int _la;
-		try {
-			int _alt;
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(1670);
-			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,168,_ctx);
-			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1 ) {
-					{
-					{
-					setState(1667);
-					_la = _input.LA(1);
-					if ( !(_la==CSS_COMMENT || _la==Space) ) {
-					_errHandler.recoverInline(this);
-					}
-					else {
-						if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-						_errHandler.reportMatch(this);
-						consume();
-					}
-					}
-					} 
-				}
-				setState(1672);
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,168,_ctx);
 			}
 			}
 		}
@@ -11754,15 +10863,15 @@ public class JinjaFlaskParser extends Parser {
 
 	public final JinjaStatementContext jinjaStatement() throws RecognitionException {
 		JinjaStatementContext _localctx = new JinjaStatementContext(_ctx, getState());
-		enterRule(_localctx, 252, RULE_jinjaStatement);
+		enterRule(_localctx, 248, RULE_jinjaStatement);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1673);
+			setState(1423);
 			match(JINJA_STMT_START);
-			setState(1674);
+			setState(1424);
 			jStatement();
-			setState(1675);
+			setState(1425);
 			match(JINJA_STMT_END);
 			}
 		}
@@ -11822,37 +10931,37 @@ public class JinjaFlaskParser extends Parser {
 
 	public final JStatementContext jStatement() throws RecognitionException {
 		JStatementContext _localctx = new JStatementContext(_ctx, getState());
-		enterRule(_localctx, 254, RULE_jStatement);
+		enterRule(_localctx, 250, RULE_jStatement);
 		int _la;
 		try {
-			setState(1693);
+			setState(1443);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,171,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,169,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(1677);
+				setState(1427);
 				jIfStatement();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(1678);
+				setState(1428);
 				jForStatement();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(1679);
+				setState(1429);
 				match(J_NAME);
-				setState(1681);
+				setState(1431);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 148)) & ~0x3f) == 0 && ((1L << (_la - 148)) & 549766823967L) != 0)) {
+				if (((((_la - 145)) & ~0x3f) == 0 && ((1L << (_la - 145)) & 549766823967L) != 0)) {
 					{
-					setState(1680);
+					setState(1430);
 					jTestExpr();
 					}
 				}
@@ -11862,34 +10971,34 @@ public class JinjaFlaskParser extends Parser {
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(1683);
+				setState(1433);
 				match(J_SET);
-				setState(1684);
+				setState(1434);
 				jExpression();
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(1685);
+				setState(1435);
 				jRawStatement();
 				}
 				break;
 			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(1686);
+				setState(1436);
 				match(J_NAME);
-				setState(1691);
+				setState(1441);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==J_LPAREN) {
 					{
-					setState(1687);
+					setState(1437);
 					match(J_LPAREN);
-					setState(1688);
+					setState(1438);
 					jArgumentList();
-					setState(1689);
+					setState(1439);
 					match(J_RPAREN);
 					}
 				}
@@ -11937,15 +11046,15 @@ public class JinjaFlaskParser extends Parser {
 
 	public final JRawStatementContext jRawStatement() throws RecognitionException {
 		JRawStatementContext _localctx = new JRawStatementContext(_ctx, getState());
-		enterRule(_localctx, 256, RULE_jRawStatement);
+		enterRule(_localctx, 252, RULE_jRawStatement);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1695);
+			setState(1445);
 			match(J_RAW);
-			setState(1696);
+			setState(1446);
 			html_content();
-			setState(1697);
+			setState(1447);
 			match(J_ENDRAW);
 			}
 		}
@@ -12002,48 +11111,48 @@ public class JinjaFlaskParser extends Parser {
 
 	public final JIfStatementContext jIfStatement() throws RecognitionException {
 		JIfStatementContext _localctx = new JIfStatementContext(_ctx, getState());
-		enterRule(_localctx, 258, RULE_jIfStatement);
+		enterRule(_localctx, 254, RULE_jIfStatement);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1699);
+			setState(1449);
 			match(J_IF);
-			setState(1700);
+			setState(1450);
 			jTestExpr();
-			setState(1701);
+			setState(1451);
 			html_content();
-			setState(1708);
+			setState(1458);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==J_ELIF) {
 				{
 				{
-				setState(1702);
+				setState(1452);
 				match(J_ELIF);
-				setState(1703);
+				setState(1453);
 				jTestExpr();
-				setState(1704);
+				setState(1454);
 				html_content();
 				}
 				}
-				setState(1710);
+				setState(1460);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(1713);
+			setState(1463);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==J_ELSE) {
 				{
-				setState(1711);
+				setState(1461);
 				match(J_ELSE);
-				setState(1712);
+				setState(1462);
 				html_content();
 				}
 			}
 
-			setState(1715);
+			setState(1465);
 			match(J_ENDIF);
 			}
 		}
@@ -12097,34 +11206,34 @@ public class JinjaFlaskParser extends Parser {
 
 	public final JForStatementContext jForStatement() throws RecognitionException {
 		JForStatementContext _localctx = new JForStatementContext(_ctx, getState());
-		enterRule(_localctx, 260, RULE_jForStatement);
+		enterRule(_localctx, 256, RULE_jForStatement);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1717);
+			setState(1467);
 			match(J_FOR);
-			setState(1718);
+			setState(1468);
 			jTargetList();
-			setState(1719);
+			setState(1469);
 			match(J_IN);
-			setState(1720);
+			setState(1470);
 			jExpression();
-			setState(1721);
+			setState(1471);
 			html_content();
-			setState(1724);
+			setState(1474);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==J_ELSE) {
 				{
-				setState(1722);
+				setState(1472);
 				match(J_ELSE);
-				setState(1723);
+				setState(1473);
 				html_content();
 				}
 			}
 
-			setState(1726);
+			setState(1476);
 			match(J_ENDFOR);
 			}
 		}
@@ -12170,26 +11279,26 @@ public class JinjaFlaskParser extends Parser {
 
 	public final JTargetListContext jTargetList() throws RecognitionException {
 		JTargetListContext _localctx = new JTargetListContext(_ctx, getState());
-		enterRule(_localctx, 262, RULE_jTargetList);
+		enterRule(_localctx, 258, RULE_jTargetList);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1728);
+			setState(1478);
 			match(J_NAME);
-			setState(1733);
+			setState(1483);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==J_COMMA) {
 				{
 				{
-				setState(1729);
+				setState(1479);
 				match(J_COMMA);
-				setState(1730);
+				setState(1480);
 				match(J_NAME);
 				}
 				}
-				setState(1735);
+				setState(1485);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -12234,15 +11343,15 @@ public class JinjaFlaskParser extends Parser {
 
 	public final JinjaExpressionContext jinjaExpression() throws RecognitionException {
 		JinjaExpressionContext _localctx = new JinjaExpressionContext(_ctx, getState());
-		enterRule(_localctx, 264, RULE_jinjaExpression);
+		enterRule(_localctx, 260, RULE_jinjaExpression);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1736);
+			setState(1486);
 			match(JINJA_EXPR_START);
-			setState(1737);
+			setState(1487);
 			jExpression();
-			setState(1738);
+			setState(1488);
 			match(JINJA_EXPR_END);
 			}
 		}
@@ -12293,26 +11402,26 @@ public class JinjaFlaskParser extends Parser {
 
 	public final JExpressionContext jExpression() throws RecognitionException {
 		JExpressionContext _localctx = new JExpressionContext(_ctx, getState());
-		enterRule(_localctx, 266, RULE_jExpression);
+		enterRule(_localctx, 262, RULE_jExpression);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1740);
+			setState(1490);
 			jTestExpr();
-			setState(1745);
+			setState(1495);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==J_PIPE) {
 				{
 				{
-				setState(1741);
+				setState(1491);
 				match(J_PIPE);
-				setState(1742);
+				setState(1492);
 				jFilter();
 				}
 				}
-				setState(1747);
+				setState(1497);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -12358,31 +11467,31 @@ public class JinjaFlaskParser extends Parser {
 
 	public final JFilterContext jFilter() throws RecognitionException {
 		JFilterContext _localctx = new JFilterContext(_ctx, getState());
-		enterRule(_localctx, 268, RULE_jFilter);
+		enterRule(_localctx, 264, RULE_jFilter);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1748);
+			setState(1498);
 			match(J_NAME);
-			setState(1754);
+			setState(1504);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==J_LPAREN) {
 				{
-				setState(1749);
+				setState(1499);
 				match(J_LPAREN);
-				setState(1751);
+				setState(1501);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 148)) & ~0x3f) == 0 && ((1L << (_la - 148)) & 549766823967L) != 0)) {
+				if (((((_la - 145)) & ~0x3f) == 0 && ((1L << (_la - 145)) & 549766823967L) != 0)) {
 					{
-					setState(1750);
+					setState(1500);
 					jArgumentList();
 					}
 				}
 
-				setState(1753);
+				setState(1503);
 				match(J_RPAREN);
 				}
 			}
@@ -12426,11 +11535,11 @@ public class JinjaFlaskParser extends Parser {
 
 	public final JTestExprContext jTestExpr() throws RecognitionException {
 		JTestExprContext _localctx = new JTestExprContext(_ctx, getState());
-		enterRule(_localctx, 270, RULE_jTestExpr);
+		enterRule(_localctx, 266, RULE_jTestExpr);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1756);
+			setState(1506);
 			jOrTest();
 			}
 		}
@@ -12478,26 +11587,26 @@ public class JinjaFlaskParser extends Parser {
 
 	public final JOrTestContext jOrTest() throws RecognitionException {
 		JOrTestContext _localctx = new JOrTestContext(_ctx, getState());
-		enterRule(_localctx, 272, RULE_jOrTest);
+		enterRule(_localctx, 268, RULE_jOrTest);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1758);
+			setState(1508);
 			jAndTest();
-			setState(1763);
+			setState(1513);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==J_OR) {
 				{
 				{
-				setState(1759);
+				setState(1509);
 				match(J_OR);
-				setState(1760);
+				setState(1510);
 				jAndTest();
 				}
 				}
-				setState(1765);
+				setState(1515);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -12547,26 +11656,26 @@ public class JinjaFlaskParser extends Parser {
 
 	public final JAndTestContext jAndTest() throws RecognitionException {
 		JAndTestContext _localctx = new JAndTestContext(_ctx, getState());
-		enterRule(_localctx, 274, RULE_jAndTest);
+		enterRule(_localctx, 270, RULE_jAndTest);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1766);
+			setState(1516);
 			jNotTest();
-			setState(1771);
+			setState(1521);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==J_AND) {
 				{
 				{
-				setState(1767);
+				setState(1517);
 				match(J_AND);
-				setState(1768);
+				setState(1518);
 				jNotTest();
 				}
 				}
-				setState(1773);
+				setState(1523);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -12613,17 +11722,17 @@ public class JinjaFlaskParser extends Parser {
 
 	public final JNotTestContext jNotTest() throws RecognitionException {
 		JNotTestContext _localctx = new JNotTestContext(_ctx, getState());
-		enterRule(_localctx, 276, RULE_jNotTest);
+		enterRule(_localctx, 272, RULE_jNotTest);
 		try {
-			setState(1777);
+			setState(1527);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case J_NOT:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(1774);
+				setState(1524);
 				match(J_NOT);
-				setState(1775);
+				setState(1525);
 				jNotTest();
 				}
 				break;
@@ -12637,7 +11746,7 @@ public class JinjaFlaskParser extends Parser {
 			case J_LBRACE:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(1776);
+				setState(1526);
 				jComparison();
 				}
 				break;
@@ -12691,26 +11800,26 @@ public class JinjaFlaskParser extends Parser {
 
 	public final JComparisonContext jComparison() throws RecognitionException {
 		JComparisonContext _localctx = new JComparisonContext(_ctx, getState());
-		enterRule(_localctx, 278, RULE_jComparison);
+		enterRule(_localctx, 274, RULE_jComparison);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1779);
+			setState(1529);
 			jMathExpr();
-			setState(1785);
+			setState(1535);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((((_la - 157)) & ~0x3f) == 0 && ((1L << (_la - 157)) & 1082130495L) != 0)) {
+			while (((((_la - 154)) & ~0x3f) == 0 && ((1L << (_la - 154)) & 1082130495L) != 0)) {
 				{
 				{
-				setState(1780);
+				setState(1530);
 				jCompOp();
-				setState(1781);
+				setState(1531);
 				jMathExpr();
 				}
 				}
-				setState(1787);
+				setState(1537);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -12758,66 +11867,66 @@ public class JinjaFlaskParser extends Parser {
 
 	public final JCompOpContext jCompOp() throws RecognitionException {
 		JCompOpContext _localctx = new JCompOpContext(_ctx, getState());
-		enterRule(_localctx, 280, RULE_jCompOp);
+		enterRule(_localctx, 276, RULE_jCompOp);
 		try {
-			setState(1797);
+			setState(1547);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case J_LT:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(1788);
+				setState(1538);
 				match(J_LT);
 				}
 				break;
 			case J_GT:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(1789);
+				setState(1539);
 				match(J_GT);
 				}
 				break;
 			case J_EQ:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(1790);
+				setState(1540);
 				match(J_EQ);
 				}
 				break;
 			case J_NE:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(1791);
+				setState(1541);
 				match(J_NE);
 				}
 				break;
 			case J_GE:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(1792);
+				setState(1542);
 				match(J_GE);
 				}
 				break;
 			case J_LE:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(1793);
+				setState(1543);
 				match(J_LE);
 				}
 				break;
 			case J_IN:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(1794);
+				setState(1544);
 				match(J_IN);
 				}
 				break;
 			case J_NOT:
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(1795);
+				setState(1545);
 				match(J_NOT);
-				setState(1796);
+				setState(1546);
 				match(J_IN);
 				}
 				break;
@@ -12873,20 +11982,20 @@ public class JinjaFlaskParser extends Parser {
 
 	public final JMathExprContext jMathExpr() throws RecognitionException {
 		JMathExprContext _localctx = new JMathExprContext(_ctx, getState());
-		enterRule(_localctx, 282, RULE_jMathExpr);
+		enterRule(_localctx, 278, RULE_jMathExpr);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1799);
+			setState(1549);
 			jTerm();
-			setState(1804);
+			setState(1554);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==J_PLUS || _la==J_MINUS) {
 				{
 				{
-				setState(1800);
+				setState(1550);
 				_la = _input.LA(1);
 				if ( !(_la==J_PLUS || _la==J_MINUS) ) {
 				_errHandler.recoverInline(this);
@@ -12896,11 +12005,11 @@ public class JinjaFlaskParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(1801);
+				setState(1551);
 				jTerm();
 				}
 				}
-				setState(1806);
+				setState(1556);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -12962,22 +12071,22 @@ public class JinjaFlaskParser extends Parser {
 
 	public final JTermContext jTerm() throws RecognitionException {
 		JTermContext _localctx = new JTermContext(_ctx, getState());
-		enterRule(_localctx, 284, RULE_jTerm);
+		enterRule(_localctx, 280, RULE_jTerm);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1807);
+			setState(1557);
 			jFactor();
-			setState(1812);
+			setState(1562);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((((_la - 153)) & ~0x3f) == 0 && ((1L << (_la - 153)) & 15L) != 0)) {
+			while (((((_la - 150)) & ~0x3f) == 0 && ((1L << (_la - 150)) & 15L) != 0)) {
 				{
 				{
-				setState(1808);
+				setState(1558);
 				_la = _input.LA(1);
-				if ( !(((((_la - 153)) & ~0x3f) == 0 && ((1L << (_la - 153)) & 15L) != 0)) ) {
+				if ( !(((((_la - 150)) & ~0x3f) == 0 && ((1L << (_la - 150)) & 15L) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -12985,11 +12094,11 @@ public class JinjaFlaskParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(1809);
+				setState(1559);
 				jFactor();
 				}
 				}
-				setState(1814);
+				setState(1564);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -13037,17 +12146,17 @@ public class JinjaFlaskParser extends Parser {
 
 	public final JFactorContext jFactor() throws RecognitionException {
 		JFactorContext _localctx = new JFactorContext(_ctx, getState());
-		enterRule(_localctx, 286, RULE_jFactor);
+		enterRule(_localctx, 282, RULE_jFactor);
 		int _la;
 		try {
-			setState(1818);
+			setState(1568);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case J_PLUS:
 			case J_MINUS:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(1815);
+				setState(1565);
 				_la = _input.LA(1);
 				if ( !(_la==J_PLUS || _la==J_MINUS) ) {
 				_errHandler.recoverInline(this);
@@ -13057,7 +12166,7 @@ public class JinjaFlaskParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(1816);
+				setState(1566);
 				jFactor();
 				}
 				break;
@@ -13069,7 +12178,7 @@ public class JinjaFlaskParser extends Parser {
 			case J_LBRACE:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(1817);
+				setState(1567);
 				jAtomExpr();
 				}
 				break;
@@ -13120,24 +12229,24 @@ public class JinjaFlaskParser extends Parser {
 
 	public final JAtomExprContext jAtomExpr() throws RecognitionException {
 		JAtomExprContext _localctx = new JAtomExprContext(_ctx, getState());
-		enterRule(_localctx, 288, RULE_jAtomExpr);
+		enterRule(_localctx, 284, RULE_jAtomExpr);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1820);
+			setState(1570);
 			jAtom();
-			setState(1824);
+			setState(1574);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((((_la - 164)) & ~0x3f) == 0 && ((1L << (_la - 164)) & 41L) != 0)) {
+			while (((((_la - 161)) & ~0x3f) == 0 && ((1L << (_la - 161)) & 41L) != 0)) {
 				{
 				{
-				setState(1821);
+				setState(1571);
 				jTrailer();
 				}
 				}
-				setState(1826);
+				setState(1576);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -13189,48 +12298,48 @@ public class JinjaFlaskParser extends Parser {
 
 	public final JTrailerContext jTrailer() throws RecognitionException {
 		JTrailerContext _localctx = new JTrailerContext(_ctx, getState());
-		enterRule(_localctx, 290, RULE_jTrailer);
+		enterRule(_localctx, 286, RULE_jTrailer);
 		int _la;
 		try {
-			setState(1838);
+			setState(1588);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case J_LPAREN:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(1827);
+				setState(1577);
 				match(J_LPAREN);
-				setState(1829);
+				setState(1579);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 148)) & ~0x3f) == 0 && ((1L << (_la - 148)) & 549766823967L) != 0)) {
+				if (((((_la - 145)) & ~0x3f) == 0 && ((1L << (_la - 145)) & 549766823967L) != 0)) {
 					{
-					setState(1828);
+					setState(1578);
 					jArgumentList();
 					}
 				}
 
-				setState(1831);
+				setState(1581);
 				match(J_RPAREN);
 				}
 				break;
 			case J_LBRACK:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(1832);
+				setState(1582);
 				match(J_LBRACK);
-				setState(1833);
+				setState(1583);
 				jTestExpr();
-				setState(1834);
+				setState(1584);
 				match(J_RBRACK);
 				}
 				break;
 			case J_DOT:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(1836);
+				setState(1586);
 				match(J_DOT);
-				setState(1837);
+				setState(1587);
 				match(J_NAME);
 				}
 				break;
@@ -13290,79 +12399,79 @@ public class JinjaFlaskParser extends Parser {
 
 	public final JAtomContext jAtom() throws RecognitionException {
 		JAtomContext _localctx = new JAtomContext(_ctx, getState());
-		enterRule(_localctx, 292, RULE_jAtom);
+		enterRule(_localctx, 288, RULE_jAtom);
 		int _la;
 		try {
-			setState(1857);
+			setState(1607);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case J_NAME:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(1840);
+				setState(1590);
 				match(J_NAME);
 				}
 				break;
 			case J_NUMBER:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(1841);
+				setState(1591);
 				match(J_NUMBER);
 				}
 				break;
 			case J_STRING:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(1842);
+				setState(1592);
 				match(J_STRING);
 				}
 				break;
 			case J_LPAREN:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(1843);
+				setState(1593);
 				match(J_LPAREN);
-				setState(1844);
+				setState(1594);
 				jTestExpr();
-				setState(1845);
+				setState(1595);
 				match(J_RPAREN);
 				}
 				break;
 			case J_LBRACK:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(1847);
+				setState(1597);
 				match(J_LBRACK);
-				setState(1849);
+				setState(1599);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 148)) & ~0x3f) == 0 && ((1L << (_la - 148)) & 549766823967L) != 0)) {
+				if (((((_la - 145)) & ~0x3f) == 0 && ((1L << (_la - 145)) & 549766823967L) != 0)) {
 					{
-					setState(1848);
+					setState(1598);
 					jTestExprList();
 					}
 				}
 
-				setState(1851);
+				setState(1601);
 				match(J_RBRACK);
 				}
 				break;
 			case J_LBRACE:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(1852);
+				setState(1602);
 				match(J_LBRACE);
-				setState(1854);
+				setState(1604);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 148)) & ~0x3f) == 0 && ((1L << (_la - 148)) & 549766823967L) != 0)) {
+				if (((((_la - 145)) & ~0x3f) == 0 && ((1L << (_la - 145)) & 549766823967L) != 0)) {
 					{
-					setState(1853);
+					setState(1603);
 					jDictMaker();
 					}
 				}
 
-				setState(1856);
+				setState(1606);
 				match(J_RBRACE);
 				}
 				break;
@@ -13414,26 +12523,26 @@ public class JinjaFlaskParser extends Parser {
 
 	public final JTestExprListContext jTestExprList() throws RecognitionException {
 		JTestExprListContext _localctx = new JTestExprListContext(_ctx, getState());
-		enterRule(_localctx, 294, RULE_jTestExprList);
+		enterRule(_localctx, 290, RULE_jTestExprList);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1859);
+			setState(1609);
 			jTestExpr();
-			setState(1864);
+			setState(1614);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==J_COMMA) {
 				{
 				{
-				setState(1860);
+				setState(1610);
 				match(J_COMMA);
-				setState(1861);
+				setState(1611);
 				jTestExpr();
 				}
 				}
-				setState(1866);
+				setState(1616);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -13483,26 +12592,26 @@ public class JinjaFlaskParser extends Parser {
 
 	public final JArgumentListContext jArgumentList() throws RecognitionException {
 		JArgumentListContext _localctx = new JArgumentListContext(_ctx, getState());
-		enterRule(_localctx, 296, RULE_jArgumentList);
+		enterRule(_localctx, 292, RULE_jArgumentList);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1867);
+			setState(1617);
 			jTestExpr();
-			setState(1872);
+			setState(1622);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==J_COMMA) {
 				{
 				{
-				setState(1868);
+				setState(1618);
 				match(J_COMMA);
-				setState(1869);
+				setState(1619);
 				jTestExpr();
 				}
 				}
-				setState(1874);
+				setState(1624);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -13556,34 +12665,34 @@ public class JinjaFlaskParser extends Parser {
 
 	public final JDictMakerContext jDictMaker() throws RecognitionException {
 		JDictMakerContext _localctx = new JDictMakerContext(_ctx, getState());
-		enterRule(_localctx, 298, RULE_jDictMaker);
+		enterRule(_localctx, 294, RULE_jDictMaker);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1875);
+			setState(1625);
 			jTestExpr();
-			setState(1876);
+			setState(1626);
 			match(J_COLON);
-			setState(1877);
+			setState(1627);
 			jTestExpr();
-			setState(1885);
+			setState(1635);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==J_COMMA) {
 				{
 				{
-				setState(1878);
+				setState(1628);
 				match(J_COMMA);
-				setState(1879);
+				setState(1629);
 				jTestExpr();
-				setState(1880);
+				setState(1630);
 				match(J_COLON);
-				setState(1881);
+				setState(1631);
 				jTestExpr();
 				}
 				}
-				setState(1887);
+				setState(1637);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -13601,7 +12710,7 @@ public class JinjaFlaskParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\u00d5\u0761\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001"+
+		"\u0004\u0001\u00d2\u0667\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001"+
 		"\u0002\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004"+
 		"\u0002\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007"+
 		"\u0002\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b"+
@@ -13637,1185 +12746,1047 @@ public class JinjaFlaskParser extends Parser {
 		"\u0089\u0002\u008a\u0007\u008a\u0002\u008b\u0007\u008b\u0002\u008c\u0007"+
 		"\u008c\u0002\u008d\u0007\u008d\u0002\u008e\u0007\u008e\u0002\u008f\u0007"+
 		"\u008f\u0002\u0090\u0007\u0090\u0002\u0091\u0007\u0091\u0002\u0092\u0007"+
-		"\u0092\u0002\u0093\u0007\u0093\u0002\u0094\u0007\u0094\u0002\u0095\u0007"+
-		"\u0095\u0001\u0000\u0001\u0000\u0005\u0000\u012f\b\u0000\n\u0000\f\u0000"+
-		"\u0132\t\u0000\u0001\u0000\u0001\u0000\u0001\u0001\u0001\u0001\u0003\u0001"+
-		"\u0138\b\u0001\u0001\u0002\u0001\u0002\u0001\u0002\u0005\u0002\u013d\b"+
-		"\u0002\n\u0002\f\u0002\u0140\t\u0002\u0003\u0002\u0142\b\u0002\u0001\u0002"+
-		"\u0001\u0002\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003"+
-		"\u0001\u0003\u0003\u0003\u014c\b\u0003\u0001\u0004\u0001\u0004\u0001\u0004"+
-		"\u0003\u0004\u0151\b\u0004\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005"+
-		"\u0003\u0005\u0157\b\u0005\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006"+
-		"\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006\u0003\u0006\u0161\b\u0006"+
-		"\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0005\u0007\u0167\b\u0007"+
-		"\n\u0007\f\u0007\u016a\t\u0007\u0001\b\u0001\b\u0003\b\u016e\b\b\u0001"+
-		"\t\u0001\t\u0001\t\u0001\t\u0003\t\u0174\b\t\u0001\n\u0001\n\u0001\n\u0001"+
-		"\n\u0001\n\u0003\n\u017b\b\n\u0001\u000b\u0001\u000b\u0001\u000b\u0005"+
-		"\u000b\u0180\b\u000b\n\u000b\f\u000b\u0183\t\u000b\u0001\f\u0001\f\u0001"+
-		"\f\u0003\f\u0188\b\f\u0001\r\u0001\r\u0001\r\u0005\r\u018d\b\r\n\r\f\r"+
-		"\u0190\t\r\u0001\u000e\u0001\u000e\u0001\u000e\u0001\u000e\u0005\u000e"+
-		"\u0196\b\u000e\n\u000e\f\u000e\u0199\t\u000e\u0001\u000f\u0001\u000f\u0001"+
-		"\u000f\u0001\u0010\u0004\u0010\u019f\b\u0010\u000b\u0010\f\u0010\u01a0"+
-		"\u0001\u0011\u0001\u0011\u0001\u0011\u0001\u0011\u0003\u0011\u01a7\b\u0011"+
-		"\u0001\u0011\u0003\u0011\u01aa\b\u0011\u0001\u0011\u0001\u0011\u0001\u0012"+
-		"\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0012\u0003\u0012\u01b3\b\u0012"+
-		"\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0013\u0001\u0013\u0003\u0013"+
-		"\u01ba\b\u0013\u0001\u0013\u0001\u0013\u0001\u0014\u0001\u0014\u0001\u0014"+
-		"\u0005\u0014\u01c1\b\u0014\n\u0014\f\u0014\u01c4\t\u0014\u0001\u0015\u0001"+
-		"\u0015\u0001\u0015\u0001\u0015\u0001\u0015\u0001\u0015\u0001\u0015\u0001"+
-		"\u0015\u0001\u0015\u0005\u0015\u01cf\b\u0015\n\u0015\f\u0015\u01d2\t\u0015"+
-		"\u0001\u0015\u0001\u0015\u0001\u0015\u0003\u0015\u01d7\b\u0015\u0001\u0016"+
-		"\u0001\u0016\u0003\u0016\u01db\b\u0016\u0001\u0017\u0001\u0017\u0001\u0018"+
-		"\u0001\u0018\u0001\u0018\u0001\u0018\u0004\u0018\u01e3\b\u0018\u000b\u0018"+
-		"\f\u0018\u01e4\u0001\u0018\u0001\u0018\u0003\u0018\u01e9\b\u0018\u0001"+
-		"\u0019\u0001\u0019\u0001\u0019\u0005\u0019\u01ee\b\u0019\n\u0019\f\u0019"+
-		"\u01f1\t\u0019\u0001\u001a\u0001\u001a\u0001\u001b\u0001\u001b\u0001\u001b"+
-		"\u0005\u001b\u01f8\b\u001b\n\u001b\f\u001b\u01fb\t\u001b\u0001\u001c\u0001"+
-		"\u001c\u0001\u001c\u0005\u001c\u0200\b\u001c\n\u001c\f\u001c\u0203\t\u001c"+
-		"\u0001\u001d\u0001\u001d\u0001\u001d\u0003\u001d\u0208\b\u001d\u0001\u001e"+
-		"\u0001\u001e\u0001\u001e\u0001\u001e\u0005\u001e\u020e\b\u001e\n\u001e"+
-		"\f\u001e\u0211\t\u001e\u0001\u001f\u0001\u001f\u0001\u001f\u0001\u001f"+
-		"\u0001\u001f\u0001\u001f\u0001\u001f\u0001\u001f\u0001\u001f\u0003\u001f"+
-		"\u021c\b\u001f\u0001 \u0001 \u0001 \u0005 \u0221\b \n \f \u0224\t \u0001"+
-		"!\u0001!\u0001!\u0005!\u0229\b!\n!\f!\u022c\t!\u0001\"\u0001\"\u0001\""+
-		"\u0003\"\u0231\b\"\u0001#\u0001#\u0001$\u0001$\u0005$\u0237\b$\n$\f$\u023a"+
-		"\t$\u0001%\u0001%\u0003%\u023e\b%\u0001%\u0001%\u0001%\u0001%\u0001%\u0001"+
-		"%\u0001%\u0003%\u0247\b%\u0001&\u0001&\u0001&\u0004&\u024c\b&\u000b&\f"+
-		"&\u024d\u0001&\u0001&\u0001&\u0001&\u0001&\u0003&\u0255\b&\u0001&\u0001"+
-		"&\u0001&\u0003&\u025a\b&\u0001&\u0001&\u0001&\u0003&\u025f\b&\u0001&\u0003"+
-		"&\u0262\b&\u0001\'\u0001\'\u0001\'\u0001\'\u0001\'\u0001\'\u0005\'\u026a"+
-		"\b\'\n\'\f\'\u026d\t\'\u0003\'\u026f\b\'\u0001(\u0001(\u0001(\u0001(\u0001"+
-		"(\u0001(\u0005(\u0277\b(\n(\f(\u027a\t(\u0001)\u0001)\u0001)\u0001)\u0001"+
-		")\u0001)\u0001)\u0001)\u0005)\u0284\b)\n)\f)\u0287\t)\u0001*\u0001*\u0001"+
-		"*\u0005*\u028c\b*\n*\f*\u028f\t*\u0001+\u0001+\u0001+\u0001+\u0003+\u0295"+
-		"\b+\u0001,\u0001,\u0005,\u0299\b,\n,\f,\u029c\t,\u0001,\u0001,\u0001,"+
-		"\u0001,\u0001,\u0001,\u0001,\u0001,\u0001,\u0001,\u0001,\u0003,\u02a9"+
-		"\b,\u0001-\u0001-\u0001-\u0003-\u02ae\b-\u0001-\u0001-\u0001-\u0001-\u0003"+
-		"-\u02b4\b-\u0001.\u0001.\u0001/\u0001/\u0001/\u0005/\u02bb\b/\n/\f/\u02be"+
-		"\t/\u0005/\u02c0\b/\n/\f/\u02c3\t/\u0001/\u0001/\u0005/\u02c7\b/\n/\f"+
-		"/\u02ca\t/\u0005/\u02cc\b/\n/\f/\u02cf\t/\u0001/\u0001/\u0005/\u02d3\b"+
-		"/\n/\f/\u02d6\t/\u0005/\u02d8\b/\n/\f/\u02db\t/\u0001/\u0001/\u0005/\u02df"+
-		"\b/\n/\f/\u02e2\t/\u0005/\u02e4\b/\n/\f/\u02e7\t/\u0001/\u0001/\u0001"+
-		"0\u00010\u00010\u00010\u00010\u00010\u00010\u00010\u00010\u00010\u0001"+
-		"0\u00010\u00030\u02f7\b0\u00011\u00011\u00011\u00011\u00031\u02fd\b1\u0001"+
-		"1\u00011\u00011\u00011\u00011\u00011\u00011\u00011\u00011\u00031\u0308"+
-		"\b1\u00011\u00011\u00011\u00011\u00011\u00011\u00011\u00011\u00031\u0312"+
-		"\b1\u00011\u00011\u00011\u00011\u00011\u00011\u00011\u00031\u031b\b1\u0001"+
-		"1\u00011\u00031\u031f\b1\u00012\u00012\u00012\u00012\u00012\u00032\u0326"+
-		"\b2\u00012\u00012\u00032\u032a\b2\u00012\u00012\u00012\u00012\u00012\u0001"+
-		"2\u00012\u00012\u00012\u00032\u0335\b2\u00012\u00012\u00032\u0339\b2\u0001"+
-		"2\u00012\u00032\u033d\b2\u00013\u00013\u00014\u00014\u00014\u00014\u0001"+
-		"4\u00014\u00015\u00015\u00015\u00015\u00015\u00055\u034c\b5\n5\f5\u034f"+
-		"\t5\u00035\u0351\b5\u00015\u00015\u00016\u00036\u0356\b6\u00016\u0001"+
-		"6\u00016\u00016\u00016\u00016\u00016\u00056\u035f\b6\n6\f6\u0362\t6\u0001"+
-		"6\u00016\u00016\u00016\u00016\u00056\u0369\b6\n6\f6\u036c\t6\u00036\u036e"+
-		"\b6\u00017\u00017\u00018\u00018\u00018\u00018\u00018\u00018\u00018\u0003"+
-		"8\u0379\b8\u00018\u00018\u00018\u00019\u00019\u00019\u0001:\u0001:\u0001"+
-		":\u0003:\u0384\b:\u0001:\u0001:\u0001:\u0003:\u0389\b:\u0001:\u0001:\u0001"+
-		":\u0003:\u038e\b:\u0005:\u0390\b:\n:\f:\u0393\t:\u0001:\u0001:\u0001:"+
-		"\u0001;\u0001;\u0001;\u0001;\u0001<\u0001<\u0001<\u0001<\u0001<\u0005"+
-		"<\u03a1\b<\n<\f<\u03a4\t<\u0001=\u0001=\u0001=\u0001=\u0001=\u0001=\u0005"+
-		"=\u03ac\b=\n=\f=\u03af\t=\u0001>\u0001>\u0001>\u0001>\u0001>\u0001>\u0001"+
-		">\u0001>\u0003>\u03b9\b>\u0001?\u0001?\u0003?\u03bd\b?\u0001?\u0001?\u0001"+
-		"?\u0001?\u0001?\u0005?\u03c4\b?\n?\f?\u03c7\t?\u0001?\u0001?\u0001?\u0001"+
-		"?\u0001?\u0004?\u03ce\b?\u000b?\f?\u03cf\u0003?\u03d2\b?\u0001@\u0003"+
-		"@\u03d5\b@\u0001@\u0001@\u0001A\u0001A\u0003A\u03db\bA\u0001A\u0001A\u0001"+
-		"B\u0001B\u0001C\u0003C\u03e2\bC\u0001C\u0001C\u0001D\u0001D\u0001D\u0001"+
-		"E\u0001E\u0001E\u0003E\u03ec\bE\u0001E\u0001E\u0001E\u0001E\u0001E\u0001"+
-		"E\u0003E\u03f4\bE\u0001E\u0001E\u0003E\u03f8\bE\u0001E\u0001E\u0001F\u0001"+
-		"F\u0003F\u03fe\bF\u0001F\u0001F\u0003F\u0402\bF\u0001G\u0001G\u0001G\u0001"+
-		"G\u0001G\u0001H\u0001H\u0001H\u0001H\u0001H\u0001H\u0001H\u0003H\u0410"+
-		"\bH\u0001H\u0004H\u0413\bH\u000bH\fH\u0414\u0001I\u0001I\u0001I\u0001"+
-		"I\u0001I\u0001I\u0001J\u0001J\u0001J\u0001J\u0001J\u0001J\u0003J\u0423"+
-		"\bJ\u0001K\u0001K\u0001K\u0001K\u0001K\u0001K\u0001K\u0001K\u0003K\u042d"+
-		"\bK\u0001L\u0001L\u0001L\u0001L\u0001L\u0001L\u0001L\u0001L\u0001L\u0003"+
-		"L\u0438\bL\u0001M\u0001M\u0001M\u0001M\u0003M\u043e\bM\u0001M\u0001M\u0001"+
-		"M\u0001M\u0005M\u0444\bM\nM\fM\u0447\tM\u0001M\u0001M\u0001M\u0003M\u044c"+
-		"\bM\u0001M\u0001M\u0001M\u0003M\u0451\bM\u0001N\u0001N\u0005N\u0455\b"+
-		"N\nN\fN\u0458\tN\u0001N\u0001N\u0001N\u0001N\u0001N\u0003N\u045f\bN\u0005"+
-		"N\u0461\bN\nN\fN\u0464\tN\u0001O\u0001O\u0001O\u0001O\u0001O\u0003O\u046b"+
-		"\bO\u0001O\u0001O\u0001O\u0001O\u0001O\u0003O\u0472\bO\u0001P\u0001P\u0001"+
-		"P\u0001Q\u0001Q\u0001Q\u0001Q\u0004Q\u047b\bQ\u000bQ\fQ\u047c\u0001R\u0001"+
-		"R\u0003R\u0481\bR\u0001R\u0005R\u0484\bR\nR\fR\u0487\tR\u0001S\u0001S"+
-		"\u0001S\u0001S\u0001S\u0001S\u0001S\u0001S\u0001S\u0001S\u0001S\u0001"+
-		"S\u0001S\u0001S\u0001S\u0001S\u0001S\u0001S\u0001S\u0001S\u0001S\u0001"+
-		"S\u0001S\u0001S\u0001S\u0001S\u0001S\u0003S\u04a4\bS\u0001T\u0001T\u0001"+
-		"T\u0001T\u0001T\u0001T\u0001U\u0001U\u0001U\u0001U\u0001U\u0001U\u0001"+
-		"V\u0001V\u0001V\u0001W\u0003W\u04b6\bW\u0001W\u0001W\u0001X\u0003X\u04bb"+
-		"\bX\u0001X\u0001X\u0001Y\u0003Y\u04c0\bY\u0001Y\u0001Y\u0001Z\u0003Z\u04c5"+
-		"\bZ\u0001Z\u0001Z\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001"+
-		"[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001"+
-		"[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001"+
-		"[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0005[\u04eb\b[\n[\f[\u04ee"+
-		"\t[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0005[\u04f7\b[\n"+
-		"[\f[\u04fa\t[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0005["+
-		"\u0503\b[\n[\f[\u0506\t[\u0001[\u0001[\u0001[\u0003[\u050b\b[\u0001\\"+
-		"\u0001\\\u0001\\\u0005\\\u0510\b\\\n\\\f\\\u0513\t\\\u0001\\\u0001\\\u0001"+
-		"\\\u0003\\\u0518\b\\\u0001]\u0001]\u0001]\u0001]\u0001]\u0001]\u0001]"+
-		"\u0001]\u0001]\u0003]\u0523\b]\u0001^\u0001^\u0001^\u0001^\u0001^\u0001"+
-		"^\u0001^\u0001^\u0001^\u0001^\u0005^\u052f\b^\n^\f^\u0532\t^\u0001^\u0001"+
-		"^\u0001^\u0001_\u0001_\u0001_\u0001_\u0001_\u0001_\u0001_\u0001_\u0001"+
-		"_\u0001_\u0003_\u0541\b_\u0001`\u0001`\u0001`\u0005`\u0546\b`\n`\f`\u0549"+
-		"\t`\u0001`\u0001`\u0001`\u0001a\u0001a\u0001a\u0001a\u0001a\u0001a\u0001"+
-		"b\u0001b\u0001b\u0001b\u0003b\u0558\bb\u0001c\u0001c\u0001c\u0001c\u0001"+
-		"c\u0001c\u0001c\u0001c\u0003c\u0562\bc\u0001d\u0001d\u0001d\u0001d\u0001"+
-		"d\u0001d\u0001e\u0001e\u0001e\u0001e\u0001e\u0001e\u0001e\u0001e\u0001"+
-		"e\u0001e\u0004e\u0574\be\u000be\fe\u0575\u0001f\u0001f\u0001f\u0001f\u0001"+
-		"f\u0001f\u0001f\u0001f\u0001f\u0001f\u0004f\u0582\bf\u000bf\ff\u0583\u0001"+
-		"g\u0001g\u0001g\u0001g\u0001g\u0001h\u0001h\u0001h\u0005h\u058e\bh\nh"+
-		"\fh\u0591\th\u0001h\u0001h\u0001i\u0001i\u0001i\u0001i\u0001i\u0001i\u0001"+
-		"i\u0003i\u059c\bi\u0001j\u0001j\u0001j\u0001j\u0001j\u0001j\u0001j\u0001"+
-		"k\u0001k\u0001k\u0001k\u0001k\u0001k\u0001l\u0001l\u0001l\u0001l\u0001"+
-		"l\u0001l\u0001l\u0001l\u0001l\u0005l\u05b4\bl\nl\fl\u05b7\tl\u0001m\u0001"+
-		"m\u0001m\u0001m\u0001m\u0001m\u0001m\u0001m\u0001m\u0001m\u0005m\u05c3"+
-		"\bm\nm\fm\u05c6\tm\u0001n\u0001n\u0001n\u0001n\u0001n\u0001n\u0001n\u0001"+
-		"n\u0001n\u0001n\u0001n\u0001n\u0001n\u0001n\u0001n\u0001n\u0001n\u0001"+
-		"n\u0003n\u05da\bn\u0001o\u0001o\u0001o\u0001o\u0001o\u0003o\u05e1\bo\u0001"+
-		"o\u0001o\u0001o\u0003o\u05e6\bo\u0005o\u05e8\bo\no\fo\u05eb\to\u0001o"+
-		"\u0001o\u0001o\u0001p\u0001p\u0001p\u0001p\u0001p\u0001p\u0001p\u0001"+
-		"p\u0001p\u0001p\u0003p\u05fa\bp\u0001q\u0001q\u0001q\u0001q\u0001q\u0001"+
-		"q\u0001q\u0001q\u0001q\u0005q\u0605\bq\nq\fq\u0608\tq\u0001q\u0001q\u0001"+
-		"q\u0001r\u0001r\u0001r\u0001r\u0003r\u0611\br\u0001r\u0001r\u0001r\u0001"+
-		"s\u0001s\u0001s\u0001s\u0001s\u0001s\u0001s\u0005s\u061d\bs\ns\fs\u0620"+
-		"\ts\u0001t\u0001t\u0001t\u0001t\u0001t\u0003t\u0627\bt\u0001t\u0001t\u0001"+
-		"t\u0001u\u0001u\u0001u\u0001u\u0001u\u0001u\u0001u\u0003u\u0633\bu\u0001"+
-		"u\u0001u\u0001u\u0001v\u0001v\u0001v\u0001v\u0001v\u0001v\u0001v\u0005"+
-		"v\u063f\bv\nv\fv\u0642\tv\u0001v\u0001v\u0001v\u0001w\u0001w\u0001w\u0001"+
-		"w\u0001w\u0001w\u0005w\u064d\bw\nw\fw\u0650\tw\u0001x\u0001x\u0001x\u0001"+
-		"x\u0001x\u0005x\u0657\bx\nx\fx\u065a\tx\u0003x\u065c\bx\u0001y\u0001y"+
-		"\u0001y\u0001y\u0001y\u0003y\u0663\by\u0001y\u0001y\u0001y\u0001y\u0003"+
-		"y\u0669\by\u0005y\u066b\by\ny\fy\u066e\ty\u0001y\u0001y\u0001y\u0001z"+
-		"\u0001z\u0001{\u0001{\u0001{\u0001{\u0001{\u0001{\u0001{\u0001{\u0005"+
-		"{\u067d\b{\n{\f{\u0680\t{\u0001|\u0001|\u0001}\u0005}\u0685\b}\n}\f}\u0688"+
-		"\t}\u0001~\u0001~\u0001~\u0001~\u0001\u007f\u0001\u007f\u0001\u007f\u0001"+
-		"\u007f\u0003\u007f\u0692\b\u007f\u0001\u007f\u0001\u007f\u0001\u007f\u0001"+
-		"\u007f\u0001\u007f\u0001\u007f\u0001\u007f\u0001\u007f\u0003\u007f\u069c"+
-		"\b\u007f\u0003\u007f\u069e\b\u007f\u0001\u0080\u0001\u0080\u0001\u0080"+
-		"\u0001\u0080\u0001\u0081\u0001\u0081\u0001\u0081\u0001\u0081\u0001\u0081"+
-		"\u0001\u0081\u0001\u0081\u0005\u0081\u06ab\b\u0081\n\u0081\f\u0081\u06ae"+
-		"\t\u0081\u0001\u0081\u0001\u0081\u0003\u0081\u06b2\b\u0081\u0001\u0081"+
-		"\u0001\u0081\u0001\u0082\u0001\u0082\u0001\u0082\u0001\u0082\u0001\u0082"+
-		"\u0001\u0082\u0001\u0082\u0003\u0082\u06bd\b\u0082\u0001\u0082\u0001\u0082"+
-		"\u0001\u0083\u0001\u0083\u0001\u0083\u0005\u0083\u06c4\b\u0083\n\u0083"+
-		"\f\u0083\u06c7\t\u0083\u0001\u0084\u0001\u0084\u0001\u0084\u0001\u0084"+
-		"\u0001\u0085\u0001\u0085\u0001\u0085\u0005\u0085\u06d0\b\u0085\n\u0085"+
-		"\f\u0085\u06d3\t\u0085\u0001\u0086\u0001\u0086\u0001\u0086\u0003\u0086"+
-		"\u06d8\b\u0086\u0001\u0086\u0003\u0086\u06db\b\u0086\u0001\u0087\u0001"+
-		"\u0087\u0001\u0088\u0001\u0088\u0001\u0088\u0005\u0088\u06e2\b\u0088\n"+
-		"\u0088\f\u0088\u06e5\t\u0088\u0001\u0089\u0001\u0089\u0001\u0089\u0005"+
-		"\u0089\u06ea\b\u0089\n\u0089\f\u0089\u06ed\t\u0089\u0001\u008a\u0001\u008a"+
-		"\u0001\u008a\u0003\u008a\u06f2\b\u008a\u0001\u008b\u0001\u008b\u0001\u008b"+
-		"\u0001\u008b\u0005\u008b\u06f8\b\u008b\n\u008b\f\u008b\u06fb\t\u008b\u0001"+
-		"\u008c\u0001\u008c\u0001\u008c\u0001\u008c\u0001\u008c\u0001\u008c\u0001"+
-		"\u008c\u0001\u008c\u0001\u008c\u0003\u008c\u0706\b\u008c\u0001\u008d\u0001"+
-		"\u008d\u0001\u008d\u0005\u008d\u070b\b\u008d\n\u008d\f\u008d\u070e\t\u008d"+
-		"\u0001\u008e\u0001\u008e\u0001\u008e\u0005\u008e\u0713\b\u008e\n\u008e"+
-		"\f\u008e\u0716\t\u008e\u0001\u008f\u0001\u008f\u0001\u008f\u0003\u008f"+
-		"\u071b\b\u008f\u0001\u0090\u0001\u0090\u0005\u0090\u071f\b\u0090\n\u0090"+
-		"\f\u0090\u0722\t\u0090\u0001\u0091\u0001\u0091\u0003\u0091\u0726\b\u0091"+
-		"\u0001\u0091\u0001\u0091\u0001\u0091\u0001\u0091\u0001\u0091\u0001\u0091"+
-		"\u0001\u0091\u0003\u0091\u072f\b\u0091\u0001\u0092\u0001\u0092\u0001\u0092"+
-		"\u0001\u0092\u0001\u0092\u0001\u0092\u0001\u0092\u0001\u0092\u0001\u0092"+
-		"\u0003\u0092\u073a\b\u0092\u0001\u0092\u0001\u0092\u0001\u0092\u0003\u0092"+
-		"\u073f\b\u0092\u0001\u0092\u0003\u0092\u0742\b\u0092\u0001\u0093\u0001"+
-		"\u0093\u0001\u0093\u0005\u0093\u0747\b\u0093\n\u0093\f\u0093\u074a\t\u0093"+
-		"\u0001\u0094\u0001\u0094\u0001\u0094\u0005\u0094\u074f\b\u0094\n\u0094"+
-		"\f\u0094\u0752\t\u0094\u0001\u0095\u0001\u0095\u0001\u0095\u0001\u0095"+
-		"\u0001\u0095\u0001\u0095\u0001\u0095\u0001\u0095\u0005\u0095\u075c\b\u0095"+
-		"\n\u0095\f\u0095\u075f\t\u0095\u0001\u0095\u0000\u0000\u0096\u0000\u0002"+
-		"\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a\u001c\u001e"+
-		" \"$&(*,.02468:<>@BDFHJLNPRTVXZ\\^`bdfhjlnprtvxz|~\u0080\u0082\u0084\u0086"+
-		"\u0088\u008a\u008c\u008e\u0090\u0092\u0094\u0096\u0098\u009a\u009c\u009e"+
-		"\u00a0\u00a2\u00a4\u00a6\u00a8\u00aa\u00ac\u00ae\u00b0\u00b2\u00b4\u00b6"+
-		"\u00b8\u00ba\u00bc\u00be\u00c0\u00c2\u00c4\u00c6\u00c8\u00ca\u00cc\u00ce"+
-		"\u00d0\u00d2\u00d4\u00d6\u00d8\u00da\u00dc\u00de\u00e0\u00e2\u00e4\u00e6"+
-		"\u00e8\u00ea\u00ec\u00ee\u00f0\u00f2\u00f4\u00f6\u00f8\u00fa\u00fc\u00fe"+
-		"\u0100\u0102\u0104\u0106\u0108\u010a\u010c\u010e\u0110\u0112\u0114\u0116"+
-		"\u0118\u011a\u011c\u011e\u0120\u0122\u0124\u0126\u0128\u012a\u0000\u000e"+
-		"\u0002\u0000\u0003\u0003\u001c\u001c\u0001\u0000%&\u0001\u0000\')\u0001"+
-		"\u0000FG\u0002\u0000PPgi\u0001\u0000vw\u0003\u0000aajk~\u0080\u0001\u0000"+
-		"]^\u0002\u0000WW\u0090\u0090\u0002\u0000ss\u0085\u0086\u0004\u0000vx\u0083"+
-		"\u0083\u0085\u0086\u008f\u008f\u0002\u0000PPgg\u0001\u0000\u0097\u0098"+
-		"\u0001\u0000\u0099\u009c\u0800\u0000\u0130\u0001\u0000\u0000\u0000\u0002"+
-		"\u0137\u0001\u0000\u0000\u0000\u0004\u0141\u0001\u0000\u0000\u0000\u0006"+
-		"\u014b\u0001\u0000\u0000\u0000\b\u0150\u0001\u0000\u0000\u0000\n\u0152"+
-		"\u0001\u0000\u0000\u0000\f\u0160\u0001\u0000\u0000\u0000\u000e\u0168\u0001"+
-		"\u0000\u0000\u0000\u0010\u016d\u0001\u0000\u0000\u0000\u0012\u016f\u0001"+
-		"\u0000\u0000\u0000\u0014\u0175\u0001\u0000\u0000\u0000\u0016\u017c\u0001"+
-		"\u0000\u0000\u0000\u0018\u0184\u0001\u0000\u0000\u0000\u001a\u0189\u0001"+
-		"\u0000\u0000\u0000\u001c\u0191\u0001\u0000\u0000\u0000\u001e\u019a\u0001"+
-		"\u0000\u0000\u0000 \u019e\u0001\u0000\u0000\u0000\"\u01a2\u0001\u0000"+
-		"\u0000\u0000$\u01ad\u0001\u0000\u0000\u0000&\u01b7\u0001\u0000\u0000\u0000"+
-		"(\u01bd\u0001\u0000\u0000\u0000*\u01c5\u0001\u0000\u0000\u0000,\u01d8"+
-		"\u0001\u0000\u0000\u0000.\u01dc\u0001\u0000\u0000\u00000\u01e8\u0001\u0000"+
-		"\u0000\u00002\u01ea\u0001\u0000\u0000\u00004\u01f2\u0001\u0000\u0000\u0000"+
-		"6\u01f4\u0001\u0000\u0000\u00008\u01fc\u0001\u0000\u0000\u0000:\u0207"+
-		"\u0001\u0000\u0000\u0000<\u0209\u0001\u0000\u0000\u0000>\u021b\u0001\u0000"+
-		"\u0000\u0000@\u021d\u0001\u0000\u0000\u0000B\u0225\u0001\u0000\u0000\u0000"+
-		"D\u0230\u0001\u0000\u0000\u0000F\u0232\u0001\u0000\u0000\u0000H\u0234"+
-		"\u0001\u0000\u0000\u0000J\u0246\u0001\u0000\u0000\u0000L\u0261\u0001\u0000"+
-		"\u0000\u0000N\u026e\u0001\u0000\u0000\u0000P\u0270\u0001\u0000\u0000\u0000"+
-		"R\u027b\u0001\u0000\u0000\u0000T\u0288\u0001\u0000\u0000\u0000V\u0294"+
-		"\u0001\u0000\u0000\u0000X\u02a8\u0001\u0000\u0000\u0000Z\u02b3\u0001\u0000"+
-		"\u0000\u0000\\\u02b5\u0001\u0000\u0000\u0000^\u02b7\u0001\u0000\u0000"+
-		"\u0000`\u02f6\u0001\u0000\u0000\u0000b\u031e\u0001\u0000\u0000\u0000d"+
-		"\u033c\u0001\u0000\u0000\u0000f\u033e\u0001\u0000\u0000\u0000h\u0340\u0001"+
-		"\u0000\u0000\u0000j\u0350\u0001\u0000\u0000\u0000l\u036d\u0001\u0000\u0000"+
-		"\u0000n\u036f\u0001\u0000\u0000\u0000p\u0371\u0001\u0000\u0000\u0000r"+
-		"\u037d\u0001\u0000\u0000\u0000t\u0380\u0001\u0000\u0000\u0000v\u0397\u0001"+
-		"\u0000\u0000\u0000x\u039b\u0001\u0000\u0000\u0000z\u03a5\u0001\u0000\u0000"+
-		"\u0000|\u03b8\u0001\u0000\u0000\u0000~\u03d1\u0001\u0000\u0000\u0000\u0080"+
-		"\u03d4\u0001\u0000\u0000\u0000\u0082\u03da\u0001\u0000\u0000\u0000\u0084"+
-		"\u03de\u0001\u0000\u0000\u0000\u0086\u03e1\u0001\u0000\u0000\u0000\u0088"+
-		"\u03e5\u0001\u0000\u0000\u0000\u008a\u03e8\u0001\u0000\u0000\u0000\u008c"+
-		"\u03fb\u0001\u0000\u0000\u0000\u008e\u0403\u0001\u0000\u0000\u0000\u0090"+
-		"\u0412\u0001\u0000\u0000\u0000\u0092\u0416\u0001\u0000\u0000\u0000\u0094"+
-		"\u0422\u0001\u0000\u0000\u0000\u0096\u042c\u0001\u0000\u0000\u0000\u0098"+
-		"\u0437\u0001\u0000\u0000\u0000\u009a\u0450\u0001\u0000\u0000\u0000\u009c"+
-		"\u0456\u0001\u0000\u0000\u0000\u009e\u0471\u0001\u0000\u0000\u0000\u00a0"+
-		"\u0473\u0001\u0000\u0000\u0000\u00a2\u047a\u0001\u0000\u0000\u0000\u00a4"+
-		"\u047e\u0001\u0000\u0000\u0000\u00a6\u04a3\u0001\u0000\u0000\u0000\u00a8"+
-		"\u04a5\u0001\u0000\u0000\u0000\u00aa\u04ab\u0001\u0000\u0000\u0000\u00ac"+
-		"\u04b1\u0001\u0000\u0000\u0000\u00ae\u04b5\u0001\u0000\u0000\u0000\u00b0"+
-		"\u04ba\u0001\u0000\u0000\u0000\u00b2\u04bf\u0001\u0000\u0000\u0000\u00b4"+
-		"\u04c4\u0001\u0000\u0000\u0000\u00b6\u050a\u0001\u0000\u0000\u0000\u00b8"+
-		"\u050c\u0001\u0000\u0000\u0000\u00ba\u0522\u0001\u0000\u0000\u0000\u00bc"+
-		"\u0524\u0001\u0000\u0000\u0000\u00be\u0540\u0001\u0000\u0000\u0000\u00c0"+
-		"\u0542\u0001\u0000\u0000\u0000\u00c2\u054d\u0001\u0000\u0000\u0000\u00c4"+
-		"\u0557\u0001\u0000\u0000\u0000\u00c6\u0561\u0001\u0000\u0000\u0000\u00c8"+
-		"\u0563\u0001\u0000\u0000\u0000\u00ca\u0569\u0001\u0000\u0000\u0000\u00cc"+
-		"\u0577\u0001\u0000\u0000\u0000\u00ce\u0585\u0001\u0000\u0000\u0000\u00d0"+
-		"\u058a\u0001\u0000\u0000\u0000\u00d2\u059b\u0001\u0000\u0000\u0000\u00d4"+
-		"\u059d\u0001\u0000\u0000\u0000\u00d6\u05a4\u0001\u0000\u0000\u0000\u00d8"+
-		"\u05aa\u0001\u0000\u0000\u0000\u00da\u05b8\u0001\u0000\u0000\u0000\u00dc"+
-		"\u05d9\u0001\u0000\u0000\u0000\u00de\u05db\u0001\u0000\u0000\u0000\u00e0"+
-		"\u05f9\u0001\u0000\u0000\u0000\u00e2\u05fb\u0001\u0000\u0000\u0000\u00e4"+
-		"\u060c\u0001\u0000\u0000\u0000\u00e6\u0615\u0001\u0000\u0000\u0000\u00e8"+
-		"\u0621\u0001\u0000\u0000\u0000\u00ea\u062b\u0001\u0000\u0000\u0000\u00ec"+
-		"\u0637\u0001\u0000\u0000\u0000\u00ee\u0646\u0001\u0000\u0000\u0000\u00f0"+
-		"\u065b\u0001\u0000\u0000\u0000\u00f2\u065d\u0001\u0000\u0000\u0000\u00f4"+
-		"\u0672\u0001\u0000\u0000\u0000\u00f6\u0674\u0001\u0000\u0000\u0000\u00f8"+
-		"\u0681\u0001\u0000\u0000\u0000\u00fa\u0686\u0001\u0000\u0000\u0000\u00fc"+
-		"\u0689\u0001\u0000\u0000\u0000\u00fe\u069d\u0001\u0000\u0000\u0000\u0100"+
-		"\u069f\u0001\u0000\u0000\u0000\u0102\u06a3\u0001\u0000\u0000\u0000\u0104"+
-		"\u06b5\u0001\u0000\u0000\u0000\u0106\u06c0\u0001\u0000\u0000\u0000\u0108"+
-		"\u06c8\u0001\u0000\u0000\u0000\u010a\u06cc\u0001\u0000\u0000\u0000\u010c"+
-		"\u06d4\u0001\u0000\u0000\u0000\u010e\u06dc\u0001\u0000\u0000\u0000\u0110"+
-		"\u06de\u0001\u0000\u0000\u0000\u0112\u06e6\u0001\u0000\u0000\u0000\u0114"+
-		"\u06f1\u0001\u0000\u0000\u0000\u0116\u06f3\u0001\u0000\u0000\u0000\u0118"+
-		"\u0705\u0001\u0000\u0000\u0000\u011a\u0707\u0001\u0000\u0000\u0000\u011c"+
-		"\u070f\u0001\u0000\u0000\u0000\u011e\u071a\u0001\u0000\u0000\u0000\u0120"+
-		"\u071c\u0001\u0000\u0000\u0000\u0122\u072e\u0001\u0000\u0000\u0000\u0124"+
-		"\u0741\u0001\u0000\u0000\u0000\u0126\u0743\u0001\u0000\u0000\u0000\u0128"+
-		"\u074b\u0001\u0000\u0000\u0000\u012a\u0753\u0001\u0000\u0000\u0000\u012c"+
-		"\u012f\u0003\u0002\u0001\u0000\u012d\u012f\u0005\u0003\u0000\u0000\u012e"+
-		"\u012c\u0001\u0000\u0000\u0000\u012e\u012d\u0001\u0000\u0000\u0000\u012f"+
-		"\u0132\u0001\u0000\u0000\u0000\u0130\u012e\u0001\u0000\u0000\u0000\u0130"+
-		"\u0131\u0001\u0000\u0000\u0000\u0131\u0133\u0001\u0000\u0000\u0000\u0132"+
-		"\u0130\u0001\u0000\u0000\u0000\u0133\u0134\u0005\u0000\u0000\u0001\u0134"+
-		"\u0001\u0001\u0000\u0000\u0000\u0135\u0138\u0003\b\u0004\u0000\u0136\u0138"+
-		"\u0003\u0004\u0002\u0000\u0137\u0135\u0001\u0000\u0000\u0000\u0137\u0136"+
-		"\u0001\u0000\u0000\u0000\u0138\u0003\u0001\u0000\u0000\u0000\u0139\u013e"+
-		"\u0003\u0006\u0003\u0000\u013a\u013b\u0005\u001c\u0000\u0000\u013b\u013d"+
-		"\u0003\u0006\u0003\u0000\u013c\u013a\u0001\u0000\u0000\u0000\u013d\u0140"+
-		"\u0001\u0000\u0000\u0000\u013e\u013c\u0001\u0000\u0000\u0000\u013e\u013f"+
-		"\u0001\u0000\u0000\u0000\u013f\u0142\u0001\u0000\u0000\u0000\u0140\u013e"+
-		"\u0001\u0000\u0000\u0000\u0141\u0139\u0001\u0000\u0000\u0000\u0141\u0142"+
-		"\u0001\u0000\u0000\u0000\u0142\u0143\u0001\u0000\u0000\u0000\u0143\u0144"+
-		"\u0007\u0000\u0000\u0000\u0144\u0005\u0001\u0000\u0000\u0000\u0145\u014c"+
-		"\u0003\n\u0005\u0000\u0146\u014c\u0003\u0010\b\u0000\u0147\u014c\u0003"+
-		",\u0016\u0000\u0148\u014c\u0003\u001c\u000e\u0000\u0149\u014c\u0003@ "+
-		"\u0000\u014a\u014c\u0003.\u0017\u0000\u014b\u0145\u0001\u0000\u0000\u0000"+
-		"\u014b\u0146\u0001\u0000\u0000\u0000\u014b\u0147\u0001\u0000\u0000\u0000"+
-		"\u014b\u0148\u0001\u0000\u0000\u0000\u014b\u0149\u0001\u0000\u0000\u0000"+
-		"\u014b\u014a\u0001\u0000\u0000\u0000\u014c\u0007\u0001\u0000\u0000\u0000"+
-		"\u014d\u0151\u0003*\u0015\u0000\u014e\u0151\u0003$\u0012\u0000\u014f\u0151"+
-		"\u0003\u001e\u000f\u0000\u0150\u014d\u0001\u0000\u0000\u0000\u0150\u014e"+
-		"\u0001\u0000\u0000\u0000\u0150\u014f\u0001\u0000\u0000\u0000\u0151\t\u0001"+
-		"\u0000\u0000\u0000\u0152\u0153\u00051\u0000\u0000\u0153\u0156\u0005\u001e"+
-		"\u0000\u0000\u0154\u0157\u00034\u001a\u0000\u0155\u0157\u0003\f\u0006"+
-		"\u0000\u0156\u0154\u0001\u0000\u0000\u0000\u0156\u0155\u0001\u0000\u0000"+
-		"\u0000\u0157\u000b\u0001\u0000\u0000\u0000\u0158\u0159\u00054\u0000\u0000"+
-		"\u0159\u015a\u0003\u000e\u0007\u0000\u015a\u015b\u00056\u0000\u0000\u015b"+
-		"\u0161\u0001\u0000\u0000\u0000\u015c\u015d\u00055\u0000\u0000\u015d\u015e"+
-		"\u0003\u000e\u0007\u0000\u015e\u015f\u00057\u0000\u0000\u015f\u0161\u0001"+
-		"\u0000\u0000\u0000\u0160\u0158\u0001\u0000\u0000\u0000\u0160\u015c\u0001"+
-		"\u0000\u0000\u0000\u0161\r\u0001\u0000\u0000\u0000\u0162\u0167\u0003X"+
-		",\u0000\u0163\u0167\u0003\u00fc~\u0000\u0164\u0167\u0003\u0108\u0084\u0000"+
-		"\u0165\u0167\u0005E\u0000\u0000\u0166\u0162\u0001\u0000\u0000\u0000\u0166"+
-		"\u0163\u0001\u0000\u0000\u0000\u0166\u0164\u0001\u0000\u0000\u0000\u0166"+
-		"\u0165\u0001\u0000\u0000\u0000\u0167\u016a\u0001\u0000\u0000\u0000\u0168"+
-		"\u0166\u0001\u0000\u0000\u0000\u0168\u0169\u0001\u0000\u0000\u0000\u0169"+
-		"\u000f\u0001\u0000\u0000\u0000\u016a\u0168\u0001\u0000\u0000\u0000\u016b"+
-		"\u016e\u0003\u0012\t\u0000\u016c\u016e\u0003\u0014\n\u0000\u016d\u016b"+
-		"\u0001\u0000\u0000\u0000\u016d\u016c\u0001\u0000\u0000\u0000\u016e\u0011"+
-		"\u0001\u0000\u0000\u0000\u016f\u0170\u0005\t\u0000\u0000\u0170\u0173\u0003"+
-		"\u001a\r\u0000\u0171\u0172\u0005\n\u0000\u0000\u0172\u0174\u00051\u0000"+
-		"\u0000\u0173\u0171\u0001\u0000\u0000\u0000\u0173\u0174\u0001\u0000\u0000"+
-		"\u0000\u0174\u0013\u0001\u0000\u0000\u0000\u0175\u0176\u0005\b\u0000\u0000"+
-		"\u0176\u0177\u0003\u001a\r\u0000\u0177\u017a\u0005\t\u0000\u0000\u0178"+
-		"\u017b\u0005\'\u0000\u0000\u0179\u017b\u0003\u0016\u000b\u0000\u017a\u0178"+
-		"\u0001\u0000\u0000\u0000\u017a\u0179\u0001\u0000\u0000\u0000\u017b\u0015"+
-		"\u0001\u0000\u0000\u0000\u017c\u0181\u0003\u0018\f\u0000\u017d\u017e\u0005"+
-		"\u001d\u0000\u0000\u017e\u0180\u0003\u0018\f\u0000\u017f\u017d\u0001\u0000"+
-		"\u0000\u0000\u0180\u0183\u0001\u0000\u0000\u0000\u0181\u017f\u0001\u0000"+
-		"\u0000\u0000\u0181\u0182\u0001\u0000\u0000\u0000\u0182\u0017\u0001\u0000"+
-		"\u0000\u0000\u0183\u0181\u0001\u0000\u0000\u0000\u0184\u0187\u00051\u0000"+
-		"\u0000\u0185\u0186\u0005\n\u0000\u0000\u0186\u0188\u00051\u0000\u0000"+
-		"\u0187\u0185\u0001\u0000\u0000\u0000\u0187\u0188\u0001\u0000\u0000\u0000"+
-		"\u0188\u0019\u0001\u0000\u0000\u0000\u0189\u018e\u00051\u0000\u0000\u018a"+
-		"\u018b\u00050\u0000\u0000\u018b\u018d\u00051\u0000\u0000\u018c\u018a\u0001"+
-		"\u0000\u0000\u0000\u018d\u0190\u0001\u0000\u0000\u0000\u018e\u018c\u0001"+
-		"\u0000\u0000\u0000\u018e\u018f\u0001\u0000\u0000\u0000\u018f\u001b\u0001"+
-		"\u0000\u0000\u0000\u0190\u018e\u0001\u0000\u0000\u0000\u0191\u0192\u0005"+
-		"\u0010\u0000\u0000\u0192\u0197\u00051\u0000\u0000\u0193\u0194\u0005\u001d"+
-		"\u0000\u0000\u0194\u0196\u00051\u0000\u0000\u0195\u0193\u0001\u0000\u0000"+
-		"\u0000\u0196\u0199\u0001\u0000\u0000\u0000\u0197\u0195\u0001\u0000\u0000"+
-		"\u0000\u0197\u0198\u0001\u0000\u0000\u0000\u0198\u001d\u0001\u0000\u0000"+
-		"\u0000\u0199\u0197\u0001\u0000\u0000\u0000\u019a\u019b\u0003 \u0010\u0000"+
-		"\u019b\u019c\u0003$\u0012\u0000\u019c\u001f\u0001\u0000\u0000\u0000\u019d"+
-		"\u019f\u0003\"\u0011\u0000\u019e\u019d\u0001\u0000\u0000\u0000\u019f\u01a0"+
-		"\u0001\u0000\u0000\u0000\u01a0\u019e\u0001\u0000\u0000\u0000\u01a0\u01a1"+
-		"\u0001\u0000\u0000\u0000\u01a1!\u0001\u0000\u0000\u0000\u01a2\u01a3\u0005"+
-		"\u001a\u0000\u0000\u01a3\u01a9\u0003\u001a\r\u0000\u01a4\u01a6\u0005*"+
-		"\u0000\u0000\u01a5\u01a7\u0003T*\u0000\u01a6\u01a5\u0001\u0000\u0000\u0000"+
-		"\u01a6\u01a7\u0001\u0000\u0000\u0000\u01a7\u01a8\u0001\u0000\u0000\u0000"+
-		"\u01a8\u01aa\u0005+\u0000\u0000\u01a9\u01a4\u0001\u0000\u0000\u0000\u01a9"+
-		"\u01aa\u0001\u0000\u0000\u0000\u01aa\u01ab\u0001\u0000\u0000\u0000\u01ab"+
-		"\u01ac\u0005\u0003\u0000\u0000\u01ac#\u0001\u0000\u0000\u0000\u01ad\u01ae"+
-		"\u0005\u0006\u0000\u0000\u01ae\u01af\u00051\u0000\u0000\u01af\u01b2\u0003"+
-		"&\u0013\u0000\u01b0\u01b1\u0005\u0019\u0000\u0000\u01b1\u01b3\u00034\u001a"+
-		"\u0000\u01b2\u01b0\u0001\u0000\u0000\u0000\u01b2\u01b3\u0001\u0000\u0000"+
-		"\u0000\u01b3\u01b4\u0001\u0000\u0000\u0000\u01b4\u01b5\u0005\u001b\u0000"+
-		"\u0000\u01b5\u01b6\u00030\u0018\u0000\u01b6%\u0001\u0000\u0000\u0000\u01b7"+
-		"\u01b9\u0005*\u0000\u0000\u01b8\u01ba\u0003(\u0014\u0000\u01b9\u01b8\u0001"+
-		"\u0000\u0000\u0000\u01b9\u01ba\u0001\u0000\u0000\u0000\u01ba\u01bb\u0001"+
-		"\u0000\u0000\u0000\u01bb\u01bc\u0005+\u0000\u0000\u01bc\'\u0001\u0000"+
-		"\u0000\u0000\u01bd\u01c2\u00051\u0000\u0000\u01be\u01bf\u0005\u001d\u0000"+
-		"\u0000\u01bf\u01c1\u00051\u0000\u0000\u01c0\u01be\u0001\u0000\u0000\u0000"+
-		"\u01c1\u01c4\u0001\u0000\u0000\u0000\u01c2\u01c0\u0001\u0000\u0000\u0000"+
-		"\u01c2\u01c3\u0001\u0000\u0000\u0000\u01c3)\u0001\u0000\u0000\u0000\u01c4"+
-		"\u01c2\u0001\u0000\u0000\u0000\u01c5\u01c6\u0005\u000b\u0000\u0000\u01c6"+
-		"\u01c7\u00034\u001a\u0000\u01c7\u01c8\u0005\u001b\u0000\u0000\u01c8\u01d0"+
-		"\u00030\u0018\u0000\u01c9\u01ca\u0005\f\u0000\u0000\u01ca\u01cb\u0003"+
-		"4\u001a\u0000\u01cb\u01cc\u0005\u001b\u0000\u0000\u01cc\u01cd\u00030\u0018"+
-		"\u0000\u01cd\u01cf\u0001\u0000\u0000\u0000\u01ce\u01c9\u0001\u0000\u0000"+
-		"\u0000\u01cf\u01d2\u0001\u0000\u0000\u0000\u01d0\u01ce\u0001\u0000\u0000"+
-		"\u0000\u01d0\u01d1\u0001\u0000\u0000\u0000\u01d1\u01d6\u0001\u0000\u0000"+
-		"\u0000\u01d2\u01d0\u0001\u0000\u0000\u0000\u01d3\u01d4\u0005\r\u0000\u0000"+
-		"\u01d4\u01d5\u0005\u001b\u0000\u0000\u01d5\u01d7\u00030\u0018\u0000\u01d6"+
-		"\u01d3\u0001\u0000\u0000\u0000\u01d6\u01d7\u0001\u0000\u0000\u0000\u01d7"+
-		"+\u0001\u0000\u0000\u0000\u01d8\u01da\u0005\u0007\u0000\u0000\u01d9\u01db"+
-		"\u00032\u0019\u0000\u01da\u01d9\u0001\u0000\u0000\u0000\u01da\u01db\u0001"+
-		"\u0000\u0000\u0000\u01db-\u0001\u0000\u0000\u0000\u01dc\u01dd\u0003,\u0016"+
-		"\u0000\u01dd/\u0001\u0000\u0000\u0000\u01de\u01e9\u0003\u0004\u0002\u0000"+
-		"\u01df\u01e0\u0005\u0003\u0000\u0000\u01e0\u01e2\u0005\u0001\u0000\u0000"+
-		"\u01e1\u01e3\u0003\u0002\u0001\u0000\u01e2\u01e1\u0001\u0000\u0000\u0000"+
-		"\u01e3\u01e4\u0001\u0000\u0000\u0000\u01e4\u01e2\u0001\u0000\u0000\u0000"+
-		"\u01e4\u01e5\u0001\u0000\u0000\u0000\u01e5\u01e6\u0001\u0000\u0000\u0000"+
-		"\u01e6\u01e7\u0005\u0002\u0000\u0000\u01e7\u01e9\u0001\u0000\u0000\u0000"+
-		"\u01e8\u01de\u0001\u0000\u0000\u0000\u01e8\u01df\u0001\u0000\u0000\u0000"+
-		"\u01e91\u0001\u0000\u0000\u0000\u01ea\u01ef\u00034\u001a\u0000\u01eb\u01ec"+
-		"\u0005\u001d\u0000\u0000\u01ec\u01ee\u00034\u001a\u0000\u01ed\u01eb\u0001"+
-		"\u0000\u0000\u0000\u01ee\u01f1\u0001\u0000\u0000\u0000\u01ef\u01ed\u0001"+
-		"\u0000\u0000\u0000\u01ef\u01f0\u0001\u0000\u0000\u0000\u01f03\u0001\u0000"+
-		"\u0000\u0000\u01f1\u01ef\u0001\u0000\u0000\u0000\u01f2\u01f3\u00036\u001b"+
-		"\u0000\u01f35\u0001\u0000\u0000\u0000\u01f4\u01f9\u00038\u001c\u0000\u01f5"+
-		"\u01f6\u0005\u0012\u0000\u0000\u01f6\u01f8\u00038\u001c\u0000\u01f7\u01f5"+
-		"\u0001\u0000\u0000\u0000\u01f8\u01fb\u0001\u0000\u0000\u0000\u01f9\u01f7"+
-		"\u0001\u0000\u0000\u0000\u01f9\u01fa\u0001\u0000\u0000\u0000\u01fa7\u0001"+
-		"\u0000\u0000\u0000\u01fb\u01f9\u0001\u0000\u0000\u0000\u01fc\u0201\u0003"+
-		":\u001d\u0000\u01fd\u01fe\u0005\u0011\u0000\u0000\u01fe\u0200\u0003:\u001d"+
-		"\u0000\u01ff\u01fd\u0001\u0000\u0000\u0000\u0200\u0203\u0001\u0000\u0000"+
-		"\u0000\u0201\u01ff\u0001\u0000\u0000\u0000\u0201\u0202\u0001\u0000\u0000"+
-		"\u0000\u02029\u0001\u0000\u0000\u0000\u0203\u0201\u0001\u0000\u0000\u0000"+
-		"\u0204\u0205\u0005\u0013\u0000\u0000\u0205\u0208\u0003:\u001d\u0000\u0206"+
-		"\u0208\u0003<\u001e\u0000\u0207\u0204\u0001\u0000\u0000\u0000\u0207\u0206"+
-		"\u0001\u0000\u0000\u0000\u0208;\u0001\u0000\u0000\u0000\u0209\u020f\u0003"+
-		"@ \u0000\u020a\u020b\u0003>\u001f\u0000\u020b\u020c\u0003@ \u0000\u020c"+
-		"\u020e\u0001\u0000\u0000\u0000\u020d\u020a\u0001\u0000\u0000\u0000\u020e"+
-		"\u0211\u0001\u0000\u0000\u0000\u020f\u020d\u0001\u0000\u0000\u0000\u020f"+
-		"\u0210\u0001\u0000\u0000\u0000\u0210=\u0001\u0000\u0000\u0000\u0211\u020f"+
-		"\u0001\u0000\u0000\u0000\u0212\u021c\u0005\"\u0000\u0000\u0213\u021c\u0005"+
-		"!\u0000\u0000\u0214\u021c\u0005\u001f\u0000\u0000\u0215\u021c\u0005 \u0000"+
-		"\u0000\u0216\u021c\u0005#\u0000\u0000\u0217\u021c\u0005$\u0000\u0000\u0218"+
-		"\u021c\u0005\u000f\u0000\u0000\u0219\u021a\u0005\u0013\u0000\u0000\u021a"+
-		"\u021c\u0005\u000f\u0000\u0000\u021b\u0212\u0001\u0000\u0000\u0000\u021b"+
-		"\u0213\u0001\u0000\u0000\u0000\u021b\u0214\u0001\u0000\u0000\u0000\u021b"+
-		"\u0215\u0001\u0000\u0000\u0000\u021b\u0216\u0001\u0000\u0000\u0000\u021b"+
-		"\u0217\u0001\u0000\u0000\u0000\u021b\u0218\u0001\u0000\u0000\u0000\u021b"+
-		"\u0219\u0001\u0000\u0000\u0000\u021c?\u0001\u0000\u0000\u0000\u021d\u0222"+
-		"\u0003B!\u0000\u021e\u021f\u0007\u0001\u0000\u0000\u021f\u0221\u0003B"+
-		"!\u0000\u0220\u021e\u0001\u0000\u0000\u0000\u0221\u0224\u0001\u0000\u0000"+
-		"\u0000\u0222\u0220\u0001\u0000\u0000\u0000\u0222\u0223\u0001\u0000\u0000"+
-		"\u0000\u0223A\u0001\u0000\u0000\u0000\u0224\u0222\u0001\u0000\u0000\u0000"+
-		"\u0225\u022a\u0003D\"\u0000\u0226\u0227\u0007\u0002\u0000\u0000\u0227"+
-		"\u0229\u0003D\"\u0000\u0228\u0226\u0001\u0000\u0000\u0000\u0229\u022c"+
-		"\u0001\u0000\u0000\u0000\u022a\u0228\u0001\u0000\u0000\u0000\u022a\u022b"+
-		"\u0001\u0000\u0000\u0000\u022bC\u0001\u0000\u0000\u0000\u022c\u022a\u0001"+
-		"\u0000\u0000\u0000\u022d\u022e\u0007\u0001\u0000\u0000\u022e\u0231\u0003"+
-		"D\"\u0000\u022f\u0231\u0003F#\u0000\u0230\u022d\u0001\u0000\u0000\u0000"+
-		"\u0230\u022f\u0001\u0000\u0000\u0000\u0231E\u0001\u0000\u0000\u0000\u0232"+
-		"\u0233\u0003H$\u0000\u0233G\u0001\u0000\u0000\u0000\u0234\u0238\u0003"+
-		"L&\u0000\u0235\u0237\u0003J%\u0000\u0236\u0235\u0001\u0000\u0000\u0000"+
-		"\u0237\u023a\u0001\u0000\u0000\u0000\u0238\u0236\u0001\u0000\u0000\u0000"+
-		"\u0238\u0239\u0001\u0000\u0000\u0000\u0239I\u0001\u0000\u0000\u0000\u023a"+
-		"\u0238\u0001\u0000\u0000\u0000\u023b\u023d\u0005*\u0000\u0000\u023c\u023e"+
-		"\u0003T*\u0000\u023d\u023c\u0001\u0000\u0000\u0000\u023d\u023e\u0001\u0000"+
-		"\u0000\u0000\u023e\u023f\u0001\u0000\u0000\u0000\u023f\u0247\u0005+\u0000"+
-		"\u0000\u0240\u0241\u0005,\u0000\u0000\u0241\u0242\u00034\u001a\u0000\u0242"+
-		"\u0243\u0005-\u0000\u0000\u0243\u0247\u0001\u0000\u0000\u0000\u0244\u0245"+
-		"\u00050\u0000\u0000\u0245\u0247\u00051\u0000\u0000\u0246\u023b\u0001\u0000"+
-		"\u0000\u0000\u0246\u0240\u0001\u0000\u0000\u0000\u0246\u0244\u0001\u0000"+
-		"\u0000\u0000\u0247K\u0001\u0000\u0000\u0000\u0248\u0262\u00051\u0000\u0000"+
-		"\u0249\u0262\u00052\u0000\u0000\u024a\u024c\u00053\u0000\u0000\u024b\u024a"+
-		"\u0001\u0000\u0000\u0000\u024c\u024d\u0001\u0000\u0000\u0000\u024d\u024b"+
-		"\u0001\u0000\u0000\u0000\u024d\u024e\u0001\u0000\u0000\u0000\u024e\u0262"+
-		"\u0001\u0000\u0000\u0000\u024f\u0262\u0005\u0016\u0000\u0000\u0250\u0262"+
-		"\u0005\u0014\u0000\u0000\u0251\u0262\u0005\u0015\u0000\u0000\u0252\u0254"+
-		"\u0005*\u0000\u0000\u0253\u0255\u00034\u001a\u0000\u0254\u0253\u0001\u0000"+
-		"\u0000\u0000\u0254\u0255\u0001\u0000\u0000\u0000\u0255\u0256\u0001\u0000"+
-		"\u0000\u0000\u0256\u0262\u0005+\u0000\u0000\u0257\u0259\u0005,\u0000\u0000"+
-		"\u0258\u025a\u0003N\'\u0000\u0259\u0258\u0001\u0000\u0000\u0000\u0259"+
-		"\u025a\u0001\u0000\u0000\u0000\u025a\u025b\u0001\u0000\u0000\u0000\u025b"+
-		"\u0262\u0005-\u0000\u0000\u025c\u025e\u0005.\u0000\u0000\u025d\u025f\u0003"+
-		"R)\u0000\u025e\u025d\u0001\u0000\u0000\u0000\u025e\u025f\u0001\u0000\u0000"+
-		"\u0000\u025f\u0260\u0001\u0000\u0000\u0000\u0260\u0262\u0005/\u0000\u0000"+
-		"\u0261\u0248\u0001\u0000\u0000\u0000\u0261\u0249\u0001\u0000\u0000\u0000"+
-		"\u0261\u024b\u0001\u0000\u0000\u0000\u0261\u024f\u0001\u0000\u0000\u0000"+
-		"\u0261\u0250\u0001\u0000\u0000\u0000\u0261\u0251\u0001\u0000\u0000\u0000"+
-		"\u0261\u0252\u0001\u0000\u0000\u0000\u0261\u0257\u0001\u0000\u0000\u0000"+
-		"\u0261\u025c\u0001\u0000\u0000\u0000\u0262M\u0001\u0000\u0000\u0000\u0263"+
-		"\u0264\u00034\u001a\u0000\u0264\u0265\u0003P(\u0000\u0265\u026f\u0001"+
-		"\u0000\u0000\u0000\u0266\u026b\u00034\u001a\u0000\u0267\u0268\u0005\u001d"+
-		"\u0000\u0000\u0268\u026a\u00034\u001a\u0000\u0269\u0267\u0001\u0000\u0000"+
-		"\u0000\u026a\u026d\u0001\u0000\u0000\u0000\u026b\u0269\u0001\u0000\u0000"+
-		"\u0000\u026b\u026c\u0001\u0000\u0000\u0000\u026c\u026f\u0001\u0000\u0000"+
-		"\u0000\u026d\u026b\u0001\u0000\u0000\u0000\u026e\u0263\u0001\u0000\u0000"+
-		"\u0000\u026e\u0266\u0001\u0000\u0000\u0000\u026fO\u0001\u0000\u0000\u0000"+
-		"\u0270\u0271\u0005\u000e\u0000\u0000\u0271\u0272\u00034\u001a\u0000\u0272"+
-		"\u0273\u0005\u000f\u0000\u0000\u0273\u0278\u00034\u001a\u0000\u0274\u0275"+
-		"\u0005\u000b\u0000\u0000\u0275\u0277\u00034\u001a\u0000\u0276\u0274\u0001"+
-		"\u0000\u0000\u0000\u0277\u027a\u0001\u0000\u0000\u0000\u0278\u0276\u0001"+
-		"\u0000\u0000\u0000\u0278\u0279\u0001\u0000\u0000\u0000\u0279Q\u0001\u0000"+
-		"\u0000\u0000\u027a\u0278\u0001\u0000\u0000\u0000\u027b\u027c\u00034\u001a"+
-		"\u0000\u027c\u027d\u0005\u001b\u0000\u0000\u027d\u0285\u00034\u001a\u0000"+
-		"\u027e\u027f\u0005\u001d\u0000\u0000\u027f\u0280\u00034\u001a\u0000\u0280"+
-		"\u0281\u0005\u001b\u0000\u0000\u0281\u0282\u00034\u001a\u0000\u0282\u0284"+
-		"\u0001\u0000\u0000\u0000\u0283\u027e\u0001\u0000\u0000\u0000\u0284\u0287"+
-		"\u0001\u0000\u0000\u0000\u0285\u0283\u0001\u0000\u0000\u0000\u0285\u0286"+
-		"\u0001\u0000\u0000\u0000\u0286S\u0001\u0000\u0000\u0000\u0287\u0285\u0001"+
-		"\u0000\u0000\u0000\u0288\u028d\u0003V+\u0000\u0289\u028a\u0005\u001d\u0000"+
-		"\u0000\u028a\u028c\u0003V+\u0000\u028b\u0289\u0001\u0000\u0000\u0000\u028c"+
-		"\u028f\u0001\u0000\u0000\u0000\u028d\u028b\u0001\u0000\u0000\u0000\u028d"+
-		"\u028e\u0001\u0000\u0000\u0000\u028eU\u0001\u0000\u0000\u0000\u028f\u028d"+
-		"\u0001\u0000\u0000\u0000\u0290\u0295\u00034\u001a\u0000\u0291\u0292\u0005"+
-		"1\u0000\u0000\u0292\u0293\u0005\u001e\u0000\u0000\u0293\u0295\u00034\u001a"+
-		"\u0000\u0294\u0290\u0001\u0000\u0000\u0000\u0294\u0291\u0001\u0000\u0000"+
-		"\u0000\u0295W\u0001\u0000\u0000\u0000\u0296\u029a\u0005D\u0000\u0000\u0297"+
-		"\u0299\u0003Z-\u0000\u0298\u0297\u0001\u0000\u0000\u0000\u0299\u029c\u0001"+
-		"\u0000\u0000\u0000\u029a\u0298\u0001\u0000\u0000\u0000\u029a\u029b\u0001"+
-		"\u0000\u0000\u0000\u029b\u029d\u0001\u0000\u0000\u0000\u029c\u029a\u0001"+
-		"\u0000\u0000\u0000\u029d\u02a9\u0007\u0003\u0000\u0000\u029e\u029f\u0005"+
-		"B\u0000\u0000\u029f\u02a9\u0005M\u0000\u0000\u02a0\u02a1\u0005C\u0000"+
-		"\u0000\u02a1\u02a2\u0003\\.\u0000\u02a2\u02a3\u0005N\u0000\u0000\u02a3"+
-		"\u02a9\u0001\u0000\u0000\u0000\u02a4\u02a9\u0005=\u0000\u0000\u02a5\u02a9"+
-		"\u0005>\u0000\u0000\u02a6\u02a9\u0005?\u0000\u0000\u02a7\u02a9\u0005@"+
-		"\u0000\u0000\u02a8\u0296\u0001\u0000\u0000\u0000\u02a8\u029e\u0001\u0000"+
-		"\u0000\u0000\u02a8\u02a0\u0001\u0000\u0000\u0000\u02a8\u02a4\u0001\u0000"+
-		"\u0000\u0000\u02a8\u02a5\u0001\u0000\u0000\u0000\u02a8\u02a6\u0001\u0000"+
-		"\u0000\u0000\u02a8\u02a7\u0001\u0000\u0000\u0000\u02a9Y\u0001\u0000\u0000"+
-		"\u0000\u02aa\u02ad\u0005J\u0000\u0000\u02ab\u02ac\u0005I\u0000\u0000\u02ac"+
-		"\u02ae\u0005L\u0000\u0000\u02ad\u02ab\u0001\u0000\u0000\u0000\u02ad\u02ae"+
-		"\u0001\u0000\u0000\u0000\u02ae\u02b4\u0001\u0000\u0000\u0000\u02af\u02b4"+
-		"\u0003\u0108\u0084\u0000\u02b0\u02b4\u0003\u00fc~\u0000\u02b1\u02b4\u0005"+
-		"H\u0000\u0000\u02b2\u02b4\u0005I\u0000\u0000\u02b3\u02aa\u0001\u0000\u0000"+
-		"\u0000\u02b3\u02af\u0001\u0000\u0000\u0000\u02b3\u02b0\u0001\u0000\u0000"+
-		"\u0000\u02b3\u02b1\u0001\u0000\u0000\u0000\u02b3\u02b2\u0001\u0000\u0000"+
-		"\u0000\u02b4[\u0001\u0000\u0000\u0000\u02b5\u02b6\u0003^/\u0000\u02b6"+
-		"]\u0001\u0000\u0000\u0000\u02b7\u02c1\u0003\u00fa}\u0000\u02b8\u02bc\u0003"+
-		"`0\u0000\u02b9\u02bb\u0007\u0004\u0000\u0000\u02ba\u02b9\u0001\u0000\u0000"+
-		"\u0000\u02bb\u02be\u0001\u0000\u0000\u0000\u02bc\u02ba\u0001\u0000\u0000"+
-		"\u0000\u02bc\u02bd\u0001\u0000\u0000\u0000\u02bd\u02c0\u0001\u0000\u0000"+
-		"\u0000\u02be\u02bc\u0001\u0000\u0000\u0000\u02bf\u02b8\u0001\u0000\u0000"+
-		"\u0000\u02c0\u02c3\u0001\u0000\u0000\u0000\u02c1\u02bf\u0001\u0000\u0000"+
-		"\u0000\u02c1\u02c2\u0001\u0000\u0000\u0000\u02c2\u02cd\u0001\u0000\u0000"+
-		"\u0000\u02c3\u02c1\u0001\u0000\u0000\u0000\u02c4\u02c8\u0003b1\u0000\u02c5"+
-		"\u02c7\u0007\u0004\u0000\u0000\u02c6\u02c5\u0001\u0000\u0000\u0000\u02c7"+
-		"\u02ca\u0001\u0000\u0000\u0000\u02c8\u02c6\u0001\u0000\u0000\u0000\u02c8"+
-		"\u02c9\u0001\u0000\u0000\u0000\u02c9\u02cc\u0001\u0000\u0000\u0000\u02ca"+
-		"\u02c8\u0001\u0000\u0000\u0000\u02cb\u02c4\u0001\u0000\u0000\u0000\u02cc"+
-		"\u02cf\u0001\u0000\u0000\u0000\u02cd\u02cb\u0001\u0000\u0000\u0000\u02cd"+
-		"\u02ce\u0001\u0000\u0000\u0000\u02ce\u02d9\u0001\u0000\u0000\u0000\u02cf"+
-		"\u02cd\u0001\u0000\u0000\u0000\u02d0\u02d4\u0003d2\u0000\u02d1\u02d3\u0007"+
-		"\u0004\u0000\u0000\u02d2\u02d1\u0001\u0000\u0000\u0000\u02d3\u02d6\u0001"+
-		"\u0000\u0000\u0000\u02d4\u02d2\u0001\u0000\u0000\u0000\u02d4\u02d5\u0001"+
-		"\u0000\u0000\u0000\u02d5\u02d8\u0001\u0000\u0000\u0000\u02d6\u02d4\u0001"+
-		"\u0000\u0000\u0000\u02d7\u02d0\u0001\u0000\u0000\u0000\u02d8\u02db\u0001"+
-		"\u0000\u0000\u0000\u02d9\u02d7\u0001\u0000\u0000\u0000\u02d9\u02da\u0001"+
-		"\u0000\u0000\u0000\u02da\u02e5\u0001\u0000\u0000\u0000\u02db\u02d9\u0001"+
-		"\u0000\u0000\u0000\u02dc\u02e0\u0003\u00be_\u0000\u02dd\u02df\u0007\u0004"+
-		"\u0000\u0000\u02de\u02dd\u0001\u0000\u0000\u0000\u02df\u02e2\u0001\u0000"+
-		"\u0000\u0000\u02e0\u02de\u0001\u0000\u0000\u0000\u02e0\u02e1\u0001\u0000"+
-		"\u0000\u0000\u02e1\u02e4\u0001\u0000\u0000\u0000\u02e2\u02e0\u0001\u0000"+
-		"\u0000\u0000\u02e3\u02dc\u0001\u0000\u0000\u0000\u02e4\u02e7\u0001\u0000"+
-		"\u0000\u0000\u02e5\u02e3\u0001\u0000\u0000\u0000\u02e5\u02e6\u0001\u0000"+
-		"\u0000\u0000\u02e6\u02e8\u0001\u0000\u0000\u0000\u02e7\u02e5\u0001\u0000"+
-		"\u0000\u0000\u02e8\u02e9\u0005\u0000\u0000\u0001\u02e9_\u0001\u0000\u0000"+
-		"\u0000\u02ea\u02eb\u0005q\u0000\u0000\u02eb\u02ec\u0003\u00fa}\u0000\u02ec"+
-		"\u02ed\u0005}\u0000\u0000\u02ed\u02ee\u0003\u00fa}\u0000\u02ee\u02ef\u0005"+
-		"T\u0000\u0000\u02ef\u02f0\u0003\u00fa}\u0000\u02f0\u02f7\u0001\u0000\u0000"+
-		"\u0000\u02f1\u02f2\u0005q\u0000\u0000\u02f2\u02f3\u0003\u00fa}\u0000\u02f3"+
-		"\u02f4\u0005}\u0000\u0000\u02f4\u02f5\u0003\u00fa}\u0000\u02f5\u02f7\u0001"+
-		"\u0000\u0000\u0000\u02f6\u02ea\u0001\u0000\u0000\u0000\u02f6\u02f1\u0001"+
-		"\u0000\u0000\u0000\u02f7a\u0001\u0000\u0000\u0000\u02f8\u02f9\u0005m\u0000"+
-		"\u0000\u02f9\u02fc\u0003\u00fa}\u0000\u02fa\u02fd\u0005}\u0000\u0000\u02fb"+
-		"\u02fd\u0003\u00d2i\u0000\u02fc\u02fa\u0001\u0000\u0000\u0000\u02fc\u02fb"+
-		"\u0001\u0000\u0000\u0000\u02fd\u02fe\u0001\u0000\u0000\u0000\u02fe\u02ff"+
-		"\u0003\u00fa}\u0000\u02ff\u0300\u0003j5\u0000\u0300\u0301\u0005T\u0000"+
-		"\u0000\u0301\u0302\u0003\u00fa}\u0000\u0302\u031f\u0001\u0000\u0000\u0000"+
-		"\u0303\u0304\u0005m\u0000\u0000\u0304\u0307\u0003\u00fa}\u0000\u0305\u0308"+
-		"\u0005}\u0000\u0000\u0306\u0308\u0003\u00d2i\u0000\u0307\u0305\u0001\u0000"+
-		"\u0000\u0000\u0307\u0306\u0001\u0000\u0000\u0000\u0308\u0309\u0001\u0000"+
-		"\u0000\u0000\u0309\u030a\u0003\u00fa}\u0000\u030a\u030b\u0005T\u0000\u0000"+
-		"\u030b\u030c\u0003\u00fa}\u0000\u030c\u031f\u0001\u0000\u0000\u0000\u030d"+
-		"\u030e\u0005m\u0000\u0000\u030e\u0311\u0003\u00fa}\u0000\u030f\u0312\u0005"+
-		"}\u0000\u0000\u0310\u0312\u0003\u00d2i\u0000\u0311\u030f\u0001\u0000\u0000"+
-		"\u0000\u0311\u0310\u0001\u0000\u0000\u0000\u0312\u0313\u0001\u0000\u0000"+
-		"\u0000\u0313\u0314\u0003\u00fa}\u0000\u0314\u0315\u0003j5\u0000\u0315"+
-		"\u031f\u0001\u0000\u0000\u0000\u0316\u0317\u0005m\u0000\u0000\u0317\u031a"+
-		"\u0003\u00fa}\u0000\u0318\u031b\u0005}\u0000\u0000\u0319\u031b\u0003\u00d2"+
-		"i\u0000\u031a\u0318\u0001\u0000\u0000\u0000\u031a\u0319\u0001\u0000\u0000"+
-		"\u0000\u031b\u031c\u0001\u0000\u0000\u0000\u031c\u031d\u0003\u00fa}\u0000"+
-		"\u031d\u031f\u0001\u0000\u0000\u0000\u031e\u02f8\u0001\u0000\u0000\u0000"+
-		"\u031e\u0303\u0001\u0000\u0000\u0000\u031e\u030d\u0001\u0000\u0000\u0000"+
-		"\u031e\u0316\u0001\u0000\u0000\u0000\u031fc\u0001\u0000\u0000\u0000\u0320"+
-		"\u0321\u0005p\u0000\u0000\u0321\u0325\u0003\u00fa}\u0000\u0322\u0323\u0003"+
-		"f3\u0000\u0323\u0324\u0003\u00fa}\u0000\u0324\u0326\u0001\u0000\u0000"+
-		"\u0000\u0325\u0322\u0001\u0000\u0000\u0000\u0325\u0326\u0001\u0000\u0000"+
-		"\u0000\u0326\u0329\u0001\u0000\u0000\u0000\u0327\u032a\u0005}\u0000\u0000"+
-		"\u0328\u032a\u0003\u00d2i\u0000\u0329\u0327\u0001\u0000\u0000\u0000\u0329"+
-		"\u0328\u0001\u0000\u0000\u0000\u032a\u032b\u0001\u0000\u0000\u0000\u032b"+
-		"\u032c\u0003\u00fa}\u0000\u032c\u032d\u0005T\u0000\u0000\u032d\u032e\u0003"+
-		"\u00fa}\u0000\u032e\u033d\u0001\u0000\u0000\u0000\u032f\u0330\u0005p\u0000"+
-		"\u0000\u0330\u0334\u0003\u00fa}\u0000\u0331\u0332\u0003f3\u0000\u0332"+
-		"\u0333\u0003\u00fa}\u0000\u0333\u0335\u0001\u0000\u0000\u0000\u0334\u0331"+
-		"\u0001\u0000\u0000\u0000\u0334\u0335\u0001\u0000\u0000\u0000\u0335\u0338"+
-		"\u0001\u0000\u0000\u0000\u0336\u0339\u0005}\u0000\u0000\u0337\u0339\u0003"+
-		"\u00d2i\u0000\u0338\u0336\u0001\u0000\u0000\u0000\u0338\u0337\u0001\u0000"+
-		"\u0000\u0000\u0339\u033a\u0001\u0000\u0000\u0000\u033a\u033b\u0003\u00fa"+
-		"}\u0000\u033b\u033d\u0001\u0000\u0000\u0000\u033c\u0320\u0001\u0000\u0000"+
-		"\u0000\u033c\u032f\u0001\u0000\u0000\u0000\u033de\u0001\u0000\u0000\u0000"+
-		"\u033e\u033f\u0003\u00f8|\u0000\u033fg\u0001\u0000\u0000\u0000\u0340\u0341"+
-		"\u0005o\u0000\u0000\u0341\u0342\u0003\u00fa}\u0000\u0342\u0343\u0003j"+
-		"5\u0000\u0343\u0344\u0003\u00c0`\u0000\u0344\u0345\u0003\u00fa}\u0000"+
-		"\u0345i\u0001\u0000\u0000\u0000\u0346\u034d\u0003l6\u0000\u0347\u0348"+
-		"\u0005Y\u0000\u0000\u0348\u0349\u0003\u00fa}\u0000\u0349\u034a\u0003l"+
-		"6\u0000\u034a\u034c\u0001\u0000\u0000\u0000\u034b\u0347\u0001\u0000\u0000"+
-		"\u0000\u034c\u034f\u0001\u0000\u0000\u0000\u034d\u034b\u0001\u0000\u0000"+
-		"\u0000\u034d\u034e\u0001\u0000\u0000\u0000\u034e\u0351\u0001\u0000\u0000"+
-		"\u0000\u034f\u034d\u0001\u0000\u0000\u0000\u0350\u0346\u0001\u0000\u0000"+
-		"\u0000\u0350\u0351\u0001\u0000\u0000\u0000\u0351\u0352\u0001\u0000\u0000"+
-		"\u0000\u0352\u0353\u0003\u00fa}\u0000\u0353k\u0001\u0000\u0000\u0000\u0354"+
-		"\u0356\u0007\u0005\u0000\u0000\u0355\u0354\u0001\u0000\u0000\u0000\u0355"+
-		"\u0356\u0001\u0000\u0000\u0000\u0356\u0357\u0001\u0000\u0000\u0000\u0357"+
-		"\u0358\u0003\u00fa}\u0000\u0358\u0359\u0003n7\u0000\u0359\u0360\u0003"+
-		"\u00fa}\u0000\u035a\u035b\u0005x\u0000\u0000\u035b\u035c\u0003\u00fa}"+
-		"\u0000\u035c\u035d\u0003p8\u0000\u035d\u035f\u0001\u0000\u0000\u0000\u035e"+
-		"\u035a\u0001\u0000\u0000\u0000\u035f\u0362\u0001\u0000\u0000\u0000\u0360"+
-		"\u035e\u0001\u0000\u0000\u0000\u0360\u0361\u0001\u0000\u0000\u0000\u0361"+
-		"\u036e\u0001\u0000\u0000\u0000\u0362\u0360\u0001\u0000\u0000\u0000\u0363"+
-		"\u036a\u0003p8\u0000\u0364\u0365\u0005x\u0000\u0000\u0365\u0366\u0003"+
-		"\u00fa}\u0000\u0366\u0367\u0003p8\u0000\u0367\u0369\u0001\u0000\u0000"+
-		"\u0000\u0368\u0364\u0001\u0000\u0000\u0000\u0369\u036c\u0001\u0000\u0000"+
-		"\u0000\u036a\u0368\u0001\u0000\u0000\u0000\u036a\u036b\u0001\u0000\u0000"+
-		"\u0000\u036b\u036e\u0001\u0000\u0000\u0000\u036c\u036a\u0001\u0000\u0000"+
-		"\u0000\u036d\u0355\u0001\u0000\u0000\u0000\u036d\u0363\u0001\u0000\u0000"+
-		"\u0000\u036em\u0001\u0000\u0000\u0000\u036f\u0370\u0003\u00f8|\u0000\u0370"+
-		"o\u0001\u0000\u0000\u0000\u0371\u0372\u0005W\u0000\u0000\u0372\u0373\u0003"+
-		"\u00fa}\u0000\u0373\u0378\u0003r9\u0000\u0374\u0375\u0005S\u0000\u0000"+
-		"\u0375\u0376\u0003\u00fa}\u0000\u0376\u0377\u0003@ \u0000\u0377\u0379"+
-		"\u0001\u0000\u0000\u0000\u0378\u0374\u0001\u0000\u0000\u0000\u0378\u0379"+
-		"\u0001\u0000\u0000\u0000\u0379\u037a\u0001\u0000\u0000\u0000\u037a\u037b"+
-		"\u0005X\u0000\u0000\u037b\u037c\u0003\u00fa}\u0000\u037cq\u0001\u0000"+
-		"\u0000\u0000\u037d\u037e\u0003\u00f8|\u0000\u037e\u037f\u0003\u00fa}\u0000"+
-		"\u037fs\u0001\u0000\u0000\u0000\u0380\u0381\u0005n\u0000\u0000\u0381\u0383"+
-		"\u0003\u00fa}\u0000\u0382\u0384\u0003v;\u0000\u0383\u0382\u0001\u0000"+
-		"\u0000\u0000\u0383\u0384\u0001\u0000\u0000\u0000\u0384\u0385\u0001\u0000"+
-		"\u0000\u0000\u0385\u0386\u0005Q\u0000\u0000\u0386\u0388\u0003\u00fa}\u0000"+
-		"\u0387\u0389\u0003\u009eO\u0000\u0388\u0387\u0001\u0000\u0000\u0000\u0388"+
-		"\u0389\u0001\u0000\u0000\u0000\u0389\u0391\u0001\u0000\u0000\u0000\u038a"+
-		"\u038b\u0005T\u0000\u0000\u038b\u038d\u0003\u00fa}\u0000\u038c\u038e\u0003"+
-		"\u009eO\u0000\u038d\u038c\u0001\u0000\u0000\u0000\u038d\u038e\u0001\u0000"+
-		"\u0000\u0000\u038e\u0390\u0001\u0000\u0000\u0000\u038f\u038a\u0001\u0000"+
-		"\u0000\u0000\u0390\u0393\u0001\u0000\u0000\u0000\u0391\u038f\u0001\u0000"+
-		"\u0000\u0000\u0391\u0392\u0001\u0000\u0000\u0000\u0392\u0394\u0001\u0000"+
-		"\u0000\u0000\u0393\u0391\u0001\u0000\u0000\u0000\u0394\u0395\u0005R\u0000"+
-		"\u0000\u0395\u0396\u0003\u00fa}\u0000\u0396u\u0001\u0000\u0000\u0000\u0397"+
-		"\u0398\u0005S\u0000\u0000\u0398\u0399\u0003\u00f8|\u0000\u0399\u039a\u0003"+
-		"\u00fa}\u0000\u039aw\u0001\u0000\u0000\u0000\u039b\u03a2\u0003z=\u0000"+
-		"\u039c\u039d\u0005Y\u0000\u0000\u039d\u039e\u0003\u00fa}\u0000\u039e\u039f"+
-		"\u0003z=\u0000\u039f\u03a1\u0001\u0000\u0000\u0000\u03a0\u039c\u0001\u0000"+
-		"\u0000\u0000\u03a1\u03a4\u0001\u0000\u0000\u0000\u03a2\u03a0\u0001\u0000"+
-		"\u0000\u0000\u03a2\u03a3\u0001\u0000\u0000\u0000\u03a3y\u0001\u0000\u0000"+
-		"\u0000\u03a4\u03a2\u0001\u0000\u0000\u0000\u03a5\u03a6\u0003~?\u0000\u03a6"+
-		"\u03ad\u0003\u00fa}\u0000\u03a7\u03a8\u0003|>\u0000\u03a8\u03a9\u0003"+
-		"~?\u0000\u03a9\u03aa\u0003\u00fa}\u0000\u03aa\u03ac\u0001\u0000\u0000"+
-		"\u0000\u03ab\u03a7\u0001\u0000\u0000\u0000\u03ac\u03af\u0001\u0000\u0000"+
-		"\u0000\u03ad\u03ab\u0001\u0000\u0000\u0000\u03ad\u03ae\u0001\u0000\u0000"+
-		"\u0000\u03ae{\u0001\u0000\u0000\u0000\u03af\u03ad\u0001\u0000\u0000\u0000"+
-		"\u03b0\u03b1\u0005]\u0000\u0000\u03b1\u03b9\u0003\u00fa}\u0000\u03b2\u03b3"+
-		"\u0005_\u0000\u0000\u03b3\u03b9\u0003\u00fa}\u0000\u03b4\u03b5\u0005`"+
-		"\u0000\u0000\u03b5\u03b9\u0003\u00fa}\u0000\u03b6\u03b7\u0005g\u0000\u0000"+
-		"\u03b7\u03b9\u0003\u00fa}\u0000\u03b8\u03b0\u0001\u0000\u0000\u0000\u03b8"+
-		"\u03b2\u0001\u0000\u0000\u0000\u03b8\u03b4\u0001\u0000\u0000\u0000\u03b8"+
-		"\u03b6\u0001\u0000\u0000\u0000\u03b9}\u0001\u0000\u0000\u0000\u03ba\u03bd"+
-		"\u0003\u0080@\u0000\u03bb\u03bd\u0003\u0086C\u0000\u03bc\u03ba\u0001\u0000"+
-		"\u0000\u0000\u03bc\u03bb\u0001\u0000\u0000\u0000\u03bd\u03c5\u0001\u0000"+
-		"\u0000\u0000\u03be\u03c4\u0005l\u0000\u0000\u03bf\u03c4\u0003\u0088D\u0000"+
-		"\u03c0\u03c4\u0003\u008aE\u0000\u03c1\u03c4\u0003\u008cF\u0000\u03c2\u03c4"+
-		"\u0003\u0092I\u0000\u03c3\u03be\u0001\u0000\u0000\u0000\u03c3\u03bf\u0001"+
-		"\u0000\u0000\u0000\u03c3\u03c0\u0001\u0000\u0000\u0000\u03c3\u03c1\u0001"+
-		"\u0000\u0000\u0000\u03c3\u03c2\u0001\u0000\u0000\u0000\u03c4\u03c7\u0001"+
-		"\u0000\u0000\u0000\u03c5\u03c3\u0001\u0000\u0000\u0000\u03c5\u03c6\u0001"+
-		"\u0000\u0000\u0000\u03c6\u03d2\u0001\u0000\u0000\u0000\u03c7\u03c5\u0001"+
-		"\u0000\u0000\u0000\u03c8\u03ce\u0005l\u0000\u0000\u03c9\u03ce\u0003\u0088"+
-		"D\u0000\u03ca\u03ce\u0003\u008aE\u0000\u03cb\u03ce\u0003\u008cF\u0000"+
-		"\u03cc\u03ce\u0003\u0092I\u0000\u03cd\u03c8\u0001\u0000\u0000\u0000\u03cd"+
-		"\u03c9\u0001\u0000\u0000\u0000\u03cd\u03ca\u0001\u0000\u0000\u0000\u03cd"+
-		"\u03cb\u0001\u0000\u0000\u0000\u03cd\u03cc\u0001\u0000\u0000\u0000\u03ce"+
-		"\u03cf\u0001\u0000\u0000\u0000\u03cf\u03cd\u0001\u0000\u0000\u0000\u03cf"+
-		"\u03d0\u0001\u0000\u0000\u0000\u03d0\u03d2\u0001\u0000\u0000\u0000\u03d1"+
-		"\u03bc\u0001\u0000\u0000\u0000\u03d1\u03cd\u0001\u0000\u0000\u0000\u03d2"+
-		"\u007f\u0001\u0000\u0000\u0000\u03d3\u03d5\u0003\u0082A\u0000\u03d4\u03d3"+
-		"\u0001\u0000\u0000\u0000\u03d4\u03d5\u0001\u0000\u0000\u0000\u03d5\u03d6"+
-		"\u0001\u0000\u0000\u0000\u03d6\u03d7\u0003\u0084B\u0000\u03d7\u0081\u0001"+
-		"\u0000\u0000\u0000\u03d8\u03db\u0003\u00f8|\u0000\u03d9\u03db\u0005d\u0000"+
-		"\u0000\u03da\u03d8\u0001\u0000\u0000\u0000\u03da\u03d9\u0001\u0000\u0000"+
-		"\u0000\u03da\u03db\u0001\u0000\u0000\u0000\u03db\u03dc\u0001\u0000\u0000"+
-		"\u0000\u03dc\u03dd\u0005V\u0000\u0000\u03dd\u0083\u0001\u0000\u0000\u0000"+
-		"\u03de\u03df\u0003\u00f8|\u0000\u03df\u0085\u0001\u0000\u0000\u0000\u03e0"+
-		"\u03e2\u0003\u0082A\u0000\u03e1\u03e0\u0001\u0000\u0000\u0000\u03e1\u03e2"+
-		"\u0001\u0000\u0000\u0000\u03e2\u03e3\u0001\u0000\u0000\u0000\u03e3\u03e4"+
-		"\u0005d\u0000\u0000\u03e4\u0087\u0001\u0000\u0000\u0000\u03e5\u03e6\u0005"+
-		"Z\u0000\u0000\u03e6\u03e7\u0003\u00f8|\u0000\u03e7\u0089\u0001\u0000\u0000"+
-		"\u0000\u03e8\u03e9\u0005b\u0000\u0000\u03e9\u03eb\u0003\u00fa}\u0000\u03ea"+
-		"\u03ec\u0003\u0082A\u0000\u03eb\u03ea\u0001\u0000\u0000\u0000\u03eb\u03ec"+
-		"\u0001\u0000\u0000\u0000\u03ec\u03ed\u0001\u0000\u0000\u0000\u03ed\u03ee"+
-		"\u0003\u00f8|\u0000\u03ee\u03f7\u0003\u00fa}\u0000\u03ef\u03f0\u0007\u0006"+
-		"\u0000\u0000\u03f0\u03f3\u0003\u00fa}\u0000\u03f1\u03f4\u0003\u00f8|\u0000"+
-		"\u03f2\u03f4\u0005}\u0000\u0000\u03f3\u03f1\u0001\u0000\u0000\u0000\u03f3"+
-		"\u03f2\u0001\u0000\u0000\u0000\u03f4\u03f5\u0001\u0000\u0000\u0000\u03f5"+
-		"\u03f6\u0003\u00fa}\u0000\u03f6\u03f8\u0001\u0000\u0000\u0000\u03f7\u03ef"+
-		"\u0001\u0000\u0000\u0000\u03f7\u03f8\u0001\u0000\u0000\u0000\u03f8\u03f9"+
-		"\u0001\u0000\u0000\u0000\u03f9\u03fa\u0005c\u0000\u0000\u03fa\u008b\u0001"+
-		"\u0000\u0000\u0000\u03fb\u03fd\u0005S\u0000\u0000\u03fc\u03fe\u0005S\u0000"+
-		"\u0000\u03fd\u03fc\u0001\u0000\u0000\u0000\u03fd\u03fe\u0001\u0000\u0000"+
-		"\u0000\u03fe\u0401\u0001\u0000\u0000\u0000\u03ff\u0402\u0003\u00f8|\u0000"+
-		"\u0400\u0402\u0003\u008eG\u0000\u0401\u03ff\u0001\u0000\u0000\u0000\u0401"+
-		"\u0400\u0001\u0000\u0000\u0000\u0402\u008d\u0001\u0000\u0000\u0000\u0403"+
-		"\u0404\u0005\u0090\u0000\u0000\u0404\u0405\u0003\u00fa}\u0000\u0405\u0406"+
-		"\u0003\u0090H\u0000\u0406\u0407\u0005X\u0000\u0000\u0407\u008f\u0001\u0000"+
-		"\u0000\u0000\u0408\u0410\u0005]\u0000\u0000\u0409\u0410\u0005^\u0000\u0000"+
-		"\u040a\u0410\u0005y\u0000\u0000\u040b\u0410\u0005z\u0000\u0000\u040c\u0410"+
-		"\u0005|\u0000\u0000\u040d\u0410\u0005}\u0000\u0000\u040e\u0410\u0003\u00f8"+
-		"|\u0000\u040f\u0408\u0001\u0000\u0000\u0000\u040f\u0409\u0001\u0000\u0000"+
-		"\u0000\u040f\u040a\u0001\u0000\u0000\u0000\u040f\u040b\u0001\u0000\u0000"+
-		"\u0000\u040f\u040c\u0001\u0000\u0000\u0000\u040f\u040d\u0001\u0000\u0000"+
-		"\u0000\u040f\u040e\u0001\u0000\u0000\u0000\u0410\u0411\u0001\u0000\u0000"+
-		"\u0000\u0411\u0413\u0003\u00fa}\u0000\u0412\u040f\u0001\u0000\u0000\u0000"+
-		"\u0413\u0414\u0001\u0000\u0000\u0000\u0414\u0412\u0001\u0000\u0000\u0000"+
-		"\u0414\u0415\u0001\u0000\u0000\u0000\u0415\u0091\u0001\u0000\u0000\u0000"+
-		"\u0416\u0417\u0005{\u0000\u0000\u0417\u0418\u0003\u00fa}\u0000\u0418\u0419"+
-		"\u0003\u0094J\u0000\u0419\u041a\u0003\u00fa}\u0000\u041a\u041b\u0005X"+
-		"\u0000\u0000\u041b\u0093\u0001\u0000\u0000\u0000\u041c\u0423\u0003\u0080"+
-		"@\u0000\u041d\u0423\u0003\u0086C\u0000\u041e\u0423\u0005l\u0000\u0000"+
-		"\u041f\u0423\u0003\u0088D\u0000\u0420\u0423\u0003\u008aE\u0000\u0421\u0423"+
-		"\u0003\u008cF\u0000\u0422\u041c\u0001\u0000\u0000\u0000\u0422\u041d\u0001"+
-		"\u0000\u0000\u0000\u0422\u041e\u0001\u0000\u0000\u0000\u0422\u041f\u0001"+
-		"\u0000\u0000\u0000\u0422\u0420\u0001\u0000\u0000\u0000\u0422\u0421\u0001"+
-		"\u0000\u0000\u0000\u0423\u0095\u0001\u0000\u0000\u0000\u0424\u0425\u0005"+
-		"[\u0000\u0000\u0425\u042d\u0003\u00fa}\u0000\u0426\u0427\u0005Y\u0000"+
-		"\u0000\u0427\u042d\u0003\u00fa}\u0000\u0428\u0429\u0005g\u0000\u0000\u0429"+
-		"\u042d\u0003\u00fa}\u0000\u042a\u042b\u0005a\u0000\u0000\u042b\u042d\u0003"+
-		"\u00fa}\u0000\u042c\u0424\u0001\u0000\u0000\u0000\u042c\u0426\u0001\u0000"+
-		"\u0000\u0000\u042c\u0428\u0001\u0000\u0000\u0000\u042c\u042a\u0001\u0000"+
-		"\u0000\u0000\u042d\u0097\u0001\u0000\u0000\u0000\u042e\u042f\u0003\u00f8"+
-		"|\u0000\u042f\u0430\u0003\u00fa}\u0000\u0430\u0438\u0001\u0000\u0000\u0000"+
-		"\u0431\u0432\u0005\u008d\u0000\u0000\u0432\u0438\u0003\u00fa}\u0000\u0433"+
-		"\u0434\u0005d\u0000\u0000\u0434\u0438\u0003\u00f8|\u0000\u0435\u0436\u0005"+
-		"U\u0000\u0000\u0436\u0438\u0003\u00f8|\u0000\u0437\u042e\u0001\u0000\u0000"+
-		"\u0000\u0437\u0431\u0001\u0000\u0000\u0000\u0437\u0433\u0001\u0000\u0000"+
-		"\u0000\u0437\u0435\u0001\u0000\u0000\u0000\u0438\u0099\u0001\u0000\u0000"+
-		"\u0000\u0439\u043a\u0003x<\u0000\u043a\u043b\u0005Q\u0000\u0000\u043b"+
-		"\u043d\u0003\u00fa}\u0000\u043c\u043e\u0003\u009cN\u0000\u043d\u043c\u0001"+
-		"\u0000\u0000\u0000\u043d\u043e\u0001\u0000\u0000\u0000\u043e\u043f\u0001"+
-		"\u0000\u0000\u0000\u043f\u0440\u0005R\u0000\u0000\u0440\u0441\u0003\u00fa"+
-		"}\u0000\u0441\u0451\u0001\u0000\u0000\u0000\u0442\u0444\u0003\u00b6[\u0000"+
-		"\u0443\u0442\u0001\u0000\u0000\u0000\u0444\u0447\u0001\u0000\u0000\u0000"+
-		"\u0445\u0443\u0001\u0000\u0000\u0000\u0445\u0446\u0001\u0000\u0000\u0000"+
-		"\u0446\u0448\u0001\u0000\u0000\u0000\u0447\u0445\u0001\u0000\u0000\u0000"+
-		"\u0448\u0449\u0005Q\u0000\u0000\u0449\u044b\u0003\u00fa}\u0000\u044a\u044c"+
-		"\u0003\u009cN\u0000\u044b\u044a\u0001\u0000\u0000\u0000\u044b\u044c\u0001"+
-		"\u0000\u0000\u0000\u044c\u044d\u0001\u0000\u0000\u0000\u044d\u044e\u0005"+
-		"R\u0000\u0000\u044e\u044f\u0003\u00fa}\u0000\u044f\u0451\u0001\u0000\u0000"+
-		"\u0000\u0450\u0439\u0001\u0000\u0000\u0000\u0450\u0445\u0001\u0000\u0000"+
-		"\u0000\u0451\u009b\u0001\u0000\u0000\u0000\u0452\u0453\u0005T\u0000\u0000"+
-		"\u0453\u0455\u0003\u00fa}\u0000\u0454\u0452\u0001\u0000\u0000\u0000\u0455"+
-		"\u0458\u0001\u0000\u0000\u0000\u0456\u0454\u0001\u0000\u0000\u0000\u0456"+
-		"\u0457\u0001\u0000\u0000\u0000\u0457\u0459\u0001\u0000\u0000\u0000\u0458"+
-		"\u0456\u0001\u0000\u0000\u0000\u0459\u045a\u0003\u009eO\u0000\u045a\u0462"+
-		"\u0003\u00fa}\u0000\u045b\u045c\u0005T\u0000\u0000\u045c\u045e\u0003\u00fa"+
-		"}\u0000\u045d\u045f\u0003\u009eO\u0000\u045e\u045d\u0001\u0000\u0000\u0000"+
-		"\u045e\u045f\u0001\u0000\u0000\u0000\u045f\u0461\u0001\u0000\u0000\u0000"+
-		"\u0460\u045b\u0001\u0000\u0000\u0000\u0461\u0464\u0001\u0000\u0000\u0000"+
-		"\u0462\u0460\u0001\u0000\u0000\u0000\u0462\u0463\u0001\u0000\u0000\u0000"+
-		"\u0463\u009d\u0001\u0000\u0000\u0000\u0464\u0462\u0001\u0000\u0000\u0000"+
-		"\u0465\u0466\u0003\u0098L\u0000\u0466\u0467\u0005S\u0000\u0000\u0467\u0468"+
-		"\u0003\u00fa}\u0000\u0468\u046a\u0003\u00a4R\u0000\u0469\u046b\u0003\u00a0"+
-		"P\u0000\u046a\u0469\u0001\u0000\u0000\u0000\u046a\u046b\u0001\u0000\u0000"+
-		"\u0000\u046b\u0472\u0001\u0000\u0000\u0000\u046c\u046d\u0003\u0098L\u0000"+
-		"\u046d\u046e\u0005S\u0000\u0000\u046e\u046f\u0003\u00fa}\u0000\u046f\u0470"+
-		"\u0003\u00a2Q\u0000\u0470\u0472\u0001\u0000\u0000\u0000\u0471\u0465\u0001"+
-		"\u0000\u0000\u0000\u0471\u046c\u0001\u0000\u0000\u0000\u0472\u009f\u0001"+
-		"\u0000\u0000\u0000\u0473\u0474\u0005r\u0000\u0000\u0474\u0475\u0003\u00fa"+
-		"}\u0000\u0475\u00a1\u0001\u0000\u0000\u0000\u0476\u047b\u0003\u00b6[\u0000"+
-		"\u0477\u047b\u0003\u00bc^\u0000\u0478\u0479\u0005\u008c\u0000\u0000\u0479"+
-		"\u047b\u0003\u00fa}\u0000\u047a\u0476\u0001\u0000\u0000\u0000\u047a\u0477"+
-		"\u0001\u0000\u0000\u0000\u047a\u0478\u0001\u0000\u0000\u0000\u047b\u047c"+
-		"\u0001\u0000\u0000\u0000\u047c\u047a\u0001\u0000\u0000\u0000\u047c\u047d"+
-		"\u0001\u0000\u0000\u0000\u047d\u00a3\u0001\u0000\u0000\u0000\u047e\u0485"+
-		"\u0003\u00a6S\u0000\u047f\u0481\u0003\u0096K\u0000\u0480\u047f\u0001\u0000"+
-		"\u0000\u0000\u0480\u0481\u0001\u0000\u0000\u0000\u0481\u0482\u0001\u0000"+
-		"\u0000\u0000\u0482\u0484\u0003B!\u0000\u0483\u0480\u0001\u0000\u0000\u0000"+
-		"\u0484\u0487\u0001\u0000\u0000\u0000\u0485\u0483\u0001\u0000\u0000\u0000"+
-		"\u0485\u0486\u0001\u0000\u0000\u0000\u0486\u00a5\u0001\u0000\u0000\u0000"+
-		"\u0487\u0485\u0001\u0000\u0000\u0000\u0488\u0489\u0003\u00aeW\u0000\u0489"+
-		"\u048a\u0003\u00fa}\u0000\u048a\u04a4\u0001\u0000\u0000\u0000\u048b\u048c"+
-		"\u0003\u00b0X\u0000\u048c\u048d\u0003\u00fa}\u0000\u048d\u04a4\u0001\u0000"+
-		"\u0000\u0000\u048e\u048f\u0003\u00b2Y\u0000\u048f\u0490\u0003\u00fa}\u0000"+
-		"\u0490\u04a4\u0001\u0000\u0000\u0000\u0491\u0492\u0005}\u0000\u0000\u0492"+
-		"\u04a4\u0003\u00fa}\u0000\u0493\u0494\u0005u\u0000\u0000\u0494\u04a4\u0003"+
-		"\u00fa}\u0000\u0495\u0496\u0003\u00f8|\u0000\u0496\u0497\u0003\u00fa}"+
-		"\u0000\u0497\u04a4\u0001\u0000\u0000\u0000\u0498\u04a4\u0003\u00d4j\u0000"+
-		"\u0499\u049a\u0003\u00d2i\u0000\u049a\u049b\u0003\u00fa}\u0000\u049b\u04a4"+
-		"\u0001\u0000\u0000\u0000\u049c\u04a4\u0003\u00acV\u0000\u049d\u04a4\u0003"+
-		"\u00d6k\u0000\u049e\u04a4\u0003\u00a8T\u0000\u049f\u04a0\u0003\u00b4Z"+
-		"\u0000\u04a0\u04a1\u0003\u00fa}\u0000\u04a1\u04a4\u0001\u0000\u0000\u0000"+
-		"\u04a2\u04a4\u0003\u00aaU\u0000\u04a3\u0488\u0001\u0000\u0000\u0000\u04a3"+
-		"\u048b\u0001\u0000\u0000\u0000\u04a3\u048e\u0001\u0000\u0000\u0000\u04a3"+
-		"\u0491\u0001\u0000\u0000\u0000\u04a3\u0493\u0001\u0000\u0000\u0000\u04a3"+
-		"\u0495\u0001\u0000\u0000\u0000\u04a3\u0498\u0001\u0000\u0000\u0000\u04a3"+
-		"\u0499\u0001\u0000\u0000\u0000\u04a3\u049c\u0001\u0000\u0000\u0000\u04a3"+
-		"\u049d\u0001\u0000\u0000\u0000\u04a3\u049e\u0001\u0000\u0000\u0000\u04a3"+
-		"\u049f\u0001\u0000\u0000\u0000\u04a3\u04a2\u0001\u0000\u0000\u0000\u04a4"+
-		"\u00a7\u0001\u0000\u0000\u0000\u04a5\u04a6\u0005\u0090\u0000\u0000\u04a6"+
-		"\u04a7\u0003\u00fa}\u0000\u04a7\u04a8\u0003\u00a4R\u0000\u04a8\u04a9\u0005"+
-		"X\u0000\u0000\u04a9\u04aa\u0003\u00fa}\u0000\u04aa\u00a9\u0001\u0000\u0000"+
-		"\u0000\u04ab\u04ac\u0005\u008b\u0000\u0000\u04ac\u04ad\u0003\u00fa}\u0000"+
-		"\u04ad\u04ae\u0003\u00a4R\u0000\u04ae\u04af\u0005X\u0000\u0000\u04af\u04b0"+
-		"\u0003\u00fa}\u0000\u04b0\u00ab\u0001\u0000\u0000\u0000\u04b1\u04b2\u0005"+
-		"l\u0000\u0000\u04b2\u04b3\u0003\u00fa}\u0000\u04b3\u00ad\u0001\u0000\u0000"+
-		"\u0000\u04b4\u04b6\u0007\u0007\u0000\u0000\u04b5\u04b4\u0001\u0000\u0000"+
-		"\u0000\u04b5\u04b6\u0001\u0000\u0000\u0000\u04b6\u04b7\u0001\u0000\u0000"+
-		"\u0000\u04b7\u04b8\u0005|\u0000\u0000\u04b8\u00af\u0001\u0000\u0000\u0000"+
-		"\u04b9\u04bb\u0007\u0007\u0000\u0000\u04ba\u04b9\u0001\u0000\u0000\u0000"+
-		"\u04ba\u04bb\u0001\u0000\u0000\u0000\u04bb\u04bc\u0001\u0000\u0000\u0000"+
-		"\u04bc\u04bd\u0005s\u0000\u0000\u04bd\u00b1\u0001\u0000\u0000\u0000\u04be"+
-		"\u04c0\u0007\u0007\u0000\u0000\u04bf\u04be\u0001\u0000\u0000\u0000\u04bf"+
-		"\u04c0\u0001\u0000\u0000\u0000\u04c0\u04c1\u0001\u0000\u0000\u0000\u04c1"+
-		"\u04c2\u0005y\u0000\u0000\u04c2\u00b3\u0001\u0000\u0000\u0000\u04c3\u04c5"+
-		"\u0007\u0007\u0000\u0000\u04c4\u04c3\u0001\u0000\u0000\u0000\u04c4\u04c5"+
-		"\u0001\u0000\u0000\u0000\u04c5\u04c6\u0001\u0000\u0000\u0000\u04c6\u04c7"+
-		"\u0005z\u0000\u0000\u04c7\u00b5\u0001\u0000\u0000\u0000\u04c8\u04c9\u0003"+
-		"\u00f8|\u0000\u04c9\u04ca\u0003\u00fa}\u0000\u04ca\u050b\u0001\u0000\u0000"+
-		"\u0000\u04cb\u04cc\u0003\u00aeW\u0000\u04cc\u04cd\u0003\u00fa}\u0000\u04cd"+
-		"\u050b\u0001\u0000\u0000\u0000\u04ce\u04cf\u0003\u00b0X\u0000\u04cf\u04d0"+
-		"\u0003\u00fa}\u0000\u04d0\u050b\u0001\u0000\u0000\u0000\u04d1\u04d2\u0003"+
-		"\u00b2Y\u0000\u04d2\u04d3\u0003\u00fa}\u0000\u04d3\u050b\u0001\u0000\u0000"+
-		"\u0000\u04d4\u04d5\u0003\u00b4Z\u0000\u04d5\u04d6\u0003\u00fa}\u0000\u04d6"+
-		"\u050b\u0001\u0000\u0000\u0000\u04d7\u04d8\u0005}\u0000\u0000\u04d8\u050b"+
-		"\u0003\u00fa}\u0000\u04d9\u04da\u0003\u00d2i\u0000\u04da\u04db\u0003\u00fa"+
-		"}\u0000\u04db\u050b\u0001\u0000\u0000\u0000\u04dc\u04dd\u0005l\u0000\u0000"+
-		"\u04dd\u050b\u0003\u00fa}\u0000\u04de\u04df\u0005u\u0000\u0000\u04df\u050b"+
-		"\u0003\u00fa}\u0000\u04e0\u04e1\u0005j\u0000\u0000\u04e1\u050b\u0003\u00fa"+
-		"}\u0000\u04e2\u04e3\u0005k\u0000\u0000\u04e3\u050b\u0003\u00fa}\u0000"+
-		"\u04e4\u04e5\u0005S\u0000\u0000\u04e5\u050b\u0003\u00fa}\u0000\u04e6\u04e7"+
-		"\u0005\u0090\u0000\u0000\u04e7\u04ec\u0003\u00fa}\u0000\u04e8\u04eb\u0003"+
-		"\u00b6[\u0000\u04e9\u04eb\u0003\u00ba]\u0000\u04ea\u04e8\u0001\u0000\u0000"+
-		"\u0000\u04ea\u04e9\u0001\u0000\u0000\u0000\u04eb\u04ee\u0001\u0000\u0000"+
-		"\u0000\u04ec\u04ea\u0001\u0000\u0000\u0000\u04ec\u04ed\u0001\u0000\u0000"+
-		"\u0000\u04ed\u04ef\u0001\u0000\u0000\u0000\u04ee\u04ec\u0001\u0000\u0000"+
-		"\u0000\u04ef\u04f0\u0005X\u0000\u0000\u04f0\u04f1\u0003\u00fa}\u0000\u04f1"+
-		"\u050b\u0001\u0000\u0000\u0000\u04f2\u04f3\u0005W\u0000\u0000\u04f3\u04f8"+
-		"\u0003\u00fa}\u0000\u04f4\u04f7\u0003\u00b6[\u0000\u04f5\u04f7\u0003\u00ba"+
-		"]\u0000\u04f6\u04f4\u0001\u0000\u0000\u0000\u04f6\u04f5\u0001\u0000\u0000"+
-		"\u0000\u04f7\u04fa\u0001\u0000\u0000\u0000\u04f8\u04f6\u0001\u0000\u0000"+
-		"\u0000\u04f8\u04f9\u0001\u0000\u0000\u0000\u04f9\u04fb\u0001\u0000\u0000"+
-		"\u0000\u04fa\u04f8\u0001\u0000\u0000\u0000\u04fb\u04fc\u0005X\u0000\u0000"+
-		"\u04fc\u04fd\u0003\u00fa}\u0000\u04fd\u050b\u0001\u0000\u0000\u0000\u04fe"+
-		"\u04ff\u0005b\u0000\u0000\u04ff\u0504\u0003\u00fa}\u0000\u0500\u0503\u0003"+
-		"\u00b6[\u0000\u0501\u0503\u0003\u00ba]\u0000\u0502\u0500\u0001\u0000\u0000"+
-		"\u0000\u0502\u0501\u0001\u0000\u0000\u0000\u0503\u0506\u0001\u0000\u0000"+
-		"\u0000\u0504\u0502\u0001\u0000\u0000\u0000\u0504\u0505\u0001\u0000\u0000"+
-		"\u0000\u0505\u0507\u0001\u0000\u0000\u0000\u0506\u0504\u0001\u0000\u0000"+
-		"\u0000\u0507\u0508\u0005c\u0000\u0000\u0508\u0509\u0003\u00fa}\u0000\u0509"+
-		"\u050b\u0001\u0000\u0000\u0000\u050a\u04c8\u0001\u0000\u0000\u0000\u050a"+
-		"\u04cb\u0001\u0000\u0000\u0000\u050a\u04ce\u0001\u0000\u0000\u0000\u050a"+
-		"\u04d1\u0001\u0000\u0000\u0000\u050a\u04d4\u0001\u0000\u0000\u0000\u050a"+
-		"\u04d7\u0001\u0000\u0000\u0000\u050a\u04d9\u0001\u0000\u0000\u0000\u050a"+
-		"\u04dc\u0001\u0000\u0000\u0000\u050a\u04de\u0001\u0000\u0000\u0000\u050a"+
-		"\u04e0\u0001\u0000\u0000\u0000\u050a\u04e2\u0001\u0000\u0000\u0000\u050a"+
-		"\u04e4\u0001\u0000\u0000\u0000\u050a\u04e6\u0001\u0000\u0000\u0000\u050a"+
-		"\u04f2\u0001\u0000\u0000\u0000\u050a\u04fe\u0001\u0000\u0000\u0000\u050b"+
-		"\u00b7\u0001\u0000\u0000\u0000\u050c\u050d\u0005\u008c\u0000\u0000\u050d"+
-		"\u0511\u0003\u00fa}\u0000\u050e\u0510\u0003\u00b6[\u0000\u050f\u050e\u0001"+
-		"\u0000\u0000\u0000\u0510\u0513\u0001\u0000\u0000\u0000\u0511\u050f\u0001"+
-		"\u0000\u0000\u0000\u0511\u0512\u0001\u0000\u0000\u0000\u0512\u0517\u0001"+
-		"\u0000\u0000\u0000\u0513\u0511\u0001\u0000\u0000\u0000\u0514\u0518\u0003"+
-		"\u00bc^\u0000\u0515\u0516\u0005T\u0000\u0000\u0516\u0518\u0003\u00fa}"+
-		"\u0000\u0517\u0514\u0001\u0000\u0000\u0000\u0517\u0515\u0001\u0000\u0000"+
-		"\u0000\u0518\u00b9\u0001\u0000\u0000\u0000\u0519\u0523\u0003\u00bc^\u0000"+
-		"\u051a\u051b\u0005\u008c\u0000\u0000\u051b\u0523\u0003\u00fa}\u0000\u051c"+
-		"\u051d\u0005T\u0000\u0000\u051d\u0523\u0003\u00fa}\u0000\u051e\u051f\u0005"+
-		"h\u0000\u0000\u051f\u0523\u0003\u00fa}\u0000\u0520\u0521\u0005i\u0000"+
-		"\u0000\u0521\u0523\u0003\u00fa}\u0000\u0522\u0519\u0001\u0000\u0000\u0000"+
-		"\u0522\u051a\u0001\u0000\u0000\u0000\u0522\u051c\u0001\u0000\u0000\u0000"+
-		"\u0522\u051e\u0001\u0000\u0000\u0000\u0522\u0520\u0001\u0000\u0000\u0000"+
-		"\u0523\u00bb\u0001\u0000\u0000\u0000\u0524\u0525\u0005Q\u0000\u0000\u0525"+
-		"\u0530\u0003\u00fa}\u0000\u0526\u052f\u0003\u009cN\u0000\u0527\u052f\u0003"+
-		"\u00be_\u0000\u0528\u052f\u0003\u00b6[\u0000\u0529\u052f\u0003\u00bc^"+
-		"\u0000\u052a\u052b\u0005\u008c\u0000\u0000\u052b\u052f\u0003\u00fa}\u0000"+
-		"\u052c\u052d\u0005T\u0000\u0000\u052d\u052f\u0003\u00fa}\u0000\u052e\u0526"+
-		"\u0001\u0000\u0000\u0000\u052e\u0527\u0001\u0000\u0000\u0000\u052e\u0528"+
-		"\u0001\u0000\u0000\u0000\u052e\u0529\u0001\u0000\u0000\u0000\u052e\u052a"+
-		"\u0001\u0000\u0000\u0000\u052e\u052c\u0001\u0000\u0000\u0000\u052f\u0532"+
-		"\u0001\u0000\u0000\u0000\u0530\u052e\u0001\u0000\u0000\u0000\u0530\u0531"+
-		"\u0001\u0000\u0000\u0000\u0531\u0533\u0001\u0000\u0000\u0000\u0532\u0530"+
-		"\u0001\u0000\u0000\u0000\u0533\u0534\u0005R\u0000\u0000\u0534\u0535\u0003"+
-		"\u00fa}\u0000\u0535\u00bd\u0001\u0000\u0000\u0000\u0536\u0541\u0003\u009a"+
-		"M\u0000\u0537\u0541\u0003h4\u0000\u0538\u0541\u0003t:\u0000\u0539\u0541"+
-		"\u0003\u00deo\u0000\u053a\u0541\u0003\u00e2q\u0000\u053b\u0541\u0003\u00c2"+
-		"a\u0000\u053c\u0541\u0003\u00e8t\u0000\u053d\u0541\u0003\u00eau\u0000"+
-		"\u053e\u0541\u0003\u00ecv\u0000\u053f\u0541\u0003\u00b8\\\u0000\u0540"+
-		"\u0536\u0001\u0000\u0000\u0000\u0540\u0537\u0001\u0000\u0000\u0000\u0540"+
-		"\u0538\u0001\u0000\u0000\u0000\u0540\u0539\u0001\u0000\u0000\u0000\u0540"+
-		"\u053a\u0001\u0000\u0000\u0000\u0540\u053b\u0001\u0000\u0000\u0000\u0540"+
-		"\u053c\u0001\u0000\u0000\u0000\u0540\u053d\u0001\u0000\u0000\u0000\u0540"+
-		"\u053e\u0001\u0000\u0000\u0000\u0540\u053f\u0001\u0000\u0000\u0000\u0541"+
-		"\u00bf\u0001\u0000\u0000\u0000\u0542\u0543\u0005Q\u0000\u0000\u0543\u0547"+
-		"\u0003\u00fa}\u0000\u0544\u0546\u0003\u00be_\u0000\u0545\u0544\u0001\u0000"+
-		"\u0000\u0000\u0546\u0549\u0001\u0000\u0000\u0000\u0547\u0545\u0001\u0000"+
-		"\u0000\u0000\u0547\u0548\u0001\u0000\u0000\u0000\u0548\u054a\u0001\u0000"+
-		"\u0000\u0000\u0549\u0547\u0001\u0000\u0000\u0000\u054a\u054b\u0005R\u0000"+
-		"\u0000\u054b\u054c\u0003\u00fa}\u0000\u054c\u00c1\u0001\u0000\u0000\u0000"+
-		"\u054d\u054e\u0005\u0082\u0000\u0000\u054e\u054f\u0003\u00fa}\u0000\u054f"+
-		"\u0550\u0003\u00c4b\u0000\u0550\u0551\u0003\u00fa}\u0000\u0551\u0552\u0003"+
-		"\u00c0`\u0000\u0552\u00c3\u0001\u0000\u0000\u0000\u0553\u0558\u0003\u00c8"+
-		"d\u0000\u0554\u0558\u0003\u00cae\u0000\u0555\u0558\u0003\u00ccf\u0000"+
-		"\u0556\u0558\u0003\u00c6c\u0000\u0557\u0553\u0001\u0000\u0000\u0000\u0557"+
-		"\u0554\u0001\u0000\u0000\u0000\u0557\u0555\u0001\u0000\u0000\u0000\u0557"+
-		"\u0556\u0001\u0000\u0000\u0000\u0558\u00c5\u0001\u0000\u0000\u0000\u0559"+
-		"\u055a\u0005W\u0000\u0000\u055a\u055b\u0003\u00fa}\u0000\u055b\u055c\u0003"+
-		"\u00c4b\u0000\u055c\u055d\u0003\u00fa}\u0000\u055d\u055e\u0005X\u0000"+
-		"\u0000\u055e\u0562\u0001\u0000\u0000\u0000\u055f\u0562\u0003\u00ceg\u0000"+
-		"\u0560\u0562\u0003\u00d0h\u0000\u0561\u0559\u0001\u0000\u0000\u0000\u0561"+
-		"\u055f\u0001\u0000\u0000\u0000\u0561\u0560\u0001\u0000\u0000\u0000\u0562"+
-		"\u00c7\u0001\u0000\u0000\u0000\u0563\u0564\u0005w\u0000\u0000\u0564\u0565"+
-		"\u0003\u00fa}\u0000\u0565\u0566\u0005g\u0000\u0000\u0566\u0567\u0003\u00fa"+
-		"}\u0000\u0567\u0568\u0003\u00c6c\u0000\u0568\u00c9\u0001\u0000\u0000\u0000"+
-		"\u0569\u0573\u0003\u00c6c\u0000\u056a\u056b\u0003\u00fa}\u0000\u056b\u056c"+
-		"\u0005g\u0000\u0000\u056c\u056d\u0003\u00fa}\u0000\u056d\u056e\u0005x"+
-		"\u0000\u0000\u056e\u056f\u0003\u00fa}\u0000\u056f\u0570\u0005g\u0000\u0000"+
-		"\u0570\u0571\u0003\u00fa}\u0000\u0571\u0572\u0003\u00c6c\u0000\u0572\u0574"+
-		"\u0001\u0000\u0000\u0000\u0573\u056a\u0001\u0000\u0000\u0000\u0574\u0575"+
-		"\u0001\u0000\u0000\u0000\u0575\u0573\u0001\u0000\u0000\u0000\u0575\u0576"+
-		"\u0001\u0000\u0000\u0000\u0576\u00cb\u0001\u0000\u0000\u0000\u0577\u0581"+
-		"\u0003\u00c6c\u0000\u0578\u0579\u0003\u00fa}\u0000\u0579\u057a\u0005g"+
-		"\u0000\u0000\u057a\u057b\u0003\u00fa}\u0000\u057b\u057c\u0005\u0083\u0000"+
-		"\u0000\u057c\u057d\u0003\u00fa}\u0000\u057d\u057e\u0005g\u0000\u0000\u057e"+
-		"\u057f\u0003\u00fa}\u0000\u057f\u0580\u0003\u00c6c\u0000\u0580\u0582\u0001"+
-		"\u0000\u0000\u0000\u0581\u0578\u0001\u0000\u0000\u0000\u0582\u0583\u0001"+
-		"\u0000\u0000\u0000\u0583\u0581\u0001\u0000\u0000\u0000\u0583\u0584\u0001"+
-		"\u0000\u0000\u0000\u0584\u00cd\u0001\u0000\u0000\u0000\u0585\u0586\u0005"+
-		"W\u0000\u0000\u0586\u0587\u0003\u00fa}\u0000\u0587\u0588\u0003\u009eO"+
-		"\u0000\u0588\u0589\u0005X\u0000\u0000\u0589\u00cf\u0001\u0000\u0000\u0000"+
-		"\u058a\u058f\u0007\b\u0000\u0000\u058b\u058e\u0003\u00b6[\u0000\u058c"+
-		"\u058e\u0003\u00ba]\u0000\u058d\u058b\u0001\u0000\u0000\u0000\u058d\u058c"+
-		"\u0001\u0000\u0000\u0000\u058e\u0591\u0001\u0000\u0000\u0000\u058f\u058d"+
-		"\u0001\u0000\u0000\u0000\u058f\u0590\u0001\u0000\u0000\u0000\u0590\u0592"+
-		"\u0001\u0000\u0000\u0000\u0591\u058f\u0001\u0000\u0000\u0000\u0592\u0593"+
-		"\u0005X\u0000\u0000\u0593\u00d1\u0001\u0000\u0000\u0000\u0594\u0595\u0005"+
-		"t\u0000\u0000\u0595\u0596\u0003\u00fa}\u0000\u0596\u0597\u0005}\u0000"+
-		"\u0000\u0597\u0598\u0003\u00fa}\u0000\u0598\u0599\u0005X\u0000\u0000\u0599"+
-		"\u059c\u0001\u0000\u0000\u0000\u059a\u059c\u0005f\u0000\u0000\u059b\u0594"+
-		"\u0001\u0000\u0000\u0000\u059b\u059a\u0001\u0000\u0000\u0000\u059c\u00d3"+
-		"\u0001\u0000\u0000\u0000\u059d\u059e\u0005\u008e\u0000\u0000\u059e\u059f"+
-		"\u0003\u00fa}\u0000\u059f\u05a0\u0005\u008d\u0000\u0000\u05a0\u05a1\u0003"+
-		"\u00fa}\u0000\u05a1\u05a2\u0005X\u0000\u0000\u05a2\u05a3\u0003\u00fa}"+
-		"\u0000\u05a3\u00d5\u0001\u0000\u0000\u0000\u05a4\u05a5\u0005\u0087\u0000"+
-		"\u0000\u05a5\u05a6\u0003\u00fa}\u0000\u05a6\u05a7\u0003\u00d8l\u0000\u05a7"+
-		"\u05a8\u0005X\u0000\u0000\u05a8\u05a9\u0003\u00fa}\u0000\u05a9\u00d7\u0001"+
-		"\u0000\u0000\u0000\u05aa\u05b5\u0003\u00dam\u0000\u05ab\u05ac\u0005g\u0000"+
-		"\u0000\u05ac\u05ad\u0003\u00fa}\u0000\u05ad\u05ae\u0007\u0007\u0000\u0000"+
-		"\u05ae\u05af\u0003\u00fa}\u0000\u05af\u05b0\u0005g\u0000\u0000\u05b0\u05b1"+
-		"\u0003\u00fa}\u0000\u05b1\u05b2\u0003\u00dam\u0000\u05b2\u05b4\u0001\u0000"+
-		"\u0000\u0000\u05b3\u05ab\u0001\u0000\u0000\u0000\u05b4\u05b7\u0001\u0000"+
-		"\u0000\u0000\u05b5\u05b3\u0001\u0000\u0000\u0000\u05b5\u05b6\u0001\u0000"+
-		"\u0000\u0000\u05b6\u00d9\u0001\u0000\u0000\u0000\u05b7\u05b5\u0001\u0000"+
-		"\u0000\u0000\u05b8\u05c4\u0003\u00dcn\u0000\u05b9\u05ba\u0005d\u0000\u0000"+
-		"\u05ba\u05bb\u0003\u00fa}\u0000\u05bb\u05bc\u0003\u00dcn\u0000\u05bc\u05c3"+
-		"\u0001\u0000\u0000\u0000\u05bd\u05be\u0005[\u0000\u0000\u05be\u05bf\u0003"+
-		"\u00fa}\u0000\u05bf\u05c0\u0003\u00aeW\u0000\u05c0\u05c1\u0003\u00fa}"+
-		"\u0000\u05c1\u05c3\u0001\u0000\u0000\u0000\u05c2\u05b9\u0001\u0000\u0000"+
-		"\u0000\u05c2\u05bd\u0001\u0000\u0000\u0000\u05c3\u05c6\u0001\u0000\u0000"+
-		"\u0000\u05c4\u05c2\u0001\u0000\u0000\u0000\u05c4\u05c5\u0001\u0000\u0000"+
-		"\u0000\u05c5\u00db\u0001\u0000\u0000\u0000\u05c6\u05c4\u0001\u0000\u0000"+
-		"\u0000\u05c7\u05c8\u0003\u00aeW\u0000\u05c8\u05c9\u0003\u00fa}\u0000\u05c9"+
-		"\u05da\u0001\u0000\u0000\u0000\u05ca\u05cb\u0003\u00b2Y\u0000\u05cb\u05cc"+
-		"\u0003\u00fa}\u0000\u05cc\u05da\u0001\u0000\u0000\u0000\u05cd\u05ce\u0003"+
-		"\u00b4Z\u0000\u05ce\u05cf\u0003\u00fa}\u0000\u05cf\u05da\u0001\u0000\u0000"+
-		"\u0000\u05d0\u05d1\u0003\u00b0X\u0000\u05d1\u05d2\u0003\u00fa}\u0000\u05d2"+
-		"\u05da\u0001\u0000\u0000\u0000\u05d3\u05d4\u0005W\u0000\u0000\u05d4\u05d5"+
-		"\u0003\u00fa}\u0000\u05d5\u05d6\u0003\u00d8l\u0000\u05d6\u05d7\u0005X"+
-		"\u0000\u0000\u05d7\u05d8\u0003\u00fa}\u0000\u05d8\u05da\u0001\u0000\u0000"+
-		"\u0000\u05d9\u05c7\u0001\u0000\u0000\u0000\u05d9\u05ca\u0001\u0000\u0000"+
-		"\u0000\u05d9\u05cd\u0001\u0000\u0000\u0000\u05d9\u05d0\u0001\u0000\u0000"+
-		"\u0000\u05d9\u05d3\u0001\u0000\u0000\u0000\u05da\u00dd\u0001\u0000\u0000"+
-		"\u0000\u05db\u05dc\u0005\u0081\u0000\u0000\u05dc\u05dd\u0003\u00fa}\u0000"+
-		"\u05dd\u05de\u0005Q\u0000\u0000\u05de\u05e0\u0003\u00fa}\u0000\u05df\u05e1"+
-		"\u0003\u00e0p\u0000\u05e0\u05df\u0001\u0000\u0000\u0000\u05e0\u05e1\u0001"+
-		"\u0000\u0000\u0000\u05e1\u05e9\u0001\u0000\u0000\u0000\u05e2\u05e3\u0005"+
-		"T\u0000\u0000\u05e3\u05e5\u0003\u00fa}\u0000\u05e4\u05e6\u0003\u00e0p"+
-		"\u0000\u05e5\u05e4\u0001\u0000\u0000\u0000\u05e5\u05e6\u0001\u0000\u0000"+
-		"\u0000\u05e6\u05e8\u0001\u0000\u0000\u0000\u05e7\u05e2\u0001\u0000\u0000"+
-		"\u0000\u05e8\u05eb\u0001\u0000\u0000\u0000\u05e9\u05e7\u0001\u0000\u0000"+
-		"\u0000\u05e9\u05ea\u0001\u0000\u0000\u0000\u05ea\u05ec\u0001\u0000\u0000"+
-		"\u0000\u05eb\u05e9\u0001\u0000\u0000\u0000\u05ec\u05ed\u0005R\u0000\u0000"+
-		"\u05ed\u05ee\u0003\u00fa}\u0000\u05ee\u00df\u0001\u0000\u0000\u0000\u05ef"+
-		"\u05f0\u0003\u0098L\u0000\u05f0\u05f1\u0005S\u0000\u0000\u05f1\u05f2\u0003"+
-		"\u00fa}\u0000\u05f2\u05f3\u0003\u00a4R\u0000\u05f3\u05fa\u0001\u0000\u0000"+
-		"\u0000\u05f4\u05f5\u0003\u0098L\u0000\u05f5\u05f6\u0005S\u0000\u0000\u05f6"+
-		"\u05f7\u0003\u00fa}\u0000\u05f7\u05f8\u0003\u00a2Q\u0000\u05f8\u05fa\u0001"+
-		"\u0000\u0000\u0000\u05f9\u05ef\u0001\u0000\u0000\u0000\u05f9\u05f4\u0001"+
-		"\u0000\u0000\u0000\u05fa\u00e1\u0001\u0000\u0000\u0000\u05fb\u05fc\u0005"+
-		"\u0084\u0000\u0000\u05fc\u05fd\u0003\u00fa}\u0000\u05fd\u05fe\u0005g\u0000"+
-		"\u0000\u05fe\u05ff\u0003\u00fa}\u0000\u05ff\u0600\u0003\u00f8|\u0000\u0600"+
-		"\u0601\u0003\u00fa}\u0000\u0601\u0602\u0005Q\u0000\u0000\u0602\u0606\u0003"+
-		"\u00fa}\u0000\u0603\u0605\u0003\u00e4r\u0000\u0604\u0603\u0001\u0000\u0000"+
-		"\u0000\u0605\u0608\u0001\u0000\u0000\u0000\u0606\u0604\u0001\u0000\u0000"+
-		"\u0000\u0606\u0607\u0001\u0000\u0000\u0000\u0607\u0609\u0001\u0000\u0000"+
-		"\u0000\u0608\u0606\u0001\u0000\u0000\u0000\u0609\u060a\u0005R\u0000\u0000"+
-		"\u060a\u060b\u0003\u00fa}\u0000\u060b\u00e3\u0001\u0000\u0000\u0000\u060c"+
-		"\u060d\u0003\u00e6s\u0000\u060d\u060e\u0005Q\u0000\u0000\u060e\u0610\u0003"+
-		"\u00fa}\u0000\u060f\u0611\u0003\u009cN\u0000\u0610\u060f\u0001\u0000\u0000"+
-		"\u0000\u0610\u0611\u0001\u0000\u0000\u0000\u0611\u0612\u0001\u0000\u0000"+
-		"\u0000\u0612\u0613\u0005R\u0000\u0000\u0613\u0614\u0003\u00fa}\u0000\u0614"+
-		"\u00e5\u0001\u0000\u0000\u0000\u0615\u0616\u0007\t\u0000\u0000\u0616\u061e"+
-		"\u0003\u00fa}\u0000\u0617\u0618\u0005Y\u0000\u0000\u0618\u0619\u0003\u00fa"+
-		"}\u0000\u0619\u061a\u0007\t\u0000\u0000\u061a\u061b\u0003\u00fa}\u0000"+
-		"\u061b\u061d\u0001\u0000\u0000\u0000\u061c\u0617\u0001\u0000\u0000\u0000"+
-		"\u061d\u0620\u0001\u0000\u0000\u0000\u061e\u061c\u0001\u0000\u0000\u0000"+
-		"\u061e\u061f\u0001\u0000\u0000\u0000\u061f\u00e7\u0001\u0000\u0000\u0000"+
-		"\u0620\u061e\u0001\u0000\u0000\u0000\u0621\u0622\u0005\u0088\u0000\u0000"+
-		"\u0622\u0623\u0003\u00fa}\u0000\u0623\u0624\u0005Q\u0000\u0000\u0624\u0626"+
-		"\u0003\u00fa}\u0000\u0625\u0627\u0003\u009cN\u0000\u0626\u0625\u0001\u0000"+
-		"\u0000\u0000\u0626\u0627\u0001\u0000\u0000\u0000\u0627\u0628\u0001\u0000"+
-		"\u0000\u0000\u0628\u0629\u0005R\u0000\u0000\u0629\u062a\u0003\u00fa}\u0000"+
-		"\u062a\u00e9\u0001\u0000\u0000\u0000\u062b\u062c\u0005\u0089\u0000\u0000"+
-		"\u062c\u062d\u0003\u00fa}\u0000\u062d\u062e\u0003\u00f8|\u0000\u062e\u062f"+
-		"\u0003\u00fa}\u0000\u062f\u0630\u0005Q\u0000\u0000\u0630\u0632\u0003\u00fa"+
-		"}\u0000\u0631\u0633\u0003\u009cN\u0000\u0632\u0631\u0001\u0000\u0000\u0000"+
-		"\u0632\u0633\u0001\u0000\u0000\u0000\u0633\u0634\u0001\u0000\u0000\u0000"+
-		"\u0634\u0635\u0005R\u0000\u0000\u0635\u0636\u0003\u00fa}\u0000\u0636\u00eb"+
-		"\u0001\u0000\u0000\u0000\u0637\u0638\u0005\u008a\u0000\u0000\u0638\u0639"+
-		"\u0003\u00fa}\u0000\u0639\u063a\u0003\u00eew\u0000\u063a\u063b\u0003\u00fa"+
-		"}\u0000\u063b\u063c\u0005Q\u0000\u0000\u063c\u0640\u0003\u00fa}\u0000"+
-		"\u063d\u063f\u0003\u00f2y\u0000\u063e\u063d\u0001\u0000\u0000\u0000\u063f"+
-		"\u0642\u0001\u0000\u0000\u0000\u0640\u063e\u0001\u0000\u0000\u0000\u0640"+
-		"\u0641\u0001\u0000\u0000\u0000\u0641\u0643\u0001\u0000\u0000\u0000\u0642"+
-		"\u0640\u0001\u0000\u0000\u0000\u0643\u0644\u0005R\u0000\u0000\u0644\u0645"+
-		"\u0003\u00fa}\u0000\u0645\u00ed\u0001\u0000\u0000\u0000\u0646\u064e\u0003"+
-		"\u00f0x\u0000\u0647\u0648\u0003\u00fa}\u0000\u0648\u0649\u0005Y\u0000"+
-		"\u0000\u0649\u064a\u0003\u00fa}\u0000\u064a\u064b\u0003\u00f0x\u0000\u064b"+
-		"\u064d\u0001\u0000\u0000\u0000\u064c\u0647\u0001\u0000\u0000\u0000\u064d"+
-		"\u0650\u0001\u0000\u0000\u0000\u064e\u064c\u0001\u0000\u0000\u0000\u064e"+
-		"\u064f\u0001\u0000\u0000\u0000\u064f\u00ef\u0001\u0000\u0000\u0000\u0650"+
-		"\u064e\u0001\u0000\u0000\u0000\u0651\u065c\u0005}\u0000\u0000\u0652\u0658"+
-		"\u0003\u00f8|\u0000\u0653\u0654\u0003\u00fa}\u0000\u0654\u0655\u0003\u00f8"+
-		"|\u0000\u0655\u0657\u0001\u0000\u0000\u0000\u0656\u0653\u0001\u0000\u0000"+
-		"\u0000\u0657\u065a\u0001\u0000\u0000\u0000\u0658\u0656\u0001\u0000\u0000"+
-		"\u0000\u0658\u0659\u0001\u0000\u0000\u0000\u0659\u065c\u0001\u0000\u0000"+
-		"\u0000\u065a\u0658\u0001\u0000\u0000\u0000\u065b\u0651\u0001\u0000\u0000"+
-		"\u0000\u065b\u0652\u0001\u0000\u0000\u0000\u065c\u00f1\u0001\u0000\u0000"+
-		"\u0000\u065d\u065e\u0003\u00f4z\u0000\u065e\u065f\u0003\u00fa}\u0000\u065f"+
-		"\u0660\u0005Q\u0000\u0000\u0660\u0662\u0003\u00fa}\u0000\u0661\u0663\u0003"+
-		"\u00f6{\u0000\u0662\u0661\u0001\u0000\u0000\u0000\u0662\u0663\u0001\u0000"+
-		"\u0000\u0000\u0663\u066c\u0001\u0000\u0000\u0000\u0664\u0665\u0003\u00fa"+
-		"}\u0000\u0665\u0666\u0005T\u0000\u0000\u0666\u0668\u0003\u00fa}\u0000"+
-		"\u0667\u0669\u0003\u00f6{\u0000\u0668\u0667\u0001\u0000\u0000\u0000\u0668"+
-		"\u0669\u0001\u0000\u0000\u0000\u0669\u066b\u0001\u0000\u0000\u0000\u066a"+
-		"\u0664\u0001\u0000\u0000\u0000\u066b\u066e\u0001\u0000\u0000\u0000\u066c"+
-		"\u066a\u0001\u0000\u0000\u0000\u066c\u066d\u0001\u0000\u0000\u0000\u066d"+
-		"\u066f\u0001\u0000\u0000\u0000\u066e\u066c\u0001\u0000\u0000\u0000\u066f"+
-		"\u0670\u0005R\u0000\u0000\u0670\u0671\u0003\u00fa}\u0000\u0671\u00f3\u0001"+
-		"\u0000\u0000\u0000\u0672\u0673\u0005\u008c\u0000\u0000\u0673\u00f5\u0001"+
-		"\u0000\u0000\u0000\u0674\u0675\u0003\u00f8|\u0000\u0675\u0676\u0003\u00fa"+
-		"}\u0000\u0676\u0677\u0005S\u0000\u0000\u0677\u0678\u0003\u00fa}\u0000"+
-		"\u0678\u067e\u0003\u00aeW\u0000\u0679\u067a\u0003\u00fa}\u0000\u067a\u067b"+
-		"\u0003\u00aeW\u0000\u067b\u067d\u0001\u0000\u0000\u0000\u067c\u0679\u0001"+
-		"\u0000\u0000\u0000\u067d\u0680\u0001\u0000\u0000\u0000\u067e\u067c\u0001"+
-		"\u0000\u0000\u0000\u067e\u067f\u0001\u0000\u0000\u0000\u067f\u00f7\u0001"+
-		"\u0000\u0000\u0000\u0680\u067e\u0001\u0000\u0000\u0000\u0681\u0682\u0007"+
-		"\n\u0000\u0000\u0682\u00f9\u0001\u0000\u0000\u0000\u0683\u0685\u0007\u000b"+
-		"\u0000\u0000\u0684\u0683\u0001\u0000\u0000\u0000\u0685\u0688\u0001\u0000"+
-		"\u0000\u0000\u0686\u0684\u0001\u0000\u0000\u0000\u0686\u0687\u0001\u0000"+
-		"\u0000\u0000\u0687\u00fb\u0001\u0000\u0000\u0000\u0688\u0686\u0001\u0000"+
-		"\u0000\u0000\u0689\u068a\u00059\u0000\u0000\u068a\u068b\u0003\u00fe\u007f"+
-		"\u0000\u068b\u068c\u0005\u00ae\u0000\u0000\u068c\u00fd\u0001\u0000\u0000"+
-		"\u0000\u068d\u069e\u0003\u0102\u0081\u0000\u068e\u069e\u0003\u0104\u0082"+
-		"\u0000\u068f\u0691\u0005\u0096\u0000\u0000\u0690\u0692\u0003\u010e\u0087"+
-		"\u0000\u0691\u0690\u0001\u0000\u0000\u0000\u0691\u0692\u0001\u0000\u0000"+
-		"\u0000\u0692\u069e\u0001\u0000\u0000\u0000\u0693\u0694\u0005\u00b6\u0000"+
-		"\u0000\u0694\u069e\u0003\u010a\u0085\u0000\u0695\u069e\u0003\u0100\u0080"+
-		"\u0000\u0696\u069b\u0005\u0096\u0000\u0000\u0697\u0698\u0005\u00a7\u0000"+
-		"\u0000\u0698\u0699\u0003\u0128\u0094\u0000\u0699\u069a\u0005\u00a8\u0000"+
-		"\u0000\u069a\u069c\u0001\u0000\u0000\u0000\u069b\u0697\u0001\u0000\u0000"+
-		"\u0000\u069b\u069c\u0001\u0000\u0000\u0000\u069c\u069e\u0001\u0000\u0000"+
-		"\u0000\u069d\u068d\u0001\u0000\u0000\u0000\u069d\u068e\u0001\u0000\u0000"+
-		"\u0000\u069d\u068f\u0001\u0000\u0000\u0000\u069d\u0693\u0001\u0000\u0000"+
-		"\u0000\u069d\u0695\u0001\u0000\u0000\u0000\u069d\u0696\u0001\u0000\u0000"+
-		"\u0000\u069e\u00ff\u0001\u0000\u0000\u0000\u069f\u06a0\u0005\u00b7\u0000"+
-		"\u0000\u06a0\u06a1\u0003\u000e\u0007\u0000\u06a1\u06a2\u0005\u00b8\u0000"+
-		"\u0000\u06a2\u0101\u0001\u0000\u0000\u0000\u06a3\u06a4\u0005\u00af\u0000"+
-		"\u0000\u06a4\u06a5\u0003\u010e\u0087\u0000\u06a5\u06ac\u0003\u000e\u0007"+
-		"\u0000\u06a6\u06a7\u0005\u00b0\u0000\u0000\u06a7\u06a8\u0003\u010e\u0087"+
-		"\u0000\u06a8\u06a9\u0003\u000e\u0007\u0000\u06a9\u06ab\u0001\u0000\u0000"+
-		"\u0000\u06aa\u06a6\u0001\u0000\u0000\u0000\u06ab\u06ae\u0001\u0000\u0000"+
-		"\u0000\u06ac\u06aa\u0001\u0000\u0000\u0000\u06ac\u06ad\u0001\u0000\u0000"+
-		"\u0000\u06ad\u06b1\u0001\u0000\u0000\u0000\u06ae\u06ac\u0001\u0000\u0000"+
-		"\u0000\u06af\u06b0\u0005\u00b1\u0000\u0000\u06b0\u06b2\u0003\u000e\u0007"+
-		"\u0000\u06b1\u06af\u0001\u0000\u0000\u0000\u06b1\u06b2\u0001\u0000\u0000"+
-		"\u0000\u06b2\u06b3\u0001\u0000\u0000\u0000\u06b3\u06b4\u0005\u00b2\u0000"+
-		"\u0000\u06b4\u0103\u0001\u0000\u0000\u0000\u06b5\u06b6\u0005\u00b3\u0000"+
-		"\u0000\u06b6\u06b7\u0003\u0106\u0083\u0000\u06b7\u06b8\u0005\u00b4\u0000"+
-		"\u0000\u06b8\u06b9\u0003\u010a\u0085\u0000\u06b9\u06bc\u0003\u000e\u0007"+
-		"\u0000\u06ba\u06bb\u0005\u00b1\u0000\u0000\u06bb\u06bd\u0003\u000e\u0007"+
-		"\u0000\u06bc\u06ba\u0001\u0000\u0000\u0000\u06bc\u06bd\u0001\u0000\u0000"+
-		"\u0000\u06bd\u06be\u0001\u0000\u0000\u0000\u06be\u06bf\u0005\u00b5\u0000"+
-		"\u0000\u06bf\u0105\u0001\u0000\u0000\u0000\u06c0\u06c5\u0005\u0096\u0000"+
-		"\u0000\u06c1\u06c2\u0005\u00a5\u0000\u0000\u06c2\u06c4\u0005\u0096\u0000"+
-		"\u0000\u06c3\u06c1\u0001\u0000\u0000\u0000\u06c4\u06c7\u0001\u0000\u0000"+
-		"\u0000\u06c5\u06c3\u0001\u0000\u0000\u0000\u06c5\u06c6\u0001\u0000\u0000"+
-		"\u0000\u06c6\u0107\u0001\u0000\u0000\u0000\u06c7\u06c5\u0001\u0000\u0000"+
-		"\u0000\u06c8\u06c9\u00058\u0000\u0000\u06c9\u06ca\u0003\u010a\u0085\u0000"+
-		"\u06ca\u06cb\u0005\u0092\u0000\u0000\u06cb\u0109\u0001\u0000\u0000\u0000"+
-		"\u06cc\u06d1\u0003\u010e\u0087\u0000\u06cd\u06ce\u0005\u00a6\u0000\u0000"+
-		"\u06ce\u06d0\u0003\u010c\u0086\u0000\u06cf\u06cd\u0001\u0000\u0000\u0000"+
-		"\u06d0\u06d3\u0001\u0000\u0000\u0000\u06d1\u06cf\u0001\u0000\u0000\u0000"+
-		"\u06d1\u06d2\u0001\u0000\u0000\u0000\u06d2\u010b\u0001\u0000\u0000\u0000"+
-		"\u06d3\u06d1\u0001\u0000\u0000\u0000\u06d4\u06da\u0005\u0096\u0000\u0000"+
-		"\u06d5\u06d7\u0005\u00a7\u0000\u0000\u06d6\u06d8\u0003\u0128\u0094\u0000"+
-		"\u06d7\u06d6\u0001\u0000\u0000\u0000\u06d7\u06d8\u0001\u0000\u0000\u0000"+
-		"\u06d8\u06d9\u0001\u0000\u0000\u0000\u06d9\u06db\u0005\u00a8\u0000\u0000"+
-		"\u06da\u06d5\u0001\u0000\u0000\u0000\u06da\u06db\u0001\u0000\u0000\u0000"+
-		"\u06db\u010d\u0001\u0000\u0000\u0000\u06dc\u06dd\u0003\u0110\u0088\u0000"+
-		"\u06dd\u010f\u0001\u0000\u0000\u0000\u06de\u06e3\u0003\u0112\u0089\u0000"+
-		"\u06df\u06e0\u0005\u00b9\u0000\u0000\u06e0\u06e2\u0003\u0112\u0089\u0000"+
-		"\u06e1\u06df\u0001\u0000\u0000\u0000\u06e2\u06e5\u0001\u0000\u0000\u0000"+
-		"\u06e3\u06e1\u0001\u0000\u0000\u0000\u06e3\u06e4\u0001\u0000\u0000\u0000"+
-		"\u06e4\u0111\u0001\u0000\u0000\u0000\u06e5\u06e3\u0001\u0000\u0000\u0000"+
-		"\u06e6\u06eb\u0003\u0114\u008a\u0000\u06e7\u06e8\u0005\u00ba\u0000\u0000"+
-		"\u06e8\u06ea\u0003\u0114\u008a\u0000\u06e9\u06e7\u0001\u0000\u0000\u0000"+
-		"\u06ea\u06ed\u0001\u0000\u0000\u0000\u06eb\u06e9\u0001\u0000\u0000\u0000"+
-		"\u06eb\u06ec\u0001\u0000\u0000\u0000\u06ec\u0113\u0001\u0000\u0000\u0000"+
-		"\u06ed\u06eb\u0001\u0000\u0000\u0000\u06ee\u06ef\u0005\u00bb\u0000\u0000"+
-		"\u06ef\u06f2\u0003\u0114\u008a\u0000\u06f0\u06f2\u0003\u0116\u008b\u0000"+
-		"\u06f1\u06ee\u0001\u0000\u0000\u0000\u06f1\u06f0\u0001\u0000\u0000\u0000"+
-		"\u06f2\u0115\u0001\u0000\u0000\u0000\u06f3\u06f9\u0003\u011a\u008d\u0000"+
-		"\u06f4\u06f5\u0003\u0118\u008c\u0000\u06f5\u06f6\u0003\u011a\u008d\u0000"+
-		"\u06f6\u06f8\u0001\u0000\u0000\u0000\u06f7\u06f4\u0001\u0000\u0000\u0000"+
-		"\u06f8\u06fb\u0001\u0000\u0000\u0000\u06f9\u06f7\u0001\u0000\u0000\u0000"+
-		"\u06f9\u06fa\u0001\u0000\u0000\u0000\u06fa\u0117\u0001\u0000\u0000\u0000"+
-		"\u06fb\u06f9\u0001\u0000\u0000\u0000\u06fc\u0706\u0005\u00a0\u0000\u0000"+
-		"\u06fd\u0706\u0005\u00a2\u0000\u0000\u06fe\u0706\u0005\u009d\u0000\u0000"+
-		"\u06ff\u0706\u0005\u009e\u0000\u0000\u0700\u0706\u0005\u00a1\u0000\u0000"+
-		"\u0701\u0706\u0005\u009f\u0000\u0000\u0702\u0706\u0005\u00b4\u0000\u0000"+
-		"\u0703\u0704\u0005\u00bb\u0000\u0000\u0704\u0706\u0005\u00b4\u0000\u0000"+
-		"\u0705\u06fc\u0001\u0000\u0000\u0000\u0705\u06fd\u0001\u0000\u0000\u0000"+
-		"\u0705\u06fe\u0001\u0000\u0000\u0000\u0705\u06ff\u0001\u0000\u0000\u0000"+
-		"\u0705\u0700\u0001\u0000\u0000\u0000\u0705\u0701\u0001\u0000\u0000\u0000"+
-		"\u0705\u0702\u0001\u0000\u0000\u0000\u0705\u0703\u0001\u0000\u0000\u0000"+
-		"\u0706\u0119\u0001\u0000\u0000\u0000\u0707\u070c\u0003\u011c\u008e\u0000"+
-		"\u0708\u0709\u0007\f\u0000\u0000\u0709\u070b\u0003\u011c\u008e\u0000\u070a"+
-		"\u0708\u0001\u0000\u0000\u0000\u070b\u070e\u0001\u0000\u0000\u0000\u070c"+
-		"\u070a\u0001\u0000\u0000\u0000\u070c\u070d\u0001\u0000\u0000\u0000\u070d"+
-		"\u011b\u0001\u0000\u0000\u0000\u070e\u070c\u0001\u0000\u0000\u0000\u070f"+
-		"\u0714\u0003\u011e\u008f\u0000\u0710\u0711\u0007\r\u0000\u0000\u0711\u0713"+
-		"\u0003\u011e\u008f\u0000\u0712\u0710\u0001\u0000\u0000\u0000\u0713\u0716"+
-		"\u0001\u0000\u0000\u0000\u0714\u0712\u0001\u0000\u0000\u0000\u0714\u0715"+
-		"\u0001\u0000\u0000\u0000\u0715\u011d\u0001\u0000\u0000\u0000\u0716\u0714"+
-		"\u0001\u0000\u0000\u0000\u0717\u0718\u0007\f\u0000\u0000\u0718\u071b\u0003"+
-		"\u011e\u008f\u0000\u0719\u071b\u0003\u0120\u0090\u0000\u071a\u0717\u0001"+
-		"\u0000\u0000\u0000\u071a\u0719\u0001\u0000\u0000\u0000\u071b\u011f\u0001"+
-		"\u0000\u0000\u0000\u071c\u0720\u0003\u0124\u0092\u0000\u071d\u071f\u0003"+
-		"\u0122\u0091\u0000\u071e\u071d\u0001\u0000\u0000\u0000\u071f\u0722\u0001"+
-		"\u0000\u0000\u0000\u0720\u071e\u0001\u0000\u0000\u0000\u0720\u0721\u0001"+
-		"\u0000\u0000\u0000\u0721\u0121\u0001\u0000\u0000\u0000\u0722\u0720\u0001"+
-		"\u0000\u0000\u0000\u0723\u0725\u0005\u00a7\u0000\u0000\u0724\u0726\u0003"+
-		"\u0128\u0094\u0000\u0725\u0724\u0001\u0000\u0000\u0000\u0725\u0726\u0001"+
-		"\u0000\u0000\u0000\u0726\u0727\u0001\u0000\u0000\u0000\u0727\u072f\u0005"+
-		"\u00a8\u0000\u0000\u0728\u0729\u0005\u00a9\u0000\u0000\u0729\u072a\u0003"+
-		"\u010e\u0087\u0000\u072a\u072b\u0005\u00aa\u0000\u0000\u072b\u072f\u0001"+
-		"\u0000\u0000\u0000\u072c\u072d\u0005\u00a4\u0000\u0000\u072d\u072f\u0005"+
-		"\u0096\u0000\u0000\u072e\u0723\u0001\u0000\u0000\u0000\u072e\u0728\u0001"+
-		"\u0000\u0000\u0000\u072e\u072c\u0001\u0000\u0000\u0000\u072f\u0123\u0001"+
-		"\u0000\u0000\u0000\u0730\u0742\u0005\u0096\u0000\u0000\u0731\u0742\u0005"+
-		"\u0094\u0000\u0000\u0732\u0742\u0005\u0095\u0000\u0000\u0733\u0734\u0005"+
-		"\u00a7\u0000\u0000\u0734\u0735\u0003\u010e\u0087\u0000\u0735\u0736\u0005"+
-		"\u00a8\u0000\u0000\u0736\u0742\u0001\u0000\u0000\u0000\u0737\u0739\u0005"+
-		"\u00a9\u0000\u0000\u0738\u073a\u0003\u0126\u0093\u0000\u0739\u0738\u0001"+
-		"\u0000\u0000\u0000\u0739\u073a\u0001\u0000\u0000\u0000\u073a\u073b\u0001"+
-		"\u0000\u0000\u0000\u073b\u0742\u0005\u00aa\u0000\u0000\u073c\u073e\u0005"+
-		"\u00ab\u0000\u0000\u073d\u073f\u0003\u012a\u0095\u0000\u073e\u073d\u0001"+
-		"\u0000\u0000\u0000\u073e\u073f\u0001\u0000\u0000\u0000\u073f\u0740\u0001"+
-		"\u0000\u0000\u0000\u0740\u0742\u0005\u00ac\u0000\u0000\u0741\u0730\u0001"+
-		"\u0000\u0000\u0000\u0741\u0731\u0001\u0000\u0000\u0000\u0741\u0732\u0001"+
-		"\u0000\u0000\u0000\u0741\u0733\u0001\u0000\u0000\u0000\u0741\u0737\u0001"+
-		"\u0000\u0000\u0000\u0741\u073c\u0001\u0000\u0000\u0000\u0742\u0125\u0001"+
-		"\u0000\u0000\u0000\u0743\u0748\u0003\u010e\u0087\u0000\u0744\u0745\u0005"+
-		"\u00a5\u0000\u0000\u0745\u0747\u0003\u010e\u0087\u0000\u0746\u0744\u0001"+
-		"\u0000\u0000\u0000\u0747\u074a\u0001\u0000\u0000\u0000\u0748\u0746\u0001"+
-		"\u0000\u0000\u0000\u0748\u0749\u0001\u0000\u0000\u0000\u0749\u0127\u0001"+
-		"\u0000\u0000\u0000\u074a\u0748\u0001\u0000\u0000\u0000\u074b\u0750\u0003"+
-		"\u010e\u0087\u0000\u074c\u074d\u0005\u00a5\u0000\u0000\u074d\u074f\u0003"+
-		"\u010e\u0087\u0000\u074e\u074c\u0001\u0000\u0000\u0000\u074f\u0752\u0001"+
-		"\u0000\u0000\u0000\u0750\u074e\u0001\u0000\u0000\u0000\u0750\u0751\u0001"+
-		"\u0000\u0000\u0000\u0751\u0129\u0001\u0000\u0000\u0000\u0752\u0750\u0001"+
-		"\u0000\u0000\u0000\u0753\u0754\u0003\u010e\u0087\u0000\u0754\u0755\u0005"+
-		"\u00ad\u0000\u0000\u0755\u075d\u0003\u010e\u0087\u0000\u0756\u0757\u0005"+
-		"\u00a5\u0000\u0000\u0757\u0758\u0003\u010e\u0087\u0000\u0758\u0759\u0005"+
-		"\u00ad\u0000\u0000\u0759\u075a\u0003\u010e\u0087\u0000\u075a\u075c\u0001"+
-		"\u0000\u0000\u0000\u075b\u0756\u0001\u0000\u0000\u0000\u075c\u075f\u0001"+
-		"\u0000\u0000\u0000\u075d\u075b\u0001\u0000\u0000\u0000\u075d\u075e\u0001"+
-		"\u0000\u0000\u0000\u075e\u012b\u0001\u0000\u0000\u0000\u075f\u075d\u0001"+
-		"\u0000\u0000\u0000\u00c4\u012e\u0130\u0137\u013e\u0141\u014b\u0150\u0156"+
-		"\u0160\u0166\u0168\u016d\u0173\u017a\u0181\u0187\u018e\u0197\u01a0\u01a6"+
-		"\u01a9\u01b2\u01b9\u01c2\u01d0\u01d6\u01da\u01e4\u01e8\u01ef\u01f9\u0201"+
-		"\u0207\u020f\u021b\u0222\u022a\u0230\u0238\u023d\u0246\u024d\u0254\u0259"+
-		"\u025e\u0261\u026b\u026e\u0278\u0285\u028d\u0294\u029a\u02a8\u02ad\u02b3"+
-		"\u02bc\u02c1\u02c8\u02cd\u02d4\u02d9\u02e0\u02e5\u02f6\u02fc\u0307\u0311"+
-		"\u031a\u031e\u0325\u0329\u0334\u0338\u033c\u034d\u0350\u0355\u0360\u036a"+
-		"\u036d\u0378\u0383\u0388\u038d\u0391\u03a2\u03ad\u03b8\u03bc\u03c3\u03c5"+
-		"\u03cd\u03cf\u03d1\u03d4\u03da\u03e1\u03eb\u03f3\u03f7\u03fd\u0401\u040f"+
-		"\u0414\u0422\u042c\u0437\u043d\u0445\u044b\u0450\u0456\u045e\u0462\u046a"+
-		"\u0471\u047a\u047c\u0480\u0485\u04a3\u04b5\u04ba\u04bf\u04c4\u04ea\u04ec"+
-		"\u04f6\u04f8\u0502\u0504\u050a\u0511\u0517\u0522\u052e\u0530\u0540\u0547"+
-		"\u0557\u0561\u0575\u0583\u058d\u058f\u059b\u05b5\u05c2\u05c4\u05d9\u05e0"+
-		"\u05e5\u05e9\u05f9\u0606\u0610\u061e\u0626\u0632\u0640\u064e\u0658\u065b"+
-		"\u0662\u0668\u066c\u067e\u0686\u0691\u069b\u069d\u06ac\u06b1\u06bc\u06c5"+
-		"\u06d1\u06d7\u06da\u06e3\u06eb\u06f1\u06f9\u0705\u070c\u0714\u071a\u0720"+
-		"\u0725\u072e\u0739\u073e\u0741\u0748\u0750\u075d";
+		"\u0092\u0002\u0093\u0007\u0093\u0001\u0000\u0001\u0000\u0005\u0000\u012b"+
+		"\b\u0000\n\u0000\f\u0000\u012e\t\u0000\u0001\u0000\u0001\u0000\u0001\u0001"+
+		"\u0001\u0001\u0003\u0001\u0134\b\u0001\u0001\u0002\u0001\u0002\u0001\u0002"+
+		"\u0005\u0002\u0139\b\u0002\n\u0002\f\u0002\u013c\t\u0002\u0003\u0002\u013e"+
+		"\b\u0002\u0001\u0002\u0001\u0002\u0001\u0003\u0001\u0003\u0001\u0003\u0001"+
+		"\u0003\u0001\u0003\u0001\u0003\u0003\u0003\u0148\b\u0003\u0001\u0004\u0001"+
+		"\u0004\u0001\u0004\u0003\u0004\u014d\b\u0004\u0001\u0005\u0001\u0005\u0001"+
+		"\u0005\u0001\u0005\u0003\u0005\u0153\b\u0005\u0001\u0006\u0001\u0006\u0001"+
+		"\u0006\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006\u0003"+
+		"\u0006\u015d\b\u0006\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0005"+
+		"\u0007\u0163\b\u0007\n\u0007\f\u0007\u0166\t\u0007\u0001\b\u0001\b\u0003"+
+		"\b\u016a\b\b\u0001\t\u0001\t\u0001\t\u0001\t\u0003\t\u0170\b\t\u0001\n"+
+		"\u0001\n\u0001\n\u0001\n\u0001\n\u0003\n\u0177\b\n\u0001\u000b\u0001\u000b"+
+		"\u0001\u000b\u0005\u000b\u017c\b\u000b\n\u000b\f\u000b\u017f\t\u000b\u0001"+
+		"\f\u0001\f\u0001\f\u0003\f\u0184\b\f\u0001\r\u0001\r\u0001\r\u0005\r\u0189"+
+		"\b\r\n\r\f\r\u018c\t\r\u0001\u000e\u0001\u000e\u0001\u000e\u0001\u000e"+
+		"\u0005\u000e\u0192\b\u000e\n\u000e\f\u000e\u0195\t\u000e\u0001\u000f\u0001"+
+		"\u000f\u0001\u000f\u0001\u0010\u0004\u0010\u019b\b\u0010\u000b\u0010\f"+
+		"\u0010\u019c\u0001\u0011\u0001\u0011\u0001\u0011\u0001\u0011\u0003\u0011"+
+		"\u01a3\b\u0011\u0001\u0011\u0003\u0011\u01a6\b\u0011\u0001\u0011\u0001"+
+		"\u0011\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0012\u0003"+
+		"\u0012\u01af\b\u0012\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0013\u0001"+
+		"\u0013\u0003\u0013\u01b6\b\u0013\u0001\u0013\u0001\u0013\u0001\u0014\u0001"+
+		"\u0014\u0001\u0014\u0005\u0014\u01bd\b\u0014\n\u0014\f\u0014\u01c0\t\u0014"+
+		"\u0001\u0015\u0001\u0015\u0001\u0015\u0001\u0015\u0001\u0015\u0001\u0015"+
+		"\u0001\u0015\u0001\u0015\u0001\u0015\u0005\u0015\u01cb\b\u0015\n\u0015"+
+		"\f\u0015\u01ce\t\u0015\u0001\u0015\u0001\u0015\u0001\u0015\u0003\u0015"+
+		"\u01d3\b\u0015\u0001\u0016\u0001\u0016\u0003\u0016\u01d7\b\u0016\u0001"+
+		"\u0017\u0001\u0017\u0001\u0018\u0001\u0018\u0001\u0018\u0001\u0018\u0004"+
+		"\u0018\u01df\b\u0018\u000b\u0018\f\u0018\u01e0\u0001\u0018\u0001\u0018"+
+		"\u0003\u0018\u01e5\b\u0018\u0001\u0019\u0001\u0019\u0001\u0019\u0005\u0019"+
+		"\u01ea\b\u0019\n\u0019\f\u0019\u01ed\t\u0019\u0001\u001a\u0001\u001a\u0001"+
+		"\u001b\u0001\u001b\u0001\u001b\u0005\u001b\u01f4\b\u001b\n\u001b\f\u001b"+
+		"\u01f7\t\u001b\u0001\u001c\u0001\u001c\u0001\u001c\u0005\u001c\u01fc\b"+
+		"\u001c\n\u001c\f\u001c\u01ff\t\u001c\u0001\u001d\u0001\u001d\u0001\u001d"+
+		"\u0003\u001d\u0204\b\u001d\u0001\u001e\u0001\u001e\u0001\u001e\u0001\u001e"+
+		"\u0005\u001e\u020a\b\u001e\n\u001e\f\u001e\u020d\t\u001e\u0001\u001f\u0001"+
+		"\u001f\u0001\u001f\u0001\u001f\u0001\u001f\u0001\u001f\u0001\u001f\u0001"+
+		"\u001f\u0001\u001f\u0003\u001f\u0218\b\u001f\u0001 \u0001 \u0001 \u0005"+
+		" \u021d\b \n \f \u0220\t \u0001!\u0001!\u0001!\u0005!\u0225\b!\n!\f!\u0228"+
+		"\t!\u0001\"\u0001\"\u0001\"\u0003\"\u022d\b\"\u0001#\u0001#\u0001$\u0001"+
+		"$\u0005$\u0233\b$\n$\f$\u0236\t$\u0001%\u0001%\u0003%\u023a\b%\u0001%"+
+		"\u0001%\u0001%\u0001%\u0001%\u0001%\u0001%\u0003%\u0243\b%\u0001&\u0001"+
+		"&\u0001&\u0004&\u0248\b&\u000b&\f&\u0249\u0001&\u0001&\u0001&\u0001&\u0001"+
+		"&\u0003&\u0251\b&\u0001&\u0001&\u0001&\u0003&\u0256\b&\u0001&\u0001&\u0001"+
+		"&\u0003&\u025b\b&\u0001&\u0003&\u025e\b&\u0001\'\u0001\'\u0001\'\u0001"+
+		"\'\u0001\'\u0001\'\u0005\'\u0266\b\'\n\'\f\'\u0269\t\'\u0003\'\u026b\b"+
+		"\'\u0001(\u0001(\u0001(\u0001(\u0001(\u0001(\u0005(\u0273\b(\n(\f(\u0276"+
+		"\t(\u0001)\u0001)\u0001)\u0001)\u0001)\u0001)\u0001)\u0001)\u0005)\u0280"+
+		"\b)\n)\f)\u0283\t)\u0001*\u0001*\u0001*\u0005*\u0288\b*\n*\f*\u028b\t"+
+		"*\u0001+\u0001+\u0001+\u0001+\u0003+\u0291\b+\u0001,\u0001,\u0005,\u0295"+
+		"\b,\n,\f,\u0298\t,\u0001,\u0001,\u0001,\u0001,\u0001,\u0001,\u0001,\u0001"+
+		",\u0001,\u0001,\u0001,\u0003,\u02a5\b,\u0001-\u0001-\u0001-\u0003-\u02aa"+
+		"\b-\u0001-\u0001-\u0001-\u0001-\u0003-\u02b0\b-\u0001.\u0001.\u0005.\u02b4"+
+		"\b.\n.\f.\u02b7\t.\u0005.\u02b9\b.\n.\f.\u02bc\t.\u0001.\u0001.\u0005"+
+		".\u02c0\b.\n.\f.\u02c3\t.\u0005.\u02c5\b.\n.\f.\u02c8\t.\u0001.\u0001"+
+		".\u0005.\u02cc\b.\n.\f.\u02cf\t.\u0005.\u02d1\b.\n.\f.\u02d4\t.\u0001"+
+		".\u0001.\u0005.\u02d8\b.\n.\f.\u02db\t.\u0005.\u02dd\b.\n.\f.\u02e0\t"+
+		".\u0001.\u0001.\u0001/\u0001/\u0001/\u0001/\u0001/\u0003/\u02e9\b/\u0001"+
+		"0\u00010\u00010\u00030\u02ee\b0\u00010\u00010\u00010\u00010\u00010\u0001"+
+		"0\u00030\u02f6\b0\u00010\u00010\u00010\u00010\u00030\u02fc\b0\u00010\u0001"+
+		"0\u00010\u00010\u00030\u0302\b0\u00030\u0304\b0\u00011\u00011\u00031\u0308"+
+		"\b1\u00011\u00011\u00031\u030c\b1\u00011\u00011\u00011\u00031\u0311\b"+
+		"1\u00011\u00011\u00031\u0315\b1\u00031\u0317\b1\u00012\u00012\u00013\u0001"+
+		"3\u00013\u00013\u00014\u00014\u00014\u00054\u0322\b4\n4\f4\u0325\t4\u0003"+
+		"4\u0327\b4\u00015\u00035\u032a\b5\u00015\u00015\u00015\u00055\u032f\b"+
+		"5\n5\f5\u0332\t5\u00015\u00015\u00015\u00055\u0337\b5\n5\f5\u033a\t5\u0003"+
+		"5\u033c\b5\u00016\u00016\u00017\u00017\u00017\u00017\u00037\u0344\b7\u0001"+
+		"7\u00017\u00018\u00018\u00019\u00019\u00039\u034c\b9\u00019\u00019\u0003"+
+		"9\u0350\b9\u00019\u00019\u00039\u0354\b9\u00059\u0356\b9\n9\f9\u0359\t"+
+		"9\u00019\u00019\u0001:\u0001:\u0001:\u0001;\u0001;\u0001;\u0005;\u0363"+
+		"\b;\n;\f;\u0366\t;\u0001<\u0001<\u0001<\u0001<\u0005<\u036c\b<\n<\f<\u036f"+
+		"\t<\u0001=\u0001=\u0001>\u0001>\u0003>\u0375\b>\u0001>\u0001>\u0001>\u0001"+
+		">\u0001>\u0005>\u037c\b>\n>\f>\u037f\t>\u0001>\u0001>\u0001>\u0001>\u0001"+
+		">\u0004>\u0386\b>\u000b>\f>\u0387\u0003>\u038a\b>\u0001?\u0003?\u038d"+
+		"\b?\u0001?\u0001?\u0001@\u0001@\u0003@\u0393\b@\u0001@\u0001@\u0001A\u0001"+
+		"A\u0001B\u0003B\u039a\bB\u0001B\u0001B\u0001C\u0001C\u0001C\u0001D\u0001"+
+		"D\u0003D\u03a3\bD\u0001D\u0001D\u0001D\u0001D\u0003D\u03a9\bD\u0003D\u03ab"+
+		"\bD\u0001D\u0001D\u0001E\u0001E\u0003E\u03b1\bE\u0001E\u0001E\u0003E\u03b5"+
+		"\bE\u0001F\u0001F\u0001F\u0001F\u0001G\u0001G\u0001G\u0001G\u0001G\u0001"+
+		"G\u0001G\u0003G\u03c2\bG\u0004G\u03c4\bG\u000bG\fG\u03c5\u0001H\u0001"+
+		"H\u0001H\u0001H\u0001I\u0001I\u0001I\u0001I\u0001I\u0001I\u0003I\u03d2"+
+		"\bI\u0001J\u0001J\u0001J\u0001J\u0003J\u03d8\bJ\u0001K\u0001K\u0001K\u0001"+
+		"K\u0001K\u0001K\u0003K\u03e0\bK\u0001L\u0001L\u0001L\u0003L\u03e5\bL\u0001"+
+		"L\u0001L\u0001L\u0005L\u03ea\bL\nL\fL\u03ed\tL\u0001L\u0001L\u0003L\u03f1"+
+		"\bL\u0001L\u0003L\u03f4\bL\u0001M\u0005M\u03f7\bM\nM\fM\u03fa\tM\u0001"+
+		"M\u0001M\u0001M\u0003M\u03ff\bM\u0005M\u0401\bM\nM\fM\u0404\tM\u0001N"+
+		"\u0001N\u0001N\u0001N\u0003N\u040a\bN\u0001N\u0001N\u0001N\u0001N\u0003"+
+		"N\u0410\bN\u0001O\u0001O\u0001P\u0001P\u0001P\u0004P\u0417\bP\u000bP\f"+
+		"P\u0418\u0001Q\u0001Q\u0003Q\u041d\bQ\u0001Q\u0005Q\u0420\bQ\nQ\fQ\u0423"+
+		"\tQ\u0001R\u0001R\u0001R\u0001R\u0001R\u0001R\u0001R\u0001R\u0001R\u0001"+
+		"R\u0001R\u0001R\u0001R\u0003R\u0432\bR\u0001S\u0001S\u0001S\u0001S\u0001"+
+		"T\u0001T\u0001T\u0001T\u0001U\u0001U\u0001V\u0003V\u043f\bV\u0001V\u0001"+
+		"V\u0001W\u0003W\u0444\bW\u0001W\u0001W\u0001X\u0003X\u0449\bX\u0001X\u0001"+
+		"X\u0001Y\u0003Y\u044e\bY\u0001Y\u0001Y\u0001Z\u0001Z\u0001Z\u0001Z\u0001"+
+		"Z\u0001Z\u0001Z\u0001Z\u0001Z\u0001Z\u0001Z\u0001Z\u0001Z\u0001Z\u0001"+
+		"Z\u0005Z\u0461\bZ\nZ\fZ\u0464\tZ\u0001Z\u0001Z\u0001Z\u0001Z\u0005Z\u046a"+
+		"\bZ\nZ\fZ\u046d\tZ\u0001Z\u0001Z\u0001Z\u0001Z\u0005Z\u0473\bZ\nZ\fZ\u0476"+
+		"\tZ\u0001Z\u0003Z\u0479\bZ\u0001[\u0001[\u0005[\u047d\b[\n[\f[\u0480\t"+
+		"[\u0001[\u0001[\u0003[\u0484\b[\u0001\\\u0001\\\u0001\\\u0001\\\u0001"+
+		"\\\u0003\\\u048b\b\\\u0001]\u0001]\u0001]\u0001]\u0001]\u0001]\u0001]"+
+		"\u0005]\u0494\b]\n]\f]\u0497\t]\u0001]\u0001]\u0001^\u0001^\u0001^\u0001"+
+		"^\u0001^\u0001^\u0001^\u0001^\u0001^\u0001^\u0003^\u04a5\b^\u0001_\u0001"+
+		"_\u0005_\u04a9\b_\n_\f_\u04ac\t_\u0001_\u0001_\u0001`\u0001`\u0001`\u0001"+
+		"`\u0001a\u0001a\u0001a\u0001a\u0003a\u04b8\ba\u0001b\u0001b\u0001b\u0001"+
+		"b\u0001b\u0001b\u0003b\u04c0\bb\u0001c\u0001c\u0001c\u0001c\u0001d\u0001"+
+		"d\u0001d\u0001d\u0001d\u0004d\u04cb\bd\u000bd\fd\u04cc\u0001e\u0001e\u0001"+
+		"e\u0001e\u0001e\u0004e\u04d4\be\u000be\fe\u04d5\u0001f\u0001f\u0001f\u0001"+
+		"f\u0001g\u0001g\u0001g\u0005g\u04df\bg\ng\fg\u04e2\tg\u0001g\u0001g\u0001"+
+		"h\u0001h\u0001h\u0001h\u0003h\u04ea\bh\u0001i\u0001i\u0001i\u0001i\u0001"+
+		"j\u0001j\u0001j\u0001j\u0001k\u0001k\u0001k\u0001k\u0001k\u0005k\u04f9"+
+		"\bk\nk\fk\u04fc\tk\u0001l\u0001l\u0001l\u0001l\u0001l\u0005l\u0503\bl"+
+		"\nl\fl\u0506\tl\u0001m\u0001m\u0001m\u0001m\u0001m\u0001m\u0001m\u0001"+
+		"m\u0003m\u0510\bm\u0001n\u0001n\u0001n\u0003n\u0515\bn\u0001n\u0001n\u0003"+
+		"n\u0519\bn\u0005n\u051b\bn\nn\fn\u051e\tn\u0001n\u0001n\u0001o\u0001o"+
+		"\u0001o\u0001o\u0001o\u0001o\u0001o\u0001o\u0003o\u052a\bo\u0001p\u0001"+
+		"p\u0001p\u0001p\u0001p\u0005p\u0531\bp\np\fp\u0534\tp\u0001p\u0001p\u0001"+
+		"q\u0001q\u0001q\u0003q\u053b\bq\u0001q\u0001q\u0001r\u0001r\u0001r\u0005"+
+		"r\u0542\br\nr\fr\u0545\tr\u0001s\u0001s\u0001s\u0003s\u054a\bs\u0001s"+
+		"\u0001s\u0001t\u0001t\u0001t\u0001t\u0003t\u0552\bt\u0001t\u0001t\u0001"+
+		"u\u0001u\u0001u\u0001u\u0005u\u055a\bu\nu\fu\u055d\tu\u0001u\u0001u\u0001"+
+		"v\u0001v\u0001v\u0005v\u0564\bv\nv\fv\u0567\tv\u0001w\u0001w\u0001w\u0005"+
+		"w\u056c\bw\nw\fw\u056f\tw\u0003w\u0571\bw\u0001x\u0001x\u0001x\u0003x"+
+		"\u0576\bx\u0001x\u0001x\u0003x\u057a\bx\u0005x\u057c\bx\nx\fx\u057f\t"+
+		"x\u0001x\u0001x\u0001y\u0001y\u0001z\u0001z\u0001z\u0001z\u0005z\u0589"+
+		"\bz\nz\fz\u058c\tz\u0001{\u0001{\u0001|\u0001|\u0001|\u0001|\u0001}\u0001"+
+		"}\u0001}\u0001}\u0003}\u0598\b}\u0001}\u0001}\u0001}\u0001}\u0001}\u0001"+
+		"}\u0001}\u0001}\u0003}\u05a2\b}\u0003}\u05a4\b}\u0001~\u0001~\u0001~\u0001"+
+		"~\u0001\u007f\u0001\u007f\u0001\u007f\u0001\u007f\u0001\u007f\u0001\u007f"+
+		"\u0001\u007f\u0005\u007f\u05b1\b\u007f\n\u007f\f\u007f\u05b4\t\u007f\u0001"+
+		"\u007f\u0001\u007f\u0003\u007f\u05b8\b\u007f\u0001\u007f\u0001\u007f\u0001"+
+		"\u0080\u0001\u0080\u0001\u0080\u0001\u0080\u0001\u0080\u0001\u0080\u0001"+
+		"\u0080\u0003\u0080\u05c3\b\u0080\u0001\u0080\u0001\u0080\u0001\u0081\u0001"+
+		"\u0081\u0001\u0081\u0005\u0081\u05ca\b\u0081\n\u0081\f\u0081\u05cd\t\u0081"+
+		"\u0001\u0082\u0001\u0082\u0001\u0082\u0001\u0082\u0001\u0083\u0001\u0083"+
+		"\u0001\u0083\u0005\u0083\u05d6\b\u0083\n\u0083\f\u0083\u05d9\t\u0083\u0001"+
+		"\u0084\u0001\u0084\u0001\u0084\u0003\u0084\u05de\b\u0084\u0001\u0084\u0003"+
+		"\u0084\u05e1\b\u0084\u0001\u0085\u0001\u0085\u0001\u0086\u0001\u0086\u0001"+
+		"\u0086\u0005\u0086\u05e8\b\u0086\n\u0086\f\u0086\u05eb\t\u0086\u0001\u0087"+
+		"\u0001\u0087\u0001\u0087\u0005\u0087\u05f0\b\u0087\n\u0087\f\u0087\u05f3"+
+		"\t\u0087\u0001\u0088\u0001\u0088\u0001\u0088\u0003\u0088\u05f8\b\u0088"+
+		"\u0001\u0089\u0001\u0089\u0001\u0089\u0001\u0089\u0005\u0089\u05fe\b\u0089"+
+		"\n\u0089\f\u0089\u0601\t\u0089\u0001\u008a\u0001\u008a\u0001\u008a\u0001"+
+		"\u008a\u0001\u008a\u0001\u008a\u0001\u008a\u0001\u008a\u0001\u008a\u0003"+
+		"\u008a\u060c\b\u008a\u0001\u008b\u0001\u008b\u0001\u008b\u0005\u008b\u0611"+
+		"\b\u008b\n\u008b\f\u008b\u0614\t\u008b\u0001\u008c\u0001\u008c\u0001\u008c"+
+		"\u0005\u008c\u0619\b\u008c\n\u008c\f\u008c\u061c\t\u008c\u0001\u008d\u0001"+
+		"\u008d\u0001\u008d\u0003\u008d\u0621\b\u008d\u0001\u008e\u0001\u008e\u0005"+
+		"\u008e\u0625\b\u008e\n\u008e\f\u008e\u0628\t\u008e\u0001\u008f\u0001\u008f"+
+		"\u0003\u008f\u062c\b\u008f\u0001\u008f\u0001\u008f\u0001\u008f\u0001\u008f"+
+		"\u0001\u008f\u0001\u008f\u0001\u008f\u0003\u008f\u0635\b\u008f\u0001\u0090"+
+		"\u0001\u0090\u0001\u0090\u0001\u0090\u0001\u0090\u0001\u0090\u0001\u0090"+
+		"\u0001\u0090\u0001\u0090\u0003\u0090\u0640\b\u0090\u0001\u0090\u0001\u0090"+
+		"\u0001\u0090\u0003\u0090\u0645\b\u0090\u0001\u0090\u0003\u0090\u0648\b"+
+		"\u0090\u0001\u0091\u0001\u0091\u0001\u0091\u0005\u0091\u064d\b\u0091\n"+
+		"\u0091\f\u0091\u0650\t\u0091\u0001\u0092\u0001\u0092\u0001\u0092\u0005"+
+		"\u0092\u0655\b\u0092\n\u0092\f\u0092\u0658\t\u0092\u0001\u0093\u0001\u0093"+
+		"\u0001\u0093\u0001\u0093\u0001\u0093\u0001\u0093\u0001\u0093\u0001\u0093"+
+		"\u0005\u0093\u0662\b\u0093\n\u0093\f\u0093\u0665\t\u0093\u0001\u0093\u0000"+
+		"\u0000\u0094\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016"+
+		"\u0018\u001a\u001c\u001e \"$&(*,.02468:<>@BDFHJLNPRTVXZ\\^`bdfhjlnprt"+
+		"vxz|~\u0080\u0082\u0084\u0086\u0088\u008a\u008c\u008e\u0090\u0092\u0094"+
+		"\u0096\u0098\u009a\u009c\u009e\u00a0\u00a2\u00a4\u00a6\u00a8\u00aa\u00ac"+
+		"\u00ae\u00b0\u00b2\u00b4\u00b6\u00b8\u00ba\u00bc\u00be\u00c0\u00c2\u00c4"+
+		"\u00c6\u00c8\u00ca\u00cc\u00ce\u00d0\u00d2\u00d4\u00d6\u00d8\u00da\u00dc"+
+		"\u00de\u00e0\u00e2\u00e4\u00e6\u00e8\u00ea\u00ec\u00ee\u00f0\u00f2\u00f4"+
+		"\u00f6\u00f8\u00fa\u00fc\u00fe\u0100\u0102\u0104\u0106\u0108\u010a\u010c"+
+		"\u010e\u0110\u0112\u0114\u0116\u0118\u011a\u011c\u011e\u0120\u0122\u0124"+
+		"\u0126\u0000\u000e\u0002\u0000\u0003\u0003\u001c\u001c\u0001\u0000%&\u0001"+
+		"\u0000\')\u0001\u0000FG\u0002\u0000bbdf\u0001\u0000st\u0004\u0000OOQQ"+
+		"SSdd\u0003\u0000[[gh{}\u0001\u0000OP\u0002\u0000VV\u008d\u008d\u0002\u0000"+
+		"pp\u0082\u0083\u0004\u0000su\u0080\u0080\u0082\u0083\u008c\u008c\u0001"+
+		"\u0000\u0094\u0095\u0001\u0000\u0096\u0099\u0704\u0000\u012c\u0001\u0000"+
+		"\u0000\u0000\u0002\u0133\u0001\u0000\u0000\u0000\u0004\u013d\u0001\u0000"+
+		"\u0000\u0000\u0006\u0147\u0001\u0000\u0000\u0000\b\u014c\u0001\u0000\u0000"+
+		"\u0000\n\u014e\u0001\u0000\u0000\u0000\f\u015c\u0001\u0000\u0000\u0000"+
+		"\u000e\u0164\u0001\u0000\u0000\u0000\u0010\u0169\u0001\u0000\u0000\u0000"+
+		"\u0012\u016b\u0001\u0000\u0000\u0000\u0014\u0171\u0001\u0000\u0000\u0000"+
+		"\u0016\u0178\u0001\u0000\u0000\u0000\u0018\u0180\u0001\u0000\u0000\u0000"+
+		"\u001a\u0185\u0001\u0000\u0000\u0000\u001c\u018d\u0001\u0000\u0000\u0000"+
+		"\u001e\u0196\u0001\u0000\u0000\u0000 \u019a\u0001\u0000\u0000\u0000\""+
+		"\u019e\u0001\u0000\u0000\u0000$\u01a9\u0001\u0000\u0000\u0000&\u01b3\u0001"+
+		"\u0000\u0000\u0000(\u01b9\u0001\u0000\u0000\u0000*\u01c1\u0001\u0000\u0000"+
+		"\u0000,\u01d4\u0001\u0000\u0000\u0000.\u01d8\u0001\u0000\u0000\u00000"+
+		"\u01e4\u0001\u0000\u0000\u00002\u01e6\u0001\u0000\u0000\u00004\u01ee\u0001"+
+		"\u0000\u0000\u00006\u01f0\u0001\u0000\u0000\u00008\u01f8\u0001\u0000\u0000"+
+		"\u0000:\u0203\u0001\u0000\u0000\u0000<\u0205\u0001\u0000\u0000\u0000>"+
+		"\u0217\u0001\u0000\u0000\u0000@\u0219\u0001\u0000\u0000\u0000B\u0221\u0001"+
+		"\u0000\u0000\u0000D\u022c\u0001\u0000\u0000\u0000F\u022e\u0001\u0000\u0000"+
+		"\u0000H\u0230\u0001\u0000\u0000\u0000J\u0242\u0001\u0000\u0000\u0000L"+
+		"\u025d\u0001\u0000\u0000\u0000N\u026a\u0001\u0000\u0000\u0000P\u026c\u0001"+
+		"\u0000\u0000\u0000R\u0277\u0001\u0000\u0000\u0000T\u0284\u0001\u0000\u0000"+
+		"\u0000V\u0290\u0001\u0000\u0000\u0000X\u02a4\u0001\u0000\u0000\u0000Z"+
+		"\u02af\u0001\u0000\u0000\u0000\\\u02ba\u0001\u0000\u0000\u0000^\u02e8"+
+		"\u0001\u0000\u0000\u0000`\u0303\u0001\u0000\u0000\u0000b\u0316\u0001\u0000"+
+		"\u0000\u0000d\u0318\u0001\u0000\u0000\u0000f\u031a\u0001\u0000\u0000\u0000"+
+		"h\u0326\u0001\u0000\u0000\u0000j\u033b\u0001\u0000\u0000\u0000l\u033d"+
+		"\u0001\u0000\u0000\u0000n\u033f\u0001\u0000\u0000\u0000p\u0347\u0001\u0000"+
+		"\u0000\u0000r\u0349\u0001\u0000\u0000\u0000t\u035c\u0001\u0000\u0000\u0000"+
+		"v\u035f\u0001\u0000\u0000\u0000x\u0367\u0001\u0000\u0000\u0000z\u0370"+
+		"\u0001\u0000\u0000\u0000|\u0389\u0001\u0000\u0000\u0000~\u038c\u0001\u0000"+
+		"\u0000\u0000\u0080\u0392\u0001\u0000\u0000\u0000\u0082\u0396\u0001\u0000"+
+		"\u0000\u0000\u0084\u0399\u0001\u0000\u0000\u0000\u0086\u039d\u0001\u0000"+
+		"\u0000\u0000\u0088\u03a0\u0001\u0000\u0000\u0000\u008a\u03ae\u0001\u0000"+
+		"\u0000\u0000\u008c\u03b6\u0001\u0000\u0000\u0000\u008e\u03c3\u0001\u0000"+
+		"\u0000\u0000\u0090\u03c7\u0001\u0000\u0000\u0000\u0092\u03d1\u0001\u0000"+
+		"\u0000\u0000\u0094\u03d7\u0001\u0000\u0000\u0000\u0096\u03df\u0001\u0000"+
+		"\u0000\u0000\u0098\u03f3\u0001\u0000\u0000\u0000\u009a\u03f8\u0001\u0000"+
+		"\u0000\u0000\u009c\u040f\u0001\u0000\u0000\u0000\u009e\u0411\u0001\u0000"+
+		"\u0000\u0000\u00a0\u0416\u0001\u0000\u0000\u0000\u00a2\u041a\u0001\u0000"+
+		"\u0000\u0000\u00a4\u0431\u0001\u0000\u0000\u0000\u00a6\u0433\u0001\u0000"+
+		"\u0000\u0000\u00a8\u0437\u0001\u0000\u0000\u0000\u00aa\u043b\u0001\u0000"+
+		"\u0000\u0000\u00ac\u043e\u0001\u0000\u0000\u0000\u00ae\u0443\u0001\u0000"+
+		"\u0000\u0000\u00b0\u0448\u0001\u0000\u0000\u0000\u00b2\u044d\u0001\u0000"+
+		"\u0000\u0000\u00b4\u0478\u0001\u0000\u0000\u0000\u00b6\u047a\u0001\u0000"+
+		"\u0000\u0000\u00b8\u048a\u0001\u0000\u0000\u0000\u00ba\u048c\u0001\u0000"+
+		"\u0000\u0000\u00bc\u04a4\u0001\u0000\u0000\u0000\u00be\u04a6\u0001\u0000"+
+		"\u0000\u0000\u00c0\u04af\u0001\u0000\u0000\u0000\u00c2\u04b7\u0001\u0000"+
+		"\u0000\u0000\u00c4\u04bf\u0001\u0000\u0000\u0000\u00c6\u04c1\u0001\u0000"+
+		"\u0000\u0000\u00c8\u04c5\u0001\u0000\u0000\u0000\u00ca\u04ce\u0001\u0000"+
+		"\u0000\u0000\u00cc\u04d7\u0001\u0000\u0000\u0000\u00ce\u04db\u0001\u0000"+
+		"\u0000\u0000\u00d0\u04e9\u0001\u0000\u0000\u0000\u00d2\u04eb\u0001\u0000"+
+		"\u0000\u0000\u00d4\u04ef\u0001\u0000\u0000\u0000\u00d6\u04f3\u0001\u0000"+
+		"\u0000\u0000\u00d8\u04fd\u0001\u0000\u0000\u0000\u00da\u050f\u0001\u0000"+
+		"\u0000\u0000\u00dc\u0511\u0001\u0000\u0000\u0000\u00de\u0529\u0001\u0000"+
+		"\u0000\u0000\u00e0\u052b\u0001\u0000\u0000\u0000\u00e2\u0537\u0001\u0000"+
+		"\u0000\u0000\u00e4\u053e\u0001\u0000\u0000\u0000\u00e6\u0546\u0001\u0000"+
+		"\u0000\u0000\u00e8\u054d\u0001\u0000\u0000\u0000\u00ea\u0555\u0001\u0000"+
+		"\u0000\u0000\u00ec\u0560\u0001\u0000\u0000\u0000\u00ee\u0570\u0001\u0000"+
+		"\u0000\u0000\u00f0\u0572\u0001\u0000\u0000\u0000\u00f2\u0582\u0001\u0000"+
+		"\u0000\u0000\u00f4\u0584\u0001\u0000\u0000\u0000\u00f6\u058d\u0001\u0000"+
+		"\u0000\u0000\u00f8\u058f\u0001\u0000\u0000\u0000\u00fa\u05a3\u0001\u0000"+
+		"\u0000\u0000\u00fc\u05a5\u0001\u0000\u0000\u0000\u00fe\u05a9\u0001\u0000"+
+		"\u0000\u0000\u0100\u05bb\u0001\u0000\u0000\u0000\u0102\u05c6\u0001\u0000"+
+		"\u0000\u0000\u0104\u05ce\u0001\u0000\u0000\u0000\u0106\u05d2\u0001\u0000"+
+		"\u0000\u0000\u0108\u05da\u0001\u0000\u0000\u0000\u010a\u05e2\u0001\u0000"+
+		"\u0000\u0000\u010c\u05e4\u0001\u0000\u0000\u0000\u010e\u05ec\u0001\u0000"+
+		"\u0000\u0000\u0110\u05f7\u0001\u0000\u0000\u0000\u0112\u05f9\u0001\u0000"+
+		"\u0000\u0000\u0114\u060b\u0001\u0000\u0000\u0000\u0116\u060d\u0001\u0000"+
+		"\u0000\u0000\u0118\u0615\u0001\u0000\u0000\u0000\u011a\u0620\u0001\u0000"+
+		"\u0000\u0000\u011c\u0622\u0001\u0000\u0000\u0000\u011e\u0634\u0001\u0000"+
+		"\u0000\u0000\u0120\u0647\u0001\u0000\u0000\u0000\u0122\u0649\u0001\u0000"+
+		"\u0000\u0000\u0124\u0651\u0001\u0000\u0000\u0000\u0126\u0659\u0001\u0000"+
+		"\u0000\u0000\u0128\u012b\u0003\u0002\u0001\u0000\u0129\u012b\u0005\u0003"+
+		"\u0000\u0000\u012a\u0128\u0001\u0000\u0000\u0000\u012a\u0129\u0001\u0000"+
+		"\u0000\u0000\u012b\u012e\u0001\u0000\u0000\u0000\u012c\u012a\u0001\u0000"+
+		"\u0000\u0000\u012c\u012d\u0001\u0000\u0000\u0000\u012d\u012f\u0001\u0000"+
+		"\u0000\u0000\u012e\u012c\u0001\u0000\u0000\u0000\u012f\u0130\u0005\u0000"+
+		"\u0000\u0001\u0130\u0001\u0001\u0000\u0000\u0000\u0131\u0134\u0003\b\u0004"+
+		"\u0000\u0132\u0134\u0003\u0004\u0002\u0000\u0133\u0131\u0001\u0000\u0000"+
+		"\u0000\u0133\u0132\u0001\u0000\u0000\u0000\u0134\u0003\u0001\u0000\u0000"+
+		"\u0000\u0135\u013a\u0003\u0006\u0003\u0000\u0136\u0137\u0005\u001c\u0000"+
+		"\u0000\u0137\u0139\u0003\u0006\u0003\u0000\u0138\u0136\u0001\u0000\u0000"+
+		"\u0000\u0139\u013c\u0001\u0000\u0000\u0000\u013a\u0138\u0001\u0000\u0000"+
+		"\u0000\u013a\u013b\u0001\u0000\u0000\u0000\u013b\u013e\u0001\u0000\u0000"+
+		"\u0000\u013c\u013a\u0001\u0000\u0000\u0000\u013d\u0135\u0001\u0000\u0000"+
+		"\u0000\u013d\u013e\u0001\u0000\u0000\u0000\u013e\u013f\u0001\u0000\u0000"+
+		"\u0000\u013f\u0140\u0007\u0000\u0000\u0000\u0140\u0005\u0001\u0000\u0000"+
+		"\u0000\u0141\u0148\u0003\n\u0005\u0000\u0142\u0148\u0003\u0010\b\u0000"+
+		"\u0143\u0148\u0003,\u0016\u0000\u0144\u0148\u0003\u001c\u000e\u0000\u0145"+
+		"\u0148\u0003@ \u0000\u0146\u0148\u0003.\u0017\u0000\u0147\u0141\u0001"+
+		"\u0000\u0000\u0000\u0147\u0142\u0001\u0000\u0000\u0000\u0147\u0143\u0001"+
+		"\u0000\u0000\u0000\u0147\u0144\u0001\u0000\u0000\u0000\u0147\u0145\u0001"+
+		"\u0000\u0000\u0000\u0147\u0146\u0001\u0000\u0000\u0000\u0148\u0007\u0001"+
+		"\u0000\u0000\u0000\u0149\u014d\u0003*\u0015\u0000\u014a\u014d\u0003$\u0012"+
+		"\u0000\u014b\u014d\u0003\u001e\u000f\u0000\u014c\u0149\u0001\u0000\u0000"+
+		"\u0000\u014c\u014a\u0001\u0000\u0000\u0000\u014c\u014b\u0001\u0000\u0000"+
+		"\u0000\u014d\t\u0001\u0000\u0000\u0000\u014e\u014f\u00051\u0000\u0000"+
+		"\u014f\u0152\u0005\u001e\u0000\u0000\u0150\u0153\u00034\u001a\u0000\u0151"+
+		"\u0153\u0003\f\u0006\u0000\u0152\u0150\u0001\u0000\u0000\u0000\u0152\u0151"+
+		"\u0001\u0000\u0000\u0000\u0153\u000b\u0001\u0000\u0000\u0000\u0154\u0155"+
+		"\u00054\u0000\u0000\u0155\u0156\u0003\u000e\u0007\u0000\u0156\u0157\u0005"+
+		"6\u0000\u0000\u0157\u015d\u0001\u0000\u0000\u0000\u0158\u0159\u00055\u0000"+
+		"\u0000\u0159\u015a\u0003\u000e\u0007\u0000\u015a\u015b\u00057\u0000\u0000"+
+		"\u015b\u015d\u0001\u0000\u0000\u0000\u015c\u0154\u0001\u0000\u0000\u0000"+
+		"\u015c\u0158\u0001\u0000\u0000\u0000\u015d\r\u0001\u0000\u0000\u0000\u015e"+
+		"\u0163\u0003X,\u0000\u015f\u0163\u0003\u00f8|\u0000\u0160\u0163\u0003"+
+		"\u0104\u0082\u0000\u0161\u0163\u0005E\u0000\u0000\u0162\u015e\u0001\u0000"+
+		"\u0000\u0000\u0162\u015f\u0001\u0000\u0000\u0000\u0162\u0160\u0001\u0000"+
+		"\u0000\u0000\u0162\u0161\u0001\u0000\u0000\u0000\u0163\u0166\u0001\u0000"+
+		"\u0000\u0000\u0164\u0162\u0001\u0000\u0000\u0000\u0164\u0165\u0001\u0000"+
+		"\u0000\u0000\u0165\u000f\u0001\u0000\u0000\u0000\u0166\u0164\u0001\u0000"+
+		"\u0000\u0000\u0167\u016a\u0003\u0012\t\u0000\u0168\u016a\u0003\u0014\n"+
+		"\u0000\u0169\u0167\u0001\u0000\u0000\u0000\u0169\u0168\u0001\u0000\u0000"+
+		"\u0000\u016a\u0011\u0001\u0000\u0000\u0000\u016b\u016c\u0005\t\u0000\u0000"+
+		"\u016c\u016f\u0003\u001a\r\u0000\u016d\u016e\u0005\n\u0000\u0000\u016e"+
+		"\u0170\u00051\u0000\u0000\u016f\u016d\u0001\u0000\u0000\u0000\u016f\u0170"+
+		"\u0001\u0000\u0000\u0000\u0170\u0013\u0001\u0000\u0000\u0000\u0171\u0172"+
+		"\u0005\b\u0000\u0000\u0172\u0173\u0003\u001a\r\u0000\u0173\u0176\u0005"+
+		"\t\u0000\u0000\u0174\u0177\u0005\'\u0000\u0000\u0175\u0177\u0003\u0016"+
+		"\u000b\u0000\u0176\u0174\u0001\u0000\u0000\u0000\u0176\u0175\u0001\u0000"+
+		"\u0000\u0000\u0177\u0015\u0001\u0000\u0000\u0000\u0178\u017d\u0003\u0018"+
+		"\f\u0000\u0179\u017a\u0005\u001d\u0000\u0000\u017a\u017c\u0003\u0018\f"+
+		"\u0000\u017b\u0179\u0001\u0000\u0000\u0000\u017c\u017f\u0001\u0000\u0000"+
+		"\u0000\u017d\u017b\u0001\u0000\u0000\u0000\u017d\u017e\u0001\u0000\u0000"+
+		"\u0000\u017e\u0017\u0001\u0000\u0000\u0000\u017f\u017d\u0001\u0000\u0000"+
+		"\u0000\u0180\u0183\u00051\u0000\u0000\u0181\u0182\u0005\n\u0000\u0000"+
+		"\u0182\u0184\u00051\u0000\u0000\u0183\u0181\u0001\u0000\u0000\u0000\u0183"+
+		"\u0184\u0001\u0000\u0000\u0000\u0184\u0019\u0001\u0000\u0000\u0000\u0185"+
+		"\u018a\u00051\u0000\u0000\u0186\u0187\u00050\u0000\u0000\u0187\u0189\u0005"+
+		"1\u0000\u0000\u0188\u0186\u0001\u0000\u0000\u0000\u0189\u018c\u0001\u0000"+
+		"\u0000\u0000\u018a\u0188\u0001\u0000\u0000\u0000\u018a\u018b\u0001\u0000"+
+		"\u0000\u0000\u018b\u001b\u0001\u0000\u0000\u0000\u018c\u018a\u0001\u0000"+
+		"\u0000\u0000\u018d\u018e\u0005\u0010\u0000\u0000\u018e\u0193\u00051\u0000"+
+		"\u0000\u018f\u0190\u0005\u001d\u0000\u0000\u0190\u0192\u00051\u0000\u0000"+
+		"\u0191\u018f\u0001\u0000\u0000\u0000\u0192\u0195\u0001\u0000\u0000\u0000"+
+		"\u0193\u0191\u0001\u0000\u0000\u0000\u0193\u0194\u0001\u0000\u0000\u0000"+
+		"\u0194\u001d\u0001\u0000\u0000\u0000\u0195\u0193\u0001\u0000\u0000\u0000"+
+		"\u0196\u0197\u0003 \u0010\u0000\u0197\u0198\u0003$\u0012\u0000\u0198\u001f"+
+		"\u0001\u0000\u0000\u0000\u0199\u019b\u0003\"\u0011\u0000\u019a\u0199\u0001"+
+		"\u0000\u0000\u0000\u019b\u019c\u0001\u0000\u0000\u0000\u019c\u019a\u0001"+
+		"\u0000\u0000\u0000\u019c\u019d\u0001\u0000\u0000\u0000\u019d!\u0001\u0000"+
+		"\u0000\u0000\u019e\u019f\u0005\u001a\u0000\u0000\u019f\u01a5\u0003\u001a"+
+		"\r\u0000\u01a0\u01a2\u0005*\u0000\u0000\u01a1\u01a3\u0003T*\u0000\u01a2"+
+		"\u01a1\u0001\u0000\u0000\u0000\u01a2\u01a3\u0001\u0000\u0000\u0000\u01a3"+
+		"\u01a4\u0001\u0000\u0000\u0000\u01a4\u01a6\u0005+\u0000\u0000\u01a5\u01a0"+
+		"\u0001\u0000\u0000\u0000\u01a5\u01a6\u0001\u0000\u0000\u0000\u01a6\u01a7"+
+		"\u0001\u0000\u0000\u0000\u01a7\u01a8\u0005\u0003\u0000\u0000\u01a8#\u0001"+
+		"\u0000\u0000\u0000\u01a9\u01aa\u0005\u0006\u0000\u0000\u01aa\u01ab\u0005"+
+		"1\u0000\u0000\u01ab\u01ae\u0003&\u0013\u0000\u01ac\u01ad\u0005\u0019\u0000"+
+		"\u0000\u01ad\u01af\u00034\u001a\u0000\u01ae\u01ac\u0001\u0000\u0000\u0000"+
+		"\u01ae\u01af\u0001\u0000\u0000\u0000\u01af\u01b0\u0001\u0000\u0000\u0000"+
+		"\u01b0\u01b1\u0005\u001b\u0000\u0000\u01b1\u01b2\u00030\u0018\u0000\u01b2"+
+		"%\u0001\u0000\u0000\u0000\u01b3\u01b5\u0005*\u0000\u0000\u01b4\u01b6\u0003"+
+		"(\u0014\u0000\u01b5\u01b4\u0001\u0000\u0000\u0000\u01b5\u01b6\u0001\u0000"+
+		"\u0000\u0000\u01b6\u01b7\u0001\u0000\u0000\u0000\u01b7\u01b8\u0005+\u0000"+
+		"\u0000\u01b8\'\u0001\u0000\u0000\u0000\u01b9\u01be\u00051\u0000\u0000"+
+		"\u01ba\u01bb\u0005\u001d\u0000\u0000\u01bb\u01bd\u00051\u0000\u0000\u01bc"+
+		"\u01ba\u0001\u0000\u0000\u0000\u01bd\u01c0\u0001\u0000\u0000\u0000\u01be"+
+		"\u01bc\u0001\u0000\u0000\u0000\u01be\u01bf\u0001\u0000\u0000\u0000\u01bf"+
+		")\u0001\u0000\u0000\u0000\u01c0\u01be\u0001\u0000\u0000\u0000\u01c1\u01c2"+
+		"\u0005\u000b\u0000\u0000\u01c2\u01c3\u00034\u001a\u0000\u01c3\u01c4\u0005"+
+		"\u001b\u0000\u0000\u01c4\u01cc\u00030\u0018\u0000\u01c5\u01c6\u0005\f"+
+		"\u0000\u0000\u01c6\u01c7\u00034\u001a\u0000\u01c7\u01c8\u0005\u001b\u0000"+
+		"\u0000\u01c8\u01c9\u00030\u0018\u0000\u01c9\u01cb\u0001\u0000\u0000\u0000"+
+		"\u01ca\u01c5\u0001\u0000\u0000\u0000\u01cb\u01ce\u0001\u0000\u0000\u0000"+
+		"\u01cc\u01ca\u0001\u0000\u0000\u0000\u01cc\u01cd\u0001\u0000\u0000\u0000"+
+		"\u01cd\u01d2\u0001\u0000\u0000\u0000\u01ce\u01cc\u0001\u0000\u0000\u0000"+
+		"\u01cf\u01d0\u0005\r\u0000\u0000\u01d0\u01d1\u0005\u001b\u0000\u0000\u01d1"+
+		"\u01d3\u00030\u0018\u0000\u01d2\u01cf\u0001\u0000\u0000\u0000\u01d2\u01d3"+
+		"\u0001\u0000\u0000\u0000\u01d3+\u0001\u0000\u0000\u0000\u01d4\u01d6\u0005"+
+		"\u0007\u0000\u0000\u01d5\u01d7\u00032\u0019\u0000\u01d6\u01d5\u0001\u0000"+
+		"\u0000\u0000\u01d6\u01d7\u0001\u0000\u0000\u0000\u01d7-\u0001\u0000\u0000"+
+		"\u0000\u01d8\u01d9\u0003,\u0016\u0000\u01d9/\u0001\u0000\u0000\u0000\u01da"+
+		"\u01e5\u0003\u0004\u0002\u0000\u01db\u01dc\u0005\u0003\u0000\u0000\u01dc"+
+		"\u01de\u0005\u0001\u0000\u0000\u01dd\u01df\u0003\u0002\u0001\u0000\u01de"+
+		"\u01dd\u0001\u0000\u0000\u0000\u01df\u01e0\u0001\u0000\u0000\u0000\u01e0"+
+		"\u01de\u0001\u0000\u0000\u0000\u01e0\u01e1\u0001\u0000\u0000\u0000\u01e1"+
+		"\u01e2\u0001\u0000\u0000\u0000\u01e2\u01e3\u0005\u0002\u0000\u0000\u01e3"+
+		"\u01e5\u0001\u0000\u0000\u0000\u01e4\u01da\u0001\u0000\u0000\u0000\u01e4"+
+		"\u01db\u0001\u0000\u0000\u0000\u01e51\u0001\u0000\u0000\u0000\u01e6\u01eb"+
+		"\u00034\u001a\u0000\u01e7\u01e8\u0005\u001d\u0000\u0000\u01e8\u01ea\u0003"+
+		"4\u001a\u0000\u01e9\u01e7\u0001\u0000\u0000\u0000\u01ea\u01ed\u0001\u0000"+
+		"\u0000\u0000\u01eb\u01e9\u0001\u0000\u0000\u0000\u01eb\u01ec\u0001\u0000"+
+		"\u0000\u0000\u01ec3\u0001\u0000\u0000\u0000\u01ed\u01eb\u0001\u0000\u0000"+
+		"\u0000\u01ee\u01ef\u00036\u001b\u0000\u01ef5\u0001\u0000\u0000\u0000\u01f0"+
+		"\u01f5\u00038\u001c\u0000\u01f1\u01f2\u0005\u0012\u0000\u0000\u01f2\u01f4"+
+		"\u00038\u001c\u0000\u01f3\u01f1\u0001\u0000\u0000\u0000\u01f4\u01f7\u0001"+
+		"\u0000\u0000\u0000\u01f5\u01f3\u0001\u0000\u0000\u0000\u01f5\u01f6\u0001"+
+		"\u0000\u0000\u0000\u01f67\u0001\u0000\u0000\u0000\u01f7\u01f5\u0001\u0000"+
+		"\u0000\u0000\u01f8\u01fd\u0003:\u001d\u0000\u01f9\u01fa\u0005\u0011\u0000"+
+		"\u0000\u01fa\u01fc\u0003:\u001d\u0000\u01fb\u01f9\u0001\u0000\u0000\u0000"+
+		"\u01fc\u01ff\u0001\u0000\u0000\u0000\u01fd\u01fb\u0001\u0000\u0000\u0000"+
+		"\u01fd\u01fe\u0001\u0000\u0000\u0000\u01fe9\u0001\u0000\u0000\u0000\u01ff"+
+		"\u01fd\u0001\u0000\u0000\u0000\u0200\u0201\u0005\u0013\u0000\u0000\u0201"+
+		"\u0204\u0003:\u001d\u0000\u0202\u0204\u0003<\u001e\u0000\u0203\u0200\u0001"+
+		"\u0000\u0000\u0000\u0203\u0202\u0001\u0000\u0000\u0000\u0204;\u0001\u0000"+
+		"\u0000\u0000\u0205\u020b\u0003@ \u0000\u0206\u0207\u0003>\u001f\u0000"+
+		"\u0207\u0208\u0003@ \u0000\u0208\u020a\u0001\u0000\u0000\u0000\u0209\u0206"+
+		"\u0001\u0000\u0000\u0000\u020a\u020d\u0001\u0000\u0000\u0000\u020b\u0209"+
+		"\u0001\u0000\u0000\u0000\u020b\u020c\u0001\u0000\u0000\u0000\u020c=\u0001"+
+		"\u0000\u0000\u0000\u020d\u020b\u0001\u0000\u0000\u0000\u020e\u0218\u0005"+
+		"\"\u0000\u0000\u020f\u0218\u0005!\u0000\u0000\u0210\u0218\u0005\u001f"+
+		"\u0000\u0000\u0211\u0218\u0005 \u0000\u0000\u0212\u0218\u0005#\u0000\u0000"+
+		"\u0213\u0218\u0005$\u0000\u0000\u0214\u0218\u0005\u000f\u0000\u0000\u0215"+
+		"\u0216\u0005\u0013\u0000\u0000\u0216\u0218\u0005\u000f\u0000\u0000\u0217"+
+		"\u020e\u0001\u0000\u0000\u0000\u0217\u020f\u0001\u0000\u0000\u0000\u0217"+
+		"\u0210\u0001\u0000\u0000\u0000\u0217\u0211\u0001\u0000\u0000\u0000\u0217"+
+		"\u0212\u0001\u0000\u0000\u0000\u0217\u0213\u0001\u0000\u0000\u0000\u0217"+
+		"\u0214\u0001\u0000\u0000\u0000\u0217\u0215\u0001\u0000\u0000\u0000\u0218"+
+		"?\u0001\u0000\u0000\u0000\u0219\u021e\u0003B!\u0000\u021a\u021b\u0007"+
+		"\u0001\u0000\u0000\u021b\u021d\u0003B!\u0000\u021c\u021a\u0001\u0000\u0000"+
+		"\u0000\u021d\u0220\u0001\u0000\u0000\u0000\u021e\u021c\u0001\u0000\u0000"+
+		"\u0000\u021e\u021f\u0001\u0000\u0000\u0000\u021fA\u0001\u0000\u0000\u0000"+
+		"\u0220\u021e\u0001\u0000\u0000\u0000\u0221\u0226\u0003D\"\u0000\u0222"+
+		"\u0223\u0007\u0002\u0000\u0000\u0223\u0225\u0003D\"\u0000\u0224\u0222"+
+		"\u0001\u0000\u0000\u0000\u0225\u0228\u0001\u0000\u0000\u0000\u0226\u0224"+
+		"\u0001\u0000\u0000\u0000\u0226\u0227\u0001\u0000\u0000\u0000\u0227C\u0001"+
+		"\u0000\u0000\u0000\u0228\u0226\u0001\u0000\u0000\u0000\u0229\u022a\u0007"+
+		"\u0001\u0000\u0000\u022a\u022d\u0003D\"\u0000\u022b\u022d\u0003F#\u0000"+
+		"\u022c\u0229\u0001\u0000\u0000\u0000\u022c\u022b\u0001\u0000\u0000\u0000"+
+		"\u022dE\u0001\u0000\u0000\u0000\u022e\u022f\u0003H$\u0000\u022fG\u0001"+
+		"\u0000\u0000\u0000\u0230\u0234\u0003L&\u0000\u0231\u0233\u0003J%\u0000"+
+		"\u0232\u0231\u0001\u0000\u0000\u0000\u0233\u0236\u0001\u0000\u0000\u0000"+
+		"\u0234\u0232\u0001\u0000\u0000\u0000\u0234\u0235\u0001\u0000\u0000\u0000"+
+		"\u0235I\u0001\u0000\u0000\u0000\u0236\u0234\u0001\u0000\u0000\u0000\u0237"+
+		"\u0239\u0005*\u0000\u0000\u0238\u023a\u0003T*\u0000\u0239\u0238\u0001"+
+		"\u0000\u0000\u0000\u0239\u023a\u0001\u0000\u0000\u0000\u023a\u023b\u0001"+
+		"\u0000\u0000\u0000\u023b\u0243\u0005+\u0000\u0000\u023c\u023d\u0005,\u0000"+
+		"\u0000\u023d\u023e\u00034\u001a\u0000\u023e\u023f\u0005-\u0000\u0000\u023f"+
+		"\u0243\u0001\u0000\u0000\u0000\u0240\u0241\u00050\u0000\u0000\u0241\u0243"+
+		"\u00051\u0000\u0000\u0242\u0237\u0001\u0000\u0000\u0000\u0242\u023c\u0001"+
+		"\u0000\u0000\u0000\u0242\u0240\u0001\u0000\u0000\u0000\u0243K\u0001\u0000"+
+		"\u0000\u0000\u0244\u025e\u00051\u0000\u0000\u0245\u025e\u00052\u0000\u0000"+
+		"\u0246\u0248\u00053\u0000\u0000\u0247\u0246\u0001\u0000\u0000\u0000\u0248"+
+		"\u0249\u0001\u0000\u0000\u0000\u0249\u0247\u0001\u0000\u0000\u0000\u0249"+
+		"\u024a\u0001\u0000\u0000\u0000\u024a\u025e\u0001\u0000\u0000\u0000\u024b"+
+		"\u025e\u0005\u0016\u0000\u0000\u024c\u025e\u0005\u0014\u0000\u0000\u024d"+
+		"\u025e\u0005\u0015\u0000\u0000\u024e\u0250\u0005*\u0000\u0000\u024f\u0251"+
+		"\u00034\u001a\u0000\u0250\u024f\u0001\u0000\u0000\u0000\u0250\u0251\u0001"+
+		"\u0000\u0000\u0000\u0251\u0252\u0001\u0000\u0000\u0000\u0252\u025e\u0005"+
+		"+\u0000\u0000\u0253\u0255\u0005,\u0000\u0000\u0254\u0256\u0003N\'\u0000"+
+		"\u0255\u0254\u0001\u0000\u0000\u0000\u0255\u0256\u0001\u0000\u0000\u0000"+
+		"\u0256\u0257\u0001\u0000\u0000\u0000\u0257\u025e\u0005-\u0000\u0000\u0258"+
+		"\u025a\u0005.\u0000\u0000\u0259\u025b\u0003R)\u0000\u025a\u0259\u0001"+
+		"\u0000\u0000\u0000\u025a\u025b\u0001\u0000\u0000\u0000\u025b\u025c\u0001"+
+		"\u0000\u0000\u0000\u025c\u025e\u0005/\u0000\u0000\u025d\u0244\u0001\u0000"+
+		"\u0000\u0000\u025d\u0245\u0001\u0000\u0000\u0000\u025d\u0247\u0001\u0000"+
+		"\u0000\u0000\u025d\u024b\u0001\u0000\u0000\u0000\u025d\u024c\u0001\u0000"+
+		"\u0000\u0000\u025d\u024d\u0001\u0000\u0000\u0000\u025d\u024e\u0001\u0000"+
+		"\u0000\u0000\u025d\u0253\u0001\u0000\u0000\u0000\u025d\u0258\u0001\u0000"+
+		"\u0000\u0000\u025eM\u0001\u0000\u0000\u0000\u025f\u0260\u00034\u001a\u0000"+
+		"\u0260\u0261\u0003P(\u0000\u0261\u026b\u0001\u0000\u0000\u0000\u0262\u0267"+
+		"\u00034\u001a\u0000\u0263\u0264\u0005\u001d\u0000\u0000\u0264\u0266\u0003"+
+		"4\u001a\u0000\u0265\u0263\u0001\u0000\u0000\u0000\u0266\u0269\u0001\u0000"+
+		"\u0000\u0000\u0267\u0265\u0001\u0000\u0000\u0000\u0267\u0268\u0001\u0000"+
+		"\u0000\u0000\u0268\u026b\u0001\u0000\u0000\u0000\u0269\u0267\u0001\u0000"+
+		"\u0000\u0000\u026a\u025f\u0001\u0000\u0000\u0000\u026a\u0262\u0001\u0000"+
+		"\u0000\u0000\u026bO\u0001\u0000\u0000\u0000\u026c\u026d\u0005\u000e\u0000"+
+		"\u0000\u026d\u026e\u00034\u001a\u0000\u026e\u026f\u0005\u000f\u0000\u0000"+
+		"\u026f\u0274\u00034\u001a\u0000\u0270\u0271\u0005\u000b\u0000\u0000\u0271"+
+		"\u0273\u00034\u001a\u0000\u0272\u0270\u0001\u0000\u0000\u0000\u0273\u0276"+
+		"\u0001\u0000\u0000\u0000\u0274\u0272\u0001\u0000\u0000\u0000\u0274\u0275"+
+		"\u0001\u0000\u0000\u0000\u0275Q\u0001\u0000\u0000\u0000\u0276\u0274\u0001"+
+		"\u0000\u0000\u0000\u0277\u0278\u00034\u001a\u0000\u0278\u0279\u0005\u001b"+
+		"\u0000\u0000\u0279\u0281\u00034\u001a\u0000\u027a\u027b\u0005\u001d\u0000"+
+		"\u0000\u027b\u027c\u00034\u001a\u0000\u027c\u027d\u0005\u001b\u0000\u0000"+
+		"\u027d\u027e\u00034\u001a\u0000\u027e\u0280\u0001\u0000\u0000\u0000\u027f"+
+		"\u027a\u0001\u0000\u0000\u0000\u0280\u0283\u0001\u0000\u0000\u0000\u0281"+
+		"\u027f\u0001\u0000\u0000\u0000\u0281\u0282\u0001\u0000\u0000\u0000\u0282"+
+		"S\u0001\u0000\u0000\u0000\u0283\u0281\u0001\u0000\u0000\u0000\u0284\u0289"+
+		"\u0003V+\u0000\u0285\u0286\u0005\u001d\u0000\u0000\u0286\u0288\u0003V"+
+		"+\u0000\u0287\u0285\u0001\u0000\u0000\u0000\u0288\u028b\u0001\u0000\u0000"+
+		"\u0000\u0289\u0287\u0001\u0000\u0000\u0000\u0289\u028a\u0001\u0000\u0000"+
+		"\u0000\u028aU\u0001\u0000\u0000\u0000\u028b\u0289\u0001\u0000\u0000\u0000"+
+		"\u028c\u0291\u00034\u001a\u0000\u028d\u028e\u00051\u0000\u0000\u028e\u028f"+
+		"\u0005\u001e\u0000\u0000\u028f\u0291\u00034\u001a\u0000\u0290\u028c\u0001"+
+		"\u0000\u0000\u0000\u0290\u028d\u0001\u0000\u0000\u0000\u0291W\u0001\u0000"+
+		"\u0000\u0000\u0292\u0296\u0005D\u0000\u0000\u0293\u0295\u0003Z-\u0000"+
+		"\u0294\u0293\u0001\u0000\u0000\u0000\u0295\u0298\u0001\u0000\u0000\u0000"+
+		"\u0296\u0294\u0001\u0000\u0000\u0000\u0296\u0297\u0001\u0000\u0000\u0000"+
+		"\u0297\u0299\u0001\u0000\u0000\u0000\u0298\u0296\u0001\u0000\u0000\u0000"+
+		"\u0299\u02a5\u0007\u0003\u0000\u0000\u029a\u029b\u0005B\u0000\u0000\u029b"+
+		"\u02a5\u0005M\u0000\u0000\u029c\u029d\u0005C\u0000\u0000\u029d\u029e\u0003"+
+		"\\.\u0000\u029e\u029f\u0005N\u0000\u0000\u029f\u02a5\u0001\u0000\u0000"+
+		"\u0000\u02a0\u02a5\u0005=\u0000\u0000\u02a1\u02a5\u0005>\u0000\u0000\u02a2"+
+		"\u02a5\u0005?\u0000\u0000\u02a3\u02a5\u0005@\u0000\u0000\u02a4\u0292\u0001"+
+		"\u0000\u0000\u0000\u02a4\u029a\u0001\u0000\u0000\u0000\u02a4\u029c\u0001"+
+		"\u0000\u0000\u0000\u02a4\u02a0\u0001\u0000\u0000\u0000\u02a4\u02a1\u0001"+
+		"\u0000\u0000\u0000\u02a4\u02a2\u0001\u0000\u0000\u0000\u02a4\u02a3\u0001"+
+		"\u0000\u0000\u0000\u02a5Y\u0001\u0000\u0000\u0000\u02a6\u02a9\u0005J\u0000"+
+		"\u0000\u02a7\u02a8\u0005I\u0000\u0000\u02a8\u02aa\u0005L\u0000\u0000\u02a9"+
+		"\u02a7\u0001\u0000\u0000\u0000\u02a9\u02aa\u0001\u0000\u0000\u0000\u02aa"+
+		"\u02b0\u0001\u0000\u0000\u0000\u02ab\u02b0\u0003\u0104\u0082\u0000\u02ac"+
+		"\u02b0\u0003\u00f8|\u0000\u02ad\u02b0\u0005H\u0000\u0000\u02ae\u02b0\u0005"+
+		"I\u0000\u0000\u02af\u02a6\u0001\u0000\u0000\u0000\u02af\u02ab\u0001\u0000"+
+		"\u0000\u0000\u02af\u02ac\u0001\u0000\u0000\u0000\u02af\u02ad\u0001\u0000"+
+		"\u0000\u0000\u02af\u02ae\u0001\u0000\u0000\u0000\u02b0[\u0001\u0000\u0000"+
+		"\u0000\u02b1\u02b5\u0003^/\u0000\u02b2\u02b4\u0007\u0004\u0000\u0000\u02b3"+
+		"\u02b2\u0001\u0000\u0000\u0000\u02b4\u02b7\u0001\u0000\u0000\u0000\u02b5"+
+		"\u02b3\u0001\u0000\u0000\u0000\u02b5\u02b6\u0001\u0000\u0000\u0000\u02b6"+
+		"\u02b9\u0001\u0000\u0000\u0000\u02b7\u02b5\u0001\u0000\u0000\u0000\u02b8"+
+		"\u02b1\u0001\u0000\u0000\u0000\u02b9\u02bc\u0001\u0000\u0000\u0000\u02ba"+
+		"\u02b8\u0001\u0000\u0000\u0000\u02ba\u02bb\u0001\u0000\u0000\u0000\u02bb"+
+		"\u02c6\u0001\u0000\u0000\u0000\u02bc\u02ba\u0001\u0000\u0000\u0000\u02bd"+
+		"\u02c1\u0003`0\u0000\u02be\u02c0\u0007\u0004\u0000\u0000\u02bf\u02be\u0001"+
+		"\u0000\u0000\u0000\u02c0\u02c3\u0001\u0000\u0000\u0000\u02c1\u02bf\u0001"+
+		"\u0000\u0000\u0000\u02c1\u02c2\u0001\u0000\u0000\u0000\u02c2\u02c5\u0001"+
+		"\u0000\u0000\u0000\u02c3\u02c1\u0001\u0000\u0000\u0000\u02c4\u02bd\u0001"+
+		"\u0000\u0000\u0000\u02c5\u02c8\u0001\u0000\u0000\u0000\u02c6\u02c4\u0001"+
+		"\u0000\u0000\u0000\u02c6\u02c7\u0001\u0000\u0000\u0000\u02c7\u02d2\u0001"+
+		"\u0000\u0000\u0000\u02c8\u02c6\u0001\u0000\u0000\u0000\u02c9\u02cd\u0003"+
+		"b1\u0000\u02ca\u02cc\u0007\u0004\u0000\u0000\u02cb\u02ca\u0001\u0000\u0000"+
+		"\u0000\u02cc\u02cf\u0001\u0000\u0000\u0000\u02cd\u02cb\u0001\u0000\u0000"+
+		"\u0000\u02cd\u02ce\u0001\u0000\u0000\u0000\u02ce\u02d1\u0001\u0000\u0000"+
+		"\u0000\u02cf\u02cd\u0001\u0000\u0000\u0000\u02d0\u02c9\u0001\u0000\u0000"+
+		"\u0000\u02d1\u02d4\u0001\u0000\u0000\u0000\u02d2\u02d0\u0001\u0000\u0000"+
+		"\u0000\u02d2\u02d3\u0001\u0000\u0000\u0000\u02d3\u02de\u0001\u0000\u0000"+
+		"\u0000\u02d4\u02d2\u0001\u0000\u0000\u0000\u02d5\u02d9\u0003\u00bc^\u0000"+
+		"\u02d6\u02d8\u0007\u0004\u0000\u0000\u02d7\u02d6\u0001\u0000\u0000\u0000"+
+		"\u02d8\u02db\u0001\u0000\u0000\u0000\u02d9\u02d7\u0001\u0000\u0000\u0000"+
+		"\u02d9\u02da\u0001\u0000\u0000\u0000\u02da\u02dd\u0001\u0000\u0000\u0000"+
+		"\u02db\u02d9\u0001\u0000\u0000\u0000\u02dc\u02d5\u0001\u0000\u0000\u0000"+
+		"\u02dd\u02e0\u0001\u0000\u0000\u0000\u02de\u02dc\u0001\u0000\u0000\u0000"+
+		"\u02de\u02df\u0001\u0000\u0000\u0000\u02df\u02e1\u0001\u0000\u0000\u0000"+
+		"\u02e0\u02de\u0001\u0000\u0000\u0000\u02e1\u02e2\u0005\u0000\u0000\u0001"+
+		"\u02e2]\u0001\u0000\u0000\u0000\u02e3\u02e4\u0005n\u0000\u0000\u02e4\u02e5"+
+		"\u0005z\u0000\u0000\u02e5\u02e9\u0005Z\u0000\u0000\u02e6\u02e7\u0005n"+
+		"\u0000\u0000\u02e7\u02e9\u0005z\u0000\u0000\u02e8\u02e3\u0001\u0000\u0000"+
+		"\u0000\u02e8\u02e6\u0001\u0000\u0000\u0000\u02e9_\u0001\u0000\u0000\u0000"+
+		"\u02ea\u02ed\u0005j\u0000\u0000\u02eb\u02ee\u0005z\u0000\u0000\u02ec\u02ee"+
+		"\u0003\u00d0h\u0000\u02ed\u02eb\u0001\u0000\u0000\u0000\u02ed\u02ec\u0001"+
+		"\u0000\u0000\u0000\u02ee\u02ef\u0001\u0000\u0000\u0000\u02ef\u02f0\u0003"+
+		"h4\u0000\u02f0\u02f1\u0005Z\u0000\u0000\u02f1\u0304\u0001\u0000\u0000"+
+		"\u0000\u02f2\u02f5\u0005j\u0000\u0000\u02f3\u02f6\u0005z\u0000\u0000\u02f4"+
+		"\u02f6\u0003\u00d0h\u0000\u02f5\u02f3\u0001\u0000\u0000\u0000\u02f5\u02f4"+
+		"\u0001\u0000\u0000\u0000\u02f6\u02f7\u0001\u0000\u0000\u0000\u02f7\u0304"+
+		"\u0005Z\u0000\u0000\u02f8\u02fb\u0005j\u0000\u0000\u02f9\u02fc\u0005z"+
+		"\u0000\u0000\u02fa\u02fc\u0003\u00d0h\u0000\u02fb\u02f9\u0001\u0000\u0000"+
+		"\u0000\u02fb\u02fa\u0001\u0000\u0000\u0000\u02fc\u02fd\u0001\u0000\u0000"+
+		"\u0000\u02fd\u0304\u0003h4\u0000\u02fe\u0301\u0005j\u0000\u0000\u02ff"+
+		"\u0302\u0005z\u0000\u0000\u0300\u0302\u0003\u00d0h\u0000\u0301\u02ff\u0001"+
+		"\u0000\u0000\u0000\u0301\u0300\u0001\u0000\u0000\u0000\u0302\u0304\u0001"+
+		"\u0000\u0000\u0000\u0303\u02ea\u0001\u0000\u0000\u0000\u0303\u02f2\u0001"+
+		"\u0000\u0000\u0000\u0303\u02f8\u0001\u0000\u0000\u0000\u0303\u02fe\u0001"+
+		"\u0000\u0000\u0000\u0304a\u0001\u0000\u0000\u0000\u0305\u0307\u0005m\u0000"+
+		"\u0000\u0306\u0308\u0003d2\u0000\u0307\u0306\u0001\u0000\u0000\u0000\u0307"+
+		"\u0308\u0001\u0000\u0000\u0000\u0308\u030b\u0001\u0000\u0000\u0000\u0309"+
+		"\u030c\u0005z\u0000\u0000\u030a\u030c\u0003\u00d0h\u0000\u030b\u0309\u0001"+
+		"\u0000\u0000\u0000\u030b\u030a\u0001\u0000\u0000\u0000\u030c\u030d\u0001"+
+		"\u0000\u0000\u0000\u030d\u0317\u0005Z\u0000\u0000\u030e\u0310\u0005m\u0000"+
+		"\u0000\u030f\u0311\u0003d2\u0000\u0310\u030f\u0001\u0000\u0000\u0000\u0310"+
+		"\u0311\u0001\u0000\u0000\u0000\u0311\u0314\u0001\u0000\u0000\u0000\u0312"+
+		"\u0315\u0005z\u0000\u0000\u0313\u0315\u0003\u00d0h\u0000\u0314\u0312\u0001"+
+		"\u0000\u0000\u0000\u0314\u0313\u0001\u0000\u0000\u0000\u0315\u0317\u0001"+
+		"\u0000\u0000\u0000\u0316\u0305\u0001\u0000\u0000\u0000\u0316\u030e\u0001"+
+		"\u0000\u0000\u0000\u0317c\u0001\u0000\u0000\u0000\u0318\u0319\u0003\u00f6"+
+		"{\u0000\u0319e\u0001\u0000\u0000\u0000\u031a\u031b\u0005l\u0000\u0000"+
+		"\u031b\u031c\u0003h4\u0000\u031c\u031d\u0003\u00be_\u0000\u031dg\u0001"+
+		"\u0000\u0000\u0000\u031e\u0323\u0003j5\u0000\u031f\u0320\u0005R\u0000"+
+		"\u0000\u0320\u0322\u0003j5\u0000\u0321\u031f\u0001\u0000\u0000\u0000\u0322"+
+		"\u0325\u0001\u0000\u0000\u0000\u0323\u0321\u0001\u0000\u0000\u0000\u0323"+
+		"\u0324\u0001\u0000\u0000\u0000\u0324\u0327\u0001\u0000\u0000\u0000\u0325"+
+		"\u0323\u0001\u0000\u0000\u0000\u0326\u031e\u0001\u0000\u0000\u0000\u0326"+
+		"\u0327\u0001\u0000\u0000\u0000\u0327i\u0001\u0000\u0000\u0000\u0328\u032a"+
+		"\u0007\u0005\u0000\u0000\u0329\u0328\u0001\u0000\u0000\u0000\u0329\u032a"+
+		"\u0001\u0000\u0000\u0000\u032a\u032b\u0001\u0000\u0000\u0000\u032b\u0330"+
+		"\u0003l6\u0000\u032c\u032d\u0005u\u0000\u0000\u032d\u032f\u0003n7\u0000"+
+		"\u032e\u032c\u0001\u0000\u0000\u0000\u032f\u0332\u0001\u0000\u0000\u0000"+
+		"\u0330\u032e\u0001\u0000\u0000\u0000\u0330\u0331\u0001\u0000\u0000\u0000"+
+		"\u0331\u033c\u0001\u0000\u0000\u0000\u0332\u0330\u0001\u0000\u0000\u0000"+
+		"\u0333\u0338\u0003n7\u0000\u0334\u0335\u0005u\u0000\u0000\u0335\u0337"+
+		"\u0003n7\u0000\u0336\u0334\u0001\u0000\u0000\u0000\u0337\u033a\u0001\u0000"+
+		"\u0000\u0000\u0338\u0336\u0001\u0000\u0000\u0000\u0338\u0339\u0001\u0000"+
+		"\u0000\u0000\u0339\u033c\u0001\u0000\u0000\u0000\u033a\u0338\u0001\u0000"+
+		"\u0000\u0000\u033b\u0329\u0001\u0000\u0000\u0000\u033b\u0333\u0001\u0000"+
+		"\u0000\u0000\u033ck\u0001\u0000\u0000\u0000\u033d\u033e\u0003\u00f6{\u0000"+
+		"\u033em\u0001\u0000\u0000\u0000\u033f\u0340\u0005V\u0000\u0000\u0340\u0343"+
+		"\u0003p8\u0000\u0341\u0342\u0005\\\u0000\u0000\u0342\u0344\u0003\u00a2"+
+		"Q\u0000\u0343\u0341\u0001\u0000\u0000\u0000\u0343\u0344\u0001\u0000\u0000"+
+		"\u0000\u0344\u0345\u0001\u0000\u0000\u0000\u0345\u0346\u0005W\u0000\u0000"+
+		"\u0346o\u0001\u0000\u0000\u0000\u0347\u0348\u0003\u00f6{\u0000\u0348q"+
+		"\u0001\u0000\u0000\u0000\u0349\u034b\u0005k\u0000\u0000\u034a\u034c\u0003"+
+		"t:\u0000\u034b\u034a\u0001\u0000\u0000\u0000\u034b\u034c\u0001\u0000\u0000"+
+		"\u0000\u034c\u034d\u0001\u0000\u0000\u0000\u034d\u034f\u0005X\u0000\u0000"+
+		"\u034e\u0350\u0003\u009cN\u0000\u034f\u034e\u0001\u0000\u0000\u0000\u034f"+
+		"\u0350\u0001\u0000\u0000\u0000\u0350\u0357\u0001\u0000\u0000\u0000\u0351"+
+		"\u0353\u0005Z\u0000\u0000\u0352\u0354\u0003\u009cN\u0000\u0353\u0352\u0001"+
+		"\u0000\u0000\u0000\u0353\u0354\u0001\u0000\u0000\u0000\u0354\u0356\u0001"+
+		"\u0000\u0000\u0000\u0355\u0351\u0001\u0000\u0000\u0000\u0356\u0359\u0001"+
+		"\u0000\u0000\u0000\u0357\u0355\u0001\u0000\u0000\u0000\u0357\u0358\u0001"+
+		"\u0000\u0000\u0000\u0358\u035a\u0001\u0000\u0000\u0000\u0359\u0357\u0001"+
+		"\u0000\u0000\u0000\u035a\u035b\u0005Y\u0000\u0000\u035bs\u0001\u0000\u0000"+
+		"\u0000\u035c\u035d\u0005\\\u0000\u0000\u035d\u035e\u0003\u00f6{\u0000"+
+		"\u035eu\u0001\u0000\u0000\u0000\u035f\u0364\u0003x<\u0000\u0360\u0361"+
+		"\u0005R\u0000\u0000\u0361\u0363\u0003x<\u0000\u0362\u0360\u0001\u0000"+
+		"\u0000\u0000\u0363\u0366\u0001\u0000\u0000\u0000\u0364\u0362\u0001\u0000"+
+		"\u0000\u0000\u0364\u0365\u0001\u0000\u0000\u0000\u0365w\u0001\u0000\u0000"+
+		"\u0000\u0366\u0364\u0001\u0000\u0000\u0000\u0367\u036d\u0003|>\u0000\u0368"+
+		"\u0369\u0003z=\u0000\u0369\u036a\u0003|>\u0000\u036a\u036c\u0001\u0000"+
+		"\u0000\u0000\u036b\u0368\u0001\u0000\u0000\u0000\u036c\u036f\u0001\u0000"+
+		"\u0000\u0000\u036d\u036b\u0001\u0000\u0000\u0000\u036d\u036e\u0001\u0000"+
+		"\u0000\u0000\u036ey\u0001\u0000\u0000\u0000\u036f\u036d\u0001\u0000\u0000"+
+		"\u0000\u0370\u0371\u0007\u0006\u0000\u0000\u0371{\u0001\u0000\u0000\u0000"+
+		"\u0372\u0375\u0003~?\u0000\u0373\u0375\u0003\u0084B\u0000\u0374\u0372"+
+		"\u0001\u0000\u0000\u0000\u0374\u0373\u0001\u0000\u0000\u0000\u0375\u037d"+
+		"\u0001\u0000\u0000\u0000\u0376\u037c\u0005i\u0000\u0000\u0377\u037c\u0003"+
+		"\u0086C\u0000\u0378\u037c\u0003\u0088D\u0000\u0379\u037c\u0003\u008aE"+
+		"\u0000\u037a\u037c\u0003\u0090H\u0000\u037b\u0376\u0001\u0000\u0000\u0000"+
+		"\u037b\u0377\u0001\u0000\u0000\u0000\u037b\u0378\u0001\u0000\u0000\u0000"+
+		"\u037b\u0379\u0001\u0000\u0000\u0000\u037b\u037a\u0001\u0000\u0000\u0000"+
+		"\u037c\u037f\u0001\u0000\u0000\u0000\u037d\u037b\u0001\u0000\u0000\u0000"+
+		"\u037d\u037e\u0001\u0000\u0000\u0000\u037e\u038a\u0001\u0000\u0000\u0000"+
+		"\u037f\u037d\u0001\u0000\u0000\u0000\u0380\u0386\u0005i\u0000\u0000\u0381"+
+		"\u0386\u0003\u0086C\u0000\u0382\u0386\u0003\u0088D\u0000\u0383\u0386\u0003"+
+		"\u008aE\u0000\u0384\u0386\u0003\u0090H\u0000\u0385\u0380\u0001\u0000\u0000"+
+		"\u0000\u0385\u0381\u0001\u0000\u0000\u0000\u0385\u0382\u0001\u0000\u0000"+
+		"\u0000\u0385\u0383\u0001\u0000\u0000\u0000\u0385\u0384\u0001\u0000\u0000"+
+		"\u0000\u0386\u0387\u0001\u0000\u0000\u0000\u0387\u0385\u0001\u0000\u0000"+
+		"\u0000\u0387\u0388\u0001\u0000\u0000\u0000\u0388\u038a\u0001\u0000\u0000"+
+		"\u0000\u0389\u0374\u0001\u0000\u0000\u0000\u0389\u0385\u0001\u0000\u0000"+
+		"\u0000\u038a}\u0001\u0000\u0000\u0000\u038b\u038d\u0003\u0080@\u0000\u038c"+
+		"\u038b\u0001\u0000\u0000\u0000\u038c\u038d\u0001\u0000\u0000\u0000\u038d"+
+		"\u038e\u0001\u0000\u0000\u0000\u038e\u038f\u0003\u0082A\u0000\u038f\u007f"+
+		"\u0001\u0000\u0000\u0000\u0390\u0393\u0003\u00f6{\u0000\u0391\u0393\u0005"+
+		"^\u0000\u0000\u0392\u0390\u0001\u0000\u0000\u0000\u0392\u0391\u0001\u0000"+
+		"\u0000\u0000\u0392\u0393\u0001\u0000\u0000\u0000\u0393\u0394\u0001\u0000"+
+		"\u0000\u0000\u0394\u0395\u0005`\u0000\u0000\u0395\u0081\u0001\u0000\u0000"+
+		"\u0000\u0396\u0397\u0003\u00f6{\u0000\u0397\u0083\u0001\u0000\u0000\u0000"+
+		"\u0398\u039a\u0003\u0080@\u0000\u0399\u0398\u0001\u0000\u0000\u0000\u0399"+
+		"\u039a\u0001\u0000\u0000\u0000\u039a\u039b\u0001\u0000\u0000\u0000\u039b"+
+		"\u039c\u0005^\u0000\u0000\u039c\u0085\u0001\u0000\u0000\u0000\u039d\u039e"+
+		"\u0005]\u0000\u0000\u039e\u039f\u0003\u00f6{\u0000\u039f\u0087\u0001\u0000"+
+		"\u0000\u0000\u03a0\u03a2\u0005T\u0000\u0000\u03a1\u03a3\u0003\u0080@\u0000"+
+		"\u03a2\u03a1\u0001\u0000\u0000\u0000\u03a2\u03a3\u0001\u0000\u0000\u0000"+
+		"\u03a3\u03a4\u0001\u0000\u0000\u0000\u03a4\u03aa\u0003\u00f6{\u0000\u03a5"+
+		"\u03a8\u0007\u0007\u0000\u0000\u03a6\u03a9\u0003\u00f6{\u0000\u03a7\u03a9"+
+		"\u0005z\u0000\u0000\u03a8\u03a6\u0001\u0000\u0000\u0000\u03a8\u03a7\u0001"+
+		"\u0000\u0000\u0000\u03a9\u03ab\u0001\u0000\u0000\u0000\u03aa\u03a5\u0001"+
+		"\u0000\u0000\u0000\u03aa\u03ab\u0001\u0000\u0000\u0000\u03ab\u03ac\u0001"+
+		"\u0000\u0000\u0000\u03ac\u03ad\u0005U\u0000\u0000\u03ad\u0089\u0001\u0000"+
+		"\u0000\u0000\u03ae\u03b0\u0005\\\u0000\u0000\u03af\u03b1\u0005\\\u0000"+
+		"\u0000\u03b0\u03af\u0001\u0000\u0000\u0000\u03b0\u03b1\u0001\u0000\u0000"+
+		"\u0000\u03b1\u03b4\u0001\u0000\u0000\u0000\u03b2\u03b5\u0003\u00f6{\u0000"+
+		"\u03b3\u03b5\u0003\u008cF\u0000\u03b4\u03b2\u0001\u0000\u0000\u0000\u03b4"+
+		"\u03b3\u0001\u0000\u0000\u0000\u03b5\u008b\u0001\u0000\u0000\u0000\u03b6"+
+		"\u03b7\u0005\u008d\u0000\u0000\u03b7\u03b8\u0003\u008eG\u0000\u03b8\u03b9"+
+		"\u0005W\u0000\u0000\u03b9\u008d\u0001\u0000\u0000\u0000\u03ba\u03c2\u0005"+
+		"O\u0000\u0000\u03bb\u03c2\u0005P\u0000\u0000\u03bc\u03c2\u0005v\u0000"+
+		"\u0000\u03bd\u03c2\u0005w\u0000\u0000\u03be\u03c2\u0005y\u0000\u0000\u03bf"+
+		"\u03c2\u0005z\u0000\u0000\u03c0\u03c2\u0003\u00f6{\u0000\u03c1\u03ba\u0001"+
+		"\u0000\u0000\u0000\u03c1\u03bb\u0001\u0000\u0000\u0000\u03c1\u03bc\u0001"+
+		"\u0000\u0000\u0000\u03c1\u03bd\u0001\u0000\u0000\u0000\u03c1\u03be\u0001"+
+		"\u0000\u0000\u0000\u03c1\u03bf\u0001\u0000\u0000\u0000\u03c1\u03c0\u0001"+
+		"\u0000\u0000\u0000\u03c2\u03c4\u0001\u0000\u0000\u0000\u03c3\u03c1\u0001"+
+		"\u0000\u0000\u0000\u03c4\u03c5\u0001\u0000\u0000\u0000\u03c5\u03c3\u0001"+
+		"\u0000\u0000\u0000\u03c5\u03c6\u0001\u0000\u0000\u0000\u03c6\u008f\u0001"+
+		"\u0000\u0000\u0000\u03c7\u03c8\u0005x\u0000\u0000\u03c8\u03c9\u0003\u0092"+
+		"I\u0000\u03c9\u03ca\u0005W\u0000\u0000\u03ca\u0091\u0001\u0000\u0000\u0000"+
+		"\u03cb\u03d2\u0003~?\u0000\u03cc\u03d2\u0003\u0084B\u0000\u03cd\u03d2"+
+		"\u0005i\u0000\u0000\u03ce\u03d2\u0003\u0086C\u0000\u03cf\u03d2\u0003\u0088"+
+		"D\u0000\u03d0\u03d2\u0003\u008aE\u0000\u03d1\u03cb\u0001\u0000\u0000\u0000"+
+		"\u03d1\u03cc\u0001\u0000\u0000\u0000\u03d1\u03cd\u0001\u0000\u0000\u0000"+
+		"\u03d1\u03ce\u0001\u0000\u0000\u0000\u03d1\u03cf\u0001\u0000\u0000\u0000"+
+		"\u03d1\u03d0\u0001\u0000\u0000\u0000\u03d2\u0093\u0001\u0000\u0000\u0000"+
+		"\u03d3\u03d8\u0005_\u0000\u0000\u03d4\u03d8\u0005R\u0000\u0000\u03d5\u03d8"+
+		"\u0005d\u0000\u0000\u03d6\u03d8\u0005[\u0000\u0000\u03d7\u03d3\u0001\u0000"+
+		"\u0000\u0000\u03d7\u03d4\u0001\u0000\u0000\u0000\u03d7\u03d5\u0001\u0000"+
+		"\u0000\u0000\u03d7\u03d6\u0001\u0000\u0000\u0000\u03d8\u0095\u0001\u0000"+
+		"\u0000\u0000\u03d9\u03e0\u0003\u00f6{\u0000\u03da\u03e0\u0005\u008a\u0000"+
+		"\u0000\u03db\u03dc\u0005^\u0000\u0000\u03dc\u03e0\u0003\u00f6{\u0000\u03dd"+
+		"\u03de\u0005a\u0000\u0000\u03de\u03e0\u0003\u00f6{\u0000\u03df\u03d9\u0001"+
+		"\u0000\u0000\u0000\u03df\u03da\u0001\u0000\u0000\u0000\u03df\u03db\u0001"+
+		"\u0000\u0000\u0000\u03df\u03dd\u0001\u0000\u0000\u0000\u03e0\u0097\u0001"+
+		"\u0000\u0000\u0000\u03e1\u03e2\u0003v;\u0000\u03e2\u03e4\u0005X\u0000"+
+		"\u0000\u03e3\u03e5\u0003\u009aM\u0000\u03e4\u03e3\u0001\u0000\u0000\u0000"+
+		"\u03e4\u03e5\u0001\u0000\u0000\u0000\u03e5\u03e6\u0001\u0000\u0000\u0000"+
+		"\u03e6\u03e7\u0005Y\u0000\u0000\u03e7\u03f4\u0001\u0000\u0000\u0000\u03e8"+
+		"\u03ea\u0003\u00b4Z\u0000\u03e9\u03e8\u0001\u0000\u0000\u0000\u03ea\u03ed"+
+		"\u0001\u0000\u0000\u0000\u03eb\u03e9\u0001\u0000\u0000\u0000\u03eb\u03ec"+
+		"\u0001\u0000\u0000\u0000\u03ec\u03ee\u0001\u0000\u0000\u0000\u03ed\u03eb"+
+		"\u0001\u0000\u0000\u0000\u03ee\u03f0\u0005X\u0000\u0000\u03ef\u03f1\u0003"+
+		"\u009aM\u0000\u03f0\u03ef\u0001\u0000\u0000\u0000\u03f0\u03f1\u0001\u0000"+
+		"\u0000\u0000\u03f1\u03f2\u0001\u0000\u0000\u0000\u03f2\u03f4\u0005Y\u0000"+
+		"\u0000\u03f3\u03e1\u0001\u0000\u0000\u0000\u03f3\u03eb\u0001\u0000\u0000"+
+		"\u0000\u03f4\u0099\u0001\u0000\u0000\u0000\u03f5\u03f7\u0005Z\u0000\u0000"+
+		"\u03f6\u03f5\u0001\u0000\u0000\u0000\u03f7\u03fa\u0001\u0000\u0000\u0000"+
+		"\u03f8\u03f6\u0001\u0000\u0000\u0000\u03f8\u03f9\u0001\u0000\u0000\u0000"+
+		"\u03f9\u03fb\u0001\u0000\u0000\u0000\u03fa\u03f8\u0001\u0000\u0000\u0000"+
+		"\u03fb\u0402\u0003\u009cN\u0000\u03fc\u03fe\u0005Z\u0000\u0000\u03fd\u03ff"+
+		"\u0003\u009cN\u0000\u03fe\u03fd\u0001\u0000\u0000\u0000\u03fe\u03ff\u0001"+
+		"\u0000\u0000\u0000\u03ff\u0401\u0001\u0000\u0000\u0000\u0400\u03fc\u0001"+
+		"\u0000\u0000\u0000\u0401\u0404\u0001\u0000\u0000\u0000\u0402\u0400\u0001"+
+		"\u0000\u0000\u0000\u0402\u0403\u0001\u0000\u0000\u0000\u0403\u009b\u0001"+
+		"\u0000\u0000\u0000\u0404\u0402\u0001\u0000\u0000\u0000\u0405\u0406\u0003"+
+		"\u0096K\u0000\u0406\u0407\u0005\\\u0000\u0000\u0407\u0409\u0003\u00a2"+
+		"Q\u0000\u0408\u040a\u0003\u009eO\u0000\u0409\u0408\u0001\u0000\u0000\u0000"+
+		"\u0409\u040a\u0001\u0000\u0000\u0000\u040a\u0410\u0001\u0000\u0000\u0000"+
+		"\u040b\u040c\u0003\u0096K\u0000\u040c\u040d\u0005\\\u0000\u0000\u040d"+
+		"\u040e\u0003\u00a0P\u0000\u040e\u0410\u0001\u0000\u0000\u0000\u040f\u0405"+
+		"\u0001\u0000\u0000\u0000\u040f\u040b\u0001\u0000\u0000\u0000\u0410\u009d"+
+		"\u0001\u0000\u0000\u0000\u0411\u0412\u0005o\u0000\u0000\u0412\u009f\u0001"+
+		"\u0000\u0000\u0000\u0413\u0417\u0003\u00b4Z\u0000\u0414\u0417\u0003\u00ba"+
+		"]\u0000\u0415\u0417\u0005\u0089\u0000\u0000\u0416\u0413\u0001\u0000\u0000"+
+		"\u0000\u0416\u0414\u0001\u0000\u0000\u0000\u0416\u0415\u0001\u0000\u0000"+
+		"\u0000\u0417\u0418\u0001\u0000\u0000\u0000\u0418\u0416\u0001\u0000\u0000"+
+		"\u0000\u0418\u0419\u0001\u0000\u0000\u0000\u0419\u00a1\u0001\u0000\u0000"+
+		"\u0000\u041a\u0421\u0003\u00a4R\u0000\u041b\u041d\u0003\u0094J\u0000\u041c"+
+		"\u041b\u0001\u0000\u0000\u0000\u041c\u041d\u0001\u0000\u0000\u0000\u041d"+
+		"\u041e\u0001\u0000\u0000\u0000\u041e\u0420\u0003\u00a4R\u0000\u041f\u041c"+
+		"\u0001\u0000\u0000\u0000\u0420\u0423\u0001\u0000\u0000\u0000\u0421\u041f"+
+		"\u0001\u0000\u0000\u0000\u0421\u0422\u0001\u0000\u0000\u0000\u0422\u00a3"+
+		"\u0001\u0000\u0000\u0000\u0423\u0421\u0001\u0000\u0000\u0000\u0424\u0432"+
+		"\u0003\u00acV\u0000\u0425\u0432\u0003\u00aeW\u0000\u0426\u0432\u0003\u00b0"+
+		"X\u0000\u0427\u0432\u0005z\u0000\u0000\u0428\u0432\u0005r\u0000\u0000"+
+		"\u0429\u0432\u0003\u00f6{\u0000\u042a\u0432\u0003\u00d2i\u0000\u042b\u0432"+
+		"\u0003\u00d0h\u0000\u042c\u0432\u0003\u00aaU\u0000\u042d\u0432\u0003\u00d4"+
+		"j\u0000\u042e\u0432\u0003\u00a6S\u0000\u042f\u0432\u0003\u00b2Y\u0000"+
+		"\u0430\u0432\u0003\u00a8T\u0000\u0431\u0424\u0001\u0000\u0000\u0000\u0431"+
+		"\u0425\u0001\u0000\u0000\u0000\u0431\u0426\u0001\u0000\u0000\u0000\u0431"+
+		"\u0427\u0001\u0000\u0000\u0000\u0431\u0428\u0001\u0000\u0000\u0000\u0431"+
+		"\u0429\u0001\u0000\u0000\u0000\u0431\u042a\u0001\u0000\u0000\u0000\u0431"+
+		"\u042b\u0001\u0000\u0000\u0000\u0431\u042c\u0001\u0000\u0000\u0000\u0431"+
+		"\u042d\u0001\u0000\u0000\u0000\u0431\u042e\u0001\u0000\u0000\u0000\u0431"+
+		"\u042f\u0001\u0000\u0000\u0000\u0431\u0430\u0001\u0000\u0000\u0000\u0432"+
+		"\u00a5\u0001\u0000\u0000\u0000\u0433\u0434\u0005\u008d\u0000\u0000\u0434"+
+		"\u0435\u0003\u00a2Q\u0000\u0435\u0436\u0005W\u0000\u0000\u0436\u00a7\u0001"+
+		"\u0000\u0000\u0000\u0437\u0438\u0005\u0088\u0000\u0000\u0438\u0439\u0003"+
+		"\u00a2Q\u0000\u0439\u043a\u0005W\u0000\u0000\u043a\u00a9\u0001\u0000\u0000"+
+		"\u0000\u043b\u043c\u0005i\u0000\u0000\u043c\u00ab\u0001\u0000\u0000\u0000"+
+		"\u043d\u043f\u0007\b\u0000\u0000\u043e\u043d\u0001\u0000\u0000\u0000\u043e"+
+		"\u043f\u0001\u0000\u0000\u0000\u043f\u0440\u0001\u0000\u0000\u0000\u0440"+
+		"\u0441\u0005y\u0000\u0000\u0441\u00ad\u0001\u0000\u0000\u0000\u0442\u0444"+
+		"\u0007\b\u0000\u0000\u0443\u0442\u0001\u0000\u0000\u0000\u0443\u0444\u0001"+
+		"\u0000\u0000\u0000\u0444\u0445\u0001\u0000\u0000\u0000\u0445\u0446\u0005"+
+		"p\u0000\u0000\u0446\u00af\u0001\u0000\u0000\u0000\u0447\u0449\u0007\b"+
+		"\u0000\u0000\u0448\u0447\u0001\u0000\u0000\u0000\u0448\u0449\u0001\u0000"+
+		"\u0000\u0000\u0449\u044a\u0001\u0000\u0000\u0000\u044a\u044b\u0005v\u0000"+
+		"\u0000\u044b\u00b1\u0001\u0000\u0000\u0000\u044c\u044e\u0007\b\u0000\u0000"+
+		"\u044d\u044c\u0001\u0000\u0000\u0000\u044d\u044e\u0001\u0000\u0000\u0000"+
+		"\u044e\u044f\u0001\u0000\u0000\u0000\u044f\u0450\u0005w\u0000\u0000\u0450"+
+		"\u00b3\u0001\u0000\u0000\u0000\u0451\u0479\u0003\u00f6{\u0000\u0452\u0479"+
+		"\u0003\u00acV\u0000\u0453\u0479\u0003\u00aeW\u0000\u0454\u0479\u0003\u00b0"+
+		"X\u0000\u0455\u0479\u0003\u00b2Y\u0000\u0456\u0479\u0005z\u0000\u0000"+
+		"\u0457\u0479\u0003\u00d0h\u0000\u0458\u0479\u0005i\u0000\u0000\u0459\u0479"+
+		"\u0005r\u0000\u0000\u045a\u0479\u0005g\u0000\u0000\u045b\u0479\u0005h"+
+		"\u0000\u0000\u045c\u0479\u0005\\\u0000\u0000\u045d\u0462\u0005\u008d\u0000"+
+		"\u0000\u045e\u0461\u0003\u00b4Z\u0000\u045f\u0461\u0003\u00b8\\\u0000"+
+		"\u0460\u045e\u0001\u0000\u0000\u0000\u0460\u045f\u0001\u0000\u0000\u0000"+
+		"\u0461\u0464\u0001\u0000\u0000\u0000\u0462\u0460\u0001\u0000\u0000\u0000"+
+		"\u0462\u0463\u0001\u0000\u0000\u0000\u0463\u0465\u0001\u0000\u0000\u0000"+
+		"\u0464\u0462\u0001\u0000\u0000\u0000\u0465\u0479\u0005W\u0000\u0000\u0466"+
+		"\u046b\u0005V\u0000\u0000\u0467\u046a\u0003\u00b4Z\u0000\u0468\u046a\u0003"+
+		"\u00b8\\\u0000\u0469\u0467\u0001\u0000\u0000\u0000\u0469\u0468\u0001\u0000"+
+		"\u0000\u0000\u046a\u046d\u0001\u0000\u0000\u0000\u046b\u0469\u0001\u0000"+
+		"\u0000\u0000\u046b\u046c\u0001\u0000\u0000\u0000\u046c\u046e\u0001\u0000"+
+		"\u0000\u0000\u046d\u046b\u0001\u0000\u0000\u0000\u046e\u0479\u0005W\u0000"+
+		"\u0000\u046f\u0474\u0005T\u0000\u0000\u0470\u0473\u0003\u00b4Z\u0000\u0471"+
+		"\u0473\u0003\u00b8\\\u0000\u0472\u0470\u0001\u0000\u0000\u0000\u0472\u0471"+
+		"\u0001\u0000\u0000\u0000\u0473\u0476\u0001\u0000\u0000\u0000\u0474\u0472"+
+		"\u0001\u0000\u0000\u0000\u0474\u0475\u0001\u0000\u0000\u0000\u0475\u0477"+
+		"\u0001\u0000\u0000\u0000\u0476\u0474\u0001\u0000\u0000\u0000\u0477\u0479"+
+		"\u0005U\u0000\u0000\u0478\u0451\u0001\u0000\u0000\u0000\u0478\u0452\u0001"+
+		"\u0000\u0000\u0000\u0478\u0453\u0001\u0000\u0000\u0000\u0478\u0454\u0001"+
+		"\u0000\u0000\u0000\u0478\u0455\u0001\u0000\u0000\u0000\u0478\u0456\u0001"+
+		"\u0000\u0000\u0000\u0478\u0457\u0001\u0000\u0000\u0000\u0478\u0458\u0001"+
+		"\u0000\u0000\u0000\u0478\u0459\u0001\u0000\u0000\u0000\u0478\u045a\u0001"+
+		"\u0000\u0000\u0000\u0478\u045b\u0001\u0000\u0000\u0000\u0478\u045c\u0001"+
+		"\u0000\u0000\u0000\u0478\u045d\u0001\u0000\u0000\u0000\u0478\u0466\u0001"+
+		"\u0000\u0000\u0000\u0478\u046f\u0001\u0000\u0000\u0000\u0479\u00b5\u0001"+
+		"\u0000\u0000\u0000\u047a\u047e\u0005\u0089\u0000\u0000\u047b\u047d\u0003"+
+		"\u00b4Z\u0000\u047c\u047b\u0001\u0000\u0000\u0000\u047d\u0480\u0001\u0000"+
+		"\u0000\u0000\u047e\u047c\u0001\u0000\u0000\u0000\u047e\u047f\u0001\u0000"+
+		"\u0000\u0000\u047f\u0483\u0001\u0000\u0000\u0000\u0480\u047e\u0001\u0000"+
+		"\u0000\u0000\u0481\u0484\u0003\u00ba]\u0000\u0482\u0484\u0005Z\u0000\u0000"+
+		"\u0483\u0481\u0001\u0000\u0000\u0000\u0483\u0482\u0001\u0000\u0000\u0000"+
+		"\u0484\u00b7\u0001\u0000\u0000\u0000\u0485\u048b\u0003\u00ba]\u0000\u0486"+
+		"\u048b\u0005\u0089\u0000\u0000\u0487\u048b\u0005Z\u0000\u0000\u0488\u048b"+
+		"\u0005e\u0000\u0000\u0489\u048b\u0005f\u0000\u0000\u048a\u0485\u0001\u0000"+
+		"\u0000\u0000\u048a\u0486\u0001\u0000\u0000\u0000\u048a\u0487\u0001\u0000"+
+		"\u0000\u0000\u048a\u0488\u0001\u0000\u0000\u0000\u048a\u0489\u0001\u0000"+
+		"\u0000\u0000\u048b\u00b9\u0001\u0000\u0000\u0000\u048c\u0495\u0005X\u0000"+
+		"\u0000\u048d\u0494\u0003\u009aM\u0000\u048e\u0494\u0003\u00bc^\u0000\u048f"+
+		"\u0494\u0003\u00b4Z\u0000\u0490\u0494\u0003\u00ba]\u0000\u0491\u0494\u0005"+
+		"\u0089\u0000\u0000\u0492\u0494\u0005Z\u0000\u0000\u0493\u048d\u0001\u0000"+
+		"\u0000\u0000\u0493\u048e\u0001\u0000\u0000\u0000\u0493\u048f\u0001\u0000"+
+		"\u0000\u0000\u0493\u0490\u0001\u0000\u0000\u0000\u0493\u0491\u0001\u0000"+
+		"\u0000\u0000\u0493\u0492\u0001\u0000\u0000\u0000\u0494\u0497\u0001\u0000"+
+		"\u0000\u0000\u0495\u0493\u0001\u0000\u0000\u0000\u0495\u0496\u0001\u0000"+
+		"\u0000\u0000\u0496\u0498\u0001\u0000\u0000\u0000\u0497\u0495\u0001\u0000"+
+		"\u0000\u0000\u0498\u0499\u0005Y\u0000\u0000\u0499\u00bb\u0001\u0000\u0000"+
+		"\u0000\u049a\u04a5\u0003\u0098L\u0000\u049b\u04a5\u0003f3\u0000\u049c"+
+		"\u04a5\u0003r9\u0000\u049d\u04a5\u0003\u00dcn\u0000\u049e\u04a5\u0003"+
+		"\u00e0p\u0000\u049f\u04a5\u0003\u00c0`\u0000\u04a0\u04a5\u0003\u00e6s"+
+		"\u0000\u04a1\u04a5\u0003\u00e8t\u0000\u04a2\u04a5\u0003\u00eau\u0000\u04a3"+
+		"\u04a5\u0003\u00b6[\u0000\u04a4\u049a\u0001\u0000\u0000\u0000\u04a4\u049b"+
+		"\u0001\u0000\u0000\u0000\u04a4\u049c\u0001\u0000\u0000\u0000\u04a4\u049d"+
+		"\u0001\u0000\u0000\u0000\u04a4\u049e\u0001\u0000\u0000\u0000\u04a4\u049f"+
+		"\u0001\u0000\u0000\u0000\u04a4\u04a0\u0001\u0000\u0000\u0000\u04a4\u04a1"+
+		"\u0001\u0000\u0000\u0000\u04a4\u04a2\u0001\u0000\u0000\u0000\u04a4\u04a3"+
+		"\u0001\u0000\u0000\u0000\u04a5\u00bd\u0001\u0000\u0000\u0000\u04a6\u04aa"+
+		"\u0005X\u0000\u0000\u04a7\u04a9\u0003\u00bc^\u0000\u04a8\u04a7\u0001\u0000"+
+		"\u0000\u0000\u04a9\u04ac\u0001\u0000\u0000\u0000\u04aa\u04a8\u0001\u0000"+
+		"\u0000\u0000\u04aa\u04ab\u0001\u0000\u0000\u0000\u04ab\u04ad\u0001\u0000"+
+		"\u0000\u0000\u04ac\u04aa\u0001\u0000\u0000\u0000\u04ad\u04ae\u0005Y\u0000"+
+		"\u0000\u04ae\u00bf\u0001\u0000\u0000\u0000\u04af\u04b0\u0005\u007f\u0000"+
+		"\u0000\u04b0\u04b1\u0003\u00c2a\u0000\u04b1\u04b2\u0003\u00be_\u0000\u04b2"+
+		"\u00c1\u0001\u0000\u0000\u0000\u04b3\u04b8\u0003\u00c6c\u0000\u04b4\u04b8"+
+		"\u0003\u00c8d\u0000\u04b5\u04b8\u0003\u00cae\u0000\u04b6\u04b8\u0003\u00c4"+
+		"b\u0000\u04b7\u04b3\u0001\u0000\u0000\u0000\u04b7\u04b4\u0001\u0000\u0000"+
+		"\u0000\u04b7\u04b5\u0001\u0000\u0000\u0000\u04b7\u04b6\u0001\u0000\u0000"+
+		"\u0000\u04b8\u00c3\u0001\u0000\u0000\u0000\u04b9\u04ba\u0005V\u0000\u0000"+
+		"\u04ba\u04bb\u0003\u00c2a\u0000\u04bb\u04bc\u0005W\u0000\u0000\u04bc\u04c0"+
+		"\u0001\u0000\u0000\u0000\u04bd\u04c0\u0003\u00ccf\u0000\u04be\u04c0\u0003"+
+		"\u00ceg\u0000\u04bf\u04b9\u0001\u0000\u0000\u0000\u04bf\u04bd\u0001\u0000"+
+		"\u0000\u0000\u04bf\u04be\u0001\u0000\u0000\u0000\u04c0\u00c5\u0001\u0000"+
+		"\u0000\u0000\u04c1\u04c2\u0005t\u0000\u0000\u04c2\u04c3\u0005d\u0000\u0000"+
+		"\u04c3\u04c4\u0003\u00c4b\u0000\u04c4\u00c7\u0001\u0000\u0000\u0000\u04c5"+
+		"\u04ca\u0003\u00c4b\u0000\u04c6\u04c7\u0005d\u0000\u0000\u04c7\u04c8\u0005"+
+		"u\u0000\u0000\u04c8\u04c9\u0005d\u0000\u0000\u04c9\u04cb\u0003\u00c4b"+
+		"\u0000\u04ca\u04c6\u0001\u0000\u0000\u0000\u04cb\u04cc\u0001\u0000\u0000"+
+		"\u0000\u04cc\u04ca\u0001\u0000\u0000\u0000\u04cc\u04cd\u0001\u0000\u0000"+
+		"\u0000\u04cd\u00c9\u0001\u0000\u0000\u0000\u04ce\u04d3\u0003\u00c4b\u0000"+
+		"\u04cf\u04d0\u0005d\u0000\u0000\u04d0\u04d1\u0005\u0080\u0000\u0000\u04d1"+
+		"\u04d2\u0005d\u0000\u0000\u04d2\u04d4\u0003\u00c4b\u0000\u04d3\u04cf\u0001"+
+		"\u0000\u0000\u0000\u04d4\u04d5\u0001\u0000\u0000\u0000\u04d5\u04d3\u0001"+
+		"\u0000\u0000\u0000\u04d5\u04d6\u0001\u0000\u0000\u0000\u04d6\u00cb\u0001"+
+		"\u0000\u0000\u0000\u04d7\u04d8\u0005V\u0000\u0000\u04d8\u04d9\u0003\u009c"+
+		"N\u0000\u04d9\u04da\u0005W\u0000\u0000\u04da\u00cd\u0001\u0000\u0000\u0000"+
+		"\u04db\u04e0\u0007\t\u0000\u0000\u04dc\u04df\u0003\u00b4Z\u0000\u04dd"+
+		"\u04df\u0003\u00b8\\\u0000\u04de\u04dc\u0001\u0000\u0000\u0000\u04de\u04dd"+
+		"\u0001\u0000\u0000\u0000\u04df\u04e2\u0001\u0000\u0000\u0000\u04e0\u04de"+
+		"\u0001\u0000\u0000\u0000\u04e0\u04e1\u0001\u0000\u0000\u0000\u04e1\u04e3"+
+		"\u0001\u0000\u0000\u0000\u04e2\u04e0\u0001\u0000\u0000\u0000\u04e3\u04e4"+
+		"\u0005W\u0000\u0000\u04e4\u00cf\u0001\u0000\u0000\u0000\u04e5\u04e6\u0005"+
+		"q\u0000\u0000\u04e6\u04e7\u0005z\u0000\u0000\u04e7\u04ea\u0005W\u0000"+
+		"\u0000\u04e8\u04ea\u0005c\u0000\u0000\u04e9\u04e5\u0001\u0000\u0000\u0000"+
+		"\u04e9\u04e8\u0001\u0000\u0000\u0000\u04ea\u00d1\u0001\u0000\u0000\u0000"+
+		"\u04eb\u04ec\u0005\u008b\u0000\u0000\u04ec\u04ed\u0005\u008a\u0000\u0000"+
+		"\u04ed\u04ee\u0005W\u0000\u0000\u04ee\u00d3\u0001\u0000\u0000\u0000\u04ef"+
+		"\u04f0\u0005\u0084\u0000\u0000\u04f0\u04f1\u0003\u00d6k\u0000\u04f1\u04f2"+
+		"\u0005W\u0000\u0000\u04f2\u00d5\u0001\u0000\u0000\u0000\u04f3\u04fa\u0003"+
+		"\u00d8l\u0000\u04f4\u04f5\u0005d\u0000\u0000\u04f5\u04f6\u0007\b\u0000"+
+		"\u0000\u04f6\u04f7\u0005d\u0000\u0000\u04f7\u04f9\u0003\u00d8l\u0000\u04f8"+
+		"\u04f4\u0001\u0000\u0000\u0000\u04f9\u04fc\u0001\u0000\u0000\u0000\u04fa"+
+		"\u04f8\u0001\u0000\u0000\u0000\u04fa\u04fb\u0001\u0000\u0000\u0000\u04fb"+
+		"\u00d7\u0001\u0000\u0000\u0000\u04fc\u04fa\u0001\u0000\u0000\u0000\u04fd"+
+		"\u0504\u0003\u00dam\u0000\u04fe\u04ff\u0005^\u0000\u0000\u04ff\u0503\u0003"+
+		"\u00dam\u0000\u0500\u0501\u0005_\u0000\u0000\u0501\u0503\u0003\u00acV"+
+		"\u0000\u0502\u04fe\u0001\u0000\u0000\u0000\u0502\u0500\u0001\u0000\u0000"+
+		"\u0000\u0503\u0506\u0001\u0000\u0000\u0000\u0504\u0502\u0001\u0000\u0000"+
+		"\u0000\u0504\u0505\u0001\u0000\u0000\u0000\u0505\u00d9\u0001\u0000\u0000"+
+		"\u0000\u0506\u0504\u0001\u0000\u0000\u0000\u0507\u0510\u0003\u00acV\u0000"+
+		"\u0508\u0510\u0003\u00b0X\u0000\u0509\u0510\u0003\u00b2Y\u0000\u050a\u0510"+
+		"\u0003\u00aeW\u0000\u050b\u050c\u0005V\u0000\u0000\u050c\u050d\u0003\u00d6"+
+		"k\u0000\u050d\u050e\u0005W\u0000\u0000\u050e\u0510\u0001\u0000\u0000\u0000"+
+		"\u050f\u0507\u0001\u0000\u0000\u0000\u050f\u0508\u0001\u0000\u0000\u0000"+
+		"\u050f\u0509\u0001\u0000\u0000\u0000\u050f\u050a\u0001\u0000\u0000\u0000"+
+		"\u050f\u050b\u0001\u0000\u0000\u0000\u0510\u00db\u0001\u0000\u0000\u0000"+
+		"\u0511\u0512\u0005~\u0000\u0000\u0512\u0514\u0005X\u0000\u0000\u0513\u0515"+
+		"\u0003\u00deo\u0000\u0514\u0513\u0001\u0000\u0000\u0000\u0514\u0515\u0001"+
+		"\u0000\u0000\u0000\u0515\u051c\u0001\u0000\u0000\u0000\u0516\u0518\u0005"+
+		"Z\u0000\u0000\u0517\u0519\u0003\u00deo\u0000\u0518\u0517\u0001\u0000\u0000"+
+		"\u0000\u0518\u0519\u0001\u0000\u0000\u0000\u0519\u051b\u0001\u0000\u0000"+
+		"\u0000\u051a\u0516\u0001\u0000\u0000\u0000\u051b\u051e\u0001\u0000\u0000"+
+		"\u0000\u051c\u051a\u0001\u0000\u0000\u0000\u051c\u051d\u0001\u0000\u0000"+
+		"\u0000\u051d\u051f\u0001\u0000\u0000\u0000\u051e\u051c\u0001\u0000\u0000"+
+		"\u0000\u051f\u0520\u0005Y\u0000\u0000\u0520\u00dd\u0001\u0000\u0000\u0000"+
+		"\u0521\u0522\u0003\u0096K\u0000\u0522\u0523\u0005\\\u0000\u0000\u0523"+
+		"\u0524\u0003\u00a2Q\u0000\u0524\u052a\u0001\u0000\u0000\u0000\u0525\u0526"+
+		"\u0003\u0096K\u0000\u0526\u0527\u0005\\\u0000\u0000\u0527\u0528\u0003"+
+		"\u00a0P\u0000\u0528\u052a\u0001\u0000\u0000\u0000\u0529\u0521\u0001\u0000"+
+		"\u0000\u0000\u0529\u0525\u0001\u0000\u0000\u0000\u052a\u00df\u0001\u0000"+
+		"\u0000\u0000\u052b\u052c\u0005\u0081\u0000\u0000\u052c\u052d\u0005d\u0000"+
+		"\u0000\u052d\u052e\u0003\u00f6{\u0000\u052e\u0532\u0005X\u0000\u0000\u052f"+
+		"\u0531\u0003\u00e2q\u0000\u0530\u052f\u0001\u0000\u0000\u0000\u0531\u0534"+
+		"\u0001\u0000\u0000\u0000\u0532\u0530\u0001\u0000\u0000\u0000\u0532\u0533"+
+		"\u0001\u0000\u0000\u0000\u0533\u0535\u0001\u0000\u0000\u0000\u0534\u0532"+
+		"\u0001\u0000\u0000\u0000\u0535\u0536\u0005Y\u0000\u0000\u0536\u00e1\u0001"+
+		"\u0000\u0000\u0000\u0537\u0538\u0003\u00e4r\u0000\u0538\u053a\u0005X\u0000"+
+		"\u0000\u0539\u053b\u0003\u009aM\u0000\u053a\u0539\u0001\u0000\u0000\u0000"+
+		"\u053a\u053b\u0001\u0000\u0000\u0000\u053b\u053c\u0001\u0000\u0000\u0000"+
+		"\u053c\u053d\u0005Y\u0000\u0000\u053d\u00e3\u0001\u0000\u0000\u0000\u053e"+
+		"\u0543\u0007\n\u0000\u0000\u053f\u0540\u0005R\u0000\u0000\u0540\u0542"+
+		"\u0007\n\u0000\u0000\u0541\u053f\u0001\u0000\u0000\u0000\u0542\u0545\u0001"+
+		"\u0000\u0000\u0000\u0543\u0541\u0001\u0000\u0000\u0000\u0543\u0544\u0001"+
+		"\u0000\u0000\u0000\u0544\u00e5\u0001\u0000\u0000\u0000\u0545\u0543\u0001"+
+		"\u0000\u0000\u0000\u0546\u0547\u0005\u0085\u0000\u0000\u0547\u0549\u0005"+
+		"X\u0000\u0000\u0548\u054a\u0003\u009aM\u0000\u0549\u0548\u0001\u0000\u0000"+
+		"\u0000\u0549\u054a\u0001\u0000\u0000\u0000\u054a\u054b\u0001\u0000\u0000"+
+		"\u0000\u054b\u054c\u0005Y\u0000\u0000\u054c\u00e7\u0001\u0000\u0000\u0000"+
+		"\u054d\u054e\u0005\u0086\u0000\u0000\u054e\u054f\u0003\u00f6{\u0000\u054f"+
+		"\u0551\u0005X\u0000\u0000\u0550\u0552\u0003\u009aM\u0000\u0551\u0550\u0001"+
+		"\u0000\u0000\u0000\u0551\u0552\u0001\u0000\u0000\u0000\u0552\u0553\u0001"+
+		"\u0000\u0000\u0000\u0553\u0554\u0005Y\u0000\u0000\u0554\u00e9\u0001\u0000"+
+		"\u0000\u0000\u0555\u0556\u0005\u0087\u0000\u0000\u0556\u0557\u0003\u00ec"+
+		"v\u0000\u0557\u055b\u0005X\u0000\u0000\u0558\u055a\u0003\u00f0x\u0000"+
+		"\u0559\u0558\u0001\u0000\u0000\u0000\u055a\u055d\u0001\u0000\u0000\u0000"+
+		"\u055b\u0559\u0001\u0000\u0000\u0000\u055b\u055c\u0001\u0000\u0000\u0000"+
+		"\u055c\u055e\u0001\u0000\u0000\u0000\u055d\u055b\u0001\u0000\u0000\u0000"+
+		"\u055e\u055f\u0005Y\u0000\u0000\u055f\u00eb\u0001\u0000\u0000\u0000\u0560"+
+		"\u0565\u0003\u00eew\u0000\u0561\u0562\u0005R\u0000\u0000\u0562\u0564\u0003"+
+		"\u00eew\u0000\u0563\u0561\u0001\u0000\u0000\u0000\u0564\u0567\u0001\u0000"+
+		"\u0000\u0000\u0565\u0563\u0001\u0000\u0000\u0000\u0565\u0566\u0001\u0000"+
+		"\u0000\u0000\u0566\u00ed\u0001\u0000\u0000\u0000\u0567\u0565\u0001\u0000"+
+		"\u0000\u0000\u0568\u0571\u0005z\u0000\u0000\u0569\u056d\u0003\u00f6{\u0000"+
+		"\u056a\u056c\u0003\u00f6{\u0000\u056b\u056a\u0001\u0000\u0000\u0000\u056c"+
+		"\u056f\u0001\u0000\u0000\u0000\u056d\u056b\u0001\u0000\u0000\u0000\u056d"+
+		"\u056e\u0001\u0000\u0000\u0000\u056e\u0571\u0001\u0000\u0000\u0000\u056f"+
+		"\u056d\u0001\u0000\u0000\u0000\u0570\u0568\u0001\u0000\u0000\u0000\u0570"+
+		"\u0569\u0001\u0000\u0000\u0000\u0571\u00ef\u0001\u0000\u0000\u0000\u0572"+
+		"\u0573\u0003\u00f2y\u0000\u0573\u0575\u0005X\u0000\u0000\u0574\u0576\u0003"+
+		"\u00f4z\u0000\u0575\u0574\u0001\u0000\u0000\u0000\u0575\u0576\u0001\u0000"+
+		"\u0000\u0000\u0576\u057d\u0001\u0000\u0000\u0000\u0577\u0579\u0005Z\u0000"+
+		"\u0000\u0578\u057a\u0003\u00f4z\u0000\u0579\u0578\u0001\u0000\u0000\u0000"+
+		"\u0579\u057a\u0001\u0000\u0000\u0000\u057a\u057c\u0001\u0000\u0000\u0000"+
+		"\u057b\u0577\u0001\u0000\u0000\u0000\u057c\u057f\u0001\u0000\u0000\u0000"+
+		"\u057d\u057b\u0001\u0000\u0000\u0000\u057d\u057e\u0001\u0000\u0000\u0000"+
+		"\u057e\u0580\u0001\u0000\u0000\u0000\u057f\u057d\u0001\u0000\u0000\u0000"+
+		"\u0580\u0581\u0005Y\u0000\u0000\u0581\u00f1\u0001\u0000\u0000\u0000\u0582"+
+		"\u0583\u0005\u0089\u0000\u0000\u0583\u00f3\u0001\u0000\u0000\u0000\u0584"+
+		"\u0585\u0003\u00f6{\u0000\u0585\u0586\u0005\\\u0000\u0000\u0586\u058a"+
+		"\u0003\u00acV\u0000\u0587\u0589\u0003\u00acV\u0000\u0588\u0587\u0001\u0000"+
+		"\u0000\u0000\u0589\u058c\u0001\u0000\u0000\u0000\u058a\u0588\u0001\u0000"+
+		"\u0000\u0000\u058a\u058b\u0001\u0000\u0000\u0000\u058b\u00f5\u0001\u0000"+
+		"\u0000\u0000\u058c\u058a\u0001\u0000\u0000\u0000\u058d\u058e\u0007\u000b"+
+		"\u0000\u0000\u058e\u00f7\u0001\u0000\u0000\u0000\u058f\u0590\u00059\u0000"+
+		"\u0000\u0590\u0591\u0003\u00fa}\u0000\u0591\u0592\u0005\u00ab\u0000\u0000"+
+		"\u0592\u00f9\u0001\u0000\u0000\u0000\u0593\u05a4\u0003\u00fe\u007f\u0000"+
+		"\u0594\u05a4\u0003\u0100\u0080\u0000\u0595\u0597\u0005\u0093\u0000\u0000"+
+		"\u0596\u0598\u0003\u010a\u0085\u0000\u0597\u0596\u0001\u0000\u0000\u0000"+
+		"\u0597\u0598\u0001\u0000\u0000\u0000\u0598\u05a4\u0001\u0000\u0000\u0000"+
+		"\u0599\u059a\u0005\u00b3\u0000\u0000\u059a\u05a4\u0003\u0106\u0083\u0000"+
+		"\u059b\u05a4\u0003\u00fc~\u0000\u059c\u05a1\u0005\u0093\u0000\u0000\u059d"+
+		"\u059e\u0005\u00a4\u0000\u0000\u059e\u059f\u0003\u0124\u0092\u0000\u059f"+
+		"\u05a0\u0005\u00a5\u0000\u0000\u05a0\u05a2\u0001\u0000\u0000\u0000\u05a1"+
+		"\u059d\u0001\u0000\u0000\u0000\u05a1\u05a2\u0001\u0000\u0000\u0000\u05a2"+
+		"\u05a4\u0001\u0000\u0000\u0000\u05a3\u0593\u0001\u0000\u0000\u0000\u05a3"+
+		"\u0594\u0001\u0000\u0000\u0000\u05a3\u0595\u0001\u0000\u0000\u0000\u05a3"+
+		"\u0599\u0001\u0000\u0000\u0000\u05a3\u059b\u0001\u0000\u0000\u0000\u05a3"+
+		"\u059c\u0001\u0000\u0000\u0000\u05a4\u00fb\u0001\u0000\u0000\u0000\u05a5"+
+		"\u05a6\u0005\u00b4\u0000\u0000\u05a6\u05a7\u0003\u000e\u0007\u0000\u05a7"+
+		"\u05a8\u0005\u00b5\u0000\u0000\u05a8\u00fd\u0001\u0000\u0000\u0000\u05a9"+
+		"\u05aa\u0005\u00ac\u0000\u0000\u05aa\u05ab\u0003\u010a\u0085\u0000\u05ab"+
+		"\u05b2\u0003\u000e\u0007\u0000\u05ac\u05ad\u0005\u00ad\u0000\u0000\u05ad"+
+		"\u05ae\u0003\u010a\u0085\u0000\u05ae\u05af\u0003\u000e\u0007\u0000\u05af"+
+		"\u05b1\u0001\u0000\u0000\u0000\u05b0\u05ac\u0001\u0000\u0000\u0000\u05b1"+
+		"\u05b4\u0001\u0000\u0000\u0000\u05b2\u05b0\u0001\u0000\u0000\u0000\u05b2"+
+		"\u05b3\u0001\u0000\u0000\u0000\u05b3\u05b7\u0001\u0000\u0000\u0000\u05b4"+
+		"\u05b2\u0001\u0000\u0000\u0000\u05b5\u05b6\u0005\u00ae\u0000\u0000\u05b6"+
+		"\u05b8\u0003\u000e\u0007\u0000\u05b7\u05b5\u0001\u0000\u0000\u0000\u05b7"+
+		"\u05b8\u0001\u0000\u0000\u0000\u05b8\u05b9\u0001\u0000\u0000\u0000\u05b9"+
+		"\u05ba\u0005\u00af\u0000\u0000\u05ba\u00ff\u0001\u0000\u0000\u0000\u05bb"+
+		"\u05bc\u0005\u00b0\u0000\u0000\u05bc\u05bd\u0003\u0102\u0081\u0000\u05bd"+
+		"\u05be\u0005\u00b1\u0000\u0000\u05be\u05bf\u0003\u0106\u0083\u0000\u05bf"+
+		"\u05c2\u0003\u000e\u0007\u0000\u05c0\u05c1\u0005\u00ae\u0000\u0000\u05c1"+
+		"\u05c3\u0003\u000e\u0007\u0000\u05c2\u05c0\u0001\u0000\u0000\u0000\u05c2"+
+		"\u05c3\u0001\u0000\u0000\u0000\u05c3\u05c4\u0001\u0000\u0000\u0000\u05c4"+
+		"\u05c5\u0005\u00b2\u0000\u0000\u05c5\u0101\u0001\u0000\u0000\u0000\u05c6"+
+		"\u05cb\u0005\u0093\u0000\u0000\u05c7\u05c8\u0005\u00a2\u0000\u0000\u05c8"+
+		"\u05ca\u0005\u0093\u0000\u0000\u05c9\u05c7\u0001\u0000\u0000\u0000\u05ca"+
+		"\u05cd\u0001\u0000\u0000\u0000\u05cb\u05c9\u0001\u0000\u0000\u0000\u05cb"+
+		"\u05cc\u0001\u0000\u0000\u0000\u05cc\u0103\u0001\u0000\u0000\u0000\u05cd"+
+		"\u05cb\u0001\u0000\u0000\u0000\u05ce\u05cf\u00058\u0000\u0000\u05cf\u05d0"+
+		"\u0003\u0106\u0083\u0000\u05d0\u05d1\u0005\u008f\u0000\u0000\u05d1\u0105"+
+		"\u0001\u0000\u0000\u0000\u05d2\u05d7\u0003\u010a\u0085\u0000\u05d3\u05d4"+
+		"\u0005\u00a3\u0000\u0000\u05d4\u05d6\u0003\u0108\u0084\u0000\u05d5\u05d3"+
+		"\u0001\u0000\u0000\u0000\u05d6\u05d9\u0001\u0000\u0000\u0000\u05d7\u05d5"+
+		"\u0001\u0000\u0000\u0000\u05d7\u05d8\u0001\u0000\u0000\u0000\u05d8\u0107"+
+		"\u0001\u0000\u0000\u0000\u05d9\u05d7\u0001\u0000\u0000\u0000\u05da\u05e0"+
+		"\u0005\u0093\u0000\u0000\u05db\u05dd\u0005\u00a4\u0000\u0000\u05dc\u05de"+
+		"\u0003\u0124\u0092\u0000\u05dd\u05dc\u0001\u0000\u0000\u0000\u05dd\u05de"+
+		"\u0001\u0000\u0000\u0000\u05de\u05df\u0001\u0000\u0000\u0000\u05df\u05e1"+
+		"\u0005\u00a5\u0000\u0000\u05e0\u05db\u0001\u0000\u0000\u0000\u05e0\u05e1"+
+		"\u0001\u0000\u0000\u0000\u05e1\u0109\u0001\u0000\u0000\u0000\u05e2\u05e3"+
+		"\u0003\u010c\u0086\u0000\u05e3\u010b\u0001\u0000\u0000\u0000\u05e4\u05e9"+
+		"\u0003\u010e\u0087\u0000\u05e5\u05e6\u0005\u00b6\u0000\u0000\u05e6\u05e8"+
+		"\u0003\u010e\u0087\u0000\u05e7\u05e5\u0001\u0000\u0000\u0000\u05e8\u05eb"+
+		"\u0001\u0000\u0000\u0000\u05e9\u05e7\u0001\u0000\u0000\u0000\u05e9\u05ea"+
+		"\u0001\u0000\u0000\u0000\u05ea\u010d\u0001\u0000\u0000\u0000\u05eb\u05e9"+
+		"\u0001\u0000\u0000\u0000\u05ec\u05f1\u0003\u0110\u0088\u0000\u05ed\u05ee"+
+		"\u0005\u00b7\u0000\u0000\u05ee\u05f0\u0003\u0110\u0088\u0000\u05ef\u05ed"+
+		"\u0001\u0000\u0000\u0000\u05f0\u05f3\u0001\u0000\u0000\u0000\u05f1\u05ef"+
+		"\u0001\u0000\u0000\u0000\u05f1\u05f2\u0001\u0000\u0000\u0000\u05f2\u010f"+
+		"\u0001\u0000\u0000\u0000\u05f3\u05f1\u0001\u0000\u0000\u0000\u05f4\u05f5"+
+		"\u0005\u00b8\u0000\u0000\u05f5\u05f8\u0003\u0110\u0088\u0000\u05f6\u05f8"+
+		"\u0003\u0112\u0089\u0000\u05f7\u05f4\u0001\u0000\u0000\u0000\u05f7\u05f6"+
+		"\u0001\u0000\u0000\u0000\u05f8\u0111\u0001\u0000\u0000\u0000\u05f9\u05ff"+
+		"\u0003\u0116\u008b\u0000\u05fa\u05fb\u0003\u0114\u008a\u0000\u05fb\u05fc"+
+		"\u0003\u0116\u008b\u0000\u05fc\u05fe\u0001\u0000\u0000\u0000\u05fd\u05fa"+
+		"\u0001\u0000\u0000\u0000\u05fe\u0601\u0001\u0000\u0000\u0000\u05ff\u05fd"+
+		"\u0001\u0000\u0000\u0000\u05ff\u0600\u0001\u0000\u0000\u0000\u0600\u0113"+
+		"\u0001\u0000\u0000\u0000\u0601\u05ff\u0001\u0000\u0000\u0000\u0602\u060c"+
+		"\u0005\u009d\u0000\u0000\u0603\u060c\u0005\u009f\u0000\u0000\u0604\u060c"+
+		"\u0005\u009a\u0000\u0000\u0605\u060c\u0005\u009b\u0000\u0000\u0606\u060c"+
+		"\u0005\u009e\u0000\u0000\u0607\u060c\u0005\u009c\u0000\u0000\u0608\u060c"+
+		"\u0005\u00b1\u0000\u0000\u0609\u060a\u0005\u00b8\u0000\u0000\u060a\u060c"+
+		"\u0005\u00b1\u0000\u0000\u060b\u0602\u0001\u0000\u0000\u0000\u060b\u0603"+
+		"\u0001\u0000\u0000\u0000\u060b\u0604\u0001\u0000\u0000\u0000\u060b\u0605"+
+		"\u0001\u0000\u0000\u0000\u060b\u0606\u0001\u0000\u0000\u0000\u060b\u0607"+
+		"\u0001\u0000\u0000\u0000\u060b\u0608\u0001\u0000\u0000\u0000\u060b\u0609"+
+		"\u0001\u0000\u0000\u0000\u060c\u0115\u0001\u0000\u0000\u0000\u060d\u0612"+
+		"\u0003\u0118\u008c\u0000\u060e\u060f\u0007\f\u0000\u0000\u060f\u0611\u0003"+
+		"\u0118\u008c\u0000\u0610\u060e\u0001\u0000\u0000\u0000\u0611\u0614\u0001"+
+		"\u0000\u0000\u0000\u0612\u0610\u0001\u0000\u0000\u0000\u0612\u0613\u0001"+
+		"\u0000\u0000\u0000\u0613\u0117\u0001\u0000\u0000\u0000\u0614\u0612\u0001"+
+		"\u0000\u0000\u0000\u0615\u061a\u0003\u011a\u008d\u0000\u0616\u0617\u0007"+
+		"\r\u0000\u0000\u0617\u0619\u0003\u011a\u008d\u0000\u0618\u0616\u0001\u0000"+
+		"\u0000\u0000\u0619\u061c\u0001\u0000\u0000\u0000\u061a\u0618\u0001\u0000"+
+		"\u0000\u0000\u061a\u061b\u0001\u0000\u0000\u0000\u061b\u0119\u0001\u0000"+
+		"\u0000\u0000\u061c\u061a\u0001\u0000\u0000\u0000\u061d\u061e\u0007\f\u0000"+
+		"\u0000\u061e\u0621\u0003\u011a\u008d\u0000\u061f\u0621\u0003\u011c\u008e"+
+		"\u0000\u0620\u061d\u0001\u0000\u0000\u0000\u0620\u061f\u0001\u0000\u0000"+
+		"\u0000\u0621\u011b\u0001\u0000\u0000\u0000\u0622\u0626\u0003\u0120\u0090"+
+		"\u0000\u0623\u0625\u0003\u011e\u008f\u0000\u0624\u0623\u0001\u0000\u0000"+
+		"\u0000\u0625\u0628\u0001\u0000\u0000\u0000\u0626\u0624\u0001\u0000\u0000"+
+		"\u0000\u0626\u0627\u0001\u0000\u0000\u0000\u0627\u011d\u0001\u0000\u0000"+
+		"\u0000\u0628\u0626\u0001\u0000\u0000\u0000\u0629\u062b\u0005\u00a4\u0000"+
+		"\u0000\u062a\u062c\u0003\u0124\u0092\u0000\u062b\u062a\u0001\u0000\u0000"+
+		"\u0000\u062b\u062c\u0001\u0000\u0000\u0000\u062c\u062d\u0001\u0000\u0000"+
+		"\u0000\u062d\u0635\u0005\u00a5\u0000\u0000\u062e\u062f\u0005\u00a6\u0000"+
+		"\u0000\u062f\u0630\u0003\u010a\u0085\u0000\u0630\u0631\u0005\u00a7\u0000"+
+		"\u0000\u0631\u0635\u0001\u0000\u0000\u0000\u0632\u0633\u0005\u00a1\u0000"+
+		"\u0000\u0633\u0635\u0005\u0093\u0000\u0000\u0634\u0629\u0001\u0000\u0000"+
+		"\u0000\u0634\u062e\u0001\u0000\u0000\u0000\u0634\u0632\u0001\u0000\u0000"+
+		"\u0000\u0635\u011f\u0001\u0000\u0000\u0000\u0636\u0648\u0005\u0093\u0000"+
+		"\u0000\u0637\u0648\u0005\u0091\u0000\u0000\u0638\u0648\u0005\u0092\u0000"+
+		"\u0000\u0639\u063a\u0005\u00a4\u0000\u0000\u063a\u063b\u0003\u010a\u0085"+
+		"\u0000\u063b\u063c\u0005\u00a5\u0000\u0000\u063c\u0648\u0001\u0000\u0000"+
+		"\u0000\u063d\u063f\u0005\u00a6\u0000\u0000\u063e\u0640\u0003\u0122\u0091"+
+		"\u0000\u063f\u063e\u0001\u0000\u0000\u0000\u063f\u0640\u0001\u0000\u0000"+
+		"\u0000\u0640\u0641\u0001\u0000\u0000\u0000\u0641\u0648\u0005\u00a7\u0000"+
+		"\u0000\u0642\u0644\u0005\u00a8\u0000\u0000\u0643\u0645\u0003\u0126\u0093"+
+		"\u0000\u0644\u0643\u0001\u0000\u0000\u0000\u0644\u0645\u0001\u0000\u0000"+
+		"\u0000\u0645\u0646\u0001\u0000\u0000\u0000\u0646\u0648\u0005\u00a9\u0000"+
+		"\u0000\u0647\u0636\u0001\u0000\u0000\u0000\u0647\u0637\u0001\u0000\u0000"+
+		"\u0000\u0647\u0638\u0001\u0000\u0000\u0000\u0647\u0639\u0001\u0000\u0000"+
+		"\u0000\u0647\u063d\u0001\u0000\u0000\u0000\u0647\u0642\u0001\u0000\u0000"+
+		"\u0000\u0648\u0121\u0001\u0000\u0000\u0000\u0649\u064e\u0003\u010a\u0085"+
+		"\u0000\u064a\u064b\u0005\u00a2\u0000\u0000\u064b\u064d\u0003\u010a\u0085"+
+		"\u0000\u064c\u064a\u0001\u0000\u0000\u0000\u064d\u0650\u0001\u0000\u0000"+
+		"\u0000\u064e\u064c\u0001\u0000\u0000\u0000\u064e\u064f\u0001\u0000\u0000"+
+		"\u0000\u064f\u0123\u0001\u0000\u0000\u0000\u0650\u064e\u0001\u0000\u0000"+
+		"\u0000\u0651\u0656\u0003\u010a\u0085\u0000\u0652\u0653\u0005\u00a2\u0000"+
+		"\u0000\u0653\u0655\u0003\u010a\u0085\u0000\u0654\u0652\u0001\u0000\u0000"+
+		"\u0000\u0655\u0658\u0001\u0000\u0000\u0000\u0656\u0654\u0001\u0000\u0000"+
+		"\u0000\u0656\u0657\u0001\u0000\u0000\u0000\u0657\u0125\u0001\u0000\u0000"+
+		"\u0000\u0658\u0656\u0001\u0000\u0000\u0000\u0659\u065a\u0003\u010a\u0085"+
+		"\u0000\u065a\u065b\u0005\u00aa\u0000\u0000\u065b\u0663\u0003\u010a\u0085"+
+		"\u0000\u065c\u065d\u0005\u00a2\u0000\u0000\u065d\u065e\u0003\u010a\u0085"+
+		"\u0000\u065e\u065f\u0005\u00aa\u0000\u0000\u065f\u0660\u0003\u010a\u0085"+
+		"\u0000\u0660\u0662\u0001\u0000\u0000\u0000\u0661\u065c\u0001\u0000\u0000"+
+		"\u0000\u0662\u0665\u0001\u0000\u0000\u0000\u0663\u0661\u0001\u0000\u0000"+
+		"\u0000\u0663\u0664\u0001\u0000\u0000\u0000\u0664\u0127\u0001\u0000\u0000"+
+		"\u0000\u0665\u0663\u0001\u0000\u0000\u0000\u00c2\u012a\u012c\u0133\u013a"+
+		"\u013d\u0147\u014c\u0152\u015c\u0162\u0164\u0169\u016f\u0176\u017d\u0183"+
+		"\u018a\u0193\u019c\u01a2\u01a5\u01ae\u01b5\u01be\u01cc\u01d2\u01d6\u01e0"+
+		"\u01e4\u01eb\u01f5\u01fd\u0203\u020b\u0217\u021e\u0226\u022c\u0234\u0239"+
+		"\u0242\u0249\u0250\u0255\u025a\u025d\u0267\u026a\u0274\u0281\u0289\u0290"+
+		"\u0296\u02a4\u02a9\u02af\u02b5\u02ba\u02c1\u02c6\u02cd\u02d2\u02d9\u02de"+
+		"\u02e8\u02ed\u02f5\u02fb\u0301\u0303\u0307\u030b\u0310\u0314\u0316\u0323"+
+		"\u0326\u0329\u0330\u0338\u033b\u0343\u034b\u034f\u0353\u0357\u0364\u036d"+
+		"\u0374\u037b\u037d\u0385\u0387\u0389\u038c\u0392\u0399\u03a2\u03a8\u03aa"+
+		"\u03b0\u03b4\u03c1\u03c5\u03d1\u03d7\u03df\u03e4\u03eb\u03f0\u03f3\u03f8"+
+		"\u03fe\u0402\u0409\u040f\u0416\u0418\u041c\u0421\u0431\u043e\u0443\u0448"+
+		"\u044d\u0460\u0462\u0469\u046b\u0472\u0474\u0478\u047e\u0483\u048a\u0493"+
+		"\u0495\u04a4\u04aa\u04b7\u04bf\u04cc\u04d5\u04de\u04e0\u04e9\u04fa\u0502"+
+		"\u0504\u050f\u0514\u0518\u051c\u0529\u0532\u053a\u0543\u0549\u0551\u055b"+
+		"\u0565\u056d\u0570\u0575\u0579\u057d\u058a\u0597\u05a1\u05a3\u05b2\u05b7"+
+		"\u05c2\u05cb\u05d7\u05dd\u05e0\u05e9\u05f1\u05f7\u05ff\u060b\u0612\u061a"+
+		"\u0620\u0626\u062b\u0634\u063f\u0644\u0647\u064e\u0656\u0663";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

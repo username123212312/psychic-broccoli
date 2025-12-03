@@ -1,4 +1,4 @@
-// Generated from C:/Users/center/psychic-broccoli/grammars/JinjaFlaskParser.g4 by ANTLR 4.13.2
+// Generated from C:/Users/Yousef Razzouk/IdeaProjects/compiler_project/grammars/JinjaFlaskParser.g4 by ANTLR 4.13.2
 package antlr;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -564,18 +564,6 @@ public class JinjaFlaskParserBaseListener implements JinjaFlaskParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTag_content(JinjaFlaskParser.Tag_contentContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterStyle_content(JinjaFlaskParser.Style_contentContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitStyle_content(JinjaFlaskParser.Style_contentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1632,18 +1620,6 @@ public class JinjaFlaskParserBaseListener implements JinjaFlaskParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitIdent(JinjaFlaskParser.IdentContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterCss_ws(JinjaFlaskParser.Css_wsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitCss_ws(JinjaFlaskParser.Css_wsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

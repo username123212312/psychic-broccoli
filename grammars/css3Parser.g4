@@ -14,13 +14,13 @@ stylesheet
     ;
 
 charset
-    : Charset ws String_ ws ';' ws # goodCharset
+    : Charset ws String_ ws SemiColon ws # goodCharset
     | Charset ws String_ ws        # badCharset
     ;
 
 imports
-    : Import ws (String_ | url) ws mediaQueryList ';' ws # goodImport
-    | Import ws ( String_ | url) ws ';' ws               # goodImport
+    : Import ws (String_ | url) ws mediaQueryList SemiColon ws # goodImport
+    | Import ws ( String_ | url) ws SemiColon ws               # goodImport
     | Import ws ( String_ | url) ws mediaQueryList       # badImport
     | Import ws ( String_ | url) ws                      # badImport
     ;
@@ -28,7 +28,7 @@ imports
 // Namespaces
 // https://www.w3.org/TR/css-namespaces-3/
 namespace_
-    : Namespace ws (namespacePrefix ws)? (String_ | url) ws ';' ws # goodNamespace
+    : Namespace ws (namespacePrefix ws)? (String_ | url) ws SemiColon ws # goodNamespace
     | Namespace ws (namespacePrefix ws)? ( String_ | url) ws       # badNamespace
     ;
 
@@ -66,7 +66,7 @@ mediaFeature
 
 // Page
 page
-    : Page ws pseudoPage? '{' ws declaration? (';' ws declaration?)* '}' ws
+    : Page ws pseudoPage? '{' ws declaration? (SemiColon ws declaration?)* '}' ws
     ;
 
 pseudoPage
@@ -176,7 +176,7 @@ ruleset
     ;
 
 declarationList
-    : (';' ws)* declaration ws (';' ws declaration?)*
+    : (SemiColon ws)* declaration ws (SemiColon ws declaration?)*
     ;
 
 declaration
@@ -261,19 +261,19 @@ any_
     ;
 
 atRule
-    : AtKeyword ws any_* (block | ';' ws) # unknownAtRule
+    : AtKeyword ws any_* (block | SemiColon ws) # unknownAtRule
     ;
 
 unused
     : block
     | AtKeyword ws
-    | ';' ws
+    | SemiColon ws
     | Cdo ws
     | Cdc ws
     ;
 
 block
-    : '{' ws (declarationList | nestedStatement | any_ | block | AtKeyword ws | ';' ws)* '}' ws
+    : '{' ws (declarationList | nestedStatement | any_ | block | AtKeyword ws | SemiColon ws)* '}' ws
     ;
 
 // Conditional
@@ -370,7 +370,7 @@ calcValue
 // Font face
 // https://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#font-face-rule
 fontFaceRule
-    : FontFace ws '{' ws fontFaceDeclaration? (';' ws fontFaceDeclaration?)* '}' ws
+    : FontFace ws '{' ws fontFaceDeclaration? (SemiColon ws fontFaceDeclaration?)* '}' ws
     ;
 
 fontFaceDeclaration
@@ -420,7 +420,7 @@ fontFamilyName
     ;
 
 featureValueBlock
-    : featureType ws '{' ws featureValueDefinition? (ws ';' ws featureValueDefinition?)* '}' ws
+    : featureType ws '{' ws featureValueDefinition? (ws SemiColon ws featureValueDefinition?)* '}' ws
     ;
 
 featureType
