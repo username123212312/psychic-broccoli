@@ -21,7 +21,10 @@ statement
     : compound_stmt
     | simple_stmt
     ;
-
+// (statement {
+// simple_stmt{
+// small_stmt
+// }
 // Simple statements are one-liners (imports, assignments, expressions)
 simple_stmt
     : ( small_stmt (SEMI small_stmt)* )? (SEMI | NEWLINE)
