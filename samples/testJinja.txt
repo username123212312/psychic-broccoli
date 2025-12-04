@@ -1,15 +1,9 @@
-from antlr4 import *
-from JinjaLexer import JinjaLexer
-from JinjaParser import JinjaParser
-
-
-input_text = """
-Hello {{ name }}
+Hello {{name}}
 {% if user %}
-  Welcome {{ user }}
+  Welcome {{user}}
 {% else %}
   Please log in
 {% endif %}
-"""
+
 
 

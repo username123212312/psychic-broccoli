@@ -1,6 +1,6 @@
 lexer grammar JinjaLexer;
 
-WS : [ \t\r\n]+ -> skip ;
+WS : [ \t\r\n]+ -> channel(HIDDEN) ;
 
 // Delimiters
 JINJA_LVAR     : '{{' ;
@@ -66,4 +66,5 @@ STRING
 NAME : [A-Za-z_][A-Za-z0-9_]* ;
 
 // Fallback text
-TEXT : . ;
+TEXT : (~[{}]|'{'~[{]|'}'~[}])+ ;
+

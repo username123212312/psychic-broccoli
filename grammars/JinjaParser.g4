@@ -5,12 +5,16 @@ options {
 }
 
 // ===============================
-//  Entry
+//  Entry POINT
 // ===============================
 
-template
+template_root
     : part* EOF
     ;
+
+ template_block
+     : part*
+     ;
 
 // ===============================
 //  Parts (text / output / statements)
@@ -43,22 +47,28 @@ statement
 //  IF / ELIF / ELSE
 // ===============================
 ifStatement
-    : JINJA_LBLOCK IF expr JINJA_RBLOCK template elifBlock* elseBlock? JINJA_LBLOCK ENDIF JINJA_RBLOCK
+    : JINJA_LBLOCK IF expr JINJA_RBLOCK
+        template_block
+        elifBlock*
+        elseBlock?
+      JINJA_LBLOCK ENDIF JINJA_RBLOCK
     ;
 
 elifBlock
-    : JINJA_LBLOCK ELIF expr JINJA_RBLOCK template
+    : JINJA_LBLOCK ELIF expr JINJA_RBLOCK
+        template_block
     ;
 
 elseBlock
-    : JINJA_LBLOCK ELSE JINJA_RBLOCK template
+    : JINJA_LBLOCK ELSE JINJA_RBLOCK
+        template_block
     ;
 
 // ===============================
 //  FOR
 // ===============================
 forStatement
-    : JINJA_LBLOCK FOR NAME IN expr JINJA_RBLOCK template JINJA_LBLOCK ENDFOR JINJA_RBLOCK
+    : JINJA_LBLOCK FOR NAME IN expr JINJA_RBLOCK template_block JINJA_LBLOCK ENDFOR JINJA_RBLOCK
     ;
 
 // ===============================
