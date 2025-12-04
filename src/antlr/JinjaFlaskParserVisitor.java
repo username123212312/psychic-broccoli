@@ -1,4 +1,4 @@
-// Generated from C:/Users/Yousef Razzouk/IdeaProjects/compiler_project/grammars/JinjaFlaskParser.g4 by ANTLR 4.13.2
+// Generated from C:/Users/TWL/Desktop/psychic-broccoli-main/grammars/JinjaFlaskParser.g4 by ANTLR 4.13.2
 package antlr;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -40,12 +40,6 @@ public interface JinjaFlaskParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitCompound_stmt(JinjaFlaskParser.Compound_stmtContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#assign_stmt}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAssign_stmt(JinjaFlaskParser.Assign_stmtContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JinjaFlaskParser#template_literal}.
 	 * @param ctx the parse tree

@@ -31,7 +31,8 @@ simple_stmt
     ;
 
 small_stmt
-    : assign_stmt
+    :
+//    assign_stmt
     | import_stmt
     | return_stmt
     | global_stmt
@@ -52,15 +53,34 @@ compound_stmt
 
 // This is the critical rule for your test file.
 // It handles: 'x = 1' AND 'BASE_HTML = """<html>..."""'
-assign_stmt
-    : NAME ASSIGN ( test | template_literal )
+//assign_stmt
+//    : NAME ASSIGN ( test | template_literal )
+//    ;
+template_literal
+    : TRIPLE_QUOTED_STRING
+      {
+
+        String templateContent = $TRIPLE_QUOTED_STRING.getText();
+
+        templateContent = templateContent.substring(3, templateContent.length() - 3);
+
+
+        htmlLexer hLexer = new htmlLexer(CharStreams.fromString(templateContent));
+        htmlParser hParser = new htmlParser(new CommonTokenStream(hLexer));
+
+
+        htmlParser.DocumentContext htmlTree = hParser.document();
+
+
+        System.out.println("Successfully parsed HTML content inside the string!");
+      }
     ;
 
 // This rule triggers the parsing of the HTML/Jinja inside the strings
-template_literal
-    : TRIPLE_DOUBLE_START html_content TRIPLE_DOUBLE_END
-    | TRIPLE_SINGLE_START html_content TRIPLE_SINGLE_END
-    ;
+//template_literal
+//    : TRIPLE_DOUBLE_START html_content TRIPLE_DOUBLE_END
+//    | TRIPLE_SINGLE_START html_content TRIPLE_SINGLE_END
+//    ;
 
 // We will define 'html_content' in the next step.
 // It is the container for all your HTML and Jinja logic.
@@ -463,7 +483,7 @@ property_
     : ident     # goodProperty
     | Variable  # goodProperty
     | Multiply ident   # badProperty // IE hacks
-    | '_' ident   # badProperty // IE hacks
+//    | '_' ident   # badProperty // IE hacks
     ;
 
 ruleset

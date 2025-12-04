@@ -1,5 +1,6 @@
 package app;
 
+import antlr.JinjaFlaskParser;
 import listener.CustomErrorListener;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -15,7 +16,7 @@ public class App {
         if (args.length != 1) {
             System.err.println("Usage: java app.App <file_name>");
         } else {
-            String fileName = args[0];
+            String fileName = "test0.txt";
             try {
                 // Step 1: Get the tokens stream
                 CommonTokenStream tokens = getTokenStream(fileName);
