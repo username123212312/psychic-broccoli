@@ -4,25 +4,15 @@ parser grammar JinjaFlaskParser;
 
 options { tokenVocab=JinjaFlaskLexer; }
 
-// ======================================================
-// 1. ROOT RULE (The Entry Point)
-// ======================================================
-
-// The parser expects a sequence of Python statements until End of File
 program
     : (statement | NEWLINE | DEDENT)* EOF
     ;
-
-// ======================================================
-// 2. PYTHON STATEMENTS
-// ======================================================
 
 statement
     : compound_stmt
     | simple_stmt
     ;
 
-// Simple statements are one-liners (imports, assignments, expressions)
 simple_stmt
     : ( small_stmt (SEMI small_stmt)* )? (SEMI | NEWLINE)
     ;
@@ -35,43 +25,6 @@ small_stmt
     | expr
     | flow_stmt
     ;
-
-// Compound statements involve indentation (def, if, decorators)
-compound_stmt
-    : if_stmt
-    | func_def
-    | decorated
-    ;
-
-// ======================================================
-// 3. THE BRIDGE: ASSIGNMENT & TEMPLATES
-// ======================================================
-
-// This is the critical rule for your test file.
-// It handles: 'x = 1' AND 'BASE_HTML = """<html>..."""'
-assign_stmt
-    : atom_expr ASSIGN ( test | template_literal )
-    ;
-
-// This rule triggers the parsing of the HTML/Jinja inside the strings
-template_literal
-    : TRIPLE_DOUBLE_START html_content (NEWLINE | WS)* TRIPLE_DOUBLE_END
-    | TRIPLE_SINGLE_START html_content (NEWLINE | WS)* TRIPLE_SINGLE_END
-    ;
-
-// We will define 'html_content' in the next step.
-// It is the container for all your HTML and Jinja logic.
-html_content
-    : (htmlElement
-    | HTML_TEXT
-    | jinjaStatement
-    | jinjaExpression
-    )*
-    ;
-
-// ======================================================
-// 4. IMPORTS & GLOBALS
-// ======================================================
 
 import_stmt
     : import_name
@@ -98,15 +51,101 @@ dotted_name
     : NAME (DOT NAME)*
     ;
 
+return_stmt
+    : RETURN atom
+    | RETURN testlist?
+    ;
+
+testlist
+    : test (COMMA test)*
+    ;
+
+test
+    : or_test
+    ;
+
+or_test
+    : and_test (OR and_test)*
+    ;
+
+and_test
+    : not_test (AND not_test)*
+    ;
+
+not_test
+    : NOT not_test
+    | comparison
+    ;
+
+comparison
+    : expr (comp_op expr)*
+    ;
+
+comp_op
+    : LT | GT | EQ | GTE | LTE | NEQ | IN | NOT IN | IS | IS NOT
+    ;
+
 global_stmt
     : GLOBAL NAME (COMMA NAME)*
     ;
 
-// ======================================================
-// 5. FUNCTIONS & DECORATORS
-// ======================================================
+expr
+    : term ((PLUS | MINUS) term)*
+    ;
 
-// Handles: @app.route("/") def index(): ...
+term
+    : factor ((STAR | SLASH | SLASHSLASH) factor)*
+    ;
+
+factor
+    : (PLUS | MINUS) factor
+    | power
+    ;
+
+power
+    : atom_expr
+    ;
+
+atom_expr
+    : atom trailer*
+    ;
+
+trailer
+    : LP arglist? RP
+    | LBRACK test RBRACK
+    | DOT NAME
+    ;
+
+flow_stmt
+    : return_stmt
+    ;
+
+compound_stmt
+    : if_stmt
+    | func_def
+    | decorated
+    ;
+
+if_stmt
+    : IF test COLON suite
+      ( ELIF test COLON suite )*
+      ( ELSE COLON suite )?
+    ;
+
+suite
+    : simple_stmt
+    | NEWLINE INDENT statement+ DEDENT
+    ;
+
+assign_stmt
+    : atom_expr ASSIGN ( test | template_literal )
+    ;
+
+template_literal
+    : TRIPLE_DOUBLE_START html_content (NEWLINE | WS)* TRIPLE_DOUBLE_END
+    | TRIPLE_SINGLE_START html_content (NEWLINE | WS)* TRIPLE_SINGLE_END
+    ;
+
 decorated
     : decorators func_def
     ;
@@ -128,151 +167,9 @@ parameters
     ;
 
 typedargslist
-    // Simplified: just a list of names for now, can be expanded for defaults/types
     : NAME (COMMA NAME)*
     ;
 
-// ======================================================
-// 6. CONTROL FLOW & BLOCKS (The "Suite")
-// ======================================================
-
-if_stmt
-    : IF test COLON suite
-      ( ELIF test COLON suite )*
-      ( ELSE COLON suite )?
-    ;
-
-return_stmt
-    : RETURN testlist?
-    ;
-
-flow_stmt
-    : return_stmt
-    // | raise_stmt | break_stmt (add these if needed later)
-    ;
-
-multiplicativeExpression
-    : complexExpression ( (STAR | SLASH | ASSIGN) complexExpression )* # multiplicativeOp
-    ;
-
-expressions
-    : test
-    ;
-
-primaryExpression
-    :
-         NUMBER                                               # p_number
-        | STRING                                              # string
-        //| tripleQuotedString                                  # tripleString
-        | TRUE                                                # true
-        | FALSE                                               # false
-        | NONE                                                # none
-        | NAME                                                # name
-        | LP expressions RP                                    # parenthesis
-        | LBRACK (expressions (COMMA expressions)*)? RBRACK     # listLiteral
-        | TRIPLE_DOUBLE_STRING                                # tripleDoubleString
-        | TRIPLE_SINGLE_STRING                                # tripleSingleString
-        // Using the safe, standard combined rule to prevent ambiguity-related crashes.
-        | LBRACE NEWLINE? (expressions (COLON expressions)? (COMMA expressions (COLON expressions)?)*)? RBRACE # dictOrSetLiteral
-        ;
-
-    complexExpression
-    : primaryExpression
-        (
-         DOT NAME
-         | LP (expressions (COMMA expressions)*)? RP
-         | LBRACK expressions RBRACK
-         )*
-        ;
-// The "Suite" is the core of Python indentation handling.
-// It matches either a one-liner: "if True: return 1"
-// OR an indented block.
-suite
-    : simple_stmt
-    | NEWLINE INDENT statement+ DEDENT
-    ;
-
-// ======================================================
-// 7. PLACEHOLDERS FOR EXPRESSIONS (Step 3)
-// ======================================================
-
-// We need these so the parser compiles, but we will fill them in Step 3.
-
-testlist: test (COMMA test)*;
-
-// ======================================================
-// 8. PYTHON EXPRESSIONS (The "test" rule)
-// ======================================================
-
-// The top-level expressions wrapper
-test
-    : or_test
-    ;
-
-// Logical OR (lowest precedence)
-or_test
-    : and_test (OR and_test)*
-    ;
-
-// Logical AND
-and_test
-    : not_test (AND not_test)*
-    ;
-
-// Logical NOT
-not_test
-    : NOT not_test
-    | comparison
-    ;
-
-// Comparisons (==, !=, <, >, in)
-comparison
-    : expr (comp_op expr)*
-    ;
-
-comp_op
-    : LT | GT | EQ | NEQ | GTE | LTE
-    | IN | NOT IN
-    // Note: 'IS' is not in your lexer, but 'IN' is.
-    ;
-
-// ======================================================
-// 9. ARITHMETIC
-// ======================================================
-
-expr
-    : term ((PLUS | MINUS) term)*
-    ;
-
-term
-    : factor ((STAR | SLASH | SLASHSLASH) factor)* // Modulo (%) missing in lexer
-    ;
-
-factor
-    : (PLUS | MINUS) factor
-    | power
-    ;
-
-power
-    : atom_expr // Power (**) not strictly in lexer top-level, so we skip to atoms
-    ;
-
-// ======================================================
-// 10. ATOMS & TRAILERS (Calls, Attributes, Slices)
-// ======================================================
-
-// Handles: func(), obj.prop, list[0]
-atom_expr
-    : atom trailer*
-    ;
-
-trailer
-    : LP arglist? RP        // Function call: func(arg)
-    | LBRACK test RBRACK    // Indexing: list[0]
-    | DOT NAME              // Attribute: obj.name
-    ;
-
-// The basic building blocks of data
 atom
     : NAME
     | NUMBER
@@ -280,45 +177,43 @@ atom
     | NONE | TRUE | FALSE
     | LP test? RP
     | LBRACK list_content? RBRACK
-    | (NEWLINE | INDENT)* LBRACE dict_maker? RBRACE
+    | LKBRACE dict_maker? RKBRACE
     ;
 
-// ======================================================
-// 11. DATA STRUCTURES & ARGUMENTS
-// ======================================================
-// Handles both [1, 2] AND [x for x in y]
 list_content
-    : test comp_for             // List Comprehension
-    | test (COMMA test)* // Standard List
-    ;
-
-comp_for
-    : FOR test IN test (IF test)*
+    : test (COMMA test)* (COMMA)?
     ;
 
 dict_maker
-    : (NEWLINE | INDENT | DEDENT)*
-      test COLON test
-      ( COMMA (NEWLINE | INDENT | DEDENT)* test COLON test )* ( COMMA (NEWLINE | INDENT | DEDENT)* )?
-    ;
+   : atom COLON test
+     ( (NEWLINE | WS)* COMMA (NEWLINE | WS)* atom COLON test )*
+     ( (NEWLINE | WS)* COMMA (NEWLINE | WS)* )?
+   ;
 
 arglist
-    : WS* argument ( COMMA WS* argument )* WS*
+    : (NEWLINE | WS)* argument
+      ( COMMA (NEWLINE | WS)* argument )*
+      ( COMMA (NEWLINE | WS)* )?
     ;
 
 argument
-    : test              // Positional: 10
-    | NAME ASSIGN test  // Keyword: debug=True
+    : test
+    | NAME ASSIGN test
     ;
 
-// ======================================================
-// 12. HTML TEMPLATE CONTENT (The root of the template string)
-// ======================================================
+//==========================HTML RULES=====================
+html_content
+    : (htmlElement
+    | HTML_TEXT
+    | jinjaStatement
+    | jinjaExpression
+    )*
+    ;
 
 htmlElement
-    : TAG_OPEN tag_content* (TAG_CLOSE | TAG_SLASH_CLOSE) // e.g., <div class="prod">
-    | SCRIPT_OPEN SCRIPT_BODY                            // <script>...</script>
-    | STYLE_OPEN stylesheet STYLE_CLOSE               // <style>...</style>
+    : TAG_OPEN tag_content* (TAG_CLOSE | TAG_SLASH_CLOSE)
+    | SCRIPT_OPEN SCRIPT_BODY
+    | STYLE_OPEN stylesheet STYLE_CLOSE
     | XML_DECLARATION
     | CDATA
     | DTD
@@ -326,9 +221,9 @@ htmlElement
     ;
 
 tag_content
-    : TAG_NAME (TAG_EQUALS ATTVALUE_VALUE)? // Basic attribute name="value"
-    | jinjaExpression // Jinja inside attribute values: <img src="{{ p.img }}">
-    | jinjaStatement  // Jinja inside tag body: <div {% if cond %}>
+    : TAG_NAME (TAG_EQUALS ATTVALUE_VALUE)?
+    | jinjaExpression
+    | jinjaStatement
     | TAG_SLASH
     | TAG_EQUALS
     ;
