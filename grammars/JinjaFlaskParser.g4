@@ -10,7 +10,7 @@ options { tokenVocab=JinjaFlaskLexer; }
 
 // The parser expects a sequence of Python statements until End of File
 program
-    : (statement | NEWLINE)* EOF
+    : (statement | NEWLINE | DEDENT)* EOF
     ;
 
 // ======================================================
@@ -21,10 +21,7 @@ statement
     : compound_stmt
     | simple_stmt
     ;
-// (statement {
-// simple_stmt{
-// small_stmt
-// }
+
 // Simple statements are one-liners (imports, assignments, expressions)
 simple_stmt
     : ( small_stmt (SEMI small_stmt)* )? (SEMI | NEWLINE)
@@ -53,19 +50,23 @@ compound_stmt
 // This is the critical rule for your test file.
 // It handles: 'x = 1' AND 'BASE_HTML = """<html>..."""'
 assign_stmt
-    : NAME ASSIGN ( test | template_literal )
+    : atom_expr ASSIGN ( test | template_literal )
     ;
 
 // This rule triggers the parsing of the HTML/Jinja inside the strings
 template_literal
-    : TRIPLE_DOUBLE_START html_content TRIPLE_DOUBLE_END
-    | TRIPLE_SINGLE_START html_content TRIPLE_SINGLE_END
+    : TRIPLE_DOUBLE_START html_content (NEWLINE | WS)* TRIPLE_DOUBLE_END
+    | TRIPLE_SINGLE_START html_content (NEWLINE | WS)* TRIPLE_SINGLE_END
     ;
 
 // We will define 'html_content' in the next step.
 // It is the container for all your HTML and Jinja logic.
 html_content
-    : ( htmlElement | jinjaStatement | jinjaExpression | HTML_TEXT )*
+    : (htmlElement
+    | HTML_TEXT
+    | jinjaStatement
+    | jinjaExpression
+    )*
     ;
 
 // ======================================================
@@ -150,6 +151,39 @@ flow_stmt
     // | raise_stmt | break_stmt (add these if needed later)
     ;
 
+multiplicativeExpression
+    : complexExpression ( (STAR | SLASH | ASSIGN) complexExpression )* # multiplicativeOp
+    ;
+
+expressions
+    : test
+    ;
+
+primaryExpression
+    :
+         NUMBER                                               # p_number
+        | STRING                                              # string
+        //| tripleQuotedString                                  # tripleString
+        | TRUE                                                # true
+        | FALSE                                               # false
+        | NONE                                                # none
+        | NAME                                                # name
+        | LP expressions RP                                    # parenthesis
+        | LBRACK (expressions (COMMA expressions)*)? RBRACK     # listLiteral
+        | TRIPLE_DOUBLE_STRING                                # tripleDoubleString
+        | TRIPLE_SINGLE_STRING                                # tripleSingleString
+        // Using the safe, standard combined rule to prevent ambiguity-related crashes.
+        | LBRACE NEWLINE? (expressions (COLON expressions)? (COMMA expressions (COLON expressions)?)*)? RBRACE # dictOrSetLiteral
+        ;
+
+    complexExpression
+    : primaryExpression
+        (
+         DOT NAME
+         | LP (expressions (COMMA expressions)*)? RP
+         | LBRACK expressions RBRACK
+         )*
+        ;
 // The "Suite" is the core of Python indentation handling.
 // It matches either a one-liner: "if True: return 1"
 // OR an indented block.
@@ -170,7 +204,7 @@ testlist: test (COMMA test)*;
 // 8. PYTHON EXPRESSIONS (The "test" rule)
 // ======================================================
 
-// The top-level expression wrapper
+// The top-level expressions wrapper
 test
     : or_test
     ;
@@ -242,17 +276,16 @@ trailer
 atom
     : NAME
     | NUMBER
-    | STRING+                   // Implicit concatenation: "a" "b" -> "ab"
+    | STRING+
     | NONE | TRUE | FALSE
-    | LP test? RP               // Parentheses (grouping) or Tuples
-    | LBRACK list_content? RBRACK  // Lists & List Comprehensions
-    | LBRACE dict_maker? RBRACE // Dictionaries
+    | LP test? RP
+    | LBRACK list_content? RBRACK
+    | (NEWLINE | INDENT)* LBRACE dict_maker? RBRACE
     ;
 
 // ======================================================
 // 11. DATA STRUCTURES & ARGUMENTS
 // ======================================================
-
 // Handles both [1, 2] AND [x for x in y]
 list_content
     : test comp_for             // List Comprehension
@@ -263,21 +296,20 @@ comp_for
     : FOR test IN test (IF test)*
     ;
 
-// Dictionary: {"key": value, "k2": v2}
 dict_maker
-    : test COLON test (COMMA test COLON test)*
+    : (NEWLINE | INDENT | DEDENT)*
+      test COLON test
+      ( COMMA (NEWLINE | INDENT | DEDENT)* test COLON test )* ( COMMA (NEWLINE | INDENT | DEDENT)* )?
     ;
 
-// Function Arguments: (a, b=1)
 arglist
-    : argument (COMMA argument)*
+    : WS* argument ( COMMA WS* argument )* WS*
     ;
 
 argument
     : test              // Positional: 10
     | NAME ASSIGN test  // Keyword: debug=True
     ;
-// Continuation of JinjaFlaskParser.g4
 
 // ======================================================
 // 12. HTML TEMPLATE CONTENT (The root of the template string)
@@ -302,554 +334,131 @@ tag_content
     ;
 
 
+//===============CSS RULE======================
 
 stylesheet
-    :  (charset ( Comment | Space | Cdo | Cdc)*)* (imports ( Comment | Space | Cdo | Cdc)*)* (
-        namespace_ ( Comment | Space | Cdo | Cdc)*
-    )* (nestedStatement ( Comment | Space | Cdo | Cdc)*)* EOF
+    : ( CSS_Space | CSS_Comment )* ruleSet ( ( CSS_Space | CSS_Comment )* ruleSet )* ( CSS_Space | CSS_Comment )*
     ;
 
-charset
-    : Charset  String_  SemiColon  # goodCharset
-    | Charset  String_         # badCharset
+ruleSet
+    : selectorList
+      (CSS_Space | CSS_Comment)* CSS_LBRACE
+      declarationList
+      CSS_RBRACE
     ;
 
-imports
-    : Import  (String_ | url)  mediaQueryList SemiColon  # goodImport
-    | Import  ( String_ | url)  SemiColon                # goodImport
-    | Import  ( String_ | url)  mediaQueryList       # badImport
-    | Import  ( String_ | url)                       # badImport
-    ;
-
-// Namespaces
-// https://www.w3.org/TR/css-namespaces-3/
-namespace_
-    : Namespace  (namespacePrefix )? (String_ | url)  SemiColon  # goodNamespace
-    | Namespace  (namespacePrefix )? ( String_ | url)        # badNamespace
-    ;
-
-namespacePrefix
-    : ident
-    ;
-
-// Media queries
-// https://www.w3.org/TR/css3-mediaqueries/
-media
-    : Media  mediaQueryList groupRuleBody
-    ;
-
-mediaQueryList
-    : (mediaQuery ( Comma  mediaQuery)*)?
-    ;
-
-mediaQuery
-    : (MediaOnly | Not)?  mediaType  (And  mediaExpression)*
-    | mediaExpression ( And  mediaExpression)*
-    ;
-
-mediaType
-    : ident
-    ;
-
-mediaExpression
-    : OpenParen  mediaFeature (Colon  css_expr)? CloseParen
-    // Grammar allo for 'and(', which gets tokenized as Function. In practice, people always insert space before OpenParen to have it work on Chrome.
-    ;
-
-mediaFeature
-    : ident
-    ;
-
-// Page
-page
-    : Page  pseudoPage? OpenBrace  declaration? (SemiColon  declaration?)* CloseBrace
-    ;
-
-pseudoPage
-    : Colon ident
-    ;
-
-// Selectors
-// https://www.w3.org/TR/css3-selectors/
-selectorGroup
-    : selector (Comma  selector)*
+selectorList
+    : selector (( CSS_Space | CSS_Comment )* CSS_COMMA ( CSS_Space | CSS_Comment )* selector )*
     ;
 
 selector
-    : simpleSelectorSequence  (combinator simpleSelectorSequence)*
+    : simpleSelector
+    (( CSS_Space+ | CSS_GT ) ( CSS_Space | CSS_Comment )* simpleSelector )*
     ;
 
-combinator
-    : Plus
-    | Greater
-    | Tilde
-    | Space
-    ;
-
-simpleSelectorSequence
-    : (typeSelector | universal) (Hash | className | attrib | pseudo | negation)*
-    | ( Hash | className | attrib | pseudo | negation)+
-    ;
-
-typeSelector
-    : typeNamespacePrefix? elementName
-    ;
-
-typeNamespacePrefix
-    : (ident | Multiply)? Pipe
-    ;
-
-elementName
-    : ident
-    ;
-
-universal
-    : typeNamespacePrefix? Multiply
-    ;
-
-className
-    : Dot ident
-    ;
-
-attrib
-    : OpenBracket  typeNamespacePrefix? ident  (
-        (PrefixMatch | SuffixMatch | SubstringMatch | Equal | Includes | DashMatch)  (
-            ident
-            | String_
-        )
-    )? CloseBracket
-    ;
-
-pseudo
-    /* '::' starts a pseudo-element, Colon a pseudo-class */
-    /* Exceptions: :first-line, :first-letter, :before And :after. */
-    /* Note that pseudo-elements are restricted to one per selector And */
-    /* occur MediaOnly in the last simple_selector_sequence. */
-    : Colon Colon? (ident | functionalPseudo)
-    ;
-
-functionalPseudo
-    : Function_  expression CloseParen
-    ;
-
-expression
-    /* In CSS3, the expressions are identifiers, strings, */
-    /* or of the form "an+b" */
-    : (( Plus | Minus | Dimension | UnknownDimension | Number | String_ | ident) )+
-    ;
-
-negation
-    : PseudoNot  negationArg  CloseParen
-    ;
-
-negationArg
-    : typeSelector
-    | universal
-    | Hash
-    | className
-    | attrib
-    | pseudo
-    ;
-
-// Rules
-operator_
-    : Divide    # goodOperator
-    | Comma  # goodOperator
-    | Space  # goodOperator
-    | Equal    # badOperator // IE filter and DXImageTransform function
-    ;
-
-property_
-    : ident     # goodProperty
-    | Variable  # goodProperty
-    | Multiply ident   # badProperty // IE hacks
-    | '_' ident   # badProperty // IE hacks
-    ;
-
-ruleset
-    : selectorGroup OpenBrace  declarationList? CloseBrace  # knownRuleset
-    | any_* OpenBrace  declarationList? CloseBrace          # unknownRuleset
+simpleSelector
+    : CSS_ID ( CSS_DOT CSS_ID | CSS_HASH CSS_ID )*
+    | ( CSS_DOT CSS_ID | CSS_HASH CSS_ID )+
+    | CSS_ID
     ;
 
 declarationList
-    : (SemiColon )* declaration  (SemiColon  declaration?)*
+    : ( declaration ( ( CSS_Space | CSS_Comment )* declaration )* )?
     ;
 
 declaration
-    : property_ Colon  css_expr prio? # knownDeclaration
-    | property_ Colon  value      # unknownDeclaration
+    : CSS_ID ( CSS_Space | CSS_Comment )* CSS_COLON ( CSS_Space | CSS_Comment )* cssValueTerms ( CSS_Space | CSS_Comment )* CSS_SEMI
     ;
 
-prio
-    : Important
+cssValueTerms
+    : cssterm ( ( CSS_Space | CSS_Comment )* cssterm )*
     ;
 
-value
-    : (any_ | block | AtKeyword )+
+cssterm
+    : cssfunctionCall
+    | CSS_STRING
+    | CSS_HEX_COLOR
+    | CSS_NUMBER CSS_UNIT
+    | CSS_NUMBER
+    | CSS_ID
     ;
 
-css_expr
-    : css_term (operator_? css_term)*
+cssfunctionCall
+    : CSS_ID CSS_LPAREN ( CSS_Space | CSS_Comment )*
+      cssValueTerms
+      (( CSS_Space | CSS_Comment )* CSS_COMMA ( CSS_Space | CSS_Comment )* cssValueTerms )*
+      (CSS_Space | CSS_Comment )* CSS_RPAREN
     ;
 
-css_term
-    : number            # knownTerm
-    | percentage        # knownTerm
-    | dimension         # knownTerm
-    | String_           # knownTerm
-    | UnicodeRange      # knownTerm
-    | ident             # knownTerm
-    | var_                # knownTerm
-    | url               # knownTerm
-    | hexcolor            # knownTerm
-    | calc                # knownTerm
-    | function_           # knownTerm
-    | unknownDimension  # unknownTerm
-    | dxImageTransform    # badTerm
-    ;
-
-function_
-    : Function_  css_expr CloseParen
-    ;
-
-dxImageTransform
-    : DxImageTransform  css_expr CloseParen  // IE DXImageTransform function
-    ;
-
-hexcolor
-    : Hash
-    ;
-
-number
-    : (Plus | Minus)? Number
-    ;
-
-percentage
-    : (Plus | Minus)? Percentage
-    ;
-
-dimension
-    : (Plus | Minus)? Dimension
-    ;
-
-unknownDimension
-    : (Plus | Minus)? UnknownDimension
-    ;
-
-// Error handling
-any_
-    : ident
-    | number
-    | percentage
-    | dimension
-    | unknownDimension
-    | String_
-    //| Delim     // Not implemented yet
-    | url
-    | Hash
-    | UnicodeRange
-    | Includes
-    | DashMatch
-    | Colon
-    | Function_  ( any_ | unused)* CloseParen
-    | OpenParen  ( any_ | unused)* CloseParen
-    | OpenBracket  ( any_ | unused)* CloseBracket
-    ;
-
-atRule
-    : AtKeyword  any_* (block | SemiColon ) # unknownAtRule
-    ;
-
-unused
-    : block
-    | AtKeyword
-    | SemiColon
-    | Cdo
-    | Cdc
-    ;
-
-block
-    : OpenBrace  (declarationList | nestedStatement | any_ | block | AtKeyword  | SemiColon )* CloseBrace
-    ;
-
-// Conditional
-// https://www.w3.org/TR/css3-conditional/
-nestedStatement
-    : ruleset
-    | media
-    | page
-    | fontFaceRule
-    | keyframesRule
-    | supportsRule
-    | viewport
-    | counterStyle
-    | fontFeatureValuesRule
-    | atRule
-    ;
-
-groupRuleBody
-    : OpenBrace  nestedStatement* CloseBrace
-    ;
-
-supportsRule
-    : Supports  supportsCondition  groupRuleBody
-    ;
-
-supportsCondition
-    : supportsNegation
-    | supportsConjunction
-    | supportsDisjunction
-    | supportsConditionInParens
-    ;
-
-supportsConditionInParens
-    : OpenParen  supportsCondition  CloseParen
-    | supportsDeclarationCondition
-    | generalEnclosed
-    ;
-
-supportsNegation
-    : Not  Space  supportsConditionInParens
-    ;
-
-supportsConjunction
-    : supportsConditionInParens ( Space  And  Space  supportsConditionInParens)+
-    ;
-
-supportsDisjunction
-    : supportsConditionInParens ( Space  Or  Space  supportsConditionInParens)+
-    ;
-
-supportsDeclarationCondition
-    : OpenParen  declaration CloseParen
-    ;
-
-generalEnclosed
-    : (Function_ | OpenParen) (any_ | unused)* CloseParen
-    ;
-
-// Url
-// https://www.w3.org/TR/css3-values/#urls
-url
-    : Url_  String_  CloseParen
-    | Url
-    ;
-
-// Variable
-// https://www.w3.org/TR/css-variables-1
-var_
-    : Var  Variable  CloseParen
-    ;
-
-// Calc
-// https://www.w3.org/TR/css3-values/#calc-syntax
-calc
-    : Calc  calcSum CloseParen
-    ;
-
-calcSum
-    : calcProduct (Space  ( Plus | Minus)  Space  calcProduct)*
-    ;
-
-calcProduct
-    : calcValue (Multiply  calcValue | Divide  number )*
-    ;
-
-calcValue
-    : number
-    | dimension
-    | unknownDimension
-    | percentage
-    | OpenParen  calcSum CloseParen
-    ;
-
-// Font face
-// https://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#font-face-rule
-fontFaceRule
-    : FontFace  OpenBrace  fontFaceDeclaration? (SemiColon  fontFaceDeclaration?)* CloseBrace
-    ;
-
-fontFaceDeclaration
-    : property_ Colon  css_expr # knownFontFaceDeclaration
-    | property_ Colon  value # unknownFontFaceDeclaration
-    ;
-
-// Animations
-// https://www.w3.org/TR/css3-animations/
-keyframesRule
-    : Keyframes  Space  ident  OpenBrace  keyframeBlock* CloseBrace
-    ;
-
-keyframeBlock
-    : (keyframeSelector OpenBrace  declarationList? CloseBrace )
-    ;
-
-keyframeSelector
-    : (From | To | Percentage)  (Comma  ( From | To | Percentage) )*
-    ;
-
-// Viewport
-// https://www.w3.org/TR/css-device-adapt-1/
-viewport
-    : Viewport  OpenBrace  declarationList? CloseBrace
-    ;
-
-// Counter style
-// https://www.w3.org/TR/css-counter-styles-3/
-counterStyle
-    : CounterStyle  ident  OpenBrace  declarationList? CloseBrace
-    ;
-
-// Font feature values
-// https://www.w3.org/TR/css-fonts-3/
-fontFeatureValuesRule
-    : FontFeatureValues  fontFamilyNameList  OpenBrace  featureValueBlock* CloseBrace
-    ;
-
-fontFamilyNameList
-    : fontFamilyName ( Comma  fontFamilyName)*
-    ;
-
-fontFamilyName
-    : String_
-    | ident (  ident)*
-    ;
-
-featureValueBlock
-    : featureType  OpenBrace  featureValueDefinition? ( SemiColon  featureValueDefinition?)* CloseBrace
-    ;
-
-featureType
-    : AtKeyword
-    ;
-
-featureValueDefinition
-    : ident  Colon  number ( number)*
-    ;
-
-// The specific words can be identifiers too
-ident
-    : Ident
-    | MediaOnly
-    | Not
-    | And
-    | Or
-    | From
-    | To
-    ;
-
-// ======================================================
-// 13. JINJA STATEMENTS ({% ... %})
-// ======================================================
-
+//=================jinja rules======================
 jinjaStatement
-    : JINJA_STMT_START jStatement JINJA_STMT_END
+   : JINJA_STMT_START jStatement
+   ;
+
+jinjaExpression
+    : JINJA_EXPR_START expression JINJA_EXPR_END
     ;
 
 jStatement
-    : jIfStatement
-    | jForStatement
-    // Template commands (using J_NAME since EXCLUDE/BLOCK are not explicit tokens)
-    | J_NAME jTestExpr? // e.g., extends 'base.html' or block content
-    | J_SET jExpression
-    | jRawStatement
-    | J_NAME (J_LPAREN jArgumentList J_RPAREN)? // Macro calls
+    : extends_stmt
+    | block_stmt
+    | for_stmt
+    | j_if_stmt
     ;
 
-jRawStatement
-    : J_RAW html_content J_ENDRAW // Allo parsing raw block recursively
+extends_stmt
+    : J_EXTENDS J_STRING JINJA_STMT_END
     ;
 
-// Jinja Control Flow: IF block
-jIfStatement
-    : J_IF jTestExpr
-      html_content // Content inside the IF block
-      ( J_ELIF jTestExpr html_content )*
-      ( J_ELSE html_content )?
-      J_ENDIF
+block_stmt
+    : J_BLOCK J_NAME JINJA_STMT_END
+    html_content
+    JINJA_STMT_START J_ENDBLOCK ( J_NAME )? JINJA_STMT_END
     ;
 
-// Jinja Control Flow: FOR loop
-jForStatement
-    : J_FOR jTargetList J_IN jExpression
-      html_content // Content inside the FOR block
-      ( J_ELSE html_content )?
-      J_ENDFOR
+for_stmt
+    : J_FOR J_NAME J_IN expression JINJA_STMT_END
+      html_content
+      JINJA_STMT_START J_ENDFOR JINJA_STMT_END
     ;
 
-jTargetList
-    : J_NAME (J_COMMA J_NAME)* // e.g., p or (key, value)
+j_if_stmt
+    : J_IF expression JINJA_STMT_END
+      html_content
+      JINJA_STMT_START J_ENDIF JINJA_STMT_END
+    ;
+
+expression
+    : call_expr ( J_EQ | J_NEQ | J_GT | J_LT ) call_expr
+    | call_expr
     ;
 
 
-// ======================================================
-// 14. JINJA EXPRESSIONS ({{ ... }})
-// ======================================================
-
-jinjaExpression
-    : JINJA_EXPR_START jExpression JINJA_EXPR_END
+call_expr
+    : var_access ( J_PIPE (J_NAME | J_LENGTH) )?
+    | J_NAME J_LPAREN argument_list? J_RPAREN
+    | var_access
+    | j_atom
     ;
 
-// The key Jinja feature: Expressions piped through filters
-jExpression
-    : jTestExpr ( J_PIPE jFilter )*
+var_access
+    : J_NAME ( J_DOT J_NAME )*
     ;
 
-jFilter
-    : J_NAME ( J_LPAREN jArgumentList? J_RPAREN )? // filter | length(args)
+argument_list
+    : j_argument ( J_COMMA j_argument )*
     ;
 
-// The rest of the expression grammar follo the Python structure from Step 3,
-// but uses the J_ prefixed tokens (J_NAME, J_PLUS, J_EQ, J_IN, etc.).
-
-jTestExpr : jOrTest;
-jOrTest : jAndTest (J_OR jAndTest)*;
-jAndTest : jNotTest (J_AND jNotTest)*;
-jNotTest : J_NOT jNotTest | jComparison;
-
-jComparison
-    : jMathExpr ( jCompOp jMathExpr )*
-    ;
-jCompOp
-    : J_LT | J_GT | J_EQ | J_NE | J_GE | J_LE | J_IN | J_NOT J_IN
+j_argument
+    : expression
+    | J_NAME J_ASSIGN expression
     ;
 
-jMathExpr
-    : jTerm ((J_PLUS | J_MINUS) jTerm)*
-    ;
-
-jTerm
-    : jFactor ((J_TIMES | J_DIVIDE | J_MOD | J_POW) jFactor)*
-    ;
-
-jFactor
-    : (J_PLUS | J_MINUS) jFactor
-    | jAtomExpr
-    ;
-
-jAtomExpr
-    : jAtom jTrailer*
-    ;
-
-jTrailer
-    : J_LPAREN jArgumentList? J_RPAREN
-    | J_LBRACK jTestExpr J_RBRACK
-    | J_DOT J_NAME
-    ;
-
-jAtom
-    : J_NAME | J_NUMBER | J_STRING
-    | J_LPAREN jTestExpr J_RPAREN
-    | J_LBRACK jTestExprList? J_RBRACK
-    | J_LBRACE jDictMaker? J_RBRACE
-    ;
-
-jTestExprList
-    : jTestExpr (J_COMMA jTestExpr)*
-    ;
-jArgumentList
-    : jTestExpr (J_COMMA jTestExpr)*
-    ;
-jDictMaker
-    : jTestExpr J_COLON jTestExpr (J_COMMA jTestExpr J_COLON jTestExpr)*
+j_atom
+    : J_NUMBER
+    | J_STRING
+    | J_TRUE
+    | J_FALSE
+    | J_NONE
+    | J_NAME
     ;

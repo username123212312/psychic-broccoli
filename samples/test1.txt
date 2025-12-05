@@ -12,8 +12,6 @@
     </div>
     {% endfor %}
 
-
-
     {% if products|length == 0 %}
     <p>No products yet. Add one!</p>
     {% endif %}
