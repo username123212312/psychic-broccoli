@@ -630,6 +630,7 @@ J_RPAREN_STMT      : ')';
 J_LBRACK_STMT      : '[';
 J_RBRACK_STMT      : ']';
 
+//TEXT : (~[{}]|'{'~[{]|'}'~[}])+ ;
 
 mode JINJA_COMMENT;
 JINJA_COMMENT_END: '#}' -> popMode;

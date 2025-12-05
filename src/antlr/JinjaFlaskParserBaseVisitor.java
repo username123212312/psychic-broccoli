@@ -956,166 +956,145 @@ public class JinjaFlaskParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> 
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJinjaStatement(JinjaFlaskParser.JinjaStatementContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinja_part(JinjaFlaskParser.Jinja_partContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJStatement(JinjaFlaskParser.JStatementContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinja_output(JinjaFlaskParser.Jinja_outputContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJRawStatement(JinjaFlaskParser.JRawStatementContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinja_statement(JinjaFlaskParser.Jinja_statementContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJIfStatement(JinjaFlaskParser.JIfStatementContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinja_ifStatement(JinjaFlaskParser.Jinja_ifStatementContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJForStatement(JinjaFlaskParser.JForStatementContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinja_elifBlock(JinjaFlaskParser.Jinja_elifBlockContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJTargetList(JinjaFlaskParser.JTargetListContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinja_elseBlock(JinjaFlaskParser.Jinja_elseBlockContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJinjaExpression(JinjaFlaskParser.JinjaExpressionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinja_forStatement(JinjaFlaskParser.Jinja_forStatementContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJExpression(JinjaFlaskParser.JExpressionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinja_setStatement(JinjaFlaskParser.Jinja_setStatementContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJFilter(JinjaFlaskParser.JFilterContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinja_rawStatement(JinjaFlaskParser.Jinja_rawStatementContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJTestExpr(JinjaFlaskParser.JTestExprContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinja_rawText(JinjaFlaskParser.Jinja_rawTextContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJOrTest(JinjaFlaskParser.JOrTestContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinja_expr(JinjaFlaskParser.Jinja_exprContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJAndTest(JinjaFlaskParser.JAndTestContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinja_logicalOr(JinjaFlaskParser.Jinja_logicalOrContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJNotTest(JinjaFlaskParser.JNotTestContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinja_logicalAnd(JinjaFlaskParser.Jinja_logicalAndContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJComparison(JinjaFlaskParser.JComparisonContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinja_equality(JinjaFlaskParser.Jinja_equalityContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJCompOp(JinjaFlaskParser.JCompOpContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinja_comparison(JinjaFlaskParser.Jinja_comparisonContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJMathExpr(JinjaFlaskParser.JMathExprContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinja_addition(JinjaFlaskParser.Jinja_additionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJTerm(JinjaFlaskParser.JTermContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinja_multiplication(JinjaFlaskParser.Jinja_multiplicationContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJFactor(JinjaFlaskParser.JFactorContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinja_unary(JinjaFlaskParser.Jinja_unaryContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJAtomExpr(JinjaFlaskParser.JAtomExprContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinja_primary(JinjaFlaskParser.Jinja_primaryContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJTrailer(JinjaFlaskParser.JTrailerContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinja_atom(JinjaFlaskParser.Jinja_atomContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJAtom(JinjaFlaskParser.JAtomContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitJTestExprList(JinjaFlaskParser.JTestExprListContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitJArgumentList(JinjaFlaskParser.JArgumentListContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitJDictMaker(JinjaFlaskParser.JDictMakerContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinja_trailer(JinjaFlaskParser.Jinja_trailerContext ctx) { return visitChildren(ctx); }
 }

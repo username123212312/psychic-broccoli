@@ -8,84 +8,84 @@ options {
 //  Entry POINT
 // ===============================
 
-template_root
-    : part* EOF
+jinja_content
+    : jinja_part* EOF
     ;
 
- template_block
-     : part*
+ jinja_template_block
+     : jinja_part*
      ;
 
 // ===============================
 //  Parts (text / output / statements)
 // ===============================
 
-part
-    : output
-    | statement
+jinja_part
+    : jinja_output
+    | jinja_statement
     | TEXT
     ;
 
 // ===============================
-//  {{ expression }}
+//  {{ jinja_expression }}
 // ===============================
-output
-    : JINJA_LVAR expr JINJA_RVAR
+jinja_output
+    : JINJA_LVAR jinja_expr JINJA_RVAR
     ;
 
 // ===============================
 //  {% statements %}
 // ===============================
-statement
-    : ifStatement
-    | forStatement
-    | setStatement
-    | rawStatement
+jinja_statement
+    : jinja_ifStatement
+    | jinja_forStatement
+    | jinja_setStatement
+    | jinja_rawStatement
     ;
 
 // ===============================
 //  IF / ELIF / ELSE
 // ===============================
-ifStatement
-    : JINJA_LBLOCK IF expr JINJA_RBLOCK
-        template_block
-        elifBlock*
-        elseBlock?
+jinja_ifStatement
+    : JINJA_LBLOCK IF jinja_expr JINJA_RBLOCK
+        jinja_template_block
+        jinja_elifBlock*
+        jinja_elseBlock?
       JINJA_LBLOCK ENDIF JINJA_RBLOCK
     ;
 
-elifBlock
-    : JINJA_LBLOCK ELIF expr JINJA_RBLOCK
-        template_block
+jinja_elifBlock
+    : JINJA_LBLOCK ELIF jinja_expr JINJA_RBLOCK
+        jinja_template_block
     ;
 
-elseBlock
+jinja_elseBlock
     : JINJA_LBLOCK ELSE JINJA_RBLOCK
-        template_block
+        jinja_template_block
     ;
 
 // ===============================
 //  FOR
 // ===============================
-forStatement
-    : JINJA_LBLOCK FOR NAME IN expr JINJA_RBLOCK template_block JINJA_LBLOCK ENDFOR JINJA_RBLOCK
+jinja_forStatement
+    : JINJA_LBLOCK FOR NAME IN jinja_expr JINJA_RBLOCK jinja_template_block JINJA_LBLOCK ENDFOR JINJA_RBLOCK
     ;
 
 // ===============================
 //  SET
 // ===============================
-setStatement
-    : JINJA_LBLOCK SET NAME ASSIGN expr JINJA_RBLOCK
+jinja_setStatement
+    : JINJA_LBLOCK SET NAME ASSIGN jinja_expr JINJA_RBLOCK
     ;
 
 // ===============================
 //  RAW
 // ===============================
-rawStatement
-    : JINJA_LBLOCK RAW JINJA_RBLOCK rawText JINJA_LBLOCK ENDRAW JINJA_RBLOCK
+jinja_rawStatement
+    : JINJA_LBLOCK RAW JINJA_RBLOCK jinja_rawText JINJA_LBLOCK ENDRAW JINJA_RBLOCK
     ;
 
-rawText
+jinja_rawText
     : TEXT+
     ;
 
@@ -93,61 +93,61 @@ rawText
 //  Expressions
 // ===============================
 
-expr
-    : logicalOr
+jinja_expr
+    : jinja_logicalOr
     ;
 
-logicalOr
-    : logicalAnd ( OR logicalAnd )*
+jinja_logicalOr
+    : jinja_logicalAnd ( OR jinja_logicalAnd )*
     ;
 
-logicalAnd
-    : equality ( AND equality )*
+jinja_logicalAnd
+    : jinja_equality ( AND jinja_equality )*
     ;
 
 
 // ==  !=
-equality
-    : comparison ( (EQ | NE) comparison )*
+jinja_equality
+    : jinja_comparison ( (EQ | NE) jinja_comparison )*
     ;
 
 // < <= > >=
-comparison
-    : addition ( (LT | LE | GT | GE) addition )*
+jinja_comparison
+    : jinja_addition ( (LT | LE | GT | GE) jinja_addition )*
     ;
 
 // + -
-addition
-    : multiplication ( (PLUS | MINUS) multiplication )*
+jinja_addition
+    : jinja_multiplication ( (PLUS | MINUS) jinja_multiplication )*
     ;
 
 // * / %
-multiplication
-    : unary ( (TIMES | DIVIDE | MOD) unary )*
+jinja_multiplication
+    : jinja_unary ( (TIMES | DIVIDE | MOD) jinja_unary )*
     ;
 
 // unary + -
-unary
-    : (PLUS | MINUS) unary
-    | primary
+jinja_unary
+    : (PLUS | MINUS) jinja_unary
+    | jinja_primary
     ;
 
 // primary atoms
-primary
-    : atom ( trailer )*
+jinja_primary
+    : jinja_atom ( jinja_trailer )*
     ;
 
-atom
+jinja_atom
     : NAME
     | NUMBER
     | STRING
-    | LPAREN expr RPAREN
+    | LPAREN jinja_expr RPAREN
     ;
 
-trailer
+jinja_trailer
     : DOT NAME
-    | LBRACK expr RBRACK
-    | LPAREN (expr (COMMA expr)*)? RPAREN
+    | LBRACK jinja_expr RBRACK
+    | LPAREN (jinja_expr (COMMA jinja_expr)*)? RPAREN
     ;
 
 
