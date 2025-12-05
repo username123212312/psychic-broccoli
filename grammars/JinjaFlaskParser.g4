@@ -391,7 +391,7 @@ cssfunctionCall
 
 //=================jinja rules======================
 jinjaStatement
-   : JINJA_STMT_START jStatement
+   : JINJA_STMT_START jStatement JINJA_STMT_END
    ;
 
 jinjaExpression
