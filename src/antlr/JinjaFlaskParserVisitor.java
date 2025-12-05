@@ -155,6 +155,95 @@ public interface JinjaFlaskParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFlow_stmt(JinjaFlaskParser.Flow_stmtContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code multiplicativeOp}
+	 * labeled alternative in {@link JinjaFlaskParser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMultiplicativeOp(JinjaFlaskParser.MultiplicativeOpContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#expressions}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpressions(JinjaFlaskParser.ExpressionsContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code p_number}
+	 * labeled alternative in {@link JinjaFlaskParser#primaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitP_number(JinjaFlaskParser.P_numberContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code string}
+	 * labeled alternative in {@link JinjaFlaskParser#primaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitString(JinjaFlaskParser.StringContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code true}
+	 * labeled alternative in {@link JinjaFlaskParser#primaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrue(JinjaFlaskParser.TrueContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code false}
+	 * labeled alternative in {@link JinjaFlaskParser#primaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFalse(JinjaFlaskParser.FalseContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code none}
+	 * labeled alternative in {@link JinjaFlaskParser#primaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNone(JinjaFlaskParser.NoneContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code name}
+	 * labeled alternative in {@link JinjaFlaskParser#primaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitName(JinjaFlaskParser.NameContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code parenthesis}
+	 * labeled alternative in {@link JinjaFlaskParser#primaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParenthesis(JinjaFlaskParser.ParenthesisContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code listLiteral}
+	 * labeled alternative in {@link JinjaFlaskParser#primaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitListLiteral(JinjaFlaskParser.ListLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code templateLiteral}
+	 * labeled alternative in {@link JinjaFlaskParser#primaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTemplateLiteral(JinjaFlaskParser.TemplateLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code dictOrSetLiteral}
+	 * labeled alternative in {@link JinjaFlaskParser#primaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDictOrSetLiteral(JinjaFlaskParser.DictOrSetLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#complexExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitComplexExpression(JinjaFlaskParser.ComplexExpressionContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link JinjaFlaskParser#suite}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -293,107 +382,17 @@ public interface JinjaFlaskParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStylesheet(JinjaFlaskParser.StylesheetContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code goodCharset}
-	 * labeled alternative in {@link JinjaFlaskParser#charset}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#ruleSet}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitGoodCharset(JinjaFlaskParser.GoodCharsetContext ctx);
+	T visitRuleSet(JinjaFlaskParser.RuleSetContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code badCharset}
-	 * labeled alternative in {@link JinjaFlaskParser#charset}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#selectorList}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBadCharset(JinjaFlaskParser.BadCharsetContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code goodImport}
-	 * labeled alternative in {@link JinjaFlaskParser#imports}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitGoodImport(JinjaFlaskParser.GoodImportContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code badImport}
-	 * labeled alternative in {@link JinjaFlaskParser#imports}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBadImport(JinjaFlaskParser.BadImportContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code goodNamespace}
-	 * labeled alternative in {@link JinjaFlaskParser#namespace_}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitGoodNamespace(JinjaFlaskParser.GoodNamespaceContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code badNamespace}
-	 * labeled alternative in {@link JinjaFlaskParser#namespace_}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBadNamespace(JinjaFlaskParser.BadNamespaceContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#namespacePrefix}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNamespacePrefix(JinjaFlaskParser.NamespacePrefixContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#media}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMedia(JinjaFlaskParser.MediaContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#mediaQueryList}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMediaQueryList(JinjaFlaskParser.MediaQueryListContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#mediaQuery}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMediaQuery(JinjaFlaskParser.MediaQueryContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#mediaType}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMediaType(JinjaFlaskParser.MediaTypeContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#mediaExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMediaExpression(JinjaFlaskParser.MediaExpressionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#mediaFeature}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMediaFeature(JinjaFlaskParser.MediaFeatureContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#page}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPage(JinjaFlaskParser.PageContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#pseudoPage}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPseudoPage(JinjaFlaskParser.PseudoPageContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#selectorGroup}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSelectorGroup(JinjaFlaskParser.SelectorGroupContext ctx);
+	T visitSelectorList(JinjaFlaskParser.SelectorListContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JinjaFlaskParser#selector}.
 	 * @param ctx the parse tree
@@ -401,125 +400,11 @@ public interface JinjaFlaskParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSelector(JinjaFlaskParser.SelectorContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#combinator}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#simpleSelector}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCombinator(JinjaFlaskParser.CombinatorContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#simpleSelectorSequence}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSimpleSelectorSequence(JinjaFlaskParser.SimpleSelectorSequenceContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#typeSelector}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTypeSelector(JinjaFlaskParser.TypeSelectorContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#typeNamespacePrefix}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTypeNamespacePrefix(JinjaFlaskParser.TypeNamespacePrefixContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#elementName}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitElementName(JinjaFlaskParser.ElementNameContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#universal}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitUniversal(JinjaFlaskParser.UniversalContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#className}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitClassName(JinjaFlaskParser.ClassNameContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#attrib}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAttrib(JinjaFlaskParser.AttribContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#pseudo}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPseudo(JinjaFlaskParser.PseudoContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#functionalPseudo}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFunctionalPseudo(JinjaFlaskParser.FunctionalPseudoContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExpression(JinjaFlaskParser.ExpressionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#negation}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNegation(JinjaFlaskParser.NegationContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#negationArg}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNegationArg(JinjaFlaskParser.NegationArgContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code goodOperator}
-	 * labeled alternative in {@link JinjaFlaskParser#operator_}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitGoodOperator(JinjaFlaskParser.GoodOperatorContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code badOperator}
-	 * labeled alternative in {@link JinjaFlaskParser#operator_}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBadOperator(JinjaFlaskParser.BadOperatorContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code goodProperty}
-	 * labeled alternative in {@link JinjaFlaskParser#property_}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitGoodProperty(JinjaFlaskParser.GoodPropertyContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code badProperty}
-	 * labeled alternative in {@link JinjaFlaskParser#property_}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBadProperty(JinjaFlaskParser.BadPropertyContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code knownRuleset}
-	 * labeled alternative in {@link JinjaFlaskParser#ruleset}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitKnownRuleset(JinjaFlaskParser.KnownRulesetContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code unknownRuleset}
-	 * labeled alternative in {@link JinjaFlaskParser#ruleset}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitUnknownRuleset(JinjaFlaskParser.UnknownRulesetContext ctx);
+	T visitSimpleSelector(JinjaFlaskParser.SimpleSelectorContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JinjaFlaskParser#declarationList}.
 	 * @param ctx the parse tree
@@ -527,437 +412,105 @@ public interface JinjaFlaskParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDeclarationList(JinjaFlaskParser.DeclarationListContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code knownDeclaration}
-	 * labeled alternative in {@link JinjaFlaskParser#declaration}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#declaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitKnownDeclaration(JinjaFlaskParser.KnownDeclarationContext ctx);
+	T visitDeclaration(JinjaFlaskParser.DeclarationContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code unknownDeclaration}
-	 * labeled alternative in {@link JinjaFlaskParser#declaration}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#cssValueTerms}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitUnknownDeclaration(JinjaFlaskParser.UnknownDeclarationContext ctx);
+	T visitCssValueTerms(JinjaFlaskParser.CssValueTermsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#prio}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#cssterm}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPrio(JinjaFlaskParser.PrioContext ctx);
+	T visitCssterm(JinjaFlaskParser.CsstermContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#value}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#cssfunctionCall}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitValue(JinjaFlaskParser.ValueContext ctx);
+	T visitCssfunctionCall(JinjaFlaskParser.CssfunctionCallContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#css_expr}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#jinjaStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCss_expr(JinjaFlaskParser.Css_exprContext ctx);
+	T visitJinjaStatement(JinjaFlaskParser.JinjaStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code knownTerm}
-	 * labeled alternative in {@link JinjaFlaskParser#css_term}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#jinjaExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitKnownTerm(JinjaFlaskParser.KnownTermContext ctx);
+	T visitJinjaExpression(JinjaFlaskParser.JinjaExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code unknownTerm}
-	 * labeled alternative in {@link JinjaFlaskParser#css_term}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#jStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitUnknownTerm(JinjaFlaskParser.UnknownTermContext ctx);
+	T visitJStatement(JinjaFlaskParser.JStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code badTerm}
-	 * labeled alternative in {@link JinjaFlaskParser#css_term}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#extends_stmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBadTerm(JinjaFlaskParser.BadTermContext ctx);
+	T visitExtends_stmt(JinjaFlaskParser.Extends_stmtContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#function_}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#block_stmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFunction_(JinjaFlaskParser.Function_Context ctx);
+	T visitBlock_stmt(JinjaFlaskParser.Block_stmtContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#dxImageTransform}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#for_stmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDxImageTransform(JinjaFlaskParser.DxImageTransformContext ctx);
+	T visitFor_stmt(JinjaFlaskParser.For_stmtContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#hexcolor}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#j_if_stmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitHexcolor(JinjaFlaskParser.HexcolorContext ctx);
+	T visitJ_if_stmt(JinjaFlaskParser.J_if_stmtContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#number}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNumber(JinjaFlaskParser.NumberContext ctx);
+	T visitExpression(JinjaFlaskParser.ExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#percentage}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#call_expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPercentage(JinjaFlaskParser.PercentageContext ctx);
+	T visitCall_expr(JinjaFlaskParser.Call_exprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#dimension}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#var_access}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDimension(JinjaFlaskParser.DimensionContext ctx);
+	T visitVar_access(JinjaFlaskParser.Var_accessContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#unknownDimension}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#argument_list}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitUnknownDimension(JinjaFlaskParser.UnknownDimensionContext ctx);
+	T visitArgument_list(JinjaFlaskParser.Argument_listContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#any_}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#j_argument}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAny_(JinjaFlaskParser.Any_Context ctx);
+	T visitJ_argument(JinjaFlaskParser.J_argumentContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code unknownAtRule}
-	 * labeled alternative in {@link JinjaFlaskParser#atRule}.
+	 * Visit a parse tree produced by {@link JinjaFlaskParser#j_atom}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitUnknownAtRule(JinjaFlaskParser.UnknownAtRuleContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#unused}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitUnused(JinjaFlaskParser.UnusedContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#block}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBlock(JinjaFlaskParser.BlockContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#nestedStatement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNestedStatement(JinjaFlaskParser.NestedStatementContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#groupRuleBody}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitGroupRuleBody(JinjaFlaskParser.GroupRuleBodyContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#supportsRule}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSupportsRule(JinjaFlaskParser.SupportsRuleContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#supportsCondition}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSupportsCondition(JinjaFlaskParser.SupportsConditionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#supportsConditionInParens}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSupportsConditionInParens(JinjaFlaskParser.SupportsConditionInParensContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#supportsNegation}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSupportsNegation(JinjaFlaskParser.SupportsNegationContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#supportsConjunction}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSupportsConjunction(JinjaFlaskParser.SupportsConjunctionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#supportsDisjunction}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSupportsDisjunction(JinjaFlaskParser.SupportsDisjunctionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#supportsDeclarationCondition}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSupportsDeclarationCondition(JinjaFlaskParser.SupportsDeclarationConditionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#generalEnclosed}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitGeneralEnclosed(JinjaFlaskParser.GeneralEnclosedContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#url}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitUrl(JinjaFlaskParser.UrlContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#var_}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitVar_(JinjaFlaskParser.Var_Context ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#calc}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCalc(JinjaFlaskParser.CalcContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#calcSum}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCalcSum(JinjaFlaskParser.CalcSumContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#calcProduct}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCalcProduct(JinjaFlaskParser.CalcProductContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#calcValue}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCalcValue(JinjaFlaskParser.CalcValueContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#fontFaceRule}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFontFaceRule(JinjaFlaskParser.FontFaceRuleContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code knownFontFaceDeclaration}
-	 * labeled alternative in {@link JinjaFlaskParser#fontFaceDeclaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitKnownFontFaceDeclaration(JinjaFlaskParser.KnownFontFaceDeclarationContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code unknownFontFaceDeclaration}
-	 * labeled alternative in {@link JinjaFlaskParser#fontFaceDeclaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitUnknownFontFaceDeclaration(JinjaFlaskParser.UnknownFontFaceDeclarationContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#keyframesRule}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitKeyframesRule(JinjaFlaskParser.KeyframesRuleContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#keyframeBlock}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitKeyframeBlock(JinjaFlaskParser.KeyframeBlockContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#keyframeSelector}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitKeyframeSelector(JinjaFlaskParser.KeyframeSelectorContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#viewport}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitViewport(JinjaFlaskParser.ViewportContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#counterStyle}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCounterStyle(JinjaFlaskParser.CounterStyleContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#fontFeatureValuesRule}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFontFeatureValuesRule(JinjaFlaskParser.FontFeatureValuesRuleContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#fontFamilyNameList}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFontFamilyNameList(JinjaFlaskParser.FontFamilyNameListContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#fontFamilyName}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFontFamilyName(JinjaFlaskParser.FontFamilyNameContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#featureValueBlock}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFeatureValueBlock(JinjaFlaskParser.FeatureValueBlockContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#featureType}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFeatureType(JinjaFlaskParser.FeatureTypeContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#featureValueDefinition}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFeatureValueDefinition(JinjaFlaskParser.FeatureValueDefinitionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#ident}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitIdent(JinjaFlaskParser.IdentContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#jinja_part}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinja_part(JinjaFlaskParser.Jinja_partContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#jinja_output}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinja_output(JinjaFlaskParser.Jinja_outputContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#jinja_statement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinja_statement(JinjaFlaskParser.Jinja_statementContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#jinja_ifStatement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinja_ifStatement(JinjaFlaskParser.Jinja_ifStatementContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#jinja_elifBlock}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinja_elifBlock(JinjaFlaskParser.Jinja_elifBlockContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#jinja_elseBlock}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinja_elseBlock(JinjaFlaskParser.Jinja_elseBlockContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#jinja_forStatement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinja_forStatement(JinjaFlaskParser.Jinja_forStatementContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#jinja_setStatement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinja_setStatement(JinjaFlaskParser.Jinja_setStatementContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#jinja_rawStatement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinja_rawStatement(JinjaFlaskParser.Jinja_rawStatementContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#jinja_rawText}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinja_rawText(JinjaFlaskParser.Jinja_rawTextContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#jinja_expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinja_expr(JinjaFlaskParser.Jinja_exprContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#jinja_logicalOr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinja_logicalOr(JinjaFlaskParser.Jinja_logicalOrContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#jinja_logicalAnd}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinja_logicalAnd(JinjaFlaskParser.Jinja_logicalAndContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#jinja_equality}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinja_equality(JinjaFlaskParser.Jinja_equalityContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#jinja_comparison}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinja_comparison(JinjaFlaskParser.Jinja_comparisonContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#jinja_addition}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinja_addition(JinjaFlaskParser.Jinja_additionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#jinja_multiplication}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinja_multiplication(JinjaFlaskParser.Jinja_multiplicationContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#jinja_unary}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinja_unary(JinjaFlaskParser.Jinja_unaryContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#jinja_primary}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinja_primary(JinjaFlaskParser.Jinja_primaryContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#jinja_atom}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinja_atom(JinjaFlaskParser.Jinja_atomContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaFlaskParser#jinja_trailer}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinja_trailer(JinjaFlaskParser.Jinja_trailerContext ctx);
+	T visitJ_atom(JinjaFlaskParser.J_atomContext ctx);
 }

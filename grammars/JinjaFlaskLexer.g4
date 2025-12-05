@@ -282,6 +282,15 @@ CSS_STRING     : '"' (~'"')* '"' | '\'' (~'\'')* '\'' ;
 CSS_ID         : [a-zA-Z] [a-zA-Z0-9\-]* ;
 CSS_Space      : [ \t\r\n]+ -> skip ;
 CSS_Comment    : '/*' .*? '*/' -> skip ;
+
+CSS_HASH: '#' Name;
+fragment Name: Nmchar+;
+fragment Nmchar: [_a-zA-Z0-9\-] | Nonascii | Escape;
+fragment Nonascii: ~[\u0000-\u007f];
+fragment Escape: Unicode | '\\' ~[\r\n\f0-9a-fA-F];
+fragment Hex: [0-9a-fA-F];
+fragment Unicode: '\\' Hex Hex? Hex? Hex? Hex? Hex?;
+
 // =================== JINJA MODE (Unified Jinja Logic) ===================
 
 mode JINJA_MODE;

@@ -163,15 +163,14 @@ primaryExpression
     :
          NUMBER                                               # p_number
         | STRING                                              # string
-        //| tripleQuotedString                                  # tripleString
+//        | tripleQuotedString                                  # tripleString
         | TRUE                                                # true
         | FALSE                                               # false
         | NONE                                                # none
         | NAME                                                # name
         | LP expressions RP                                    # parenthesis
         | LBRACK (expressions (COMMA expressions)*)? RBRACK     # listLiteral
-        | TRIPLE_DOUBLE_STRING                                # tripleDoubleString
-        | TRIPLE_SINGLE_STRING                                # tripleSingleString
+        | template_literal                                      # templateLiteral
         // Using the safe, standard combined rule to prevent ambiguity-related crashes.
         | LBRACE NEWLINE? (expressions (COLON expressions)? (COMMA expressions (COLON expressions)?)*)? RBRACE # dictOrSetLiteral
         ;
