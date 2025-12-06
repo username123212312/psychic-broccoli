@@ -25,7 +25,7 @@ package antlr;
   // The stack that keeps track of the indentation level.
   private java.util.Stack<Integer> indents = new java.util.Stack<>();
   // The amount of opened braces, brackets and parenthesis.
-  private int opened = 0;
+  protected int opened = 0;
 
   // CRITICAL FIX: Ensure the indentation stack is initialized with 0
   {
@@ -123,34 +123,38 @@ NOT: 'not';
 TRUE: 'True';
 FALSE: 'False';
 NONE: 'None';
+IS: 'is';
 PRINT : 'print' ;
 WHILE : 'while';
 ARROW : '->';
 
 AT: '@';
-COLON   : ':' ;
-SEMI    : ';' ;
-COMMA: ',';
-ASSIGN: '=';
 EQ: '==';
 NEQ: '!=';
-GT: '>';
-LT: '<';
 GTE: '>=';
 LTE: '<=';
+SLASHSLASH: '//';
+POW: '**';
+
+ASSIGN: '=';
+GT: '>';
+LT: '<';
+SLASH: '/';
+STAR: '*';
+
+COLON: ':';
+SEMI: ';';
+COMMA: ',';
 PLUS: '+';
 MINUS: '-';
-STAR: '*';
-SLASH: '/';
-SLASHSLASH  : '//' ;
-
+MOD: '%';
 
 LP: {opened++;} '(';
 RP: {opened--;} ')';
 LBRACK: {opened++;} '[';
 RBRACK: {opened--;} ']';
-LBRACE: {opened++;} '{';
-RBRACE: {opened--;} '}';
+LKBRACE: {opened++;}'{';
+RKBRACE: {opened--;} '}';
 DOT: '.';
 
 NAME: [a-zA-Z_][a-zA-Z0-9_]*;
@@ -222,9 +226,6 @@ HTML_TEXT
 // =================== TAG MODE (Inside <...>) ===================
 mode TAG;
 
-
-
-
 TAG_CLOSE
     : '>' -> popMode
     ;
@@ -278,6 +279,7 @@ CSS_SEMI       : ';' ;
 CSS_COMMA      : ',' ;
 CSS_DOT        : '.' ;
 CSS_GT         : '>' ;
+CSS_HASH       : '#' ;
 CSS_HEX_COLOR  : '#' ( [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] )+ ;
 CSS_NUMBER     : ( '0' | [1-9] [0-9]* ) ( '.' [0-9]+ )? ;
 CSS_UNIT       : ( 'px' | 'fr' | '%' | 'em' | 'vh' | 'vw' | 'rem') ;
@@ -285,15 +287,6 @@ CSS_STRING     : '"' (~'"')* '"' | '\'' (~'\'')* '\'' ;
 CSS_ID         : [a-zA-Z] [a-zA-Z0-9\-]* ;
 CSS_Space      : [ \t\r\n]+ -> skip ;
 CSS_Comment    : '/*' .*? '*/' -> skip ;
-
-CSS_HASH: '#' Name;
-fragment Name: Nmchar+;
-fragment Nmchar: [_a-zA-Z0-9\-] | Nonascii | Escape;
-fragment Nonascii: ~[\u0000-\u007f];
-fragment Escape: Unicode | '\\' ~[\r\n\f0-9a-fA-F];
-fragment Hex: [0-9a-fA-F];
-fragment Unicode: '\\' Hex Hex? Hex? Hex? Hex? Hex?;
-
 // =================== JINJA MODE (Unified Jinja Logic) ===================
 
 mode JINJA_MODE;
@@ -340,14 +333,3 @@ fragment
 TAG_NameChar
     : ~[ \t\r\n"'<>/=-]
     ;
-
-//
-////fragment
-////Name
-////    : '-'? [a-zA-Z_] [a-zA-Z0-9_-]*
-////    ;
-//
-//fragment
-//HEX_CHAR
-//    : [0-9a-fA-F]
-//    ;
