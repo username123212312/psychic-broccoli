@@ -9,7 +9,6 @@ import java.util.List;
 
 // CRITICAL IMPORT: Import the custom Lexer class
 import antlr.JinjaFlaskIndentingLexer;
-import antlr.JinjaFlaskParser;
 
 public class App {
     public static void main(String[] args) {
