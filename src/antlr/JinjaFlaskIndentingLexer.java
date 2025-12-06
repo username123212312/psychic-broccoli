@@ -194,7 +194,10 @@ public class JinjaFlaskIndentingLexer extends JinjaFlaskLexer {
             if (_mode == PYTHON_MODE && lastToken != null && next.getLine() > lastToken.getLine()) {
 
                 // A line break occurred. Check the indentation and queue virtual tokens.
-                checkIndentation(next);
+                if (super.opened == 0) {
+                    // A line break occurred. Check the indentation and queue virtual tokens.
+                    checkIndentation(next);
+                }
 
                 // If NEWLINE/INDENT/DEDENT tokens were queued, return them first.
                 if (!pending.isEmpty()) {
