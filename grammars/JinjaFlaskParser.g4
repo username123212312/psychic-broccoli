@@ -21,7 +21,8 @@ compound_stmt
     | func_def
     ;
 
-content_of_function
+
+function_statement
     : return_stmt
     | if_stmt
     | assign_stmt
@@ -99,11 +100,12 @@ template_literal
     ;
 
 func_def
-    : decorator DEF NAME parameters COLON content_of_function+
+    : decorator DEF NAME parameters COLON function_body
     ;
 
-decorator
-    : AT dotted_name ( LP arglist? RP )?
+function_body
+    : function_statement+
+    | PASS
     ;
 
 parameters

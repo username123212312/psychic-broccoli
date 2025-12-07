@@ -105,7 +105,9 @@ NEWLINE
 WS: [ \t]+ -> skip;
 COMMENT: '#' ~[\r\n]* -> skip;
 
+
 // Tokens (Top-level Python/Flask code)
+PASS: 'pass';
 DEF: 'def';
 RETURN: 'return';
 FROM: 'from';
