@@ -1,0 +1,9 @@
+Hello {{name}}
+{% if user %}
+  Welcome {{user}}
+{% else %}
+  Please log in
+{% endif %}
+
+
+
