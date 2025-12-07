@@ -27,10 +27,10 @@ BASE_HTML = """
 
     .product-grid {
         display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 20px;
         padding: 20px;
     }
-
 
     .product-card {
         width: 300px;
@@ -42,7 +42,7 @@ BASE_HTML = """
     }
 
 
-    .product-card {
+    .product-card img {
         width: 250px;      /* desired width */
         height: 200px;     /* desired height */
         object-fit: cover; /* crop/scale nicely */
@@ -81,7 +81,12 @@ BASE_HTML = """
         box-shadow: 0 0 8px #ccc;
     }
 
-
+    .form input,
+        .form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+    }
 
     .detail-container {
         display: flex;

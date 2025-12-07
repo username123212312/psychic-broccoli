@@ -5,7 +5,7 @@ parser grammar JinjaFlaskParser;
 options { tokenVocab=JinjaFlaskLexer; }
 
 program
-    : (statement | NEWLINE | DEDENT)* EOF
+    : (statement)* EOF
     ;
 
 statement
@@ -13,26 +13,23 @@ statement
     | simple_stmt
     ;
 
+compound_stmt
+    : if_stmt
+    | assign_stmt
+    | for_loop+
+    | atom_expr
+    | func_def
+    | decorated
+    ;
+
 simple_stmt
-    : ( small_stmt (SEMI small_stmt)* )? (SEMI | NEWLINE)
-    ;
-
-small_stmt
-    : assign_stmt
-    | import_stmt
-    | return_stmt
-    | global_stmt
-    | expr
-    | flow_stmt
-    ;
-
-import_stmt
-    : import_name
+    : return_stmt
     | import_from
+    | global_stmt
     ;
 
-import_name
-    : IMPORT dotted_name (AS NAME)?
+for_loop
+    : FOR atom_expr IN atom_expr (simple_stmt | compound_stmt)*
     ;
 
 import_from
@@ -52,37 +49,8 @@ dotted_name
     ;
 
 return_stmt
-    : RETURN atom
-    | RETURN testlist?
-    ;
-
-testlist
-    : test (COMMA test)*
-    ;
-
-test
-    : or_test
-    ;
-
-or_test
-    : and_test (OR and_test)*
-    ;
-
-and_test
-    : not_test (AND not_test)*
-    ;
-
-not_test
-    : NOT not_test
-    | comparison
-    ;
-
-comparison
-    : expr (comp_op expr)*
-    ;
-
-comp_op
-    : LT | GT | EQ | GTE | LTE | NEQ | IN | NOT IN | IS | IS NOT
+    : RETURN atom_expr
+    | RETURN atom
     ;
 
 global_stmt
@@ -90,55 +58,31 @@ global_stmt
     ;
 
 expr
-    : term ((PLUS | MINUS) term)*
-    ;
-
-term
-    : factor ((STAR | SLASH | SLASHSLASH) factor)*
-    ;
-
-factor
-    : (PLUS | MINUS) factor
-    | power
-    ;
-
-power
-    : atom_expr
+    : atom_expr ((PLUS | MINUS) atom_expr)*
     ;
 
 atom_expr
-    : atom trailer*
+    : trailer
+    | atom trailer*
     ;
 
 trailer
     : LP arglist? RP
-    | LBRACK test RBRACK
+    | LBRACK dict_maker RBRACK
+    | LBRACK atom_expr RBRACK
+    | for_loop
     | DOT NAME
     ;
 
-flow_stmt
-    : return_stmt
-    ;
-
-compound_stmt
-    : if_stmt
-    | func_def
-    | decorated
-    ;
-
 if_stmt
-    : IF test COLON suite
-      ( ELIF test COLON suite )*
-      ( ELSE COLON suite )?
-    ;
-
-suite
-    : simple_stmt
-    | NEWLINE INDENT statement+ DEDENT
+    : IF comparison COLON statement
+      ( ELIF comparison COLON statement )*
+      ( ELSE COLON statement )?
+    | IF comparison
     ;
 
 assign_stmt
-    : atom_expr ASSIGN ( test | template_literal )
+    : atom_expr ASSIGN ( simple_stmt+ | compound_stmt | template_literal )
     ;
 
 template_literal
@@ -147,19 +91,15 @@ template_literal
     ;
 
 decorated
-    : decorators func_def
-    ;
-
-decorators
-    : decorator+
+    : decorator func_def
     ;
 
 decorator
-    : AT dotted_name ( LP arglist? RP )? NEWLINE
+    : AT dotted_name ( LP arglist? RP )?
     ;
 
 func_def
-    : DEF NAME parameters (ARROW test)? COLON suite
+    : DEF NAME parameters COLON statement
     ;
 
 parameters
@@ -173,20 +113,25 @@ typedargslist
 atom
     : NAME
     | NUMBER
-    | STRING+
-    | NONE | TRUE | FALSE
-    | LP test? RP
+    | STRING
+    | NONE | TRUE
+    | function_call
+    | LP atom_expr? RP
     | LBRACK list_content? RBRACK
     | LKBRACE dict_maker? RKBRACE
     ;
 
+function_call
+    : STRING LP atom (COMMA atom)* RP
+    ;
+
 list_content
-    : test (COMMA test)* (COMMA)?
+    : atom_expr (COMMA atom_expr)* (COMMA)?
     ;
 
 dict_maker
-   : atom COLON test
-     ( (NEWLINE | WS)* COMMA (NEWLINE | WS)* atom COLON test )*
+   : atom COLON (expr | or_test)
+     ( (NEWLINE | WS)* COMMA (NEWLINE | WS)* atom COLON  (expr | or_test) )*
      ( (NEWLINE | WS)* COMMA (NEWLINE | WS)* )?
    ;
 
@@ -197,9 +142,24 @@ arglist
     ;
 
 argument
-    : test
-    | NAME ASSIGN test
+    : atom_expr
+    | NAME ASSIGN atom_expr
     ;
+
+
+or_test
+    : atom_expr (OR atom_expr)*
+    ;
+
+comparison
+    : NOT expr
+    | expr (comp_op expr)*
+    ;
+
+comp_op
+    : LT | GT | EQ | GTE | LTE | NEQ | IN | NOT IN | IS | IS NOT
+    ;
+
 
 //==========================HTML RULES=====================
 html_content
@@ -253,7 +213,7 @@ selector
 
 simpleSelector
     : CSS_ID ( CSS_DOT CSS_ID | CSS_HASH CSS_ID )*
-    | ( CSS_DOT CSS_ID | CSS_HASH CSS_ID )+
+    | ( CSS_DOT CSS_ID CSS_ID? | CSS_HASH CSS_ID )+
     | CSS_ID
     ;
 
