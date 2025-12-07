@@ -5,7 +5,7 @@ parser grammar JinjaFlaskParser;
 options { tokenVocab=JinjaFlaskLexer; }
 
 program
-    : (statement | NEWLINE | DEDENT)* EOF
+    : (statement)* EOF
     ;
 
 statement
@@ -13,33 +13,23 @@ statement
     | simple_stmt
     ;
 
-simple_stmt
-    : ( small_stmt (SEMI small_stmt)* )? (SEMI | NEWLINE)
-    ;
-
-small_stmt
-    : return_stmt+
+compound_stmt
+    : if_stmt
     | assign_stmt
-    | if_stmt
-    | import_stmt
     | for_loop+
-    | global_stmt
     | atom_expr
-    | flow_stmt
+    | func_def
+    | decorated
     ;
 
+simple_stmt
+    : return_stmt
+    | import_from
+    | global_stmt
+    ;
 
 for_loop
-    : FOR atom_expr IN atom_expr (small_stmt)*
-    ;
-
-import_stmt
-    : import_name
-    | import_from
-    ;
-
-import_name
-    : IMPORT dotted_name (AS NAME)?
+    : FOR atom_expr IN atom_expr (simple_stmt | compound_stmt)*
     ;
 
 import_from
@@ -59,12 +49,8 @@ dotted_name
     ;
 
 return_stmt
-    : RETURN atom
-    | RETURN testlist?
-    ;
-
-testlist
-    : atom_expr (COMMA atom_expr)*
+    : RETURN atom_expr
+    | RETURN atom
     ;
 
 global_stmt
@@ -88,30 +74,15 @@ trailer
     | DOT NAME
     ;
 
-flow_stmt
-    : return_stmt
-    ;
-
-compound_stmt
-    : if_stmt
-    | func_def
-    | decorated
-    ;
-
 if_stmt
-    : IF comparison COLON suite
-      ( ELIF comparison COLON suite )*
-      ( ELSE COLON suite )?
+    : IF comparison COLON statement
+      ( ELIF comparison COLON statement )*
+      ( ELSE COLON statement )?
     | IF comparison
     ;
 
-suite
-    : small_stmt
-    | NEWLINE INDENT statement+ DEDENT
-    ;
-
 assign_stmt
-    : atom_expr ASSIGN ( small_stmt+ | template_literal )
+    : atom_expr ASSIGN ( simple_stmt+ | compound_stmt | template_literal )
     ;
 
 template_literal
@@ -120,19 +91,15 @@ template_literal
     ;
 
 decorated
-    : decorators func_def
-    ;
-
-decorators
-    : decorator+
+    : decorator func_def
     ;
 
 decorator
-    : AT dotted_name ( LP arglist? RP )? NEWLINE
+    : AT dotted_name ( LP arglist? RP )?
     ;
 
 func_def
-    : DEF NAME parameters COLON suite
+    : DEF NAME parameters COLON statement
     ;
 
 parameters
@@ -144,11 +111,11 @@ typedargslist
     ;
 
 atom
-    : function_call
-    | NAME
+    : NAME
     | NUMBER
     | STRING
     | NONE | TRUE
+    | function_call
     | LP atom_expr? RP
     | LBRACK list_content? RBRACK
     | LKBRACE dict_maker? RKBRACE
@@ -179,17 +146,9 @@ argument
     | NAME ASSIGN atom_expr
     ;
 
+
 or_test
-    : and_test (OR and_test)*
-    ;
-
-and_test
-    : not_test (AND not_test)*
-    ;
-
-not_test
-    : NOT not_test
-    | comparison
+    : atom_expr (OR atom_expr)*
     ;
 
 comparison
