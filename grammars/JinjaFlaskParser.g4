@@ -103,6 +103,9 @@ func_def
     : decorator DEF NAME parameters COLON function_body
     ;
 
+decorator
+    : AT dotted_name ( LP arglist? RP )?
+    ;
 function_body
     : function_statement+
     | PASS
