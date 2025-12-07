@@ -43,7 +43,6 @@ BASE_HTML = """
         box-shadow: 0 0 8px #ccc;
     }
 
-***************************************************************************** مشكلة ماعم يعرف انو لازم يكون في img
     .product-card img {
         width: 250px;      /* desired width */
         height: 200px;     /* desired height */
@@ -84,12 +83,7 @@ BASE_HTML = """
     }
 
 ************************************************************** عم يعالج السطر الاول بس السطر التاني ماعم يحسبو من القاعدة
-    .form input,
-    .form textarea {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 15px;
-    }
+
 
 
     .detail-container {
