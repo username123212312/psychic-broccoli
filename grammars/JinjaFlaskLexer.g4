@@ -98,7 +98,7 @@ NEWLINE
        skip();
      }
    }
-   -> channel(HIDDEN)
+   // -> channel(HIDDEN)
  ;
 
 // Intra-line whitespace
