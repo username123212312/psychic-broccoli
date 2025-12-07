@@ -108,10 +108,6 @@ function_body
     | PASS
     ;
 
-decorator
-    : AT dotted_name ( LP arglist? RP )?
-    ;
-
 parameters
     : LP typedargslist? RP
     ;
