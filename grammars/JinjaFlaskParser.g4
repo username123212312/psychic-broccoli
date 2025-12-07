@@ -19,8 +19,17 @@ compound_stmt
     | for_loop+
     | atom_expr
     | func_def
-    | decorated
     ;
+
+
+function_statement
+    : return_stmt
+    | if_stmt
+    | assign_stmt
+    | atom_expr
+    | global_stmt
+    ;
+
 
 simple_stmt
     : return_stmt
@@ -90,16 +99,17 @@ template_literal
     | TRIPLE_SINGLE_START html_content (NEWLINE | WS)* TRIPLE_SINGLE_END
     ;
 
-decorated
-    : decorator func_def
+func_def
+    : decorator DEF NAME parameters COLON function_body
+    ;
+
+function_body
+    : function_statement+
+    | PASS
     ;
 
 decorator
     : AT dotted_name ( LP arglist? RP )?
-    ;
-
-func_def
-    : DEF NAME parameters COLON statement
     ;
 
 parameters
