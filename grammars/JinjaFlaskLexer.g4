@@ -9,105 +9,14 @@ options {
 
 @lexer::header {
 package antlr;
-//    import org.antlr.v4.runtime.CommonToken;
-//    import org.antlr.v4.runtime.Token;
-//    import java.util.*;
-//    import org.antlr.v4.runtime.CharStream;
-//    import org.antlr.v4.runtime.TokenSource;
-//    import org.antlr.v4.runtime.misc.Pair;
 }
 
-//@lexer::members {
-//  public static final int HIDDEN = 1;
-//  public static final int DEFAULT = Token.DEFAULT_CHANNEL;
-//
-//  // A queue where extra tokens are pushed on (see the NEWLINE lexer rule).
-//  private java.util.LinkedList<Token> pending = new java.util.LinkedList<>();
-//  // The stack that keeps track of the indentation level.
-//  private java.util.Stack<Integer> indents = new java.util.Stack<>();
-//  // The amount of opened braces, brackets and parenthesis.
-//  protected int opened = 0;
-//
-//  // CRITICAL FIX: Ensure the indentation stack is initialized with 0
-//  {
-//      indents.push(0);
-//  }
-//
-//  // Helper method to emit tokens into the pending queue.
-//  public void emit(Token t) {
-//    super.setToken(t);
-//    pending.offer(t);
-//  }
-//
-//  private Token createDedent() {
-//    return commonToken(DEDENT, "<DEDENT>");
-//  }
-//
-//  private CommonToken commonToken(int type, String text) {
-//    int stop = this.getCharIndex() - 1;
-//    int start = text.isEmpty() ? stop : stop - text.length() + 1;
-//    return new CommonToken(this._tokenFactorySourcePair, type, DEFAULT_TOKEN_CHANNEL, start, stop);
-//  }
-//
-//  static int getIndentationCount(String spaces) {
-//    int count = 0;
-//    for (char ch : spaces.toCharArray()) {
-//      switch (ch) {
-//        case '\t':
-//          count += 8 - (count % 8);
-//          break;
-//        default:
-//          count++;
-//      }
-//    }
-//    return count;
-//  }
-//}
-
 // =================== LEXER RULES (Hybrid Indentation) ===================
-
-//NEWLINE
-// : ( '\r'? '\n' | '\r' ) [ \t]*
-//   {
-//     String newLine = getText().replaceAll("[^\r\n]+", "");
-//     String spaces = getText().replaceAll("[\r\n]+", "");
-//     int next = _input.LA(1);
-//
-//     if (opened > 0 || next == '\r' || next == '\n' || next == '#') {
-//       skip();
-//     }
-//     else {
-//       emit(commonToken(JinjaFlaskLexer.NEWLINE, newLine));
-//
-//       int indent = getIndentationCount(spaces);
-//       int previous = indents.peek();
-//
-//       if (indent > previous) {
-//         indents.push(indent);
-//         emit(commonToken(JinjaFlaskLexer.INDENT, spaces));
-//       }
-//       else if (indent < previous) {
-//         while(!indents.isEmpty() && indents.peek() > indent) {
-//           this.emit(createDedent());
-//           indents.pop();
-//         }
-//         if (indents.peek() != indent) {
-//            // Indentation error detection
-//            // throw new InputMismatchException("Indentation error: Expected " + indents.peek() + ", got " + indent);
-//         }
-//       }
-//       skip();
-//     }
-//   }
-//   -> channel(HIDDEN)
-// ;
 
 
 STRING: '\'' (~['\r\n])* '\'' | '"' (~["\r\n])* '"';
 
 NUMBER: [0-9]+ ('.' [0-9]+)? ;
-
-
 
 // Tokens (Top-level Python/Flask code)
 PASS: 'pass';
