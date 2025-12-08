@@ -2,10 +2,16 @@ parser grammar JinjaFlaskParser;
 
 @header {package antlr;}
 
+@parser::members {
+    private void trace(String rule) {
+        System.out.println("ENTER RULE: " + rule + " at token " + _input.LT(1).getText());
+    }
+}
+
 options { tokenVocab=JinjaFlaskLexer; }
 
 program
-    : (statement)* EOF
+    : NEWLINE* (statement)* EOF
     ;
 
 statement
@@ -16,29 +22,25 @@ statement
 compound_stmt
     : if_stmt
     | assign_stmt
-    | for_loop+
+    | for_loop
     | atom_expr
     | func_def
     ;
 
 
-function_statement
-    : return_stmt
-    | if_stmt
-    | assign_stmt
-    | atom_expr
-    | global_stmt
-    ;
 
-
+//simple_stmt
+//    : ( return_stmt | import_from | global_stmt ) NEWLINE?
+//    ;
 simple_stmt
-    : return_stmt
-    | import_from
-    | global_stmt
+    : ( return_stmt | import_from | global_stmt | atom_expr ) NEWLINE?
     ;
 
+//for_loop
+//    : FOR atom_expr IN atom_expr (simple_stmt | compound_stmt)*
+//    ;
 for_loop
-    : FOR atom_expr IN atom_expr (simple_stmt | compound_stmt)*
+    : FOR atom_expr IN atom_expr COLON (indented_block | statement)
     ;
 
 import_from
@@ -79,36 +81,67 @@ trailer
     : LP arglist? RP
     | LBRACK dict_maker RBRACK
     | LBRACK atom_expr RBRACK
-    | for_loop
     | DOT NAME
+    | LP generator_expr RP                      // For nested generator expressions
+    | LBRACK list_comprehension RBRACK          // For list comprehensions in brackets
+    | LKBRACE dict_comprehension RKBRACE        // For dict comprehensions in braces
+    | LKBRACE set_comprehension RKBRACE         // For set comprehensions in braces
     ;
 
-if_stmt
-    : IF comparison COLON statement
-      ( ELIF comparison COLON statement )*
-      ( ELSE COLON statement )?
-    | IF comparison
+//if_stmt
+//    : IF comparison COLON statement
+//      ( ELIF comparison COLON statement )*
+//      ( ELSE COLON statement )?
+//    | IF comparison
+//    ;
+
+block
+    : NEWLINE INDENT stmt_block DEDENT
+    | stmt_block
     ;
+stmt_block
+    : statement+
+    ;
+if_stmt
+    : IF comparison COLON (indented_block | statement)
+      ( ELIF comparison COLON (indented_block | statement) )*
+      ( ELSE COLON (indented_block | statement) )?
+    ;
+
+indented_block
+    : NEWLINE INDENT statement+ DEDENT
+    ;
+
+
+
+//assign_stmt
+//    : atom_expr ASSIGN ( simple_stmt+ | compound_stmt | template_literal )
+//    ;
 
 assign_stmt
-    : atom_expr ASSIGN ( simple_stmt+ | compound_stmt | template_literal )
+    : atom_expr ASSIGN ( expr | atom_expr | template_literal ) NEWLINE?
     ;
 
 template_literal
-    : TRIPLE_DOUBLE_START html_content (NEWLINE | WS)* TRIPLE_DOUBLE_END
-    | TRIPLE_SINGLE_START html_content (NEWLINE | WS)* TRIPLE_SINGLE_END
+    : TRIPLE_DOUBLE_START html_content  TRIPLE_DOUBLE_END
+    | TRIPLE_SINGLE_START html_content  TRIPLE_SINGLE_END
     ;
 
 func_def
-    : decorator DEF NAME parameters COLON function_body
+    : decorator? DEF NAME parameters COLON function_body
     ;
 
 decorator
-    : AT dotted_name ( LP arglist? RP )?
+    : AT dotted_name ( LP arglist? RP )? NEWLINE
     ;
+//function_body
+//    : NEWLINE INDENT function_statement* DEDENT  // Allow empty body
+//    | PASS NEWLINE
+//    | NEWLINE  // Allow just a newline (empty function)
+//    ;
 function_body
-    : function_statement+
-    | PASS
+    : block
+    | PASS NEWLINE
     ;
 
 parameters
@@ -119,20 +152,55 @@ typedargslist
     : NAME (COMMA NAME)*
     ;
 
+generator_expr
+    : atom_expr comp_for
+    ;
+// List comprehension
+list_comprehension
+    : atom_expr comp_for
+    ;
+
+// Dict comprehension
+dict_comprehension
+    : keyvalue comp_for
+    ;
+
+// Set comprehension
+set_comprehension
+    : atom_expr comp_for
+    ;
+
+// Key-value pair for dict comprehensions
+keyvalue
+    : atom_expr COLON atom_expr
+    ;
+
+comp_for
+    : FOR exprlist IN or_test (IF or_test)* (comp_for)?
+    ;
+
+exprlist
+    : atom_expr (COMMA atom_expr)* (COMMA)?
+    ;
+
 atom
     : NAME
     | NUMBER
     | STRING
-    | NONE | TRUE
-    | function_call
+    | NONE | TRUE | FALSE
     | LP atom_expr? RP
     | LBRACK list_content? RBRACK
     | LKBRACE dict_maker? RKBRACE
+    // Comprehensions
+    | LP generator_expr RP
+    | LBRACK list_comprehension RBRACK
+    | LKBRACE dict_comprehension RKBRACE        
+    | LKBRACE set_comprehension RKBRACE
     ;
 
-function_call
-    : STRING LP atom (COMMA atom)* RP
-    ;
+//function_call
+//    : STRING LP atom (COMMA atom)* RP
+//    ;
 
 list_content
     : atom_expr (COMMA atom_expr)* (COMMA)?
@@ -140,14 +208,14 @@ list_content
 
 dict_maker
    : atom COLON (expr | or_test)
-     ( (NEWLINE | WS)* COMMA (NEWLINE | WS)* atom COLON  (expr | or_test) )*
-     ( (NEWLINE | WS)* COMMA (NEWLINE | WS)* )?
+     (  COMMA  atom COLON  (expr | or_test) )*
+     COMMA?
    ;
 
 arglist
-    : (NEWLINE | WS)* argument
-      ( COMMA (NEWLINE | WS)* argument )*
-      ( COMMA (NEWLINE | WS)* )?
+    :  argument
+      ( COMMA  argument )*
+      ( COMMA  )?
     ;
 
 argument
@@ -157,7 +225,15 @@ argument
 
 
 or_test
-    : atom_expr (OR atom_expr)*
+    : and_test (OR and_test)*
+    ;
+and_test
+    : not_test (AND not_test)*
+    ;
+
+not_test
+    : NOT not_test
+    | comparison
     ;
 
 comparison
