@@ -37,7 +37,7 @@ public class App {
                 parser.addErrorListener(new CustomErrorListener());
 
                 // tell ANTLR to build a parse tree
-                ParseTree antlrAST = parser.program();
+                ParseTree antlrAST = parser.prog();
                 showParseTree(parser.getRuleNames(), antlrAST);
 
                 // If we reach here, the parse was successful!
