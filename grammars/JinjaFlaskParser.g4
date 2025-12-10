@@ -15,24 +15,28 @@ program
     ;
 
 statement
-    : (NEWLINE INDENT)? (compound_stmt | simple_stmt )+ DEDENT?
+    : (NEWLINE INDENT)? simple_stmt+ DEDENT?          #simpleStatement
+    | (NEWLINE INDENT)? compound_stmt+ DEDENT?        #compoundStatement
     ;
 
 compound_stmt
-    : if_stmt
-    | assign_stmt
-    | for_loop
-    | atom_expr
-    | func_def
+    : if_stmt               #ifStatement
+    | assign_stmt           #assignmentStatement
+    | for_loop              #forLoopStatement
+    | python_expr           #pythonExprStatement
+    | func_def              #functionDefinition
     ;
 
 simple_stmt
-    : ( return_stmt | import_from | global_stmt | atom_expr ) NEWLINE?
+    : return_stmt  NEWLINE?      #returnStatement
+    | import_from  NEWLINE?      #importStatement
+    | global_stmt  NEWLINE?      #globalStatement
+    | python_expr  NEWLINE?      #pythonExprssionStatement
     ;
 
 return_stmt
-    : RETURN atom_expr
-    | RETURN atom
+    : RETURN python_expr      #complexReturn
+    | RETURN atom             #simpleReturn
     ;
 
 global_stmt
@@ -40,57 +44,40 @@ global_stmt
     ;
 
 import_from
-    : FROM dotted_name IMPORT (STAR | import_as_names)
-    ;
-
-dotted_name
-    : NAME (DOT NAME)*
-    ;
-
-import_as_names
-    : import_as_name (COMMA import_as_name)*
-    ;
-
-import_as_name
-    : NAME (AS NAME)?
+    : FROM NAME (DOT NAME)* IMPORT NAME (AS NAME)? (COMMA NAME (AS NAME)?)*
     ;
 
 if_stmt
-    : IF comparison COLON statement
-      ( ELIF comparison COLON statement )*
-      ( ELSE COLON statement )?
+    : IF comparison COLON statement ( ELIF comparison COLON statement )* ( ELSE COLON statement )?
     ;
 
 comparison
-    : NOT atom_expr
-    | atom_expr (comp_op atom_expr)*
+    : NOT python_expr                        #notExpression
+    | python_expr (comp_op python_expr)*     #comparisonExpression
     ;
 
-atom_expr
-    : trailer
-    | atom trailer*
+python_expr
+    : complex_expr               #complexExpression
+    | atom complex_expr*         #atomcomplexExpression
     ;
 
 comp_op
-    : LT | GT | EQ | GTE | LTE | NEQ | IN | NOT IN | IS | IS NOT
-    ;
-
-arithmetic_expr
-    : atom_expr ((PLUS | MINUS) atom_expr)*
+    : LT | GT | EQ | GTE | LTE | NEQ |OR | IN | NOT IN | IS | IS NOT
     ;
 
 assign_stmt
-    : atom_expr ASSIGN (comparison | template_literal ) NEWLINE?
+    : python_expr ASSIGN comparison NEWLINE?          #comparisonAssignStmt
+    | python_expr ASSIGN template_literal NEWLINE?    #templateLiteralAssignStmt
     ;
 
 template_literal
-    : TRIPLE_DOUBLE_START html_content  TRIPLE_DOUBLE_END
-    | TRIPLE_SINGLE_START html_content  TRIPLE_SINGLE_END
-    ;
+   : TRIPLE_DOUBLE_START html_content  TRIPLE_DOUBLE_END      #htmlContentDoubleTemplate
+   | TRIPLE_SINGLE_START html_content  TRIPLE_SINGLE_END      #htmlContentSingleTemplate
+   ;
 
 for_loop
-    : FOR atom_expr IN atom_expr statement
-    | atom FOR atom_expr IN atom (IF comparison)*
+    : FOR python_expr IN python_expr statement            #simpleForLoop
+    | atom FOR python_expr IN atom (IF comparison)*       #complexForLoop
     ;
 
 func_def
@@ -98,7 +85,7 @@ func_def
     ;
 
 decorator
-    : AT dotted_name ( LP arglist? RP )? NEWLINE
+    : AT NAME (DOT NAME)* ( LP arglist? RP )? NEWLINE
     ;
 
 parameters
@@ -110,26 +97,22 @@ typedargslist
     ;
 
 function_body
-    : statement
-    | PASS NEWLINE
+    : statement         #functionBody
+    | PASS NEWLINE      #passBody
     ;
 
-trailer
-    : LP for_loop RP
-    | LP arglist? RP
-    | LBRACK for_loop RBRACK
-    | LBRACK comparison RBRACK
-    | LKBRACE dict_maker? RKBRACE
-    | DOT NAME
+complex_expr
+    : LP for_loop RP               #forLoopInRBra
+    | LP arglist? RP               #arglistInRBra
+    | LBRACK for_loop? RBRACK      #forLoopInSqBra
+    | LBRACK comparison RBRACK     #comparisonInSqBra
+    | LKBRACE dict_maker? RKBRACE  #dictionaryInKBra
+    | LBRACK exprlist? RBRACK      #exprlistInSqBra
+    | DOT NAME                     #memberAccess
     ;
 
 atom
-    : NAME
-    | NUMBER
-    | STRING
-    | NONE
-    | TRUE
-    | LBRACK exprlist? RBRACK
+    : NAME | NUMBER  | STRING  | NONE  | TRUE
     ;
 
 exprlist
@@ -137,13 +120,12 @@ exprlist
     ;
 
 dict_maker
-   : atom COLON (arithmetic_expr | or_test)
-     ( COMMA atom COLON (arithmetic_expr | or_test) )*
-     COMMA?
+   : atom COLON (simple_expr) ( COMMA atom COLON simple_expr )* COMMA?
    ;
 
-or_test
-    : comparison (OR comparison)*
+simple_expr
+    : python_expr (PLUS python_expr)*           #additionExpression
+    | comparison                                #comparisonExprssion
     ;
 
 arglist
@@ -151,8 +133,8 @@ arglist
     ;
 
 argument
-    : atom_expr
-    | NAME ASSIGN atom_expr
+    : python_expr                 #simpleArgument
+    | NAME ASSIGN python_expr     #assignArgument
     ;
 
 //==========================HTML RULES=====================
