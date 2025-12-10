@@ -10,7 +10,7 @@ parser grammar JinjaFlaskParser;
 
 options { tokenVocab=JinjaFlaskLexer; }
 
-program
+prog
     : NEWLINE* (statement)* EOF
     ;
 
