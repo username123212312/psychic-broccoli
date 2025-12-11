@@ -37,7 +37,7 @@ NUMBER: [0-9]+ ('.' [0-9]+)? ;
        skip();
      }
    }
-   // -> channel(HIDDEN)
+    -> channel(HIDDEN)
  ;
 
 // Intra-line whitespace
