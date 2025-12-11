@@ -31,7 +31,7 @@ simple_stmt
     : return_stmt  NEWLINE?      # ReturnStatement
     | import_from  NEWLINE?      # ImportStatement
     | global_stmt  NEWLINE?      # GlobalStatement
-    | python_expr  NEWLINE?      # PythonExprssionStatement
+    | python_expr  NEWLINE?      # PythonExpressionStatement
     ;
 
 return_stmt
@@ -57,8 +57,8 @@ comparison
     ;
 
 python_expr
-    : complex_expr               # ComplexExpression
-    | atom complex_expr*         # AtomcomplexExpression
+    : complex_expr               # ComplexExpression   //# ExprFromComplex
+    | atom complex_expr*         # AtomComplexExpression
     ;
 
 comp_op
@@ -140,7 +140,7 @@ dict_maker
 
 simple_expr
     : python_expr (PLUS python_expr)*           # AdditionExpression
-    | comparison                                # ComparisonExprssion
+    | comparison                                # ComparisonAsSimpleExpr
     ;
 
 arglist
