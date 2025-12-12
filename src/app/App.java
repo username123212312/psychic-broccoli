@@ -42,9 +42,6 @@ public class App {
 
                 // If we reach here, the parse was successful!
                 System.out.println("--- Parsing SUCCESSFUL! ---");
-                // Create TreeViewer
-
-                // Optional: print antlrAST.toStringTree(parser); for debugging the tree structure
 
             } catch (Exception e) {
                 System.err.println("Parsing halted due to error: " + (e.getMessage() != null ? e.getMessage() : "Unknown Error (Likely ANTLR Stack Crash)"));

@@ -2,11 +2,6 @@ parser grammar JinjaFlaskParser;
 
 @header {package antlr;}
 
-@parser::members {
-    private void trace(String rule) {
-        System.out.println("ENTER RULE: " + rule + " at token " + _input.LT(1).getText());
-    }
-}
 
 options { tokenVocab=JinjaFlaskLexer; }
 
@@ -15,23 +10,18 @@ prog
     ;
 
 statement
-    : (NEWLINE INDENT)? simple_stmt+ DEDENT?          #SimpleStatement
-    | (NEWLINE INDENT)? compound_stmt+ DEDENT?        #CompoundStatement
+    : (NEWLINE INDENT)? compound_stmt+ DEDENT?        # CompoundStatement
     ;
 
 compound_stmt
-    : if_stmt                   # IfStatement
-    | assign_stmt               # AssignmentStatement
-    | for_loop                  # ForLoopStatement
-    | python_expr               # PythonExprStatement
-    | func_def                  # FunctionDefinition
-    ;
-
-simple_stmt
-    : return_stmt  NEWLINE?      # ReturnStatement
+    : if_stmt      NEWLINE?      # IfStatement
+    | assign_stmt  NEWLINE?      # AssignmentStatement
+    | for_loop     NEWLINE?      # ForLoopStatement
+    | python_expr  NEWLINE?      # PythonExprStatement
+    | func_def     NEWLINE?      # FunctionDefinition
+    | return_stmt  NEWLINE?      # ReturnStatement
     | import_from  NEWLINE?      # ImportStatement
     | global_stmt  NEWLINE?      # GlobalStatement
-    | python_expr  NEWLINE?      # PythonExprssionStatement
     ;
 
 return_stmt
@@ -58,7 +48,7 @@ comparison
 
 python_expr
     : complex_expr               # ComplexExpression
-    | atom complex_expr*         # AtomcomplexExpression
+    | atom complex_expr*         # AtomComplexExpression
     ;
 
 comp_op
@@ -140,7 +130,7 @@ dict_maker
 
 simple_expr
     : python_expr (PLUS python_expr)*           # AdditionExpression
-    | comparison                                # ComparisonExprssion
+    | comparison                                # SimpleComparisonExpression
     ;
 
 arglist
