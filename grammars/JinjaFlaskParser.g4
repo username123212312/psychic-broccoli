@@ -11,6 +11,7 @@ prog
 
 statement
     : (NEWLINE INDENT)? compound_stmt+ DEDENT?        # CompoundStatement
+    | (NEWLINE INDENT)? PASS DEDENT?                  # PassStatement
     ;
 
 compound_stmt
@@ -85,7 +86,7 @@ for_loop
     ;
 
 func_def
-    : dec? DEF NAME parameters COLON function_body
+    : dec? DEF NAME parameters COLON statement
     ;
 
 dec
@@ -93,17 +94,14 @@ dec
     ;
 
 parameters
-    : LP typedargslist? RP  # FunctionParameters
+    : LP fun_params? RP  # FunctionParameters
     ;
 
-typedargslist
-    : NAME (COMMA NAME)*    # FunctionArgumentsList
+fun_params
+    : NAME ASSIGN atom (COMMA NAME ASSIGN atom)* # KeywordParams
+    | NAME (COMMA NAME)*                         # PositionalParams
     ;
 
-function_body
-    : statement         # FunctionBody
-    | PASS NEWLINE      # PassBody
-    ;
 
 complex_expr
     : LP for_loop RP               # Generator
@@ -136,7 +134,8 @@ dict_maker
    ;
 
 key_value
-   : atom COLON (atom | simple_expr) # KeyValue
+   : atom COLON atom        # AtomKeyValue
+   | atom COLON simple_expr # SimpleKeyValue
    ;
 
 simple_expr
@@ -152,7 +151,8 @@ arithmetic_expr
     ;
 
 arglist
-    : (atom  | argument (COMMA argument )* COMMA?)        # ArgumentsList
+    :  atom (COMMA atom )* COMMA?            # AtomArgs
+    |  argument (COMMA argument )* COMMA?    # ComplexArgs
     ;
 
 argument

@@ -1,5 +1,7 @@
 package ast;
 
+import ast.keyValue.KeyValue;
+
 import java.util.List;
 
 public class DictionaryMaker extends ASTNode{
