@@ -34,7 +34,11 @@ global_stmt
     ;
 
 import_from
-    : FROM NAME (DOT NAME)* IMPORT NAME (AS NAME)? (COMMA NAME (AS NAME)?)*   
+    : FROM NAME (DOT NAME)* IMPORT imptd (COMMA imptd)*
+    ;
+
+imptd
+    : NAME (AS NAME)?   # Imported
     ;
 
 if_stmt
