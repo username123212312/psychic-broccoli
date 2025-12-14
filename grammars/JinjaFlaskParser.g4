@@ -6,7 +6,7 @@ parser grammar JinjaFlaskParser;
 options { tokenVocab=JinjaFlaskLexer; }
 
 prog
-    : NEWLINE* (statement)* EOF         #Program
+    : NEWLINE* (statement)* EOF         # Program
     ;
 
 statement
@@ -17,7 +17,7 @@ compound_stmt
     : if_stmt      NEWLINE?      # IfStatement
     | assign_stmt  NEWLINE?      # AssignmentStatement
     | for_loop     NEWLINE?      # ForLoopStatement
-    | python_expr  NEWLINE?      # PythonExprStatement
+    | python_expr  NEWLINE?      # PythonExpression
     | func_def     NEWLINE?      # FunctionDefinition
     | return_stmt  NEWLINE?      # ReturnStatement
     | import_from  NEWLINE?      # ImportStatement
@@ -38,10 +38,10 @@ import_from
     ;
 
 if_stmt
-    : IF comparison COLON statement ( ELIF comparison COLON statement )* ( ELSE COLON statement )?
+    : IF condition COLON statement ( ELIF condition COLON statement )* ( ELSE COLON statement )?
     ;
 
-comparison
+condition
     : NOT python_expr                        # NotExpression
     | python_expr (comp_op python_expr)*     # ComparisonExpression
     ;
@@ -66,7 +66,7 @@ comp_op
     ;
 
 assign_stmt
-    : python_expr ASSIGN comparison NEWLINE?          # ComparisonAssignStmt
+    : python_expr ASSIGN condition NEWLINE?          # ComparisonAssignStmt
     | python_expr ASSIGN template_literal NEWLINE?    # TemplateLiteralAssignStmt
     ;
 
@@ -77,7 +77,7 @@ template_literal
 
 for_loop
     : FOR python_expr IN python_expr statement            # SimpleForLoop
-    | atom FOR python_expr IN atom (IF comparison)*       # ComplexForLoop
+    | atom FOR python_expr IN atom (IF condition)*       # ComplexForLoop
     ;
 
 func_def
@@ -102,10 +102,9 @@ function_body
     ;
 
 complex_expr
-    : LP for_loop RP               # ParenthesizedForLoop
+    : LP for_loop RP               # Generator
     | LP arglist? RP               # FunctionCall
-    | LBRACK for_loop? RBRACK      # ListComprehension
-    | LBRACK comparison RBRACK     # Subscription      // (or SubscriptAccess)
+    | LBRACK for_loop RBRACK       # ListComprehension
     | LKBRACE dict_maker? RKBRACE  # DictionaryLiteral
     | LBRACK exprlist? RBRACK      # ListLiteral      
     | DOT NAME                     # AttributeAccess
@@ -116,7 +115,11 @@ atom
     | NUMBER # NumberAtom
     | STRING # StringAtom
     | NONE   # NoneAtom
-    | TRUE   # TrueAtom
+    | bool_exp # BooleanAtom
+    ;
+
+bool_exp:
+    TRUE   # TrueAtom
     | FALSE  # FalseAtom
     ;
 
@@ -125,21 +128,32 @@ exprlist
     ;
 
 dict_maker
-   : atom COLON (simple_expr) ( COMMA atom COLON simple_expr )* COMMA?
+   : key_value ( COMMA key_value )* COMMA? # KeyValuePairs
+   ;
+
+key_value
+   : atom COLON (atom | simple_expr) # KeyValue
    ;
 
 simple_expr
-    : python_expr (PLUS python_expr)*           # AdditionExpression
-    | comparison                                # SimpleComparisonExpression
+    : arithmetic_expr                           # ArithmeticExpression
+    | condition                                 # SimpleComparisonExpression
+    ;
+
+arithmetic_expr
+    : python_expr (PLUS python_expr)*           # Addition
+    | python_expr (MINUS python_expr)*          # Subtraction
+    | python_expr (SLASH python_expr)*          # Division
+    | python_expr (STAR python_expr)*           # Multiplication
     ;
 
 arglist
-    :  argument (COMMA argument )* COMMA?        # ArgumentsList
+    : (atom  | argument (COMMA argument )* COMMA?)        # ArgumentsList
     ;
 
 argument
-    : python_expr                 # SimpleArgument
-    | NAME ASSIGN python_expr     # AssignArgument
+    : python_expr                 # PositionalArgument
+    | NAME ASSIGN python_expr     # KeywordArgument
     ;
 
 //==========================HTML RULES=====================
