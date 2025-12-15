@@ -174,7 +174,7 @@ html_content_item
 
 htmlElement
     // Regular HTML tags
-    : TAG_OPEN tag_content* (TAG_CLOSE | TAG_SLASH_CLOSE) # TagElement
+    : TAG_OPEN tag_content*? (TAG_SLASH_CLOSE | TAG_CLOSE) # TagElement
 
     // Special elements with content
     | SCRIPT_OPEN SCRIPT_BODY                             # ScriptElement
@@ -190,36 +190,27 @@ htmlElement
 tag_content
     // Attribute definitions
     : TAG_NAME (TAG_EQUALS ATTVALUE_VALUE)? # HtmlAttribute
-
-    // Dynamic/Jinja content
-    | jinjaExpression # DynamicExpression
-    | jinjaStatement  # DynamicStatement
-
     // Syntax markers
     | TAG_SLASH  # ClosingMarker
-    | TAG_EQUALS # AssignmentOperator
     ;
 
 
 //===============CSS RULE======================
 
 style_sheet
-    : ( CSS_Space | CSS_Comment )* ruleSet ( ( CSS_Space | CSS_Comment )* ruleSet )* ( CSS_Space | CSS_Comment )* # StyleSheet
+    : ruleSet* # StyleSheet
     ;
 
 ruleSet
-    : selector_list
-      (CSS_Space | CSS_Comment)* CSS_LBRACE
-      declarationList
-      CSS_RBRACE # CssRule
+    : selector_list CSS_LBRACE declarationList CSS_RBRACE   # CssRule
     ;
 
 selector_list
-    : selector (( CSS_Space | CSS_Comment )* CSS_COMMA ( CSS_Space | CSS_Comment )* selector )* # SelectorList
+    : selector (CSS_COMMA selector)* # SelectorList
     ;
 
 selector
-    : simpleSelector (( CSS_Space+ | CSS_GT ) ( CSS_Space | CSS_Comment )* simpleSelector )* # ComplexSelector
+    : simpleSelector (CSS_GT  simpleSelector )* # CssSimpleSelectorList
     ;
 
 simpleSelector
@@ -229,15 +220,15 @@ simpleSelector
     ;
 
 declarationList
-    : ( declaration ( css_spacing declaration )* )? # DeclarationBlock
+    : ( declaration declaration* )? # DeclarationBlock
     ;
 
 declaration
-    : CSS_ID css_spacing CSS_COLON css_spacing cssValueTerms css_spacing CSS_SEMI # CssDeclaration
+    : CSS_ID  CSS_COLON  cssValueTerms  CSS_SEMI # CssDeclaration
     ;
 
 cssValueTerms
-    : cssterm ( css_spacing cssterm )* # CssValueList
+    : cssterm (cssterm)* # CssValueList
     ;
 
 cssterm
@@ -249,17 +240,17 @@ cssterm
     | CSS_ID          # IdentifierTerm
     ;
 
-css_spacing
-    : (CSS_Space | CSS_Comment)* # CssWhitespace
-    ;
+//css_spacing
+//    : (CSS_Space | CSS_Comment)* # CssWhitespace
+//    ;
 
 
 css_function_call
-    : CSS_ID CSS_LPAREN css_spacing css_function_args? css_spacing CSS_RPAREN # CssFunctionCall
+    : CSS_ID CSS_LPAREN  css_function_args?  CSS_RPAREN # CssFunctionCall
     ;
 
 css_function_args
-    : cssValueTerms ( css_spacing CSS_COMMA css_spacing cssValueTerms )* # FunctionArguments
+    : cssValueTerms (  CSS_COMMA  cssValueTerms )* # FunctionArguments
     ;
 //=================jinja rules======================
 jinjaStatement
