@@ -202,63 +202,57 @@ style_sheet
     ;
 
 ruleSet
-    : selector_list CSS_LBRACE declarationList CSS_RBRACE   # CssRule
+    : selector_decl CSS_LBRACE declarationList CSS_RBRACE   # CssRule
     ;
 
-selector_list
-    : selector (CSS_COMMA selector)* # SelectorList
+selector_decl
+    : css_selector_list (CSS_COMMA css_selector_list)* # SelectorDeclaration
     ;
 
-selector
-    : simpleSelector (CSS_GT  simpleSelector )* # CssSimpleSelectorList
+css_selector_list
+    : css_selector (CSS_GT  css_selector )* # CssSelectorList
     ;
 
-simpleSelector
-    : CSS_ID ( CSS_DOT CSS_ID | CSS_HASH CSS_ID )* # QualifiedSelector
-    | ( CSS_DOT CSS_ID CSS_ID? | CSS_HASH CSS_ID )+ # ClassOrIdSelector
-    | CSS_ID # SimpleIdSelector
+css_selector
+    : CSS_ID ( CSS_DOT CSS_ID )*                    # QualifiedSelector
+    | ( CSS_DOT CSS_ID CSS_ID? )+                   # StandaloneSimpleSelector
+    | CSS_ID (CSS_HASH CSS_ID)*                     # TypeAndIdSelector
+    | CSS_ID                                        # TypeSelector
     ;
 
 declarationList
-    : ( declaration declaration* )? # DeclarationBlock
+    : declaration*? # DeclarationBlock
     ;
 
 declaration
-    : CSS_ID  CSS_COLON  cssValueTerms  CSS_SEMI # CssDeclaration
+    : CSS_ID  CSS_COLON  cssterm+  CSS_SEMI # CssDeclaration
     ;
-
-cssValueTerms
-    : cssterm (cssterm)* # CssValueList
-    ;
-
-cssterm
-    : css_function_call # FunctionTerm
-    | CSS_STRING      # StringTerm
-    | CSS_HEX_COLOR   # ColorTerm
-    | CSS_NUMBER CSS_UNIT # UnitNumberTerm
-    | CSS_NUMBER      # NumberTerm
-    | CSS_ID          # IdentifierTerm
-    ;
-
-//css_spacing
-//    : (CSS_Space | CSS_Comment)* # CssWhitespace
-//    ;
-
 
 css_function_call
     : CSS_ID CSS_LPAREN  css_function_args?  CSS_RPAREN # CssFunctionCall
     ;
 
 css_function_args
-    : cssValueTerms (  CSS_COMMA  cssValueTerms )* # FunctionArguments
+    : cssterm+ (  CSS_COMMA  cssterm+ )* # FunctionArguments
     ;
+
+cssterm
+    : css_function_call         # FunctionTerm
+    | CSS_STRING                # StringTerm
+    | CSS_HEX_COLOR             # ColorTerm
+    | CSS_NUMBER CSS_UNIT       # UnitNumberTerm
+    | CSS_NUMBER                # NumberTerm
+    | CSS_ID                    # IdentifierTerm
+    ;
+
+
 //=================jinja rules======================
 jinjaStatement
-   : JINJA_STMT_START jStatement # JinjaStmtNode
+   : JINJA_STMT_START jStatement                        # JinjaStmtNode
    ;
 
 jinjaExpression
-    : JINJA_EXPR_START j_expression JINJA_EXPR_END # JinjaExprNode
+    : JINJA_EXPR_START j_expression JINJA_EXPR_END      # JinjaExprNode
     ;
 
 jStatement
