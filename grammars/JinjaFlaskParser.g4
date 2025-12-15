@@ -305,7 +305,7 @@ j_argument_list
     ;
 
 j_argument
-    : j_expression            # JinjaPosArg
+    : j_expression                 # JinjaPosArg
     | J_NAME J_ASSIGN j_expression # JinjaKwArg
     ;
 

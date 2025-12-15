@@ -1,11 +1,1 @@
-@app.route("/product/<int:product_id>")
-def detail(product_id):
-    # Find the product by ID
-    product = next((p for p in products if p["id"] == product_id), None)
-
-    if not product:
-        # Simple error handling - redirect to home if product is not found
-        return redirect(url_for("index"))
-
-    return render_template("detail.html",
-                           product=product)
+"""asdasdasd"""
