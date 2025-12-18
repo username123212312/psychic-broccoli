@@ -2,6 +2,7 @@ package app;
 
 import antlr.JinjaFlaskLexer;
 import antlr.JinjaFlaskParser;
+import ast.ASTNode;
 import listener.CustomErrorListener;
 import org.antlr.v4.gui.TreeViewer;
 import org.antlr.v4.runtime.CharStream;
@@ -9,6 +10,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
+import visitor.MainASTVisitor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,14 +39,14 @@ public class App {
                 parser.addErrorListener(new CustomErrorListener());
 
                 // tell ANTLR to build a parse tree
-                ParseTree antlrAST = parser.program();
+                ParseTree antlrAST = parser.prog();
                 showParseTree(parser.getRuleNames(), antlrAST);
+
+//                MainASTVisitor visitor = new MainASTVisitor();
+//                ASTNode myAST = visitor.visit(antlrAST);
 
                 // If we reach here, the parse was successful!
                 System.out.println("--- Parsing SUCCESSFUL! ---");
-                // Create TreeViewer
-
-                // Optional: print antlrAST.toStringTree(parser); for debugging the tree structure
 
             } catch (Exception e) {
                 System.err.println("Parsing halted due to error: " + (e.getMessage() != null ? e.getMessage() : "Unknown Error (Likely ANTLR Stack Crash)"));

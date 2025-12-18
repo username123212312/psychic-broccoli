@@ -2,294 +2,318 @@ parser grammar JinjaFlaskParser;
 
 @header {package antlr;}
 
-@parser::members {
-    private void trace(String rule) {
-        System.out.println("ENTER RULE: " + rule + " at token " + _input.LT(1).getText());
-    }
-}
 
 options { tokenVocab=JinjaFlaskLexer; }
 
 prog
-    : NEWLINE* (statement)* EOF
+    : NEWLINE* (statement)* EOF         # Program
     ;
 
 statement
-    : (NEWLINE INDENT)? simple_stmt+ DEDENT?          #simpleStatement
-    | (NEWLINE INDENT)? compound_stmt+ DEDENT?        #compoundStatement
+    : (NEWLINE INDENT)? compound_stmt+ DEDENT?        # CompoundStatement
+    | (NEWLINE INDENT)? PASS DEDENT?                  # PassStatement
     ;
 
 compound_stmt
-    : if_stmt               #ifStatement
-    | assign_stmt           #assignmentStatement
-    | for_loop              #forLoopStatement
-    | python_expr           #pythonExprStatement
-    | func_def              #functionDefinition
-    ;
-
-simple_stmt
-    : return_stmt  NEWLINE?      #returnStatement
-    | import_from  NEWLINE?      #importStatement
-    | global_stmt  NEWLINE?      #globalStatement
-    | python_expr  NEWLINE?      #pythonExprssionStatement
+    : if_stmt      NEWLINE?      # IfStatement
+    | assign_stmt  NEWLINE?      # AssignmentStatement
+    | for_loop     NEWLINE?      # ForLoopStatement
+    | python_expr  NEWLINE?      # PythonExpression
+    | func_def     NEWLINE?      # FunctionDefinition
+    | return_stmt  NEWLINE?      # ReturnStatement
+    | import_from  NEWLINE?      # ImportStatement
+    | global_stmt  NEWLINE?      # GlobalStatement
     ;
 
 return_stmt
-    : RETURN python_expr      #complexReturn
-    | RETURN atom             #simpleReturn
+    : RETURN python_expr      # ComplexReturn
+    | RETURN atom             # SimpleReturn
     ;
 
 global_stmt
-    : GLOBAL NAME (COMMA NAME)*
+    : GLOBAL NAME (COMMA NAME)*            
     ;
 
 import_from
-    : FROM NAME (DOT NAME)* IMPORT NAME (AS NAME)? (COMMA NAME (AS NAME)?)*
+    : FROM NAME (DOT NAME)* IMPORT imptd (COMMA imptd)*
+    ;
+
+imptd
+    : NAME (AS NAME)?   # Imported
     ;
 
 if_stmt
-    : IF comparison COLON statement ( ELIF comparison COLON statement )* ( ELSE COLON statement )?
+    : IF condition COLON statement ( ELIF condition COLON statement )* ( ELSE COLON statement )?
     ;
 
-comparison
-    : NOT python_expr                        #notExpression
-    | python_expr (comp_op python_expr)*     #comparisonExpression
+condition
+    : NOT python_expr                        # NotExpression
+    | python_expr (comp_op python_expr)*     # ComparisonExpression
     ;
 
 python_expr
-    : complex_expr               #complexExpression
-    | atom complex_expr*         #atomcomplexExpression
+    : complex_expr               # ComplexExpression
+    | atom complex_expr*         # AtomComplexExpression
     ;
 
 comp_op
-    : LT | GT | EQ | GTE | LTE | NEQ |OR | IN | NOT IN | IS | IS NOT
+    : LT       # LessThanOperator
+    | GT       # GreaterThanOperator
+    | EQ       # EqualOperator
+    | GTE      # GreaterEqualOperator
+    | LTE      # LessEqualOperator
+    | NEQ      # NotEqualOperator
+    | OR       # OrOperator
+    | IN       # InOperator
+    | NOT IN   # NotInOperator
+    | IS       # IsOperator
+    | IS NOT   # IsNotOperator
     ;
 
 assign_stmt
-    : python_expr ASSIGN comparison NEWLINE?          #comparisonAssignStmt
-    | python_expr ASSIGN template_literal NEWLINE?    #templateLiteralAssignStmt
+    : python_expr ASSIGN condition NEWLINE?          # ComparisonAssignStmt
+    | python_expr ASSIGN template_literal NEWLINE?    # TemplateLiteralAssignStmt
     ;
 
 template_literal
-   : TRIPLE_DOUBLE_START html_content  TRIPLE_DOUBLE_END      #htmlContentDoubleTemplate
-   | TRIPLE_SINGLE_START html_content  TRIPLE_SINGLE_END      #htmlContentSingleTemplate
+   : TRIPLE_DOUBLE_START html_content  TRIPLE_DOUBLE_END      # HtmlContentDoubleTemplate
+   | TRIPLE_SINGLE_START html_content  TRIPLE_SINGLE_END      # HtmlContentSingleTemplate
    ;
 
 for_loop
-    : FOR python_expr IN python_expr statement            #simpleForLoop
-    | atom FOR python_expr IN atom (IF comparison)*       #complexForLoop
+    : FOR python_expr IN python_expr statement            # SimpleForLoop
+    | atom FOR python_expr IN atom (IF condition)*       # ComplexForLoop
     ;
 
 func_def
-    : decorator? DEF NAME parameters COLON function_body
+    : dec? DEF NAME parameters COLON statement
     ;
 
-decorator
-    : AT NAME (DOT NAME)* ( LP arglist? RP )? NEWLINE
+dec
+    : AT NAME (DOT NAME)* ( LP arglist? RP )? NEWLINE       # Decorator
     ;
 
 parameters
-    : LP typedargslist? RP
+    : LP fun_params? RP  # FunctionParameters
     ;
 
-typedargslist
-    : NAME (COMMA NAME)*
+fun_params
+    : NAME ASSIGN atom (COMMA NAME ASSIGN atom)* # KeywordParams
+    | NAME (COMMA NAME)*                         # PositionalParams
     ;
 
-function_body
-    : statement         #functionBody
-    | PASS NEWLINE      #passBody
-    ;
 
 complex_expr
-    : LP for_loop RP               #forLoopInRBra
-    | LP arglist? RP               #arglistInRBra
-    | LBRACK for_loop? RBRACK      #forLoopInSqBra
-    | LBRACK comparison RBRACK     #comparisonInSqBra
-    | LKBRACE dict_maker? RKBRACE  #dictionaryInKBra
-    | LBRACK exprlist? RBRACK      #exprlistInSqBra
-    | DOT NAME                     #memberAccess
+    : LP for_loop RP               # Generator
+    | LP arglist? RP               # FunctionCall
+    | LBRACK for_loop RBRACK       # ListComprehension
+    | LKBRACE dict_maker? RKBRACE  # DictionaryLiteral
+    | LBRACK exprlist? RBRACK      # ListLiteral      
+    | DOT NAME                     # AttributeAccess
     ;
 
 atom
-    : NAME | NUMBER  | STRING  | NONE  | TRUE
+    : NAME   # NameAtom
+    | NUMBER # NumberAtom
+    | STRING # StringAtom
+    | NONE   # NoneAtom
+    | bool_exp # BooleanAtom
+    ;
+
+bool_exp:
+    TRUE   # TrueAtom
+    | FALSE  # FalseAtom
     ;
 
 exprlist
-    : atom (COMMA atom)* COMMA?
+    : atom (COMMA atom)* COMMA? # ExpressionList
     ;
 
 dict_maker
-   : atom COLON (simple_expr) ( COMMA atom COLON simple_expr )* COMMA?
+   : key_value ( COMMA key_value )* COMMA? # KeyValuePairs
+   ;
+
+key_value
+   : atom COLON atom        # AtomKeyValue
+   | atom COLON simple_expr # SimpleKeyValue
    ;
 
 simple_expr
-    : python_expr (PLUS python_expr)*           #additionExpression
-    | comparison                                #comparisonExprssion
+    : arithmetic_expr                           # ArithmeticExpression
+    | condition                                 # SimpleComparisonExpression
+    ;
+
+arithmetic_expr
+    : python_expr (PLUS python_expr)*           # Addition
+    | python_expr (MINUS python_expr)*          # Subtraction
+    | python_expr (SLASH python_expr)*          # Division
+    | python_expr (STAR python_expr)*           # Multiplication
     ;
 
 arglist
-    :  argument (COMMA argument )* COMMA?
+    :  atom (COMMA atom )* COMMA?            # AtomArgs
+    |  argument (COMMA argument )* COMMA?    # ComplexArgs
     ;
 
 argument
-    : python_expr                 #simpleArgument
-    | NAME ASSIGN python_expr     #assignArgument
+    : python_expr                 # PositionalArgument
+    | NAME ASSIGN python_expr     # KeywordArgument
     ;
 
 //==========================HTML RULES=====================
 html_content
-    : (htmlElement
-    | HTML_TEXT
-    | jinjaStatement
-    | jinjaExpression
-    )*
+    : html_content_item* # HtmlContent
+    ;
+
+html_content_item
+    : htmlElement     # HtmlElementItem
+    | HTML_TEXT       # HtmlTextItem
+    | jinjaStatement  # JinjaStmtItem
+    | jinjaExpression # JinjaExprItem
     ;
 
 htmlElement
-    : TAG_OPEN tag_content* (TAG_CLOSE | TAG_SLASH_CLOSE)
-    | SCRIPT_OPEN SCRIPT_BODY
-    | STYLE_OPEN stylesheet STYLE_CLOSE
-    | XML_DECLARATION
-    | CDATA
-    | DTD
-    | SCRIPTLET
+    // Regular HTML tags
+    : TAG_OPEN tag_content*? (TAG_SLASH_CLOSE | TAG_CLOSE) # TagElement
+
+    // Special elements with content
+    | SCRIPT_OPEN SCRIPT_BODY                             # ScriptElement
+    | STYLE_OPEN style_sheet STYLE_CLOSE                   # StyleElement
+
+    // XML/HTML special constructs
+    | XML_DECLARATION                                     # ProcessingInstruction
+    | CDATA                                               # CDataSection
+    | DTD                                                 # DocTypeDeclaration
+    | SCRIPTLET                                           # ServerScript
     ;
 
 tag_content
-    : TAG_NAME (TAG_EQUALS ATTVALUE_VALUE)?
-    | jinjaExpression
-    | jinjaStatement
-    | TAG_SLASH
-    | TAG_EQUALS
+    // Attribute definitions
+    : TAG_NAME (TAG_EQUALS ATTVALUE_VALUE)? # HtmlAttribute
+    // Syntax markers
+    | TAG_SLASH  # ClosingMarker
     ;
 
 
 //===============CSS RULE======================
 
-stylesheet
-    : ( CSS_Space | CSS_Comment )* ruleSet ( ( CSS_Space | CSS_Comment )* ruleSet )* ( CSS_Space | CSS_Comment )*
+style_sheet
+    : ruleSet* # StyleSheet
     ;
 
 ruleSet
-    : selectorList
-      (CSS_Space | CSS_Comment)* CSS_LBRACE
-      declarationList
-      CSS_RBRACE
+    : selector_decl CSS_LBRACE declarationList CSS_RBRACE   # CssRule
     ;
 
-selectorList
-    : selector (( CSS_Space | CSS_Comment )* CSS_COMMA ( CSS_Space | CSS_Comment )* selector )*
+selector_decl
+    : css_selector_list (CSS_COMMA css_selector_list)* # SelectorDeclaration
     ;
 
-selector
-    : simpleSelector
-    (( CSS_Space+ | CSS_GT ) ( CSS_Space | CSS_Comment )* simpleSelector )*
+css_selector_list
+    : css_selector (CSS_GT  css_selector )* # CssSelectorList
     ;
 
-simpleSelector
-    : CSS_ID ( CSS_DOT CSS_ID | CSS_HASH CSS_ID )*
-    | ( CSS_DOT CSS_ID CSS_ID? | CSS_HASH CSS_ID )+
-    | CSS_ID
+css_selector
+    : CSS_ID ( CSS_DOT CSS_ID )*                    # QualifiedSelector
+    | ( CSS_DOT CSS_ID CSS_ID? )+                   # StandaloneSimpleSelector
+    | CSS_ID (CSS_HASH CSS_ID)*                     # TypeAndIdSelector
+    | CSS_ID                                        # TypeSelector
     ;
 
 declarationList
-    : ( declaration ( ( CSS_Space | CSS_Comment )* declaration )* )?
+    : declaration*? # DeclarationBlock
     ;
 
 declaration
-    : CSS_ID ( CSS_Space | CSS_Comment )* CSS_COLON ( CSS_Space | CSS_Comment )* cssValueTerms ( CSS_Space | CSS_Comment )* CSS_SEMI
+    : CSS_ID  CSS_COLON  cssterm+  CSS_SEMI # CssDeclaration
     ;
 
-cssValueTerms
-    : cssterm ( ( CSS_Space | CSS_Comment )* cssterm )*
+css_function_call
+    : CSS_ID CSS_LPAREN  css_function_args?  CSS_RPAREN # CssFunctionCall
+    ;
+
+css_function_args
+    : cssterm+ (  CSS_COMMA  cssterm+ )* # FunctionArguments
     ;
 
 cssterm
-    : cssfunctionCall
-    | CSS_STRING
-    | CSS_HEX_COLOR
-    | CSS_NUMBER CSS_UNIT
-    | CSS_NUMBER
-    | CSS_ID
+    : css_function_call         # FunctionTerm
+    | CSS_STRING                # StringTerm
+    | CSS_HEX_COLOR             # ColorTerm
+    | CSS_NUMBER CSS_UNIT       # UnitNumberTerm
+    | CSS_NUMBER                # NumberTerm
+    | CSS_ID                    # IdentifierTerm
     ;
 
-cssfunctionCall
-    : CSS_ID CSS_LPAREN ( CSS_Space | CSS_Comment )*
-      cssValueTerms
-      (( CSS_Space | CSS_Comment )* CSS_COMMA ( CSS_Space | CSS_Comment )* cssValueTerms )*
-      (CSS_Space | CSS_Comment )* CSS_RPAREN
-    ;
 
 //=================jinja rules======================
 jinjaStatement
-   : JINJA_STMT_START jStatement
+   : JINJA_STMT_START jStatement                        # JinjaStmtNode
    ;
 
 jinjaExpression
-    : JINJA_EXPR_START expression JINJA_EXPR_END
+    : JINJA_EXPR_START j_expression JINJA_EXPR_END      # JinjaExprNode
     ;
 
 jStatement
-    : extends_stmt
-    | block_stmt
-    | for_stmt
-    | j_if_stmt
+    : j_extends_stmt # JinjaExtendsStmt
+    | j_block_stmt   # JinjaBlockStmt
+    | j_for_stmt     # JinjaForStmt
+    | j_if_stmt      # JinjaIfStmt
     ;
 
-extends_stmt
-    : J_EXTENDS J_STRING JINJA_STMT_END
+j_extends_stmt
+    : J_EXTENDS J_STRING JINJA_STMT_END # JinjaExtendsDirective
     ;
 
-block_stmt
+j_block_stmt
     : J_BLOCK J_NAME JINJA_STMT_END
-    html_content
-    JINJA_STMT_START J_ENDBLOCK ( J_NAME )? JINJA_STMT_END
+      html_content
+      JINJA_STMT_START J_ENDBLOCK ( J_NAME )? JINJA_STMT_END # JinjaBlockDefinition
     ;
 
-for_stmt
-    : J_FOR J_NAME J_IN expression JINJA_STMT_END
+j_for_stmt
+    : J_FOR J_NAME J_IN j_expression JINJA_STMT_END
       html_content
-      JINJA_STMT_START J_ENDFOR JINJA_STMT_END
+      JINJA_STMT_START J_ENDFOR JINJA_STMT_END # JinjaForLoop
     ;
 
 j_if_stmt
-    : J_IF expression JINJA_STMT_END
+    : J_IF j_expression JINJA_STMT_END
       html_content
-      JINJA_STMT_START J_ENDIF JINJA_STMT_END
+      JINJA_STMT_START J_ENDIF JINJA_STMT_END # JinjaConditional
     ;
 
-expression
-    : call_expr ( J_EQ | J_NEQ | J_GT | J_LT ) call_expr
-    | call_expr
+j_expression
+    : j_call_expr ( J_EQ | J_NEQ | J_GT | J_LT ) j_call_expr # JinjaBinaryExpr
+    | j_call_expr # JinjaSimpleExpr
     ;
 
-
-call_expr
-    : var_access ( J_PIPE (J_NAME | J_LENGTH) )?
-    | J_NAME J_LPAREN argument_list? J_RPAREN
-    | var_access
-    | j_atom
+j_call_expr
+    : j_var_access ( J_PIPE (J_NAME | J_LENGTH) )? # JinjaFilteredExpr
+    | J_NAME J_LPAREN j_argument_list? J_RPAREN    # JinjaFunctionCall
+    | j_var_access                                 # JinjaVarAccessOnly
+    | j_atom                                       # JinjaAtomOnly
     ;
 
-var_access
-    : J_NAME ( J_DOT J_NAME )*
+j_var_access
+    : J_NAME ( J_DOT J_NAME )* # JinjaDottedName
     ;
 
-argument_list
-    : j_argument ( J_COMMA j_argument )*
+j_argument_list
+    : j_argument ( J_COMMA j_argument )* # JinjaArgList
     ;
 
 j_argument
-    : expression
-    | J_NAME J_ASSIGN expression
+    : j_expression                 # JinjaPosArg
+    | J_NAME J_ASSIGN j_expression # JinjaKwArg
     ;
 
 j_atom
-    : J_NUMBER
-    | J_STRING
-    | J_TRUE
-    | J_FALSE
-    | J_NONE
-    | J_NAME
+    : J_NUMBER # JinjaNumberAtom
+    | J_STRING # JinjaStringAtom
+    | J_TRUE   # JinjaTrueAtom
+    | J_FALSE  # JinjaFalseAtom
+    | J_NONE   # JinjaNoneAtom
+    | J_NAME   # JinjaNameAtom
     ;
