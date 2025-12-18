@@ -2,36 +2,27 @@ parser grammar JinjaFlaskParser;
 
 @header {package antlr;}
 
-@parser::members {
-    private void trace(String rule) {
-        System.out.println("ENTER RULE: " + rule + " at token " + _input.LT(1).getText());
-    }
-}
 
 options { tokenVocab=JinjaFlaskLexer; }
 
 prog
-    : NEWLINE* (statement)* EOF         #Program
+    : NEWLINE* (statement)* EOF         # Program
     ;
 
 statement
-    : (NEWLINE INDENT)? simple_stmt+ DEDENT?          #SimpleStatement
-    | (NEWLINE INDENT)? compound_stmt+ DEDENT?        #CompoundStatement
+    : (NEWLINE INDENT)? compound_stmt+ DEDENT?        # CompoundStatement
+    | (NEWLINE INDENT)? PASS DEDENT?                  # PassStatement
     ;
 
 compound_stmt
-    : if_stmt                   # IfStatement
-    | assign_stmt               # AssignmentStatement
-    | for_loop                  # ForLoopStatement
-    | python_expr               # PythonExprStatement
-    | func_def                  # FunctionDefinition
-    ;
-
-simple_stmt
-    : return_stmt  NEWLINE?      # ReturnStatement
+    : if_stmt      NEWLINE?      # IfStatement
+    | assign_stmt  NEWLINE?      # AssignmentStatement
+    | for_loop     NEWLINE?      # ForLoopStatement
+    | python_expr  NEWLINE?      # PythonExpression
+    | func_def     NEWLINE?      # FunctionDefinition
+    | return_stmt  NEWLINE?      # ReturnStatement
     | import_from  NEWLINE?      # ImportStatement
     | global_stmt  NEWLINE?      # GlobalStatement
-    | python_expr  NEWLINE?      # PythonExpressionStatement
     ;
 
 return_stmt
@@ -44,20 +35,24 @@ global_stmt
     ;
 
 import_from
-    : FROM NAME (DOT NAME)* IMPORT NAME (AS NAME)? (COMMA NAME (AS NAME)?)*   
+    : FROM NAME (DOT NAME)* IMPORT imptd (COMMA imptd)*
+    ;
+
+imptd
+    : NAME (AS NAME)?   # Imported
     ;
 
 if_stmt
-    : IF comparison COLON statement ( ELIF comparison COLON statement )* ( ELSE COLON statement )?
+    : IF condition COLON statement ( ELIF condition COLON statement )* ( ELSE COLON statement )?
     ;
 
-comparison
+condition
     : NOT python_expr                        # NotExpression
     | python_expr (comp_op python_expr)*     # ComparisonExpression
     ;
 
 python_expr
-    : complex_expr               # ComplexExpression   //# ExprFromComplex
+    : complex_expr               # ComplexExpression
     | atom complex_expr*         # AtomComplexExpression
     ;
 
@@ -76,7 +71,7 @@ comp_op
     ;
 
 assign_stmt
-    : python_expr ASSIGN comparison NEWLINE?          # ComparisonAssignStmt
+    : python_expr ASSIGN condition NEWLINE?          # ComparisonAssignStmt
     | python_expr ASSIGN template_literal NEWLINE?    # TemplateLiteralAssignStmt
     ;
 
@@ -87,11 +82,11 @@ template_literal
 
 for_loop
     : FOR python_expr IN python_expr statement            # SimpleForLoop
-    | atom FOR python_expr IN atom (IF comparison)*       # ComplexForLoop
+    | atom FOR python_expr IN atom (IF condition)*       # ComplexForLoop
     ;
 
 func_def
-    : dec? DEF NAME parameters COLON function_body
+    : dec? DEF NAME parameters COLON statement
     ;
 
 dec
@@ -99,23 +94,19 @@ dec
     ;
 
 parameters
-    : LP typedargslist? RP  # FunctionParameters
+    : LP fun_params? RP  # FunctionParameters
     ;
 
-typedargslist
-    : NAME (COMMA NAME)*    # FunctionArgumentsList
+fun_params
+    : NAME ASSIGN atom (COMMA NAME ASSIGN atom)* # KeywordParams
+    | NAME (COMMA NAME)*                         # PositionalParams
     ;
 
-function_body
-    : statement         # FunctionBody
-    | PASS NEWLINE      # PassBody
-    ;
 
 complex_expr
-    : LP for_loop RP               # ParenthesizedForLoop
+    : LP for_loop RP               # Generator
     | LP arglist? RP               # FunctionCall
-    | LBRACK for_loop? RBRACK      # ListComprehension
-    | LBRACK comparison RBRACK     # Subscription      // (or SubscriptAccess)
+    | LBRACK for_loop RBRACK       # ListComprehension
     | LKBRACE dict_maker? RKBRACE  # DictionaryLiteral
     | LBRACK exprlist? RBRACK      # ListLiteral      
     | DOT NAME                     # AttributeAccess
@@ -126,7 +117,11 @@ atom
     | NUMBER # NumberAtom
     | STRING # StringAtom
     | NONE   # NoneAtom
-    | TRUE   # TrueAtom
+    | bool_exp # BooleanAtom
+    ;
+
+bool_exp:
+    TRUE   # TrueAtom
     | FALSE  # FalseAtom
     ;
 
@@ -135,21 +130,34 @@ exprlist
     ;
 
 dict_maker
-   : atom COLON (simple_expr) ( COMMA atom COLON simple_expr )* COMMA?
+   : key_value ( COMMA key_value )* COMMA? # KeyValuePairs
+   ;
+
+key_value
+   : atom COLON atom        # AtomKeyValue
+   | atom COLON simple_expr # SimpleKeyValue
    ;
 
 simple_expr
-    : python_expr (PLUS python_expr)*           # AdditionExpression
-    | comparison                                # ComparisonAsSimpleExpr
+    : arithmetic_expr                           # ArithmeticExpression
+    | condition                                 # SimpleComparisonExpression
+    ;
+
+arithmetic_expr
+    : python_expr (PLUS python_expr)*           # Addition
+    | python_expr (MINUS python_expr)*          # Subtraction
+    | python_expr (SLASH python_expr)*          # Division
+    | python_expr (STAR python_expr)*           # Multiplication
     ;
 
 arglist
-    :  argument (COMMA argument )* COMMA?        # ArgumentsList
+    :  atom (COMMA atom )* COMMA?            # AtomArgs
+    |  argument (COMMA argument )* COMMA?    # ComplexArgs
     ;
 
 argument
-    : python_expr                 # SimpleArgument
-    | NAME ASSIGN python_expr     # AssignArgument
+    : python_expr                 # PositionalArgument
+    | NAME ASSIGN python_expr     # KeywordArgument
     ;
 
 //==========================HTML RULES=====================
@@ -166,7 +174,7 @@ html_content_item
 
 htmlElement
     // Regular HTML tags
-    : TAG_OPEN tag_content* (TAG_CLOSE | TAG_SLASH_CLOSE) # TagElement
+    : TAG_OPEN tag_content*? (TAG_SLASH_CLOSE | TAG_CLOSE) # TagElement
 
     // Special elements with content
     | SCRIPT_OPEN SCRIPT_BODY                             # ScriptElement
@@ -182,84 +190,69 @@ htmlElement
 tag_content
     // Attribute definitions
     : TAG_NAME (TAG_EQUALS ATTVALUE_VALUE)? # HtmlAttribute
-
-    // Dynamic/Jinja content
-    | jinjaExpression # DynamicExpression
-    | jinjaStatement  # DynamicStatement
-
     // Syntax markers
     | TAG_SLASH  # ClosingMarker
-    | TAG_EQUALS # AssignmentOperator
     ;
 
 
 //===============CSS RULE======================
 
 style_sheet
-    : ( CSS_Space | CSS_Comment )* ruleSet ( ( CSS_Space | CSS_Comment )* ruleSet )* ( CSS_Space | CSS_Comment )* # StyleSheet
+    : ruleSet* # StyleSheet
     ;
 
 ruleSet
-    : selector_list
-      (CSS_Space | CSS_Comment)* CSS_LBRACE
-      declarationList
-      CSS_RBRACE # CssRule
+    : selector_decl CSS_LBRACE declarationList CSS_RBRACE   # CssRule
     ;
 
-selector_list
-    : selector (( CSS_Space | CSS_Comment )* CSS_COMMA ( CSS_Space | CSS_Comment )* selector )* # SelectorList
+selector_decl
+    : css_selector_list (CSS_COMMA css_selector_list)* # SelectorDeclaration
     ;
 
-selector
-    : simpleSelector (( CSS_Space+ | CSS_GT ) ( CSS_Space | CSS_Comment )* simpleSelector )* # ComplexSelector
+css_selector_list
+    : css_selector (CSS_GT  css_selector )* # CssSelectorList
     ;
 
-simpleSelector
-    : CSS_ID ( CSS_DOT CSS_ID | CSS_HASH CSS_ID )* # QualifiedSelector
-    | ( CSS_DOT CSS_ID CSS_ID? | CSS_HASH CSS_ID )+ # ClassOrIdSelector
-    | CSS_ID # SimpleIdSelector
+css_selector
+    : CSS_ID ( CSS_DOT CSS_ID )*                    # QualifiedSelector
+    | ( CSS_DOT CSS_ID CSS_ID? )+                   # StandaloneSimpleSelector
+    | CSS_ID (CSS_HASH CSS_ID)*                     # TypeAndIdSelector
+    | CSS_ID                                        # TypeSelector
     ;
 
 declarationList
-    : ( declaration ( css_spacing declaration )* )? # DeclarationBlock
+    : declaration*? # DeclarationBlock
     ;
 
 declaration
-    : CSS_ID css_spacing CSS_COLON css_spacing cssValueTerms css_spacing CSS_SEMI # CssDeclaration
+    : CSS_ID  CSS_COLON  cssterm+  CSS_SEMI # CssDeclaration
     ;
-
-cssValueTerms
-    : cssterm ( css_spacing cssterm )* # CssValueList
-    ;
-
-cssterm
-    : css_function_call # FunctionTerm
-    | CSS_STRING      # StringTerm
-    | CSS_HEX_COLOR   # ColorTerm
-    | CSS_NUMBER CSS_UNIT # UnitNumberTerm
-    | CSS_NUMBER      # NumberTerm
-    | CSS_ID          # IdentifierTerm
-    ;
-
-css_spacing
-    : (CSS_Space | CSS_Comment)* # CssWhitespace
-    ;
-
 
 css_function_call
-    : CSS_ID CSS_LPAREN css_spacing css_function_args? css_spacing CSS_RPAREN # CssFunctionCall
+    : CSS_ID CSS_LPAREN  css_function_args?  CSS_RPAREN # CssFunctionCall
     ;
 
 css_function_args
-    : cssValueTerms ( css_spacing CSS_COMMA css_spacing cssValueTerms )* # FunctionArguments
+    : cssterm+ (  CSS_COMMA  cssterm+ )* # FunctionArguments
     ;
+
+cssterm
+    : css_function_call         # FunctionTerm
+    | CSS_STRING                # StringTerm
+    | CSS_HEX_COLOR             # ColorTerm
+    | CSS_NUMBER CSS_UNIT       # UnitNumberTerm
+    | CSS_NUMBER                # NumberTerm
+    | CSS_ID                    # IdentifierTerm
+    ;
+
+
 //=================jinja rules======================
 jinjaStatement
-   : JINJA_STMT_START jStatement # JinjaStmtNode
+   : JINJA_STMT_START jStatement                        # JinjaStmtNode
    ;
 
 jinjaExpression
-    : JINJA_EXPR_START j_expression JINJA_EXPR_END # JinjaExprNode
+    : JINJA_EXPR_START j_expression JINJA_EXPR_END      # JinjaExprNode
     ;
 
 jStatement
@@ -312,7 +305,7 @@ j_argument_list
     ;
 
 j_argument
-    : j_expression            # JinjaPosArg
+    : j_expression                 # JinjaPosArg
     | J_NAME J_ASSIGN j_expression # JinjaKwArg
     ;
 

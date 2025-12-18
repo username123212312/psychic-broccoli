@@ -234,6 +234,7 @@ CSS_STRING     : '"' (~'"')* '"' | '\'' (~'\'')* '\'' ;
 CSS_ID         : [a-zA-Z] [a-zA-Z0-9\-]* ;
 CSS_Space      : [ \t\r\n]+ -> skip ;
 CSS_Comment    : '/*' .*? '*/' -> skip ;
+CSS_TILDE      : '~';
 // =================== JINJA MODE (Unified Jinja Logic) ===================
 
 mode JINJA_MODE;
