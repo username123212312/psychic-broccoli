@@ -1,8 +1,8 @@
 package ast;
 
 public abstract class ASTNode {
-    private final String node_name;
-    private final int line_number;
+    public final String node_name;
+    public final int line_number;
 
     public ASTNode(String node_name, int line_number) {
         this.node_name = node_name;
