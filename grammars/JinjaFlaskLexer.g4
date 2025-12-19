@@ -17,32 +17,6 @@ package antlr;
 STRING: '\'' (~['\r\n])* '\'' | '"' (~["\r\n])* '"';
 
 NUMBER: [0-9]+ ('.' [0-9]+)? ;
-       int indent = getIndentationCount(spaces);
-       int previous = indents.peek();
-
-       if (indent > previous) {
-         indents.push(indent);
-         emit(commonToken(JinjaFlaskLexer.INDENT, spaces));
-       }
-       else if (indent < previous) {
-         while(!indents.isEmpty() && indents.peek() > indent) {
-           this.emit(createDedent());
-           indents.pop();
-         }
-         if (indents.peek() != indent) {
-            // Indentation error detection
-            // throw new InputMismatchException("Indentation error: Expected " + indents.peek() + ", got " + indent);
-         }
-       }
-       skip();
-     }
-   }
-    -> channel(HIDDEN)
- ;
-
-// Intra-line whitespace
-WS: [ \t]+ -> skip;
-COMMENT: '#' ~[\r\n]* -> skip;
 
 // Tokens (Top-level Python/Flask code)
 PASS: 'pass';
@@ -280,14 +254,4 @@ J_WS         : [ \t\r\n]+ -> skip ;
 fragment
 TAG_NameChar
     : ~[ \t\r\n"'<>/=-]
-    ;
-
-//fragment
-//Name
-//    : '-'? [a-zA-Z_] [a-zA-Z0-9_-]*
-//    ;
-
-fragment
-HEX_CHAR
-    : [0-9a-fA-F]
     ;
