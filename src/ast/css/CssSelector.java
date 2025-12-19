@@ -14,6 +14,7 @@ public class CssSelector extends ASTNode {
 
     // 3. Class Selectors (e.g., ["active", "large"])
     private List<String> classes;
+
     public CssSelector(String node_name, int line_number) {
         super(node_name, line_number);
     }
@@ -29,7 +30,6 @@ public class CssSelector extends ASTNode {
     public void setElementName(String elementName) {
         this.elementName = elementName;
     }
-
 
 
 }

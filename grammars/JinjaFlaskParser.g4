@@ -168,8 +168,8 @@ html_content
 html_content_item
     : htmlElement     # HtmlElementItem
     | HTML_TEXT       # HtmlTextItem
-    | jinjaStatement  # JinjaStmtItem
-    | jinjaExpression # JinjaExprItem
+    | jinjaStatementBlock  # JinjaStmtItem
+    | jinjaExpressionBlock # JinjaExprItem
     ;
 
 htmlElement
@@ -206,7 +206,7 @@ ruleSet
     ;
 
 selector_decl
-    : css_selector_list (CSS_COMMA css_selector_list)* # SelectorDeclaration
+    : css_selector_list (CSS_COMMA css_selector_list)* # CssSelectorDeclaration
     ;
 
 css_selector_list
@@ -221,7 +221,7 @@ css_selector
     ;
 
 declarationList
-    : declaration*? # DeclarationBlock
+    : declaration* # DeclarationBlock
     ;
 
 declaration
@@ -247,12 +247,12 @@ cssterm
 
 
 //=================jinja rules======================
-jinjaStatement
-   : JINJA_STMT_START jStatement                        # JinjaStmtNode
+jinjaStatementBlock
+   : JINJA_STMT_START jStatement                        # JinjaStmt
    ;
 
-jinjaExpression
-    : JINJA_EXPR_START j_expression JINJA_EXPR_END      # JinjaExprNode
+jinjaExpressionBlock
+    : JINJA_EXPR_START j_expression JINJA_EXPR_END      # JinjaExpr
     ;
 
 jStatement
@@ -275,7 +275,7 @@ j_block_stmt
 j_for_stmt
     : J_FOR J_NAME J_IN j_expression JINJA_STMT_END
       html_content
-      JINJA_STMT_START J_ENDFOR JINJA_STMT_END # JinjaForLoop
+      JINJA_STMT_START J_ENDFOR JINJA_STMT_END # JinjaForLoopDefinition
     ;
 
 j_if_stmt
