@@ -10,8 +10,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
-import visitor.ProgramVisitor;
-import visitor.rama.MainASTVisitor;
+import visitor.python.ProgramVisitor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,10 +43,6 @@ public class App {
                 showParseTree(parser.getRuleNames(), antlrAST);
                 ProgramVisitor programVisitor = new ProgramVisitor();
                 ASTNode program = programVisitor.visit(antlrAST);
-
-
-//                MainASTVisitor visitor = new MainASTVisitor();
-//                ASTNode myAST = visitor.visit(antlrAST);
 
                 // If we reach here, the parse was successful!
                 System.out.println("--- Parsing SUCCESSFUL! ---");

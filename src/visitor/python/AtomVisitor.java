@@ -1,4 +1,4 @@
-package visitor;
+package visitor.python;
 
 import antlr.JinjaFlaskParser;
 import antlr.JinjaFlaskParserBaseVisitor;
