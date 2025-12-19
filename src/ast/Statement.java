@@ -4,11 +4,12 @@ import ast.compundStmt.CompoundStatement;
 
 import java.util.List;
 
-public class Statement extends ASTNode{
+public class Statement extends ASTNode {
 
     private List<CompoundStatement> compoundStatements;
 
-    public Statement(String node_name, int line_number) {
+    public Statement(int line_number, List<CompoundStatement> compoundStatements) {
         super("Statement", line_number);
+        this.compoundStatements = compoundStatements;
     }
 }

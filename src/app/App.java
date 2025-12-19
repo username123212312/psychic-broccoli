@@ -10,7 +10,8 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
-import visitor.MainASTVisitor;
+import visitor.ProgramVisitor;
+import visitor.rama.MainASTVisitor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,6 +42,9 @@ public class App {
                 // tell ANTLR to build a parse tree
                 ParseTree antlrAST = parser.prog();
                 showParseTree(parser.getRuleNames(), antlrAST);
+                ProgramVisitor programVisitor = new ProgramVisitor();
+                ASTNode program = programVisitor.visit(antlrAST);
+
 
 //                MainASTVisitor visitor = new MainASTVisitor();
 //                ASTNode myAST = visitor.visit(antlrAST);
@@ -56,7 +60,7 @@ public class App {
         }
     }
 
-    private static void showParseTree(String[] ruleNames, ParseTree parseTree){
+    private static void showParseTree(String[] ruleNames, ParseTree parseTree) {
         TreeViewer viewer = new TreeViewer(
                 java.util.Arrays.asList(ruleNames),
                 parseTree

@@ -1,1 +1,2 @@
-"""asdasdasd"""
+if i = 0:
+    print('Hello')

@@ -3,10 +3,10 @@ package ast.assignStmt;
 import ast.Condition;
 import ast.compundStmt.PythonExpression;
 
-public class ComparisonAssignStmt extends AssignStatement {
+public class ComparisonAssignmentStmt extends AssignmentStatement {
     private Condition value;
 
-    public ComparisonAssignStmt(int line_number, PythonExpression var) {
+    public ComparisonAssignmentStmt(int line_number, PythonExpression var) {
         super("ComparisonAssignStmt", line_number, var);
     }
 }
