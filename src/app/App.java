@@ -1,46 +1,22 @@
 package app;
 
-import antlr.JinjaFlaskParser;
 import listener.CustomErrorListener;
-
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.IOException;
 import java.util.List;
 
+// CRITICAL IMPORT: Import the custom Lexer class
+import antlr.JinjaFlaskIndentingLexer;
+import antlr.JinjaFlaskParser;
+
 public class App {
-    public App() {
-    }
-
-    @Override
-    public String toString() {
-        return "App{}";
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
-
     public static void main(String[] args) {
         if (args.length != 1) {
             System.err.println("Usage: java app.App <file_name>");
         } else {
-            String fileName = args[0];
+            String fileName = "test0.txt";
             try {
                 // Step 1: Get the tokens stream
                 CommonTokenStream tokens = getTokenStream(fileName);
