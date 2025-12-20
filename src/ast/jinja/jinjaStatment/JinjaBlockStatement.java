@@ -1,8 +1,8 @@
-package ast.jinja;
+package ast.jinja.jinjaStatment;
 
 import ast.HtmlContent;
 
-public class JinjaBlockStatement extends JinjaStatement {
+public class JinjaBlockStatement extends JinjaStmtItem{
     private String blockName;
     private HtmlContent htmlContent;
     public JinjaBlockStatement(int line_number, String blockName, HtmlContent htmlContent) {

@@ -1,7 +1,7 @@
 package ast.jinja;
 
 import ast.ASTNode;
-import ast.jinjaArg.JinjaArgument;
+import ast.jinja.jinjaArg.JinjaArgument;
 
 import java.util.List;
 

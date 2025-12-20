@@ -1,4 +1,4 @@
-package ast.jinjaCallExpr;
+package ast.jinja.jinjaCallExpr;
 
 public class JinjaFilteredExpression extends JinjaCallExpression{
     private JinjaVariableAccess jinjaVariableAccess;

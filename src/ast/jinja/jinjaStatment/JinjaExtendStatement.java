@@ -1,6 +1,6 @@
-package ast.jinja;
+package ast.jinja.jinjaStatment;
 
-public class JinjaExtendStatement extends JinjaStatement {
+public class JinjaExtendStatement extends JinjaStmtItem{
     private String extended;
 
     public JinjaExtendStatement(int line_number, String extended) {

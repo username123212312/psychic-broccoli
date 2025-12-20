@@ -1,4 +1,4 @@
-package ast.jinjaArg;
+package ast.jinja.jinjaArg;
 
 import ast.ASTNode;
 

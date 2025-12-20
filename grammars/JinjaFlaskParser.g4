@@ -248,11 +248,11 @@ cssterm
 
 //=================jinja rules======================
 jinjaStatementBlock
-   : JINJA_STMT_START jStatement                        # JinjaStmt
+   : JINJA_STMT_START jStatement
    ;
 
 jinjaExpressionBlock
-    : JINJA_EXPR_START j_expression JINJA_EXPR_END      # JinjaExpr
+    : JINJA_EXPR_START j_expression JINJA_EXPR_END
     ;
 
 jStatement
@@ -263,25 +263,25 @@ jStatement
     ;
 
 j_extends_stmt
-    : J_EXTENDS J_STRING JINJA_STMT_END # JinjaExtendsDirective
+    : J_EXTENDS J_STRING JINJA_STMT_END
     ;
 
 j_block_stmt
     : J_BLOCK J_NAME JINJA_STMT_END
       html_content
-      JINJA_STMT_START J_ENDBLOCK ( J_NAME )? JINJA_STMT_END # JinjaBlockDefinition
+      JINJA_STMT_START J_ENDBLOCK ( J_NAME )? JINJA_STMT_END
     ;
 
 j_for_stmt
     : J_FOR J_NAME J_IN j_expression JINJA_STMT_END
       html_content
-      JINJA_STMT_START J_ENDFOR JINJA_STMT_END # JinjaForLoopDefinition
+      JINJA_STMT_START J_ENDFOR JINJA_STMT_END
     ;
 
 j_if_stmt
     : J_IF j_expression JINJA_STMT_END
       html_content
-      JINJA_STMT_START J_ENDIF JINJA_STMT_END # JinjaConditional
+      JINJA_STMT_START J_ENDIF JINJA_STMT_END
     ;
 
 j_expression
@@ -297,7 +297,7 @@ j_call_expr
     ;
 
 j_var_access
-    : J_NAME ( J_DOT J_NAME )* # JinjaDottedName
+    : J_NAME ( J_DOT J_NAME )*
     ;
 
 j_argument_list

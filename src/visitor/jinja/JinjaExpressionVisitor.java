@@ -2,9 +2,10 @@ package visitor.jinja;
 
 import antlr.JinjaFlaskParser;
 import antlr.JinjaFlaskParserBaseVisitor;
-import ast.jinja.JinjaExpression;
+import ast.jinja.jinjaExpression.JinjaExpression;
 
 public class JinjaExpressionVisitor extends JinjaFlaskParserBaseVisitor<JinjaExpression> {
+
     @Override
     public JinjaExpression visitJinjaBinaryExpr(JinjaFlaskParser.JinjaBinaryExprContext ctx) {
         return super.visitJinjaBinaryExpr(ctx);
@@ -14,5 +15,4 @@ public class JinjaExpressionVisitor extends JinjaFlaskParserBaseVisitor<JinjaExp
     public JinjaExpression visitJinjaSimpleExpr(JinjaFlaskParser.JinjaSimpleExprContext ctx) {
         return super.visitJinjaSimpleExpr(ctx);
     }
-
 }

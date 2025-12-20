@@ -1,14 +1,15 @@
-package ast.jinja;
+package ast.jinja.jinjaStatment;
 
 import ast.HtmlContent;
+import ast.jinja.JinjaExprItem;
 
-public class JinjaForStatement extends JinjaStatement {
+public class JinjaForStatement extends JinjaStmtItem{
     private String id;
     private HtmlContent htmlContent;
-    private JinjaExpression iterable;
+    private JinjaExprItem iterable;
 
     public JinjaForStatement(int line_number, String id, HtmlContent htmlContent,
-                             JinjaExpression iterable) {
+                             JinjaExprItem iterable) {
         super("JinjaForStatement", line_number);
         this.id = id;
         this.htmlContent = htmlContent;

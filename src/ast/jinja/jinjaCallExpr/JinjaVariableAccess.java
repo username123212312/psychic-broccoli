@@ -1,4 +1,4 @@
-package ast.jinjaCallExpr;
+package ast.jinja.jinjaCallExpr;
 
 import ast.ASTNode;
 

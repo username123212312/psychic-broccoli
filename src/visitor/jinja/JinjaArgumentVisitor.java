@@ -2,7 +2,7 @@ package visitor.jinja;
 
 import antlr.JinjaFlaskParser;
 import antlr.JinjaFlaskParserBaseVisitor;
-import ast.jinjaArg.JinjaArgument;
+import ast.jinja.jinjaArg.JinjaArgument;
 
 public class JinjaArgumentVisitor extends JinjaFlaskParserBaseVisitor<JinjaArgument> {
     @Override

@@ -20,12 +20,11 @@ public class HtmlContentItemVisitor extends JinjaFlaskParserBaseVisitor<HtmlCont
 
     @Override
     public HtmlContentItem visitJinjaStmtItem(JinjaFlaskParser.JinjaStmtItemContext ctx) {
-        return jinjaVisitor.visitJinjaStmt((JinjaFlaskParser.JinjaStmtContext) ctx.jinjaStatementBlock());
+        return super.visitJinjaStmtItem(ctx);
     }
 
     @Override
     public HtmlContentItem visitJinjaExprItem(JinjaFlaskParser.JinjaExprItemContext ctx) {
-        return jinjaVisitor.visitJinjaExpr((JinjaFlaskParser.JinjaExprContext) ctx.jinjaExpressionBlock());
+        return super.visitJinjaExprItem(ctx);
     }
-
 }
