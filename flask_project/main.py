@@ -22,152 +22,86 @@ BASE_HTML = """
     <style>
     body {
         text-align: center;
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
     }
 
-    header {
-        background-color: #333;
-        color: white;
-        padding: 10px 0;
-        margin-bottom: 20px;
-    }
-
-    header h1 {
-        margin: 0;
-    }
-
-    nav {
-        margin-top: 10px;
-    }
-
-    nav a {
-        color: white;
-        text-decoration: none;
-        padding: 5px 15px;
-        margin: 0 5px;
-        border-radius: 4px;
-        transition: background-color 0.3s;
-    }
-
-    nav a:hover {
-        background-color: #555;
-    }
-
-    main {
-        padding: 20px;
-        max-width: 1200px;
-        margin: auto;
-    }
 
     .product-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+        /* مشكلة ماعم يسكر القوس تبع الدالة الاولى */
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 20px;
         padding: 20px;
-        justify-content: center;
     }
 
+
     .product-card {
+        width: 300px;
         background: white;
         padding: 15px;
         border-radius: 8px;
         text-align: center;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s;
-    }
-
-    .product-card:hover {
-        transform: translateY(-5px);
+        box-shadow: 0 0 8px #ccc;
     }
 
     .product-card img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-        border-radius: 6px;
-        margin-bottom: 10px;
+        width: 250px;      /* desired width */
+        height: 200px;     /* desired height */
+        object-fit: cover; /* crop/scale nicely */
+        border-radius: 8px;
     }
 
+
     .price {
-        color: #28a745;
+        color: green;
         font-weight: bold;
-        font-size: 1.2em;
-        margin: 5px 0;
     }
+
 
     .btn {
         display: inline-block;
         padding: 8px 15px;
-        background: #007bff;
+        background: #333;
         color: white;
         text-decoration: none;
-        margin: 5px;
+        margin-top: 10px;
         border-radius: 5px;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s;
     }
 
-    .btn:hover {
-        background: #0056b3;
-    }
 
     .btn.delete {
-        background: #dc3545;
+        background: #b30000;
     }
 
-    .btn.delete:hover {
-        background: #c82333;
-    }
 
     .form {
-        max-width: 600px;
-        margin: 20px auto;
+        width: 400px;
+        margin: auto;
         background: white;
-        padding: 30px;
+        padding: 20px;
         border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        text-align: left;
+        box-shadow: 0 0 8px #ccc;
     }
 
-    .form label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
+/* عم يعالج السطر الاول بس السطر التاني ماعم يحسبو من القاعدة */
 
-    .form input,
-    .form textarea {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 20px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-    }
 
     .detail-container {
         display: flex;
-        gap: 40px;
+        gap: 30px;
         padding: 30px;
-        text-align: left;
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
+
 
     .big-img {
-        height: 300px;
+        height: 200px;
         object-fit: cover;
-        width: 400px;
+        width: 300px;
         border-radius: 8px;
     }
 
+
     .info {
-        flex-grow: 1;
+        max-width: 600px;
     }
     </style>
 

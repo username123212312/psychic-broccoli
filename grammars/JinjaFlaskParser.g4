@@ -2,358 +2,318 @@ parser grammar JinjaFlaskParser;
 
 @header {package antlr;}
 
+
 options { tokenVocab=JinjaFlaskLexer; }
 
-program
-    : (statement | NEWLINE | DEDENT)* EOF
+prog
+    : NEWLINE* (statement)* EOF         # Program
     ;
 
 statement
-    : compound_stmt
-    | simple_stmt
-    ;
-
-simple_stmt
-    : ( small_stmt (SEMI small_stmt)* )? (SEMI | NEWLINE)
-    ;
-
-small_stmt
-    : assign_stmt
-    | import_stmt
-    | return_stmt
-    | global_stmt
-    | expr
-    | flow_stmt
-    ;
-
-import_stmt
-    : import_name
-    | import_from
-    ;
-
-import_name
-    : IMPORT dotted_name (AS NAME)?
-    ;
-
-import_from
-    : FROM dotted_name IMPORT (STAR | import_as_names)
-    ;
-
-import_as_names
-    : import_as_name (COMMA import_as_name)*
-    ;
-
-import_as_name
-    : NAME (AS NAME)?
-    ;
-
-dotted_name
-    : NAME (DOT NAME)*
-    ;
-
-return_stmt
-    : RETURN atom
-    | RETURN testlist?
-    ;
-
-testlist
-    : test (COMMA test)*
-    ;
-
-test
-    : or_test
-    ;
-
-or_test
-    : and_test (OR and_test)*
-    ;
-
-and_test
-    : not_test (AND not_test)*
-    ;
-
-not_test
-    : NOT not_test
-    | comparison
-    ;
-
-comparison
-    : expr (comp_op expr)*
-    ;
-
-comp_op
-    : LT | GT | EQ | GTE | LTE | NEQ | IN | NOT IN | IS | IS NOT
-    ;
-
-global_stmt
-    : GLOBAL NAME (COMMA NAME)*
-    ;
-
-expr
-    : term ((PLUS | MINUS) term)*
-    ;
-
-term
-    : factor ((STAR | SLASH | SLASHSLASH) factor)*
-    ;
-
-factor
-    : (PLUS | MINUS) factor
-    | power
-    ;
-
-power
-    : atom_expr
-    ;
-
-atom_expr
-    : atom trailer*
-    ;
-
-trailer
-    : LP arglist? RP
-    | LBRACK test RBRACK
-    | DOT NAME
-    ;
-
-flow_stmt
-    : return_stmt
+    : (NEWLINE INDENT)? compound_stmt+ DEDENT?        # CompoundStatement
+    | (NEWLINE INDENT)? PASS DEDENT?                  # PassStatement
     ;
 
 compound_stmt
-    : if_stmt
-    | func_def
-    | decorated
+    : if_stmt      NEWLINE?      # IfStatement
+    | assign_stmt  NEWLINE?      # AssignmentStatement
+    | for_loop     NEWLINE?      # ForLoopStatement
+    | python_expr  NEWLINE?      # PythonExpression
+    | func_def     NEWLINE?      # FunctionDefinition
+    | return_stmt  NEWLINE?      # ReturnStatement
+    | import_from  NEWLINE?      # ImportStatement
+    | global_stmt  NEWLINE?      # GlobalStatement
+    ;
+
+return_stmt
+    : RETURN python_expr      # ComplexReturn
+    | RETURN atom             # SimpleReturn
+    ;
+
+global_stmt
+    : GLOBAL NAME (COMMA NAME)*            
+    ;
+
+import_from
+    : FROM NAME (DOT NAME)* IMPORT imptd (COMMA imptd)*
+    ;
+
+imptd
+    : NAME (AS NAME)?   # Imported
     ;
 
 if_stmt
-    : IF test COLON suite
-      ( ELIF test COLON suite )*
-      ( ELSE COLON suite )?
+    : IF condition COLON statement ( ELIF condition COLON statement )* ( ELSE COLON statement )?
     ;
 
-suite
-    : simple_stmt
-    | NEWLINE INDENT statement+ DEDENT
+condition
+    : NOT python_expr                        # NotExpression
+    | python_expr (comp_op python_expr)*     # ComparisonExpression
+    ;
+
+python_expr
+    : complex_expr               # ComplexExpression
+    | atom complex_expr*         # AtomComplexExpression
+    ;
+
+comp_op
+    : LT       # LessThanOperator
+    | GT       # GreaterThanOperator
+    | EQ       # EqualOperator
+    | GTE      # GreaterEqualOperator
+    | LTE      # LessEqualOperator
+    | NEQ      # NotEqualOperator
+    | OR       # OrOperator
+    | IN       # InOperator
+    | NOT IN   # NotInOperator
+    | IS       # IsOperator
+    | IS NOT   # IsNotOperator
     ;
 
 assign_stmt
-    : atom_expr ASSIGN ( test | template_literal )
+    : python_expr ASSIGN condition NEWLINE?          # ComparisonAssignStmt
+    | python_expr ASSIGN template_literal NEWLINE?    # TemplateLiteralAssignStmt
     ;
 
 template_literal
-    : TRIPLE_DOUBLE_START html_content (NEWLINE | WS)* TRIPLE_DOUBLE_END
-    | TRIPLE_SINGLE_START html_content (NEWLINE | WS)* TRIPLE_SINGLE_END
-    ;
+   : TRIPLE_DOUBLE_START html_content  TRIPLE_DOUBLE_END      # HtmlContentDoubleTemplate
+   | TRIPLE_SINGLE_START html_content  TRIPLE_SINGLE_END      # HtmlContentSingleTemplate
+   ;
 
-decorated
-    : decorators func_def
-    ;
-
-decorators
-    : decorator+
-    ;
-
-decorator
-    : AT dotted_name ( LP arglist? RP )? NEWLINE
+for_loop
+    : FOR python_expr IN python_expr statement            # SimpleForLoop
+    | atom FOR python_expr IN atom (IF condition)*       # ComplexForLoop
     ;
 
 func_def
-    : DEF NAME parameters (ARROW test)? COLON suite
+    : dec? DEF NAME parameters COLON statement
+    ;
+
+dec
+    : AT NAME (DOT NAME)* ( LP arglist? RP )? NEWLINE       # Decorator
     ;
 
 parameters
-    : LP typedargslist? RP
+    : LP fun_params? RP  # FunctionParameters
     ;
 
-typedargslist
-    : NAME (COMMA NAME)*
+fun_params
+    : NAME ASSIGN atom (COMMA NAME ASSIGN atom)* # KeywordParams
+    | NAME (COMMA NAME)*                         # PositionalParams
+    ;
+
+
+complex_expr
+    : LP for_loop RP               # Generator
+    | LP arglist? RP               # FunctionCall
+    | LBRACK for_loop RBRACK       # ListComprehension
+    | LKBRACE dict_maker? RKBRACE  # DictionaryLiteral
+    | LBRACK exprlist? RBRACK      # ListLiteral      
+    | DOT NAME                     # AttributeAccess
     ;
 
 atom
-    : NAME
-    | NUMBER
-    | STRING+
-    | NONE | TRUE | FALSE
-    | LP test? RP
-    | LBRACK list_content? RBRACK
-    | LKBRACE dict_maker? RKBRACE
+    : NAME   # NameAtom
+    | NUMBER # NumberAtom
+    | STRING # StringAtom
+    | NONE   # NoneAtom
+    | bool_exp # BooleanAtom
     ;
 
-list_content
-    : test (COMMA test)* (COMMA)?
+bool_exp:
+    TRUE   # TrueAtom
+    | FALSE  # FalseAtom
+    ;
+
+exprlist
+    : atom (COMMA atom)* COMMA? # ExpressionList
     ;
 
 dict_maker
-   : atom COLON test
-     ( (NEWLINE | WS)* COMMA (NEWLINE | WS)* atom COLON test )*
-     ( (NEWLINE | WS)* COMMA (NEWLINE | WS)* )?
+   : key_value ( COMMA key_value )* COMMA? # KeyValuePairs
    ;
 
+key_value
+   : atom COLON atom        # AtomKeyValue
+   | atom COLON simple_expr # SimpleKeyValue
+   ;
+
+simple_expr
+    : arithmetic_expr                           # ArithmeticExpression
+    | condition                                 # SimpleComparisonExpression
+    ;
+
+arithmetic_expr
+    : python_expr (PLUS python_expr)*           # Addition
+    | python_expr (MINUS python_expr)*          # Subtraction
+    | python_expr (SLASH python_expr)*          # Division
+    | python_expr (STAR python_expr)*           # Multiplication
+    ;
+
 arglist
-    : (NEWLINE | WS)* argument
-      ( COMMA (NEWLINE | WS)* argument )*
-      ( COMMA (NEWLINE | WS)* )?
+    :  atom (COMMA atom )* COMMA?            # AtomArgs
+    |  argument (COMMA argument )* COMMA?    # ComplexArgs
     ;
 
 argument
-    : test
-    | NAME ASSIGN test
+    : python_expr                 # PositionalArgument
+    | NAME ASSIGN python_expr     # KeywordArgument
     ;
 
 //==========================HTML RULES=====================
 html_content
-    : (htmlElement
-    | HTML_TEXT
-    | jinjaStatement
-    | jinjaExpression
-    )*
+    : html_content_item* # HtmlContent
+    ;
+
+html_content_item
+    : htmlElement     # HtmlElementItem
+    | HTML_TEXT       # HtmlTextItem
+    | jinjaStatementBlock  # JinjaStmtItem
+    | jinjaExpressionBlock # JinjaExprItem
     ;
 
 htmlElement
-    : TAG_OPEN tag_content* (TAG_CLOSE | TAG_SLASH_CLOSE)
-    | SCRIPT_OPEN SCRIPT_BODY
-    | STYLE_OPEN stylesheet STYLE_CLOSE
-    | XML_DECLARATION
-    | CDATA
-    | DTD
-    | SCRIPTLET
+    // Regular HTML tags
+    : TAG_OPEN tag_content*? (TAG_SLASH_CLOSE | TAG_CLOSE) # TagElement
+
+    // Special elements with content
+    | SCRIPT_OPEN SCRIPT_BODY                             # ScriptElement
+    | STYLE_OPEN style_sheet STYLE_CLOSE                   # StyleElement
+
+    // XML/HTML special constructs
+    | XML_DECLARATION                                     # ProcessingInstruction
+    | CDATA                                               # CDataSection
+    | DTD                                                 # DocTypeDeclaration
+    | SCRIPTLET                                           # ServerScript
     ;
 
 tag_content
-    : TAG_NAME (TAG_EQUALS ATTVALUE_VALUE)?
-    | jinjaExpression
-    | jinjaStatement
-    | TAG_SLASH
-    | TAG_EQUALS
+    // Attribute definitions
+    : TAG_NAME (TAG_EQUALS ATTVALUE_VALUE)? # HtmlAttribute
+    // Syntax markers
+    | TAG_SLASH  # ClosingMarker
     ;
 
 
 //===============CSS RULE======================
 
-stylesheet
-    : ( CSS_Space | CSS_Comment )* ruleSet ( ( CSS_Space | CSS_Comment )* ruleSet )* ( CSS_Space | CSS_Comment )*
+style_sheet
+    : ruleSet* # StyleSheet
     ;
 
 ruleSet
-    : selectorList
-      (CSS_Space | CSS_Comment)* CSS_LBRACE
-      declarationList
-      CSS_RBRACE
+    : selector_decl CSS_LBRACE declarationList CSS_RBRACE   # CssRule
     ;
 
-selectorList
-    : selector (( CSS_Space | CSS_Comment )* CSS_COMMA ( CSS_Space | CSS_Comment )* selector )*
+selector_decl
+    : css_selector_list (CSS_COMMA css_selector_list)* # CssSelectorDeclaration
     ;
 
-selector
-    : simpleSelector
-    (( CSS_Space+ | CSS_GT ) ( CSS_Space | CSS_Comment )* simpleSelector )*
+css_selector_list
+    : css_selector (CSS_GT  css_selector )* # CssSelectorList
     ;
 
-simpleSelector
-    : CSS_ID ( CSS_DOT CSS_ID | CSS_HASH CSS_ID )*
-    | ( CSS_DOT CSS_ID | CSS_HASH CSS_ID )+
-    | CSS_ID
+css_selector
+    : CSS_ID ( CSS_DOT CSS_ID )*                    # QualifiedSelector
+    | ( CSS_DOT CSS_ID CSS_ID? )+                   # StandaloneSimpleSelector
+    | CSS_ID (CSS_HASH CSS_ID)*                     # TypeAndIdSelector
+    | CSS_ID                                        # TypeSelector
     ;
 
 declarationList
-    : ( declaration ( ( CSS_Space | CSS_Comment )* declaration )* )?
+    : declaration* # DeclarationBlock
     ;
 
 declaration
-    : CSS_ID ( CSS_Space | CSS_Comment )* CSS_COLON ( CSS_Space | CSS_Comment )* cssValueTerms ( CSS_Space | CSS_Comment )* CSS_SEMI
+    : CSS_ID  CSS_COLON  cssterm+  CSS_SEMI # CssDeclaration
     ;
 
-cssValueTerms
-    : cssterm ( ( CSS_Space | CSS_Comment )* cssterm )*
+css_function_call
+    : CSS_ID CSS_LPAREN  css_function_args?  CSS_RPAREN # CssFunctionCall
+    ;
+
+css_function_args
+    : cssterm+ (  CSS_COMMA  cssterm+ )* # FunctionArguments
     ;
 
 cssterm
-    : cssfunctionCall
-    | CSS_STRING
-    | CSS_HEX_COLOR
-    | CSS_NUMBER CSS_UNIT
-    | CSS_NUMBER
-    | CSS_ID
+    : css_function_call         # FunctionTerm
+    | CSS_STRING                # StringTerm
+    | CSS_HEX_COLOR             # ColorTerm
+    | CSS_NUMBER CSS_UNIT       # UnitNumberTerm
+    | CSS_NUMBER                # NumberTerm
+    | CSS_ID                    # IdentifierTerm
     ;
 
-cssfunctionCall
-    : CSS_ID CSS_LPAREN ( CSS_Space | CSS_Comment )*
-      cssValueTerms
-      (( CSS_Space | CSS_Comment )* CSS_COMMA ( CSS_Space | CSS_Comment )* cssValueTerms )*
-      (CSS_Space | CSS_Comment )* CSS_RPAREN
-    ;
 
 //=================jinja rules======================
-jinjaStatement
+jinjaStatementBlock
    : JINJA_STMT_START jStatement
    ;
 
-jinjaExpression
-    : JINJA_EXPR_START expression JINJA_EXPR_END
+jinjaExpressionBlock
+    : JINJA_EXPR_START j_expression JINJA_EXPR_END
     ;
 
 jStatement
-    : extends_stmt
-    | block_stmt
-    | for_stmt
-    | j_if_stmt
+    : j_extends_stmt # JinjaExtendsStmt
+    | j_block_stmt   # JinjaBlockStmt
+    | j_for_stmt     # JinjaForStmt
+    | j_if_stmt      # JinjaIfStmt
     ;
 
-extends_stmt
+j_extends_stmt
     : J_EXTENDS J_STRING JINJA_STMT_END
     ;
 
-block_stmt
+j_block_stmt
     : J_BLOCK J_NAME JINJA_STMT_END
-    html_content
-    JINJA_STMT_START J_ENDBLOCK ( J_NAME )? JINJA_STMT_END
+      html_content
+      JINJA_STMT_START J_ENDBLOCK ( J_NAME )? JINJA_STMT_END
     ;
 
-for_stmt
-    : J_FOR J_NAME J_IN expression JINJA_STMT_END
+j_for_stmt
+    : J_FOR J_NAME J_IN j_expression JINJA_STMT_END
       html_content
       JINJA_STMT_START J_ENDFOR JINJA_STMT_END
     ;
 
 j_if_stmt
-    : J_IF expression JINJA_STMT_END
+    : J_IF j_expression JINJA_STMT_END
       html_content
       JINJA_STMT_START J_ENDIF JINJA_STMT_END
     ;
 
-expression
-    : call_expr ( J_EQ | J_NEQ | J_GT | J_LT ) call_expr
-    | call_expr
+j_expression
+    : j_call_expr ( J_EQ | J_NEQ | J_GT | J_LT ) j_call_expr # JinjaBinaryExpr
+    | j_call_expr # JinjaSimpleExpr
     ;
 
-
-call_expr
-    : var_access ( J_PIPE (J_NAME | J_LENGTH) )?
-    | J_NAME J_LPAREN argument_list? J_RPAREN
-    | var_access
-    | j_atom
+j_call_expr
+    : j_var_access ( J_PIPE (J_NAME | J_LENGTH) )? # JinjaFilteredExpr
+    | J_NAME J_LPAREN j_argument_list? J_RPAREN    # JinjaFunctionCall
+    | j_var_access                                 # JinjaVarAccessOnly
+    | j_atom                                       # JinjaAtomOnly
     ;
 
-var_access
+j_var_access
     : J_NAME ( J_DOT J_NAME )*
     ;
 
-argument_list
-    : j_argument ( J_COMMA j_argument )*
+j_argument_list
+    : j_argument ( J_COMMA j_argument )* # JinjaArgList
     ;
 
 j_argument
-    : expression
-    | J_NAME J_ASSIGN expression
+    : j_expression                 # JinjaPosArg
+    | J_NAME J_ASSIGN j_expression # JinjaKwArg
     ;
 
 j_atom
-    : J_NUMBER
-    | J_STRING
-    | J_TRUE
-    | J_FALSE
-    | J_NONE
-    | J_NAME
+    : J_NUMBER # JinjaNumberAtom
+    | J_STRING # JinjaStringAtom
+    | J_TRUE   # JinjaTrueAtom
+    | J_FALSE  # JinjaFalseAtom
+    | J_NONE   # JinjaNoneAtom
+    | J_NAME   # JinjaNameAtom
     ;
