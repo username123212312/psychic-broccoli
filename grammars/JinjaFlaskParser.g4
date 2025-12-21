@@ -315,5 +315,5 @@ j_atom
     | J_TRUE   # JinjaTrueAtom
     | J_FALSE  # JinjaFalseAtom
     | J_NONE   # JinjaNoneAtom
-    | J_NAME   # JinjaNameAtom
+    | J_NAME   # JinjaNameAtomGGG
     ;
