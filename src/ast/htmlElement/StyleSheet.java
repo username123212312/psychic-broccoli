@@ -10,4 +10,11 @@ public class StyleSheet extends HtmlElementItem {
         super("StyleSheet", line_number);
         this.ruleSets = ruleSets;
     }
+<<<<<<< HEAD
+    @Override
+    public String toString(){
+        return "StyleSheet" ;
+    }
+=======
+>>>>>>> origin/raghad
 }

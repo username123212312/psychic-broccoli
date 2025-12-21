@@ -9,8 +9,8 @@ public abstract class ASTNode {
         this.line_number = line_number;
     }
 
-    @Override
-    public String toString() {
+
+    public String getLineNumber() {
         return node_name + ", line : " +line_number;
     }
 }
