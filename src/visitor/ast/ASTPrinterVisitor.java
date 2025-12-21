@@ -22,7 +22,7 @@ public class ASTPrinterVisitor {
         printIndent(level);
 
 
-        System.out.println(node.toString() + " (line " + node.getLineNumber() + ")");
+        System.out.println(node.toString() + " (line " + node.toString() + ")");
 
 
         if (node instanceof HtmlBodyItem body) {
@@ -38,7 +38,7 @@ public class ASTPrinterVisitor {
             if (attrs != null) {
                 for (HtmlAttribute attr : attrs) {
                     printIndent(level + 1);
-                    System.out.println(attr.toString() + " (line " + attr.getLineNumber() + ")");
+                    System.out.println(attr.toString() + " (line " + attr.toString() + ")");
                 }
             }
 
