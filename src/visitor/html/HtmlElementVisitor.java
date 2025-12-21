@@ -6,14 +6,11 @@ import ast.htmlElement.HtmlElementItem;
 
 public class HtmlElementVisitor extends JinjaFlaskParserBaseVisitor<HtmlElementItem> {
     @Override
-<<<<<<< HEAD
     public HtmlElementItem visitHtmlElementItem(JinjaFlaskParser.HtmlElementItemContext ctx) {
         return super.visitHtmlElementItem(ctx);
     }
 
     @Override
-=======
->>>>>>> origin/raghad
     public HtmlElementItem visitTagElement(JinjaFlaskParser.TagElementContext ctx) {
         return super.visitTagElement(ctx);
     }
@@ -28,7 +25,6 @@ public class HtmlElementVisitor extends JinjaFlaskParserBaseVisitor<HtmlElementI
         return super.visitStyleElement(ctx);
     }
 
-<<<<<<< HEAD
     @Override
     public HtmlElementItem visitProcessingInstruction(JinjaFlaskParser.ProcessingInstructionContext ctx) {
         return super.visitProcessingInstruction(ctx);
@@ -48,6 +44,4 @@ public class HtmlElementVisitor extends JinjaFlaskParserBaseVisitor<HtmlElementI
     public HtmlElementItem visitServerScript(JinjaFlaskParser.ServerScriptContext ctx) {
         return super.visitServerScript(ctx);
     }
-=======
->>>>>>> origin/raghad
 }

@@ -28,11 +28,3 @@ public class HtmlContentItemVisitor extends JinjaFlaskParserBaseVisitor<HtmlCont
         return super.visitJinjaExprItem(ctx);
     }
 }
-<<<<<<< HEAD
-//    @Override
-//    public HtmlContentItem visitHtmlContent(JinjaFlaskParser.JinjaExprItemContext ctx) {
-//        return super.visitHtmlContent(ctx);
-//    }
-//}
-=======
->>>>>>> origin/raghad

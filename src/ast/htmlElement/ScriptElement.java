@@ -7,11 +7,4 @@ public class ScriptElement extends HtmlElementItem {
         super("ScriptElement", line_number);
         this.scriptBody = scriptBody;
     }
-<<<<<<< HEAD
-    @Override
-    public String toString(){
-        return "ScriptElement";
-    }
-=======
->>>>>>> origin/raghad
 }

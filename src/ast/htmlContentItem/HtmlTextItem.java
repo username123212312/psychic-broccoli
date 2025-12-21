@@ -7,12 +7,10 @@ public class HtmlTextItem extends HtmlContentItem {
         super("HtmlTextItem", line_number);
         this.text = text;
     }
-<<<<<<< HEAD
+
     @Override
     public String toString() {
-        return "HtmlTextItem \"" + text + "\"";
+        return super.node_name + " \"" + text + "\"";
     }
 
-=======
->>>>>>> origin/raghad
 }
