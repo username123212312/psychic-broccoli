@@ -11,4 +11,13 @@ public class Program extends ASTNode{
         this.statements = statements;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(super.toString());
+        for(Statement s : this.statements){
+            stringBuilder.append(Consts.STRING_INDENT).append(s.toString());
+        }
+        return stringBuilder.toString();
+    }
 }
