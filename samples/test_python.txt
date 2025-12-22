@@ -1,6 +1,1 @@
-if True:
-    i = i + 1
-elif i == 2:
-    i = i + 4
-else:
-   i = i + 3
+products = (p for p in products if p["id"] != product_id)

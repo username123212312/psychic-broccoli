@@ -75,7 +75,8 @@ comp_op
     ;
 
 assign_stmt
-    : python_expr ASSIGN condition NEWLINE?          # ComparisonAssignStmt
+    : python_expr ASSIGN complex_expr NEWLINE?       # ComplexExpressionAssignStatement
+    | python_expr ASSIGN condition NEWLINE?          # ComparisonAssignStmt
     | python_expr ASSIGN arithmetic_expr NEWLINE?    # ArithmeticAssignStmt
     | python_expr ASSIGN template_literal NEWLINE?    # TemplateLiteralAssignStmt
     ;

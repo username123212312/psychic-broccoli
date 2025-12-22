@@ -3,11 +3,17 @@ package visitor.python;
 import antlr.JinjaFlaskParser;
 import antlr.JinjaFlaskParserBaseVisitor;
 import ast.complexExp.ComplexExpression;
+import ast.complexExp.Generator;
+import ast.compundStmt.ForLoop;
 
 public class ComplexExpressionVisitor extends JinjaFlaskParserBaseVisitor<ComplexExpression> {
     @Override
     public ComplexExpression visitGenerator(JinjaFlaskParser.GeneratorContext ctx) {
-        return super.visitGenerator(ctx);
+        Generator generator = new Generator(ctx.getStart().getLine());
+        ForLoopVisitor forLoopVisitor = new ForLoopVisitor();
+        ForLoop forLoop = forLoopVisitor.visit(ctx.for_loop());
+        generator.setForLoop(forLoop);
+        return generator;
     }
 
     @Override
