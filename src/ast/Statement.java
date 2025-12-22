@@ -11,5 +11,9 @@ public class Statement extends ASTNode {
     public Statement(int line_number, List<CompoundStatement> compoundStatements) {
         super("Statement", line_number);
         this.compoundStatements = compoundStatements;
+
+        if (compoundStatements != null) {
+            this.children.addAll(compoundStatements);
+        }
     }
 }

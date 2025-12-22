@@ -10,5 +10,9 @@ public class HtmlContent extends ASTNode {
     public HtmlContent(int line_number, List<HtmlContentItem> items) {
         super("HtmlContent", line_number);
         this.items = items;
+
+        if (items != null) {
+            this.children.addAll(items);
+        }
     }
 }
