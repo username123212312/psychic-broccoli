@@ -21,7 +21,7 @@ public class Statement extends ASTNode {
         }
         StringBuilder stringBuilder = new StringBuilder();
         for (CompoundStatement compoundStatement : compoundStatements) {
-            stringBuilder.append(Consts.printIndent(1)).append(compoundStatement == null ? "Null"
+            stringBuilder.append(compoundStatement == null ? "Null"
                     : compoundStatement.toString());
         }
         return stringBuilder.toString();

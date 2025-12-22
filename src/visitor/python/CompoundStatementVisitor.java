@@ -8,6 +8,7 @@ import ast.Statement;
 import ast.compundStmt.CompoundStatement;
 import ast.compundStmt.IfStatement;
 import ast.compundStmt.ImportStatement;
+import ast.condition.Condition;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import visitor.UniversalVisitor;
 
@@ -27,20 +28,26 @@ public class CompoundStatementVisitor extends JinjaFlaskParserBaseVisitor<Compou
         IfStatement ifStatement = new IfStatement(ctx.getStart().getLine());
         ConditionVisitor conditionVisitor = new ConditionVisitor();
         StatementVisitor statementVisitor = new StatementVisitor();
-        ifStatement.setCondition(conditionVisitor.visit(ctx.condition(0)));
-        ifStatement.setStatement(statementVisitor.visit(ctx.statement(0)));
+        Condition condition = conditionVisitor.visit(ctx.condition(0));
+        Statement statement = statementVisitor.visit(ctx.statement(0));
+        ifStatement.setCondition(condition);
+        ifStatement.setStatement(statement);
 
         int elifCount = ctx.ELIF().size();
         List<ElIfStatement> elIfStatements = new ArrayList<>();
         for (int i = 0; i < elifCount; i++) {
             ElIfStatement elIfStatement = new ElIfStatement(ctx.ELIF(i).getSymbol().getLine());
-            elIfStatement.setCondition(conditionVisitor.visit(ctx.condition(i + 1)));
-            elIfStatement.setStatement(statementVisitor.visit(ctx.statement(i + 1)));
+            condition = conditionVisitor.visit(ctx.condition(i + 1));
+            statement = statementVisitor.visit(ctx.statement(i + 1));
+            elIfStatement.setCondition(condition);
+            elIfStatement.setStatement(statement);
+            elIfStatements.add(elIfStatement);
         }
         ifStatement.setElifStatements(elIfStatements);
         if (ctx.ELSE() != null) {
             int elseStmtIndex = ctx.statement().size() - 1;
-            ifStatement.setElseStatement(statementVisitor.visit(ctx.statement(elseStmtIndex)));
+            statement = statementVisitor.visit(ctx.statement(elseStmtIndex));
+            ifStatement.setElseStatement(statement);
         }
         return ifStatement;
     }

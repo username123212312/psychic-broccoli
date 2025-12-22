@@ -1,5 +1,6 @@
 package ast.condition;
 
+import ast.Consts;
 import ast.compundStmt.PythonExpression;
 
 public class NotExpression extends Condition{
@@ -10,5 +11,13 @@ public class NotExpression extends Condition{
 
     public void setPythonExpression(PythonExpression pythonExpression) {
         this.pythonExpression = pythonExpression;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(super.toString()).append(Consts.printIndent(1))
+                .append(pythonExpression.toString());
+        return stringBuilder.toString();
     }
 }

@@ -1,2 +1,6 @@
-if i == 0:
-    pass
+if True:
+    i = i + 1
+elif i == 2:
+    i = i + 4
+else:
+   i = i + 3

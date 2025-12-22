@@ -37,15 +37,17 @@ public class IfStatement extends CompoundStatement {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(super.toString()).append(", ( ")
-                .append(condition.toString()).append(" )")
-                .append(Consts.printIndent(1)).append(statement.toString());
-        if(elifStatements != null){
-            for(ElIfStatement elIfStatement : elifStatements){
-                stringBuilder.append("\n").append(elIfStatement.toString());
+                .append(condition == null ? "Null" : condition.toString()).append(" )")
+                .append(Consts.printIndent(2)).append(statement == null ? "Null"
+                        : statement.toString());
+        if (elifStatements != null) {
+            for (ElIfStatement elIfStatement : elifStatements) {
+                stringBuilder.append(Consts.printIndent(1)).append(elIfStatement.toString());
             }
         }
-        if(elseStatement != null){
-            stringBuilder.append(elseStatement.toString());
+        if (elseStatement != null) {
+            elseStatement.setNode_name("ElseStatement");
+            stringBuilder.append(Consts.printIndent(1)).append(elseStatement.toString());
         }
         return stringBuilder.toString();
     }

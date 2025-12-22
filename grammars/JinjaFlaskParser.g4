@@ -17,6 +17,7 @@ statement
 compound_stmt
     : if_stmt      NEWLINE?      # IfStatement
     | assign_stmt  NEWLINE?      # AssignmentStatement
+    | simple_expr  NEWLINE?      # SimpleExpression
     | for_loop     NEWLINE?      # ForLoopStatement
     | python_expr  NEWLINE?      # PythonExpression
     | func_def     NEWLINE?      # FunctionDefinition
@@ -49,7 +50,8 @@ if_stmt
     ;
 
 condition
-    : NOT python_expr                        # NotExpression
+    : bool_exp                               # BooleanCondition
+    | NOT python_expr                        # NotExpression
     | python_expr (comp_op python_expr)*     # ComparisonExpression
     ;
 
@@ -74,6 +76,7 @@ comp_op
 
 assign_stmt
     : python_expr ASSIGN condition NEWLINE?          # ComparisonAssignStmt
+    | python_expr ASSIGN arithmetic_expr NEWLINE?    # ArithmeticAssignStmt
     | python_expr ASSIGN template_literal NEWLINE?    # TemplateLiteralAssignStmt
     ;
 

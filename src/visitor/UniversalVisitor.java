@@ -5,6 +5,8 @@ import antlr.JinjaFlaskParserBaseVisitor;
 import ast.ASTNode;
 import ast.HtmlContent;
 import ast.Imported;
+import ast.atom.Atom;
+import ast.atom.Bool;
 import ast.complexExp.ExpressionList;
 import ast.compundStmt.IfStatement;
 import ast.compundStmt.ImportStatement;
@@ -68,5 +70,18 @@ public class UniversalVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
         return styleSheetVisitor.visitStyleSheet(ctx);
     }
 
+    @Override
+    public Bool visitTrueAtom(JinjaFlaskParser.TrueAtomContext ctx) {
+        Bool bool = new Bool(ctx.getStart().getLine());
+        bool.setValue("True");
+        return bool;
+    }
+
+    @Override
+    public Bool visitFalseAtom(JinjaFlaskParser.FalseAtomContext ctx) {
+        Bool bool = new Bool(ctx.getStart().getLine());
+        bool.setValue("False");
+        return bool;
+    }
 
 }

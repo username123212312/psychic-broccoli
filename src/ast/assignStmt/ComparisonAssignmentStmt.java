@@ -6,7 +6,7 @@ import ast.compundStmt.PythonExpression;
 public class ComparisonAssignmentStmt extends AssignmentStatement {
     private Condition value;
 
-    public ComparisonAssignmentStmt(int line_number, PythonExpression var) {
-        super("ComparisonAssignStmt", line_number, var);
+    public ComparisonAssignmentStmt(int line_number) {
+        super("ComparisonAssignStmt", line_number);
     }
 }
