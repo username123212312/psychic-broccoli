@@ -9,6 +9,7 @@ public class ElIfStatement extends ASTNode{
         this.condition = condition;
         this.statement = statement;
 
+
         if (condition != null) this.children.add(condition);
         if (statement != null) this.children.add(statement);
     }

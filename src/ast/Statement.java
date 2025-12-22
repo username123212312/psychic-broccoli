@@ -12,6 +12,7 @@ public class Statement extends ASTNode {
         super("Statement", line_number);
         this.compoundStatements = compoundStatements;
 
+
         if (compoundStatements != null) {
             this.children.addAll(compoundStatements);
         }

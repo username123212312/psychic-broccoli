@@ -9,6 +9,7 @@ public class Program extends ASTNode{
     public Program(int line_number, List<Statement> statements) {
         super("Program", line_number);
         //this.statements = statements;
+
         if (statements != null) {
             this.children.addAll(statements);
         }

@@ -11,6 +11,7 @@ public abstract class ASTNode {
         this.children = new ArrayList<>();
 
     }
+
     public void print(String indent) {
         System.out.println(indent + "Node: " + node_name + " | Line: " + line_number);
         for (ASTNode child : children) {
