@@ -14,4 +14,14 @@ public class AssignmentStatementVisitor extends JinjaFlaskParserBaseVisitor<Assi
     public AssignmentStatement visitTemplateLiteralAssignStmt(JinjaFlaskParser.TemplateLiteralAssignStmtContext ctx) {
         return super.visitTemplateLiteralAssignStmt(ctx);
     }
+
+    @Override
+    public AssignmentStatement visitComplexExpressionAssignStatement(JinjaFlaskParser.ComplexExpressionAssignStatementContext ctx) {
+        return super.visitComplexExpressionAssignStatement(ctx);
+    }
+
+    @Override
+    public AssignmentStatement visitArithmeticAssignStmt(JinjaFlaskParser.ArithmeticAssignStmtContext ctx) {
+        return super.visitArithmeticAssignStmt(ctx);
+    }
 }
