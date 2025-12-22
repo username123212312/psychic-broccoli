@@ -2,7 +2,6 @@ package visitor.jinja;
 
 import antlr.JinjaFlaskParser;
 import antlr.JinjaFlaskParserBaseVisitor;
-import ast.ASTNode;
 import ast.jinja.jinjaStatment.JinjaStmtItem;
 
 public class JinjaStatementVisitor extends JinjaFlaskParserBaseVisitor<JinjaStmtItem> {

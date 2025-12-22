@@ -2,7 +2,7 @@ package app;
 
 import antlr.JinjaFlaskLexer;
 import antlr.JinjaFlaskParser;
-import ast.ASTNode;
+import ast.Program;
 import listener.CustomErrorListener;
 import org.antlr.v4.gui.TreeViewer;
 import org.antlr.v4.runtime.CharStream;
@@ -42,8 +42,8 @@ public class App {
                 ParseTree antlrAST = parser.prog();
                 showParseTree(parser.getRuleNames(), antlrAST);
                 ProgramVisitor programVisitor = new ProgramVisitor();
-                ASTNode program = programVisitor.visit(antlrAST);
-
+                Program program = programVisitor.visit(antlrAST);
+                System.out.println(program);
                 // If we reach here, the parse was successful!
                 System.out.println("--- Parsing SUCCESSFUL! ---");
 
