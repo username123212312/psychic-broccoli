@@ -1,21 +1,20 @@
 package ast.compundStmt;
 
-import ast.Condition;
+import ast.Consts;
+import ast.condition.Condition;
 import ast.ElIfStatement;
 import ast.Statement;
 
 import java.util.List;
 
 public class IfStatement extends CompoundStatement {
-    private final Condition condition;
-    private final Statement statement;
+    private Condition condition;
+    private Statement statement;
     private List<ElIfStatement> elifStatements;
     private Statement elseStatement;
 
-    public IfStatement(String node_name, int line_number, Condition condition, Statement statement) {
+    public IfStatement(int line_number) {
         super("IfStatement", line_number);
-        this.condition = condition;
-        this.statement = statement;
     }
 
     public void setElseStatement(Statement elseStatement) {
@@ -24,5 +23,30 @@ public class IfStatement extends CompoundStatement {
 
     public void setElifStatements(List<ElIfStatement> elifStatements) {
         this.elifStatements = elifStatements;
+    }
+
+    public void setCondition(Condition condition) {
+        this.condition = condition;
+    }
+
+    public void setStatement(Statement statement) {
+        this.statement = statement;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(super.toString()).append(", ( ")
+                .append(condition.toString()).append(" )")
+                .append(Consts.printIndent(1)).append(statement.toString());
+        if(elifStatements != null){
+            for(ElIfStatement elIfStatement : elifStatements){
+                stringBuilder.append("\n").append(elIfStatement.toString());
+            }
+        }
+        if(elseStatement != null){
+            stringBuilder.append(elseStatement.toString());
+        }
+        return stringBuilder.toString();
     }
 }

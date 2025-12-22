@@ -2,12 +2,47 @@ package visitor.python;
 
 import antlr.JinjaFlaskParser;
 import antlr.JinjaFlaskParserBaseVisitor;
+import ast.ElIfStatement;
+import ast.Imported;
+import ast.Statement;
 import ast.compundStmt.CompoundStatement;
+import ast.compundStmt.IfStatement;
+import ast.compundStmt.ImportStatement;
+import org.antlr.v4.runtime.tree.TerminalNode;
+import visitor.UniversalVisitor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CompoundStatementVisitor extends JinjaFlaskParserBaseVisitor<CompoundStatement> {
+    UniversalVisitor universalVisitor = new UniversalVisitor();
+
     @Override
     public CompoundStatement visitIfStatement(JinjaFlaskParser.IfStatementContext ctx) {
-        return super.visitIfStatement(ctx);
+        return visit(ctx.if_stmt());
+    }
+
+    @Override
+    public CompoundStatement visitIfStatementDef(JinjaFlaskParser.IfStatementDefContext ctx) {
+        IfStatement ifStatement = new IfStatement(ctx.getStart().getLine());
+        ConditionVisitor conditionVisitor = new ConditionVisitor();
+        StatementVisitor statementVisitor = new StatementVisitor();
+        ifStatement.setCondition(conditionVisitor.visit(ctx.condition(0)));
+        ifStatement.setStatement(statementVisitor.visit(ctx.statement(0)));
+
+        int elifCount = ctx.ELIF().size();
+        List<ElIfStatement> elIfStatements = new ArrayList<>();
+        for (int i = 0; i < elifCount; i++) {
+            ElIfStatement elIfStatement = new ElIfStatement(ctx.ELIF(i).getSymbol().getLine());
+            elIfStatement.setCondition(conditionVisitor.visit(ctx.condition(i + 1)));
+            elIfStatement.setStatement(statementVisitor.visit(ctx.statement(i + 1)));
+        }
+        ifStatement.setElifStatements(elIfStatements);
+        if (ctx.ELSE() != null) {
+            int elseStmtIndex = ctx.statement().size() - 1;
+            ifStatement.setElseStatement(statementVisitor.visit(ctx.statement(elseStmtIndex)));
+        }
+        return ifStatement;
     }
 
     @Override
@@ -37,7 +72,33 @@ public class CompoundStatementVisitor extends JinjaFlaskParserBaseVisitor<Compou
 
     @Override
     public CompoundStatement visitImportStatement(JinjaFlaskParser.ImportStatementContext ctx) {
-        return super.visitImportStatement(ctx);
+        return visit(ctx.import_from());
+    }
+
+    @Override
+    public ImportStatement visitImportFromDef(JinjaFlaskParser.ImportFromDefContext ctx) {
+        ImportStatement importStatement = new ImportStatement(ctx.getStart().getLine());
+        StringBuilder moduleBuilder = new StringBuilder();
+        List<TerminalNode> moduleNameTokens = ctx.NAME();
+        if (!moduleNameTokens.isEmpty()) {
+            moduleBuilder.append(moduleNameTokens.getFirst().getText());
+
+            for (int i = 1; i < moduleNameTokens.size() - ctx.imptd().size(); i++) {
+                moduleBuilder.append(".").append(moduleNameTokens.get(i).getText());
+            }
+        }
+
+        String module = moduleBuilder.toString();
+
+        List<Imported> importedList = new ArrayList<>();
+
+        for (JinjaFlaskParser.ImptdContext imported : ctx.imptd()) {
+            importedList.add((Imported) universalVisitor.visit(imported));
+        }
+        importStatement.setImportedList(importedList);
+        importStatement.setModule(module);
+
+        return importStatement;
     }
 
     @Override

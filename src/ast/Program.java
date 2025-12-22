@@ -16,7 +16,7 @@ public class Program extends ASTNode{
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(super.toString());
         for(Statement s : this.statements){
-            stringBuilder.append(Consts.STRING_INDENT).append(s.toString());
+            stringBuilder.append(s.toString());
         }
         return stringBuilder.toString();
     }

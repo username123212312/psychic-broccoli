@@ -1,6 +1,6 @@
 package ast.simpleExpr;
 
-import ast.Condition;
+import ast.condition.Condition;
 
 public class SimpleComparisonExpression extends SimpleExpression {
     private Condition condition;

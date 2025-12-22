@@ -1,2 +1,2 @@
-if i = 0:
-    print('Hello')
+if i == 0:
+    pass

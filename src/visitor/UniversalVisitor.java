@@ -6,21 +6,27 @@ import ast.ASTNode;
 import ast.HtmlContent;
 import ast.Imported;
 import ast.complexExp.ExpressionList;
+import ast.compundStmt.IfStatement;
+import ast.compundStmt.ImportStatement;
 import ast.functionDef.Decorator;
 import ast.functionDef.FunctionParameters;
 import ast.htmlElement.StyleSheet;
 import ast.keyValue.KeyValue;
+import org.antlr.v4.runtime.tree.TerminalNode;
 import visitor.css.StyleSheetVisitor;
 import visitor.python.ArgumentListVisitor;
 import visitor.python.KeyValueVisitor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UniversalVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
     @Override
     public FunctionParameters visitFunctionParameters(JinjaFlaskParser.FunctionParametersContext ctx) {
         return new FunctionParameters(ctx.getStart().getLine(), new ArrayList<>());
     }
+
+
 
     @Override
     public Decorator visitDecorator(JinjaFlaskParser.DecoratorContext ctx) {
@@ -30,8 +36,14 @@ public class UniversalVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
 
     @Override
     public Imported visitImported(JinjaFlaskParser.ImportedContext ctx) {
-        return new Imported(ctx.getStart().getLine(), "");
+        Imported imported = new Imported(ctx.getStart().getLine());
+        imported.setName(ctx.NAME(0).getText());
+        if (ctx.NAME(1) != null) {
+            imported.setAlias(ctx.NAME(1).getText());
+        }
+        return imported;
     }
+
 
     @Override
     public KeyValue visitKeyValuePairs(JinjaFlaskParser.KeyValuePairsContext ctx) {

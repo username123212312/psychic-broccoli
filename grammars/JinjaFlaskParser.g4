@@ -35,7 +35,7 @@ global_stmt
     ;
 
 import_from
-    : FROM NAME (DOT NAME)* IMPORT imptd (COMMA imptd)*
+    : FROM NAME (DOT NAME)* IMPORT imptd (COMMA imptd)* # ImportFromDef
     ;
 
 imptd
@@ -43,7 +43,9 @@ imptd
     ;
 
 if_stmt
-    : IF condition COLON statement ( ELIF condition COLON statement )* ( ELSE COLON statement )?
+    : IF condition COLON statement
+     ( ELIF condition COLON statement )*
+     ( ELSE COLON statement )? # IfStatementDef
     ;
 
 condition
