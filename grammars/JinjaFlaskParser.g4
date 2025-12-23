@@ -167,6 +167,40 @@ argument
     ;
 
 //==========================HTML RULES=====================
+//html_content
+//    : html_content_item* # HtmlContent
+//    ;
+//
+//html_content_item
+//    : htmlElement     # HtmlElementItem
+//    | HTML_TEXT       # HtmlTextItem
+//    | jinjaStatementBlock  # JinjaStmtItem
+//    | jinjaExpressionBlock # JinjaExprItem
+//    ;
+//
+//htmlElement
+//    // Regular HTML tags
+//    : TAG_OPEN tag_content*? (TAG_SLASH_CLOSE | TAG_CLOSE) # TagElement
+//
+//    // Special elements with content
+//    | SCRIPT_OPEN SCRIPT_BODY                             # ScriptElement
+//    | STYLE_OPEN style_sheet STYLE_CLOSE                   # StyleElement
+//
+//    // XML/HTML special constructs
+//    | XML_DECLARATION                                     # ProcessingInstruction
+//    | CDATA                                               # CDataSection
+//    | DTD                                                 # DocTypeDeclaration
+//    | SCRIPTLET                                           # ServerScript
+//    ;
+//
+//tag_content
+//    // Attribute definitions
+//    : TAG_NAME (TAG_EQUALS ATTVALUE_VALUE)? # HtmlAttribute
+//    // Syntax markers
+//    | TAG_SLASH  # ClosingMarker
+//    ;
+
+//==========================HTML RULES=====================
 html_content
     : html_content_item* # HtmlContent
     ;
@@ -179,18 +213,18 @@ html_content_item
     ;
 
 htmlElement
-    // Regular HTML tags
-    : TAG_OPEN tag_content*? (TAG_SLASH_CLOSE | TAG_CLOSE) # TagElement
-
+    // Regular HTML tag with optional nested content
+    : TAG_OPEN tag_content* TAG_CLOSE html_content TAG_OPEN TAG_SLASH TAG_NAME TAG_CLOSE # TagElement
+    // Self-closing tag
+    | TAG_OPEN tag_content* TAG_SLASH_CLOSE # SelfClosingTag
     // Special elements with content
-    | SCRIPT_OPEN SCRIPT_BODY                             # ScriptElement
-    | STYLE_OPEN style_sheet STYLE_CLOSE                   # StyleElement
-
+    | SCRIPT_OPEN SCRIPT_BODY                              # ScriptElement
+    | STYLE_OPEN style_sheet STYLE_CLOSE                                # StyleElement
     // XML/HTML special constructs
-    | XML_DECLARATION                                     # ProcessingInstruction
-    | CDATA                                               # CDataSection
-    | DTD                                                 # DocTypeDeclaration
-    | SCRIPTLET                                           # ServerScript
+    | XML_DECLARATION                                                   # ProcessingInstruction
+    | CDATA                                                             # CDataSection
+    | DTD                                                               # DocTypeDeclaration
+    | SCRIPTLET                                                         # ServerScript
     ;
 
 tag_content
@@ -199,7 +233,6 @@ tag_content
     // Syntax markers
     | TAG_SLASH  # ClosingMarker
     ;
-
 
 //===============CSS RULE======================
 

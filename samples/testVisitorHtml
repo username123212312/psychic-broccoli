@@ -1,0 +1,5 @@
+<div class="product-grid">
+    {% for p in products %}
+    <p>{{ p.name }}</p>
+    {% endfor %}
+</div>

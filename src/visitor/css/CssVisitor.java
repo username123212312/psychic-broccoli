@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CssVisitor
-        extends JinjaFlaskParserBaseVisitor<Object> {
+        extends JinjaFlaskParserBaseVisitor<List<RuleSet>> {
 
     @Override
     public List<RuleSet> visitStyleSheet(

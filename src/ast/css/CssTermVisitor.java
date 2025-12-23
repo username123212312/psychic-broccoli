@@ -1,4 +1,4 @@
-package visitor.css;
+package ast.css;
 
 import antlr.JinjaFlaskParser;
 import antlr.JinjaFlaskParserBaseVisitor;

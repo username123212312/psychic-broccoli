@@ -2,7 +2,7 @@ package ast.tagContent;
 
 import ast.ASTNode;
 
-public class HtmlAttribute extends ASTNode {
+public class HtmlAttribute extends TagContent {
     private String attributeName;
     private String attributeValue;
 
