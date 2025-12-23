@@ -3,6 +3,7 @@ package visitor.html;
 import antlr.JinjaFlaskParser;
 import antlr.JinjaFlaskParserBaseVisitor;
 import ast.htmlContentItem.HtmlContentItem;
+import ast.htmlContentItem.HtmlTextItem;
 import visitor.jinja.JinjaVisitor;
 
 public class HtmlContentItemVisitor extends JinjaFlaskParserBaseVisitor<HtmlContentItem> {
@@ -10,21 +11,25 @@ public class HtmlContentItemVisitor extends JinjaFlaskParserBaseVisitor<HtmlCont
 
     @Override
     public HtmlContentItem visitHtmlElementItem(JinjaFlaskParser.HtmlElementItemContext ctx) {
-        return super.visitHtmlElementItem(ctx);
-    }
-
-    @Override
-    public HtmlContentItem visitHtmlTextItem(JinjaFlaskParser.HtmlTextItemContext ctx) {
-        return super.visitHtmlTextItem(ctx);
+        return (HtmlContentItem) visit(ctx.htmlElement());
     }
 
     @Override
     public HtmlContentItem visitJinjaStmtItem(JinjaFlaskParser.JinjaStmtItemContext ctx) {
-        return super.visitJinjaStmtItem(ctx);
+        return (HtmlContentItem) jinjaVisitor.visit(ctx.jinjaStatementBlock());
     }
 
     @Override
     public HtmlContentItem visitJinjaExprItem(JinjaFlaskParser.JinjaExprItemContext ctx) {
-        return super.visitJinjaExprItem(ctx);
+       return (HtmlContentItem) jinjaVisitor.visit(ctx.jinjaExpressionBlock());
+    }
+
+    @Override
+    public HtmlContentItem visitHtmlTextItem(JinjaFlaskParser.HtmlTextItemContext ctx) {
+
+     String text = ctx.HTML_TEXT().getText();
+     int line = ctx.getStart().getLine();
+
+     return new HtmlTextItem(text,line);
     }
 }

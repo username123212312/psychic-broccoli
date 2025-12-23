@@ -2,13 +2,18 @@ package visitor.html;
 
 import antlr.JinjaFlaskParser;
 import antlr.JinjaFlaskParserBaseVisitor;
+import ast.atom.Str;
+import ast.css.RuleSet;
 import ast.htmlElement.HtmlElementItem;
+import ast.htmlElement.ScriptElement;
+import ast.htmlElement.StyleSheet;
+import ast.tagContent.TagContent;
+import visitor.css.CssVisitor;
+
+import java.util.List;
 
 public class HtmlElementVisitor extends JinjaFlaskParserBaseVisitor<HtmlElementItem> {
-    @Override
-    public HtmlElementItem visitHtmlElementItem(JinjaFlaskParser.HtmlElementItemContext ctx) {
-        return super.visitHtmlElementItem(ctx);
-    }
+    private final CssVisitor cssVisitor = new CssVisitor();
 
     @Override
 
@@ -18,12 +23,20 @@ public class HtmlElementVisitor extends JinjaFlaskParserBaseVisitor<HtmlElementI
 
     @Override
     public HtmlElementItem visitScriptElement(JinjaFlaskParser.ScriptElementContext ctx) {
-        return super.visitScriptElement(ctx);
+        String body = ctx.SCRIPT_BODY().getText();
+
+        int line  = ctx.getStart().getLine();
+
+        return new ScriptElement(line ,body);
     }
 
     @Override
     public HtmlElementItem visitStyleElement(JinjaFlaskParser.StyleElementContext ctx) {
-        return super.visitStyleElement(ctx);
+        List<RuleSet> ruleSets = (List<RuleSet>) cssVisitor.visit(ctx.style_sheet());
+
+        int line = ctx.getStart().getLine();
+
+        return new StyleSheet(line,ruleSets);
     }
 
 }
