@@ -31,10 +31,10 @@ public class ComplexExpressionVisitor extends JinjaFlaskParserBaseVisitor<Comple
         return super.visitDictionaryLiteral(ctx);
     }
 
-    @Override
-    public ComplexExpression visitListLiteral(JinjaFlaskParser.ListLiteralContext ctx) {
-        return super.visitListLiteral(ctx);
-    }
+//    @Override
+//    public ComplexExpression visitListLiteral(JinjaFlaskParser.ListLiteralContext ctx) {
+//
+//    }
 
     @Override
     public ComplexExpression visitAttributeAccess(JinjaFlaskParser.AttributeAccessContext ctx) {

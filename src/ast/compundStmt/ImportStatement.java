@@ -23,12 +23,19 @@ public class ImportStatement extends CompoundStatement {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(super.toString())
-                .append(", ( ").append("module_name : ").append(module).append(" )");
-        for(Imported imported : importedList){
-            stringBuilder.append(Consts.printIndent(2)).append(imported.toString());
+        StringBuilder sb = new StringBuilder();
+        sb.append("ImportStatement [Line: ").append(this.line_number).append("] (module:" + module + ")");
+
+        for (Imported imp : importedList) {
+            sb.append("\n        ").append(imp.toString());
         }
-        return stringBuilder.toString();
+        return sb.toString();
+//        StringBuilder stringBuilder = new StringBuilder();
+//        stringBuilder.append(super.toString())
+//                .append(", ( ").append("module_name : ").append(module).append(" )");
+//        for(Imported imported : importedList){
+//            stringBuilder.append(Consts.printIndent(2)).append(imported.toString());
+//        }
+//        return stringBuilder.toString();
     }
 }

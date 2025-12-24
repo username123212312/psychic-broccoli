@@ -2,36 +2,44 @@ package visitor.css;
 
 import antlr.JinjaFlaskParser;
 import antlr.JinjaFlaskParserBaseVisitor;
-import ast.cssTerm.CssTerm;
+import ast.cssTerm.*;
 
 public class CssTermVisitor extends JinjaFlaskParserBaseVisitor<CssTerm> {
+//    @Override
+//    public FunctionTerm visitFunctionTerm(JinjaFlaskParser.FunctionTermContext ctx) {
+//        CssFunctionArguments args = (CssTerm) visit(ctx.css_function_call());
+//        return new FunctionTerm(ctx.getStart().getLine(),args );
+//    }
+
     @Override
-    public CssTerm visitFunctionTerm(JinjaFlaskParser.FunctionTermContext ctx) {
-        return super.visitFunctionTerm(ctx);
+    public StringTerm visitStringTerm(JinjaFlaskParser.StringTermContext ctx) {
+        String text = ctx.CSS_STRING().getText();
+        return new StringTerm(ctx.getStart().getLine(), text );
     }
 
     @Override
-    public CssTerm visitStringTerm(JinjaFlaskParser.StringTermContext ctx) {
-        return super.visitStringTerm(ctx);
+    public ColorTerm visitColorTerm(JinjaFlaskParser.ColorTermContext ctx) {
+        String hex = ctx.CSS_HEX_COLOR().getText();
+        return new ColorTerm(ctx.getStart().getLine(), hex );
     }
 
     @Override
-    public CssTerm visitColorTerm(JinjaFlaskParser.ColorTermContext ctx) {
-        return super.visitColorTerm(ctx);
+    public UnitNumberTerm visitUnitNumberTerm(JinjaFlaskParser.UnitNumberTermContext ctx) {
+        double value = Double.parseDouble(ctx.CSS_NUMBER().getText());
+        String text = ctx.CSS_UNIT().getText();
+        return new UnitNumberTerm(ctx.getStart().getLine(), value, text );
+    }
+
+
+    @Override
+    public NumberTerm visitNumberTerm(JinjaFlaskParser.NumberTermContext ctx) {
+        double value = Double.parseDouble(ctx.CSS_NUMBER().getText());
+        return new NumberTerm(ctx.getStart().getLine(), value );
     }
 
     @Override
-    public CssTerm visitUnitNumberTerm(JinjaFlaskParser.UnitNumberTermContext ctx) {
-        return super.visitUnitNumberTerm(ctx);
-    }
-
-    @Override
-    public CssTerm visitNumberTerm(JinjaFlaskParser.NumberTermContext ctx) {
-        return super.visitNumberTerm(ctx);
-    }
-
-    @Override
-    public CssTerm visitIdentifierTerm(JinjaFlaskParser.IdentifierTermContext ctx) {
-        return super.visitIdentifierTerm(ctx);
+    public IdentifierTerm visitIdentifierTerm(JinjaFlaskParser.IdentifierTermContext ctx) {
+        String text = ctx.CSS_ID().getText();
+        return new IdentifierTerm(ctx.getStart().getLine(), text );
     }
 }

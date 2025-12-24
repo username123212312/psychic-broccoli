@@ -19,12 +19,22 @@ public class Statement extends ASTNode {
         if (isPass) {
             return "PassStatement";
         }
-        StringBuilder stringBuilder = new StringBuilder();
-        for (CompoundStatement compoundStatement : compoundStatements) {
-            stringBuilder.append((compoundStatements.indexOf(compoundStatement) == 0) ? "" : Consts.printIndent(1))
-                    .append(compoundStatement == null ? "Null"
-                    : compoundStatement.toString());
+        StringBuilder sb = new StringBuilder();
+        sb.append("Statement [Line: ").append(this.line_number).append("]");
+
+        for (CompoundStatement cs : compoundStatements) {
+            String childStr = (cs == null) ? "[Empty/Null Node]" : cs.toString();
+
+            childStr = childStr.replace("\n", "\n  ");
+            sb.append("\n      ").append(childStr);
         }
-        return stringBuilder.toString();
+        return sb.toString();
+//        StringBuilder stringBuilder = new StringBuilder();
+//        for (CompoundStatement compoundStatement : compoundStatements) {
+//            stringBuilder.append((compoundStatements.indexOf(compoundStatement) == 0) ? "" : Consts.printIndent(1))
+//                    .append(compoundStatement == null ? "Null"
+//                    : compoundStatement.toString());
+//        }
+//        return stringBuilder.toString();
     }
 }

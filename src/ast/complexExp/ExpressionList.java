@@ -9,6 +9,11 @@ public class ExpressionList extends ComplexExpression {
 
     public ExpressionList(int line_number, List<Atom> expressions) {
         super("ExpressionList", line_number);
+    }
+
+    public void setExpressions(List<Atom> expressions) {
         this.expressions = expressions;
     }
+
+
 }

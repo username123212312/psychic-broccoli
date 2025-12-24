@@ -9,5 +9,14 @@ public class ArithmeticAssignStatement extends AssignmentStatement {
         super("ArithmeticAssignStatement", line_number);
     }
 
+    public void setArithmeticExpression(ArithmeticExpression arithmeticExpression) {
+        this.arithmeticExpression = arithmeticExpression;
+    }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("ArithmeticExpression [Line: ").append(this.line_number).append("] (arithmeticExpression:" + arithmeticExpression + ")");
+        return sb.toString();
+    }
 }

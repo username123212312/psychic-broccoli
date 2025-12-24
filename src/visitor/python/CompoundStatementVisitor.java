@@ -5,9 +5,11 @@ import antlr.JinjaFlaskParserBaseVisitor;
 import ast.ElIfStatement;
 import ast.Imported;
 import ast.Statement;
+import ast.assignStmt.AssignmentStatement;
 import ast.compundStmt.CompoundStatement;
 import ast.compundStmt.IfStatement;
 import ast.compundStmt.ImportStatement;
+import ast.compundStmt.PythonExpression;
 import ast.condition.Condition;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import visitor.UniversalVisitor;
@@ -54,7 +56,8 @@ public class CompoundStatementVisitor extends JinjaFlaskParserBaseVisitor<Compou
 
     @Override
     public CompoundStatement visitAssignmentStatement(JinjaFlaskParser.AssignmentStatementContext ctx) {
-        return super.visitAssignmentStatement(ctx);
+        AssignmentStatementVisitor assignmentVisitor = new AssignmentStatementVisitor();
+        return assignmentVisitor.visit(ctx.assign_stmt());
     }
 
     @Override
@@ -84,26 +87,47 @@ public class CompoundStatementVisitor extends JinjaFlaskParserBaseVisitor<Compou
 
     @Override
     public ImportStatement visitImportFromDef(JinjaFlaskParser.ImportFromDefContext ctx) {
+//        ImportStatement importStatement = new ImportStatement(ctx.getStart().getLine());
+//        StringBuilder moduleBuilder = new StringBuilder();
+//
+//        List<TerminalNode> moduleNameTokens = ctx.NAME();
+//        if (!moduleNameTokens.isEmpty()) {
+//            moduleBuilder.append(moduleNameTokens.getFirst().getText());
+//
+//            for (int i = 1; i < moduleNameTokens.size() - ctx.imptd().size(); i++) {
+//                moduleBuilder.append(".").append(moduleNameTokens.get(i).getText());
+//            }
+//        }
+//
+//        String module = moduleBuilder.toString();
+//
+//        List<Imported> importedList = new ArrayList<>();
+//
+//        for (JinjaFlaskParser.ImptdContext imported : ctx.imptd()) {
+//            importedList.add((Imported) universalVisitor.visit(imported));
+//        }
+//        importStatement.setImportedList(importedList);
+//        importStatement.setModule(module);
+//
+//        return importStatement;
         ImportStatement importStatement = new ImportStatement(ctx.getStart().getLine());
         StringBuilder moduleBuilder = new StringBuilder();
-        List<TerminalNode> moduleNameTokens = ctx.NAME();
-        if (!moduleNameTokens.isEmpty()) {
-            moduleBuilder.append(moduleNameTokens.getFirst().getText());
+        for (int i = 0; i < ctx.getChildCount(); i++) {
+            var child = ctx.getChild(i);
+            if (child.getText().equalsIgnoreCase("IMPORT")) break;
 
-            for (int i = 1; i < moduleNameTokens.size() - ctx.imptd().size(); i++) {
-                moduleBuilder.append(".").append(moduleNameTokens.get(i).getText());
+            if (!child.getText().equalsIgnoreCase("FROM")) {
+                moduleBuilder.append(child.getText());
             }
         }
 
-        String module = moduleBuilder.toString();
+        importStatement.setModule(moduleBuilder.toString().trim());
 
         List<Imported> importedList = new ArrayList<>();
-
-        for (JinjaFlaskParser.ImptdContext imported : ctx.imptd()) {
-            importedList.add((Imported) universalVisitor.visit(imported));
+        for (JinjaFlaskParser.ImptdContext imptd : ctx.imptd()) {
+            importedList.add((Imported) universalVisitor.visit(imptd));
         }
         importStatement.setImportedList(importedList);
-        importStatement.setModule(module);
 
         return importStatement;
     }

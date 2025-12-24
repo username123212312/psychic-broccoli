@@ -46,6 +46,6 @@ public class ConditionVisitor extends JinjaFlaskParserBaseVisitor<Condition> {
         }
         comparisonExpression.setOperatorPythonExpressionMap(pythonExpressionMap);
 
-        return super.visitComparisonExpression(ctx);
+        return comparisonExpression;
     }
 }

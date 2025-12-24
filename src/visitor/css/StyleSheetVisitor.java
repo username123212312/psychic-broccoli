@@ -7,14 +7,20 @@ import ast.css.*;
 import ast.cssTerm.CssFunctionArguments;
 import ast.cssTerm.FunctionTerm;
 import ast.htmlElement.StyleSheet;
+import visitor.python.StatementVisitor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class StyleSheetVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
 
     @Override
     public StyleSheet visitStyleSheet(JinjaFlaskParser.StyleSheetContext ctx) {
-        return new StyleSheet(ctx.getStart().getLine(), new ArrayList<>());
+        List<RuleSet> ruleSets = new ArrayList<>();
+        for (int i = 0; i < ctx.ruleSet().size(); i++) {
+            //ruleSets.add(visitCssRule(ctx.));
+        }
+        return new StyleSheet(ctx.getStart().getLine(), ruleSets);
     }
 
     @Override
@@ -22,10 +28,10 @@ public class StyleSheetVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
         return new RuleSet(ctx.getStart().getLine(), null, null);
     }
 
-    @Override
-    public SelectorDeclaration visitCssSelectorDeclaration(JinjaFlaskParser.CssSelectorDeclarationContext ctx) {
-        return new SelectorDeclaration(ctx.getStart().getLine(), new ArrayList<>());
-    }
+//    @Override
+//    public SelectorDeclaration visitSelectorDeclaration(JinjaFlaskParser.SelectorDeclarationContext ctx) {
+//        return new SelectorDeclaration(ctx.getStart().getLine(), new ArrayList<>());
+//    }
 
     @Override
     public CssSelectorList visitCssSelectorList(JinjaFlaskParser.CssSelectorListContext ctx) {

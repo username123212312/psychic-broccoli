@@ -13,11 +13,18 @@ public class Program extends ASTNode{
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(super.toString());
-        for(Statement s : this.statements){
-            stringBuilder.append(Consts.printIndent(1)).append(s.toString());
+        StringBuilder sb = new StringBuilder();
+        sb.append("Program [Line: ").append(this.line_number).append("]");
+        for (Statement s : statements) {
+            String childStr = s.toString().replace("\n", "\n  ");
+            sb.append("\n  ").append(childStr);
         }
-        return stringBuilder.toString();
+        return sb.toString();
+//        StringBuilder stringBuilder = new StringBuilder();
+//        stringBuilder.append(super.toString());
+//        for(Statement s : this.statements){
+//            stringBuilder.append(Consts.printIndent(1)).append(s.toString());
+//        }
+//        return stringBuilder.toString();
     }
 }
