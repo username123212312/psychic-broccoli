@@ -21,4 +21,17 @@ public class AtomComplexExpression extends PythonExpression {
     public void setComplexExpressionList(List<ComplexExpression> complexExpressionList) {
         this.complexExpressionList = complexExpressionList;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append(atom.toString());
+        if (complexExpressionList != null) {
+            for (ComplexExpression complexExpression : complexExpressionList) {
+                stringBuilder.append(complexExpression.toString());
+            }
+        }
+        return stringBuilder.toString();
+    }
 }

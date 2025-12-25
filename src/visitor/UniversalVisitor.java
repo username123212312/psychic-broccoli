@@ -7,16 +7,14 @@ import ast.HtmlContent;
 import ast.Imported;
 import ast.atom.Atom;
 import ast.atom.Bool;
-import ast.complexExp.ExpressionList;
-import ast.compundStmt.IfStatement;
-import ast.compundStmt.ImportStatement;
+import ast.complexExp.ListItems;
 import ast.functionDef.Decorator;
 import ast.functionDef.FunctionParameters;
 import ast.htmlElement.StyleSheet;
 import ast.keyValue.KeyValue;
-import org.antlr.v4.runtime.tree.TerminalNode;
 import visitor.css.StyleSheetVisitor;
 import visitor.python.ArgumentListVisitor;
+import visitor.python.AtomVisitor;
 import visitor.python.KeyValueVisitor;
 
 import java.util.ArrayList;
@@ -28,7 +26,19 @@ public class UniversalVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
         return new FunctionParameters(ctx.getStart().getLine(), new ArrayList<>());
     }
 
+    @Override
+    public ListItems visitListItems(JinjaFlaskParser.ListItemsContext ctx) {
+        ListItems listItems = new ListItems(ctx.getStart().getLine());
+        List<Atom> atomList = new ArrayList<>();
+        AtomVisitor atomVisitor = new AtomVisitor();
+        for (int i = 0; i < ctx.atom().size(); i++) {
+            Atom atom = atomVisitor.visit(ctx.atom(i));
+            atomList.add(atom);
+        }
+        listItems.setAtomList(atomList);
 
+        return listItems;
+    }
 
     @Override
     public Decorator visitDecorator(JinjaFlaskParser.DecoratorContext ctx) {
@@ -52,11 +62,6 @@ public class UniversalVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
         KeyValueVisitor keyValueVisitor = new KeyValueVisitor();
         // Dummy
         return keyValueVisitor.visit(ctx.key_value(0));
-    }
-
-    @Override
-    public ExpressionList visitExpressionList(JinjaFlaskParser.ExpressionListContext ctx) {
-        return new ExpressionList(ctx.getStart().getLine(), new ArrayList<>());
     }
 
     @Override

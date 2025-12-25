@@ -2,9 +2,14 @@ package visitor.python;
 
 import antlr.JinjaFlaskParser;
 import antlr.JinjaFlaskParserBaseVisitor;
-import ast.complexExp.ComplexExpression;
-import ast.complexExp.Generator;
+import ast.atom.Atom;
+import ast.complexExp.*;
 import ast.compundStmt.ForLoop;
+import ast.keyValue.KeyValue;
+import visitor.UniversalVisitor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ComplexExpressionVisitor extends JinjaFlaskParserBaseVisitor<ComplexExpression> {
     @Override
@@ -16,24 +21,55 @@ public class ComplexExpressionVisitor extends JinjaFlaskParserBaseVisitor<Comple
         return generator;
     }
 
-    @Override
-    public ComplexExpression visitFunctionCall(JinjaFlaskParser.FunctionCallContext ctx) {
-        return super.visitFunctionCall(ctx);
-    }
 
     @Override
     public ComplexExpression visitListComprehension(JinjaFlaskParser.ListComprehensionContext ctx) {
-        return super.visitListComprehension(ctx);
+        ListComprehension listComprehension = new ListComprehension(ctx.getStart().getLine());
+        ForLoop forLoop = new ForLoopVisitor().visit(ctx.for_loop());
+        listComprehension.setForLoop(forLoop);
+        return listComprehension;
     }
 
     @Override
     public ComplexExpression visitDictionaryLiteral(JinjaFlaskParser.DictionaryLiteralContext ctx) {
-        return super.visitDictionaryLiteral(ctx);
+        return visit(ctx.dict_maker());
+    }
+
+    @Override
+    public ComplexExpression visitKeyValuePairs(JinjaFlaskParser.KeyValuePairsContext ctx) {
+        DictionaryLiteral dictionaryLiteral = new DictionaryLiteral(ctx.getStart().getLine());
+        List<KeyValue> keyValueList = new ArrayList<>();
+        for (int i = 0; i < ctx.key_value().size(); i++) {
+            KeyValue keyValue = new KeyValueVisitor().visit(ctx.key_value(i));
+            keyValueList.add(keyValue);
+        }
+        dictionaryLiteral.setKeyValues(keyValueList);
+
+        return dictionaryLiteral;
     }
 
     @Override
     public ComplexExpression visitListLiteral(JinjaFlaskParser.ListLiteralContext ctx) {
-        return super.visitListLiteral(ctx);
+        ListLiteral listLiteral = new ListLiteral(ctx.getStart().getLine());
+        if (ctx.list_items() == null){
+            listLiteral.setListItems(new ArrayList<>());
+            return listLiteral;
+        }
+        ListItems listItems = (ListItems) new UniversalVisitor().visit(ctx.list_items());
+
+        listLiteral.setListItems(listItems.getAtomList());
+
+        return listLiteral;
+    }
+
+    @Override
+    public ComplexExpression visitKeyAccess(JinjaFlaskParser.KeyAccessContext ctx) {
+        KeyAccess keyAccess = new KeyAccess(ctx.getStart().getLine());
+        Atom atom = new AtomVisitor().visit(ctx.atom());
+        String key = ctx.STRING().toString().replace("\"", "");
+        keyAccess.setKey(key);
+        keyAccess.setVar(atom);
+        return keyAccess;
     }
 
     @Override

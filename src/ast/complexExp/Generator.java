@@ -11,4 +11,9 @@ public class Generator extends ComplexExpression{
     public void setForLoop(ForLoop forLoop) {
         this.forLoop = forLoop;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " ( " + forLoop.toString() + " ) ";
+    }
 }

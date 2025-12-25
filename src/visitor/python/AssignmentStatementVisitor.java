@@ -3,6 +3,9 @@ package visitor.python;
 import antlr.JinjaFlaskParser;
 import antlr.JinjaFlaskParserBaseVisitor;
 import ast.assignStmt.AssignmentStatement;
+import ast.assignStmt.ComplexExpressionAssignStatement;
+import ast.complexExp.ComplexExpression;
+import ast.compundStmt.PythonExpression;
 
 public class AssignmentStatementVisitor extends JinjaFlaskParserBaseVisitor<AssignmentStatement> {
     @Override
@@ -17,7 +20,16 @@ public class AssignmentStatementVisitor extends JinjaFlaskParserBaseVisitor<Assi
 
     @Override
     public AssignmentStatement visitComplexExpressionAssignStatement(JinjaFlaskParser.ComplexExpressionAssignStatementContext ctx) {
-        return super.visitComplexExpressionAssignStatement(ctx);
+        ComplexExpressionVisitor complexExpressionVisitor = new ComplexExpressionVisitor();
+        PythonExpressionVisitor pythonExpressionVisitor = new PythonExpressionVisitor();
+        ComplexExpressionAssignStatement complexExpressionAssignStatement
+                = new ComplexExpressionAssignStatement(ctx.getStart().getLine());
+        PythonExpression var = pythonExpressionVisitor.visit(ctx.python_expr());
+        ComplexExpression complexExpression = complexExpressionVisitor.visit(ctx.complex_expr());
+        complexExpressionAssignStatement.setVar(var);
+        complexExpressionAssignStatement.setComplexExpression(complexExpression);
+
+        return complexExpressionAssignStatement;
     }
 
     @Override

@@ -54,7 +54,8 @@ public class CompoundStatementVisitor extends JinjaFlaskParserBaseVisitor<Compou
 
     @Override
     public CompoundStatement visitAssignmentStatement(JinjaFlaskParser.AssignmentStatementContext ctx) {
-        return super.visitAssignmentStatement(ctx);
+        AssignmentStatementVisitor assignmentStatementVisitor = new AssignmentStatementVisitor();
+        return assignmentStatementVisitor.visit(ctx.assign_stmt());
     }
 
     @Override

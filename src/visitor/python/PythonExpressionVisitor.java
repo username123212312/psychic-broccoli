@@ -28,6 +28,7 @@ public class PythonExpressionVisitor extends JinjaFlaskParserBaseVisitor<PythonE
             complexExpressionList.add(complexExpression);
         }
         atomComplexExpression.setComplexExpressionList(complexExpressionList);
+        atomComplexExpression.setAtom(atom);
 
         return atomComplexExpression;
     }

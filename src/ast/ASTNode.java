@@ -19,6 +19,6 @@ public abstract class ASTNode {
 
     @Override
     public String toString() {
-        return node_name + ", line : " + line_number;
+        return node_name + " [Line: " + this.line_number + "]";
     }
 }

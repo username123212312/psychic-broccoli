@@ -19,6 +19,7 @@ compound_stmt
     | assign_stmt  NEWLINE?      # AssignmentStatement
     | simple_expr  NEWLINE?      # SimpleExpression
     | for_loop     NEWLINE?      # ForLoopStatement
+//    | fun_call     NEWLINE?      # FunCall
     | python_expr  NEWLINE?      # PythonExpression
     | func_def     NEWLINE?      # FunctionDefinition
     | return_stmt  NEWLINE?      # ReturnStatement
@@ -32,7 +33,7 @@ return_stmt
     ;
 
 global_stmt
-    : GLOBAL NAME (COMMA NAME)*            
+    : GLOBAL NAME (COMMA NAME)*    # GlobalStatementDef
     ;
 
 import_from
@@ -74,6 +75,10 @@ comp_op
     | IS NOT   # IsNotOperator
     ;
 
+fun_call
+    : NAME LP arglist? RP
+    ;
+
 assign_stmt
     : python_expr ASSIGN complex_expr NEWLINE?       # ComplexExpressionAssignStatement
     | python_expr ASSIGN condition NEWLINE?          # ComparisonAssignStmt
@@ -87,8 +92,8 @@ template_literal
    ;
 
 for_loop
-    : FOR python_expr IN python_expr statement            # SimpleForLoop
-    | atom FOR python_expr IN atom (IF condition)*       # ComplexForLoop
+    : FOR atom IN python_expr statement            # SimpleForLoop
+    | atom FOR atom IN python_expr (IF condition)?       # ComplexForLoop
     ;
 
 func_def
@@ -114,7 +119,8 @@ complex_expr
     | LP arglist? RP               # FunctionCall
     | LBRACK for_loop RBRACK       # ListComprehension
     | LKBRACE dict_maker? RKBRACE  # DictionaryLiteral
-    | LBRACK exprlist? RBRACK      # ListLiteral      
+    | atom LBRACK STRING RBRACK    # KeyAccess
+    | LBRACK list_items? RBRACK      # ListLiteral
     | DOT NAME                     # AttributeAccess
     ;
 
@@ -131,8 +137,8 @@ bool_exp:
     | FALSE  # FalseAtom
     ;
 
-exprlist
-    : atom (COMMA atom)* COMMA? # ExpressionList
+list_items
+    : atom (COMMA atom)* COMMA? # ListItems
     ;
 
 dict_maker
@@ -141,6 +147,7 @@ dict_maker
 
 key_value
    : atom COLON atom        # AtomKeyValue
+   | atom COLON complex_expr # ComplexKeyValue
    | atom COLON simple_expr # SimpleKeyValue
    ;
 
@@ -157,8 +164,8 @@ arithmetic_expr
     ;
 
 arglist
-    :  atom (COMMA atom )* COMMA?            # AtomArgs
-    |  argument (COMMA argument )* COMMA?    # ComplexArgs
+    : atom (COMMA atom )* COMMA?            # AtomArgs
+    | argument (COMMA argument )* COMMA?    # ComplexArgs
     ;
 
 argument
