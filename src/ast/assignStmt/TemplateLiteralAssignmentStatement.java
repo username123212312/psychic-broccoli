@@ -13,8 +13,8 @@ public class TemplateLiteralAssignmentStatement extends AssignmentStatement {
         this.templateLiteral = templateLiteral;
     }
 
-//    @Override
-//    public String toString() {
-//        return super.toString() + templateLiteral.toString() + " ) ";
-//    }
+    @Override
+    public String toString() {
+        return super.toString() + templateLiteral.toString() + " ) ";
+    }
 }

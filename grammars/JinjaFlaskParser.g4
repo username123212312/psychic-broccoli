@@ -128,8 +128,6 @@ fun_params
     | NAME (COMMA NAME)*                         # PositionalParams
     ;
 
-
-
 atom
     : NAME   # NameAtom
     | CLASS_NAME  # ClassAtom
@@ -192,27 +190,15 @@ html_content_item
     ;
 
 htmlElement
-    // Regular HTML tags
-    : TAG_OPEN tag_content*? (TAG_SLASH_CLOSE | TAG_CLOSE) # TagElement
-
-    // Special elements with content
-    | SCRIPT_OPEN SCRIPT_BODY                             # ScriptElement
-    | STYLE_OPEN style_sheet STYLE_CLOSE                   # StyleElement
-
-    // XML/HTML special constructs
-    | XML_DECLARATION                                     # ProcessingInstruction
-    | CDATA                                               # CDataSection
-    | DTD                                                 # DocTypeDeclaration
-    | SCRIPTLET                                           # ServerScript
+    : TAG_OPEN tag_content*? (TAG_SLASH_CLOSE | TAG_CLOSE)  # TagElement
+    | SCRIPT_OPEN SCRIPT_BODY                               # ScriptElement
+    | STYLE_OPEN style_sheet STYLE_CLOSE                    # StyleElement
     ;
 
 tag_content
-    // Attribute definitions
     : TAG_NAME (TAG_EQUALS ATTVALUE_VALUE)? # HtmlAttribute
-    // Syntax markers
-    | TAG_SLASH  # ClosingMarker
+    | TAG_SLASH                             # ClosingMarker
     ;
-
 
 //===============CSS RULE======================
 
@@ -264,14 +250,13 @@ cssterm
     | CSS_ID                    # IdentifierTerm
     ;
 
-
 //=================jinja rules======================
 jinjaStatementBlock
-   : JINJA_STMT_START jStatement
+   : JINJA_STMT_START jStatement                    # JinjaStmtBlock
    ;
 
 jinjaExpressionBlock
-    : JINJA_EXPR_START j_expression JINJA_EXPR_END
+    : JINJA_EXPR_START j_expression JINJA_EXPR_END  # JinjaExprBlock
     ;
 
 jStatement
@@ -282,25 +267,25 @@ jStatement
     ;
 
 j_extends_stmt
-    : J_EXTENDS J_STRING JINJA_STMT_END
+    : J_EXTENDS J_STRING JINJA_STMT_END # JinjaExtendsStmtDef
     ;
 
 j_block_stmt
     : J_BLOCK J_NAME JINJA_STMT_END
       html_content
-      JINJA_STMT_START J_ENDBLOCK ( J_NAME )? JINJA_STMT_END
+      JINJA_STMT_START J_ENDBLOCK ( J_NAME )? JINJA_STMT_END # JinjaBlockStmtDef
     ;
 
 j_for_stmt
     : J_FOR J_NAME J_IN j_expression JINJA_STMT_END
       html_content
-      JINJA_STMT_START J_ENDFOR JINJA_STMT_END
+      JINJA_STMT_START J_ENDFOR JINJA_STMT_END  # JinjaForStmtDef
     ;
 
 j_if_stmt
     : J_IF j_expression JINJA_STMT_END
       html_content
-      JINJA_STMT_START J_ENDIF JINJA_STMT_END
+      JINJA_STMT_START J_ENDIF JINJA_STMT_END   # JinjaIfStmtDef
     ;
 
 j_expression
@@ -316,7 +301,7 @@ j_call_expr
     ;
 
 j_var_access
-    : J_NAME ( J_DOT J_NAME )*
+    : J_NAME ( J_DOT J_NAME )*  # JinjaVarAccessOnlyDef
     ;
 
 j_argument_list

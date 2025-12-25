@@ -10,4 +10,9 @@ public class TemplateLiteral extends ASTNode {
     public void setHtmlContent(HtmlContent htmlContent) {
         this.htmlContent = htmlContent;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + Consts.printIndent(2) + htmlContent.toString();
+    }
 }

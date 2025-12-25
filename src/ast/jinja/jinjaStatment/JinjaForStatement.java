@@ -3,7 +3,7 @@ package ast.jinja.jinjaStatment;
 import ast.HtmlContent;
 import ast.jinja.JinjaExprItem;
 
-public class JinjaForStatement extends JinjaStmtItem{
+public class JinjaForStatement extends JinjaStatement {
     private String id;
     private HtmlContent htmlContent;
     private JinjaExprItem iterable;

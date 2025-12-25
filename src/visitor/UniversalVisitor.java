@@ -12,9 +12,11 @@ import ast.complexExp.ListItems;
 import ast.compundStmt.GlobalStatement;
 import ast.functionDef.Decorator;
 import ast.functionDef.FunctionParameters;
+import ast.htmlContentItem.HtmlContentItem;
 import ast.htmlElement.StyleSheet;
 import ast.keyValue.KeyValue;
 import visitor.css.StyleSheetVisitor;
+import visitor.html.HtmlContentItemVisitor;
 import visitor.python.ArgumentListVisitor;
 import visitor.python.AtomVisitor;
 import visitor.python.FunctionParametersVisitor;
@@ -104,13 +106,16 @@ public class UniversalVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
 
     @Override
     public HtmlContent visitHtmlContent(JinjaFlaskParser.HtmlContentContext ctx) {
-        return new HtmlContent(ctx.getStart().getLine(), new ArrayList<>());
-    }
-
-    @Override
-    public StyleSheet visitStyleSheet(JinjaFlaskParser.StyleSheetContext ctx) {
-        StyleSheetVisitor styleSheetVisitor = new StyleSheetVisitor();
-        return styleSheetVisitor.visitStyleSheet(ctx);
+        HtmlContent htmlContent = new HtmlContent(ctx.getStart().getLine());
+        List<HtmlContentItem> htmlContentItems = new ArrayList<>();
+        HtmlContentItemVisitor htmlContentItemVisitor = new HtmlContentItemVisitor();
+        for(int i = 0; i < ctx.html_content_item().size(); i ++){
+            HtmlContentItem htmlContentItem = htmlContentItemVisitor
+                    .visit(ctx.html_content_item(i));
+            htmlContentItems.add(htmlContentItem);
+        }
+        htmlContent.setItems(htmlContentItems);
+        return htmlContent;
     }
 
     @Override
