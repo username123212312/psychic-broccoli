@@ -9,5 +9,12 @@ public class ArithmeticAssignStatement extends AssignmentStatement {
         super("ArithmeticAssignStatement", line_number);
     }
 
+    public void setArithmeticExpression(ArithmeticExpression arithmeticExpression) {
+        this.arithmeticExpression = arithmeticExpression;
+    }
 
+    @Override
+    public String toString() {
+        return super.toString() + arithmeticExpression.toString() + " ) ";
+    }
 }

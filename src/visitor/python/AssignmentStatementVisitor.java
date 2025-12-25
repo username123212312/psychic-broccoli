@@ -2,38 +2,58 @@ package visitor.python;
 
 import antlr.JinjaFlaskParser;
 import antlr.JinjaFlaskParserBaseVisitor;
-import ast.assignStmt.AssignmentStatement;
-import ast.assignStmt.ComplexExpressionAssignStatement;
-import ast.complexExp.ComplexExpression;
+import ast.TemplateLiteral;
+import ast.arithmeticExpr.ArithmeticExpression;
+import ast.assignStmt.*;
 import ast.compundStmt.PythonExpression;
+import ast.condition.Condition;
 
 public class AssignmentStatementVisitor extends JinjaFlaskParserBaseVisitor<AssignmentStatement> {
+    private final PythonExpressionVisitor pythonExpressionVisitor = new PythonExpressionVisitor();
+
     @Override
     public AssignmentStatement visitComparisonAssignStmt(JinjaFlaskParser.ComparisonAssignStmtContext ctx) {
-        return super.visitComparisonAssignStmt(ctx);
+        ComparisonAssignmentStmt comparisonAssignmentStmt = new ComparisonAssignmentStmt(ctx.getStart().getLine());
+        PythonExpression pythonExpression = pythonExpressionVisitor.visit(ctx.python_expr());
+        Condition condition = new ConditionVisitor().visit(ctx.condition());
+        comparisonAssignmentStmt.setVar(pythonExpression);
+        comparisonAssignmentStmt.setValue(condition);
+        return comparisonAssignmentStmt;
     }
 
     @Override
     public AssignmentStatement visitTemplateLiteralAssignStmt(JinjaFlaskParser.TemplateLiteralAssignStmtContext ctx) {
-        return super.visitTemplateLiteralAssignStmt(ctx);
+        TemplateLiteralAssignmentStatement templateLiteralAssignmentStatement
+                = new TemplateLiteralAssignmentStatement(ctx.getStart().getLine());
+        PythonExpression pythonExpression = pythonExpressionVisitor.visit(ctx.python_expr());
+        TemplateLiteral templateLiteral = new TemplateLiteralVisitor().visit(ctx.template_literal());
+        templateLiteralAssignmentStatement.setVar(pythonExpression);
+        templateLiteralAssignmentStatement.setTemplateLiteral(templateLiteral);
+        return templateLiteralAssignmentStatement;
     }
 
     @Override
-    public AssignmentStatement visitComplexExpressionAssignStatement(JinjaFlaskParser.ComplexExpressionAssignStatementContext ctx) {
-        ComplexExpressionVisitor complexExpressionVisitor = new ComplexExpressionVisitor();
-        PythonExpressionVisitor pythonExpressionVisitor = new PythonExpressionVisitor();
-        ComplexExpressionAssignStatement complexExpressionAssignStatement
-                = new ComplexExpressionAssignStatement(ctx.getStart().getLine());
-        PythonExpression var = pythonExpressionVisitor.visit(ctx.python_expr());
-        ComplexExpression complexExpression = complexExpressionVisitor.visit(ctx.complex_expr());
-        complexExpressionAssignStatement.setVar(var);
-        complexExpressionAssignStatement.setComplexExpression(complexExpression);
+    public AssignmentStatement visitPythonExpressionAssignStmt(JinjaFlaskParser.PythonExpressionAssignStmtContext ctx) {
 
-        return complexExpressionAssignStatement;
+        PythonExpressionAssignStatement pythonExpressionAssignStatement
+                = new PythonExpressionAssignStatement(ctx.getStart().getLine());
+        PythonExpression var = pythonExpressionVisitor.visit(ctx.python_expr(0));
+        PythonExpression value = pythonExpressionVisitor.visit(ctx.python_expr(1));
+
+        pythonExpressionAssignStatement.setVar(var);
+        pythonExpressionAssignStatement.setValue(value);
+        return pythonExpressionAssignStatement;
     }
+
 
     @Override
     public AssignmentStatement visitArithmeticAssignStmt(JinjaFlaskParser.ArithmeticAssignStmtContext ctx) {
-        return super.visitArithmeticAssignStmt(ctx);
+        ArithmeticAssignStatement arithmeticAssignStatement = new ArithmeticAssignStatement(ctx.getStart().getLine());
+        PythonExpression pythonExpression = pythonExpressionVisitor.visit(ctx.python_expr());
+        ArithmeticExpression arithmeticExpression = new ArithmeticExpressionVisitor().visit(ctx.arithmetic_expr());
+        arithmeticAssignStatement.setVar(pythonExpression);
+        arithmeticAssignStatement.setArithmeticExpression(arithmeticExpression);
+
+        return arithmeticAssignStatement;
     }
 }

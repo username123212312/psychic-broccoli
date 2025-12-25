@@ -14,6 +14,13 @@ public class AtomVisitor extends JinjaFlaskParserBaseVisitor<Atom> {
     }
 
     @Override
+    public ClassAtom visitClassAtom(JinjaFlaskParser.ClassAtomContext ctx) {
+        ClassAtom classAtom = new ClassAtom(ctx.getStart().getLine());
+        classAtom.setValue(ctx.CLASS_NAME());
+        return classAtom;
+    }
+
+    @Override
     public Atom visitNumberAtom(JinjaFlaskParser.NumberAtomContext ctx) {
         Number number = new Number(ctx.getStart().getLine());
         number.setValue(ctx.NUMBER().getText());

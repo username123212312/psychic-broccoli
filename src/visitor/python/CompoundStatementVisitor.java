@@ -5,10 +5,17 @@ import antlr.JinjaFlaskParserBaseVisitor;
 import ast.ElIfStatement;
 import ast.Imported;
 import ast.Statement;
+import ast.atomExpression.AtomExpression;
 import ast.compundStmt.CompoundStatement;
+import ast.compundStmt.GlobalStatement;
 import ast.compundStmt.IfStatement;
 import ast.compundStmt.ImportStatement;
 import ast.condition.Condition;
+import ast.functionDef.Decorator;
+import ast.functionDef.FunctionDefinition;
+import ast.functionDef.FunctionParameter;
+import ast.functionDef.FunctionParameters;
+import ast.returnStmt.ReturnStatement;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import visitor.UniversalVisitor;
 
@@ -21,6 +28,13 @@ public class CompoundStatementVisitor extends JinjaFlaskParserBaseVisitor<Compou
     @Override
     public CompoundStatement visitIfStatement(JinjaFlaskParser.IfStatementContext ctx) {
         return visit(ctx.if_stmt());
+    }
+
+    @Override
+    public CompoundStatement visitAtomExpression(JinjaFlaskParser.AtomExpressionContext ctx) {
+        AtomExpressionVisitor atomExpressionVisitor = new AtomExpressionVisitor();
+        AtomExpression atomExpression = atomExpressionVisitor.visit(ctx.atom_expr());
+        return atomExpression;
     }
 
     @Override
@@ -58,24 +72,32 @@ public class CompoundStatementVisitor extends JinjaFlaskParserBaseVisitor<Compou
         return assignmentStatementVisitor.visit(ctx.assign_stmt());
     }
 
-    @Override
-    public CompoundStatement visitForLoopStatement(JinjaFlaskParser.ForLoopStatementContext ctx) {
-        return super.visitForLoopStatement(ctx);
-    }
-
-    @Override
-    public CompoundStatement visitPythonExpression(JinjaFlaskParser.PythonExpressionContext ctx) {
-        return super.visitPythonExpression(ctx);
-    }
 
     @Override
     public CompoundStatement visitFunctionDefinition(JinjaFlaskParser.FunctionDefinitionContext ctx) {
-        return super.visitFunctionDefinition(ctx);
+        return visit(ctx.func_def());
+    }
+
+    @Override
+    public CompoundStatement visitFunctionDefDef(JinjaFlaskParser.FunctionDefDefContext ctx) {
+        UniversalVisitor universalVisitor = new UniversalVisitor();
+        FunctionDefinition functionDefinition = new FunctionDefinition(ctx.getStart().getLine());
+        if (ctx.dec() != null) {
+            Decorator decorator = (Decorator) universalVisitor.visit(ctx.dec());
+            functionDefinition.setDecorator(decorator);
+        }
+        functionDefinition.setFunctionName(ctx.NAME().getText());
+        FunctionParameters functionParameters = (FunctionParameters) universalVisitor.visit(ctx.parameters());
+        Statement statement = new StatementVisitor().visit(ctx.statement());
+        functionDefinition.setFunctionParameters(functionParameters);
+        functionDefinition.setFunctionBody(statement);
+        return functionDefinition;
     }
 
     @Override
     public CompoundStatement visitReturnStatement(JinjaFlaskParser.ReturnStatementContext ctx) {
-        return super.visitReturnStatement(ctx);
+        ReturnStatementVisitor returnStatementVisitor = new ReturnStatementVisitor();
+        return returnStatementVisitor.visit(ctx.return_stmt());
     }
 
     @Override
@@ -111,6 +133,6 @@ public class CompoundStatementVisitor extends JinjaFlaskParserBaseVisitor<Compou
 
     @Override
     public CompoundStatement visitGlobalStatement(JinjaFlaskParser.GlobalStatementContext ctx) {
-        return super.visitGlobalStatement(ctx);
+        return (CompoundStatement) universalVisitor.visit(ctx.global_stmt());
     }
 }

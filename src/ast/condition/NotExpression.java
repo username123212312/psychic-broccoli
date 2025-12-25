@@ -15,9 +15,7 @@ public class NotExpression extends Condition{
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(super.toString()).append(Consts.printIndent(1))
-                .append(pythonExpression.toString());
-        return stringBuilder.toString();
+        return super.toString() + Consts.printIndent(1) +
+                pythonExpression.toString();
     }
 }

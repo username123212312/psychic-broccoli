@@ -62,19 +62,5 @@ public class ComplexExpressionVisitor extends JinjaFlaskParserBaseVisitor<Comple
         return listLiteral;
     }
 
-    @Override
-    public ComplexExpression visitKeyAccess(JinjaFlaskParser.KeyAccessContext ctx) {
-        KeyAccess keyAccess = new KeyAccess(ctx.getStart().getLine());
-        Atom atom = new AtomVisitor().visit(ctx.atom());
-        String key = ctx.STRING().toString().replace("\"", "");
-        keyAccess.setKey(key);
-        keyAccess.setVar(atom);
-        return keyAccess;
-    }
-
-    @Override
-    public ComplexExpression visitAttributeAccess(JinjaFlaskParser.AttributeAccessContext ctx) {
-        return super.visitAttributeAccess(ctx);
-    }
 
 }

@@ -4,6 +4,7 @@ import antlr.JinjaFlaskParser;
 import antlr.JinjaFlaskParserBaseVisitor;
 import ast.AtomComplexExpression;
 import ast.atom.Atom;
+import ast.atomExpression.AtomExpression;
 import ast.complexExp.ComplexExpression;
 import ast.compundStmt.PythonExpression;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PythonExpressionVisitor extends JinjaFlaskParserBaseVisitor<PythonExpression> {
-    private ComplexExpressionVisitor complexExpressionVisitor = new ComplexExpressionVisitor();
+    private final ComplexExpressionVisitor complexExpressionVisitor = new ComplexExpressionVisitor();
 
     @Override
     public PythonExpression visitComplexExpression(JinjaFlaskParser.ComplexExpressionContext ctx) {
@@ -20,16 +21,8 @@ public class PythonExpressionVisitor extends JinjaFlaskParserBaseVisitor<PythonE
 
     @Override
     public PythonExpression visitAtomComplexExpression(JinjaFlaskParser.AtomComplexExpressionContext ctx) {
-        AtomComplexExpression atomComplexExpression = new AtomComplexExpression(ctx.getStart().getLine());
-        Atom atom = new AtomVisitor().visit(ctx.atom());
-        List<ComplexExpression> complexExpressionList = new ArrayList<>();
-        for (JinjaFlaskParser.Complex_exprContext complexExprContext : ctx.complex_expr()) {
-            ComplexExpression complexExpression = complexExpressionVisitor.visit(complexExprContext);
-            complexExpressionList.add(complexExpression);
-        }
-        atomComplexExpression.setComplexExpressionList(complexExpressionList);
-        atomComplexExpression.setAtom(atom);
-
-        return atomComplexExpression;
+        AtomExpressionVisitor atomExpressionVisitor = new AtomExpressionVisitor();
+        return atomExpressionVisitor.visit(ctx.atom_expr());
     }
+
 }

@@ -65,7 +65,9 @@ MOD: '%';
 
 NEWLINE: ({this.atStartOfInput()}? SPACES | ( '\r'? '\n' | '\r' | '\f') SPACES?) {this.onNewLine();};
 
+CLASS_NAME: [A-Z][a-zA-Z0-9_]*;
 NAME: [a-zA-Z_][a-zA-Z0-9_]*;
+
 
 LP:  '(' {this.openBrace();};
 RP: ')'  {this.closeBrace();};

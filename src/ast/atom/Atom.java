@@ -17,4 +17,8 @@ public class Atom extends ASTNode {
     public String toString() {
         return value.toString();
     }
+
+    public Object getValue() {
+        return value;
+    }
 }

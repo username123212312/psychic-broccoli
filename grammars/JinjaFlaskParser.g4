@@ -17,9 +17,9 @@ statement
 compound_stmt
     : if_stmt      NEWLINE?      # IfStatement
     | assign_stmt  NEWLINE?      # AssignmentStatement
+    | atom_expr    NEWLINE?      # AtomExpression
     | simple_expr  NEWLINE?      # SimpleExpression
     | for_loop     NEWLINE?      # ForLoopStatement
-//    | fun_call     NEWLINE?      # FunCall
     | python_expr  NEWLINE?      # PythonExpression
     | func_def     NEWLINE?      # FunctionDefinition
     | return_stmt  NEWLINE?      # ReturnStatement
@@ -41,7 +41,7 @@ import_from
     ;
 
 imptd
-    : NAME (AS NAME)?   # Imported
+    : (NAME | CLASS_NAME) (AS (NAME | CLASS_NAME))?   # Imported
     ;
 
 if_stmt
@@ -57,8 +57,25 @@ condition
     ;
 
 python_expr
-    : complex_expr               # ComplexExpression
-    | atom complex_expr*         # AtomComplexExpression
+    : atom_expr                  # AtomComplexExpression
+    | complex_expr               # ComplexExpression
+    ;
+
+atom_expr
+    : atom LBRACK NUMBER RBRACK         # ListAccess
+    | atom LBRACK STRING RBRACK         # DictionaryAccess
+    | atom (DOT atom)+                  # AttributeAccess
+    | atom (DOT atom_expr)+             # MethodAccess
+    | CLASS_NAME LP arglist? RP         # ObjectCreation
+    | NAME LP arglist? RP               # FunctionCall
+    | atom                              # SimpleVar
+    ;
+
+complex_expr
+    : LP for_loop RP               # Generator
+    | LBRACK for_loop RBRACK       # ListComprehension
+    | LKBRACE dict_maker? RKBRACE  # DictionaryLiteral
+    | LBRACK list_items? RBRACK    # ListLiteral
     ;
 
 comp_op
@@ -75,16 +92,14 @@ comp_op
     | IS NOT   # IsNotOperator
     ;
 
-fun_call
-    : NAME LP arglist? RP
-    ;
 
 assign_stmt
-    : python_expr ASSIGN complex_expr NEWLINE?       # ComplexExpressionAssignStatement
+    : python_expr ASSIGN python_expr NEWLINE?       # PythonExpressionAssignStmt
     | python_expr ASSIGN condition NEWLINE?          # ComparisonAssignStmt
     | python_expr ASSIGN arithmetic_expr NEWLINE?    # ArithmeticAssignStmt
     | python_expr ASSIGN template_literal NEWLINE?    # TemplateLiteralAssignStmt
     ;
+
 
 template_literal
    : TRIPLE_DOUBLE_START html_content  TRIPLE_DOUBLE_END      # HtmlContentDoubleTemplate
@@ -92,12 +107,12 @@ template_literal
    ;
 
 for_loop
-    : FOR atom IN python_expr statement            # SimpleForLoop
+    : FOR atom IN python_expr statement                  # SimpleForLoop
     | atom FOR atom IN python_expr (IF condition)?       # ComplexForLoop
     ;
 
 func_def
-    : dec? DEF NAME parameters COLON statement
+    : dec? DEF NAME parameters COLON statement      # FunctionDefDef
     ;
 
 dec
@@ -114,18 +129,10 @@ fun_params
     ;
 
 
-complex_expr
-    : LP for_loop RP               # Generator
-    | LP arglist? RP               # FunctionCall
-    | LBRACK for_loop RBRACK       # ListComprehension
-    | LKBRACE dict_maker? RKBRACE  # DictionaryLiteral
-    | atom LBRACK STRING RBRACK    # KeyAccess
-    | LBRACK list_items? RBRACK      # ListLiteral
-    | DOT NAME                     # AttributeAccess
-    ;
 
 atom
     : NAME   # NameAtom
+    | CLASS_NAME  # ClassAtom
     | NUMBER # NumberAtom
     | STRING # StringAtom
     | NONE   # NoneAtom
