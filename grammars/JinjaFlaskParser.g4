@@ -147,7 +147,6 @@ dict_maker
 
 key_value
    : atom COLON atom        # AtomKeyValue
-   | atom COLON complex_expr # ComplexKeyValue
    | atom COLON simple_expr # SimpleKeyValue
    ;
 
@@ -157,10 +156,10 @@ simple_expr
     ;
 
 arithmetic_expr
-    : python_expr (PLUS python_expr)*           # Addition
-    | python_expr (MINUS python_expr)*          # Subtraction
-    | python_expr (SLASH python_expr)*          # Division
-    | python_expr (STAR python_expr)*           # Multiplication
+    : python_expr (PLUS python_expr)+           # Addition
+    | python_expr (MINUS python_expr)+          # Subtraction
+    | python_expr (SLASH python_expr)+          # Division
+    | python_expr (STAR python_expr)+          # Multiplication
     ;
 
 arglist
