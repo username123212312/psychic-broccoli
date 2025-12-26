@@ -1,3 +1,5 @@
+p = """
+<style>
 body {
     text-align: center;
 }
@@ -87,3 +89,5 @@ body {
 .info {
     max-width: 600px;
 }
+</style>
+"""
