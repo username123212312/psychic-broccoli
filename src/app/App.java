@@ -10,6 +10,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
+import symbolTable.SymbolTableWrapper;
 import visitor.python.ProgramVisitor;
 
 import javax.swing.*;
@@ -44,6 +45,8 @@ public class App {
                 ProgramVisitor programVisitor = new ProgramVisitor();
                 Program program = programVisitor.visit(antlrAST);
                 System.out.println(program);
+
+                System.out.println(SymbolTableWrapper.getSymbolTable());
                 // If we reach here, the parse was successful!
                 System.out.println("--- Parsing SUCCESSFUL! ---");
 

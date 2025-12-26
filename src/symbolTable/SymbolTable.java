@@ -56,4 +56,9 @@ public class SymbolTable {
         }
         return entry.getAttribute(key);
     }
+
+    @Override
+    public String toString() {
+        return "Symbol table";
+    }
 }
