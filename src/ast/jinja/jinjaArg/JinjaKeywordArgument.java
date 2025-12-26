@@ -1,14 +1,20 @@
 package ast.jinja.jinjaArg;
 
-import ast.jinja.JinjaExprItem;
 
 public class JinjaKeywordArgument extends JinjaArgument {
-    private final String id;
-    private final JinjaExprItem jinjaExpression;
+    private String id;
 
-    public JinjaKeywordArgument(int line_number, String id, JinjaExprItem jinjaExpression) {
+    public JinjaKeywordArgument(int line_number) {
         super("JinjaKeywordArgument", line_number);
+
+    }
+
+    public void setId(String id) {
         this.id = id;
-        this.jinjaExpression = jinjaExpression;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " ( " + id + " = " +getArgument().toString() + " ) ";
     }
 }

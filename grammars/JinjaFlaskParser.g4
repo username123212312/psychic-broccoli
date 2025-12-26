@@ -305,7 +305,7 @@ j_var_access
     ;
 
 j_argument_list
-    : j_argument ( J_COMMA j_argument )* # JinjaArgList
+    : j_argument ( J_COMMA j_argument )* # JinjaArgListDef
     ;
 
 j_argument

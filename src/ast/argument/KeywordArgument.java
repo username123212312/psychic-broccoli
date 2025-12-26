@@ -15,6 +15,6 @@ public class KeywordArgument extends Argument {
 
     @Override
     public String toString() {
-        return argName + " = " + super.getArg().toString();
+        return argName + " = " + super.toString();
     }
 }

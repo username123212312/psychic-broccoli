@@ -16,6 +16,6 @@ public abstract class AssignmentStatement extends CompoundStatement {
 
     @Override
     public String toString() {
-        return super.toString() + " ( " + var.toString() + " = ";
+        return super.toString() + " ( " + var.toString() + " = " ;
     }
 }

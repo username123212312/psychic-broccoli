@@ -3,55 +3,38 @@ package visitor.jinja;
 import antlr.JinjaFlaskParser;
 import antlr.JinjaFlaskParserBaseVisitor;
 import ast.ASTNode;
+import ast.jinja.JinjaArgumentsList;
+import ast.jinja.jinjaArg.JinjaArgument;
+import ast.jinja.jinjaCallExpr.JinjaVariableAccess;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class JinjaVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
 
     @Override
-    public ASTNode visitJinjaArgList(JinjaFlaskParser.JinjaArgListContext ctx) {
-        return super.visitJinjaArgList(ctx);
+    public JinjaVariableAccess visitJinjaVarAccessOnlyDef(JinjaFlaskParser.JinjaVarAccessOnlyDefContext ctx) {
+        JinjaVariableAccess jinjaVariableAccess = new JinjaVariableAccess(ctx.start.getLine());
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(ctx.J_NAME(0));
+        for (int i = 1; i < ctx.J_NAME().size(); i++) {
+            stringBuilder.append(".").append(ctx.J_NAME(i));
+        }
+        jinjaVariableAccess.setDottedName(stringBuilder.toString());
+        return jinjaVariableAccess;
     }
 
-//    @Override
-//    public JinjaStatement visitJinjaStmt(JinjaFlaskParser.JinjaStmtContext ctx) {
-//        JinjaStatementVisitor jinjaStatementVisitor = new JinjaStatementVisitor();
-//        return jinjaStatementVisitor.visit(ctx.jStatement());
-//    }
-//
-//    @Override
-//    public JinjaExpression visitJinjaExpr(JinjaFlaskParser.JinjaExprContext ctx) {
-//        JinjaExpressionVisitor jinjaExpressionVisitor = new JinjaExpressionVisitor();
-//        return jinjaExpressionVisitor.visit(ctx.j_expression());
-//    }
-//
-//    @Override
-//    public JinjaExtendStatement visitJinjaExtendsDirective(JinjaFlaskParser.JinjaExtendsDirectiveContext ctx) {
-//        return new JinjaExtendStatement(ctx.getStart().getLine(), "");
-//    }
-//
-//    @Override
-//    public ASTNode visitJinjaBlockDefinition(JinjaFlaskParser.JinjaBlockDefinitionContext ctx) {
-//        return super.visitJinjaBlockDefinition(ctx);
-//    }
-//
-//    @Override
-//    public ASTNode visitJinjaForLoopDefinition(JinjaFlaskParser.JinjaForLoopDefinitionContext ctx) {
-//        return super.visitJinjaForLoopDefinition(ctx);
-//    }
-//
-//    @Override
-//    public ASTNode visitJinjaConditional(JinjaFlaskParser.JinjaConditionalContext ctx) {
-//        return super.visitJinjaConditional(ctx);
-//    }
-//
-//    @Override
-//    public ASTNode visitJinjaDottedName(JinjaFlaskParser.JinjaDottedNameContext ctx) {
-//        return super.visitJinjaDottedName(ctx);
-//    }
-//
-//    @Override
-//    public ASTNode visitJinjaArgList(JinjaFlaskParser.JinjaArgListContext ctx) {
-//        return super.visitJinjaArgList(ctx);
-//    }
-
+    @Override
+    public JinjaArgumentsList visitJinjaArgListDef(JinjaFlaskParser.JinjaArgListDefContext ctx) {
+        JinjaArgumentsList jinjaArgumentsList = new JinjaArgumentsList(ctx.start.getLine());
+        JinjaArgumentVisitor jinjaArgumentVisitor = new JinjaArgumentVisitor();
+        List<JinjaArgument> arguments = new ArrayList<>();
+        for(int i = 0; i < ctx.j_argument().size();i ++){
+            JinjaArgument jinjaArgument = jinjaArgumentVisitor.visit(ctx.j_argument(i));
+            arguments.add(jinjaArgument);
+        }
+        jinjaArgumentsList.setArguments(arguments);
+        return jinjaArgumentsList;
+    }
 }

@@ -1,6 +1,7 @@
 package ast.css;
 
 import ast.ASTNode;
+import ast.Consts;
 
 public class RuleSet extends ASTNode {
     private SelectorDeclaration selectorDeclaration;
@@ -15,5 +16,12 @@ public class RuleSet extends ASTNode {
 
     public void setDeclarationList(CssDeclarationList declarationList) {
         this.declarationList = declarationList;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " ( "
+                + selectorDeclaration.toString()
+                + Consts.printIndent(3) + declarationList.toString();
     }
 }

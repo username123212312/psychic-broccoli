@@ -5,6 +5,7 @@ import antlr.JinjaFlaskParserBaseVisitor;
 import ast.ASTNode;
 import ast.css.*;
 import ast.cssTerm.CssFunctionArguments;
+import ast.cssTerm.CssTerm;
 import ast.cssTerm.FunctionTerm;
 import ast.htmlElement.StyleSheet;
 
@@ -52,7 +53,7 @@ public class StyleSheetVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
         CssSelectorList cssSelectorList = new CssSelectorList(ctx.getStart().getLine());
         CssSelectorVisitor cssSelectorVisitor = new CssSelectorVisitor();
         List<CssSelector> cssSelectors = new ArrayList<>();
-        for(int i = 0; i< ctx.css_selector().size(); i ++ ){
+        for (int i = 0; i < ctx.css_selector().size(); i++) {
             CssSelector cssSelector = cssSelectorVisitor.visit(ctx.css_selector(i));
             cssSelectors.add(cssSelector);
         }
@@ -62,21 +63,46 @@ public class StyleSheetVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
 
     @Override
     public CssDeclarationList visitDeclarationBlock(JinjaFlaskParser.DeclarationBlockContext ctx) {
-        return new CssDeclarationList(ctx.getStart().getLine(), new ArrayList<>());
+        CssDeclarationList cssDeclarationList = new CssDeclarationList(ctx.start.getLine());
+        List<CssDeclaration> declarations = new ArrayList<>();
+        if (!ctx.declaration().isEmpty()) {
+            for (int i = 0; i < ctx.declaration().size(); i++) {
+                CssDeclaration cssDeclaration = (CssDeclaration) visit(ctx.declaration(i));
+                declarations.add(cssDeclaration);
+            }
+        }
+        cssDeclarationList.setDeclarations(declarations);
+
+        return cssDeclarationList;
     }
 
     @Override
     public CssDeclaration visitCssDeclaration(JinjaFlaskParser.CssDeclarationContext ctx) {
-        return new CssDeclaration(ctx.getStart().getLine(), new ArrayList<>());
+        CssDeclaration cssDeclaration = new CssDeclaration(ctx.start.getLine());
+        CssTermVisitor cssTermVisitor = new CssTermVisitor();
+        List<CssTerm> terms = new ArrayList<>();
+        for (int i = 0; i < ctx.cssterm().size(); i++) {
+            CssTerm cssTerm = cssTermVisitor.visit(ctx.cssterm(i));
+            terms.add(cssTerm);
+        }
+        cssDeclaration.setCssTermList(terms);
+        cssDeclaration.setId(ctx.CSS_ID().getText());
+
+        return cssDeclaration;
     }
 
-    @Override
-    public FunctionTerm visitCssFunctionCall(JinjaFlaskParser.CssFunctionCallContext ctx) {
-        return new FunctionTerm(ctx.getStart().getLine(), visitFunctionArguments((JinjaFlaskParser.FunctionArgumentsContext) ctx.css_function_args()));
-    }
 
     @Override
     public CssFunctionArguments visitFunctionArguments(JinjaFlaskParser.FunctionArgumentsContext ctx) {
-        return new CssFunctionArguments(ctx.getStart().getLine(), new ArrayList<>());
+        CssFunctionArguments cssFunctionArguments = new CssFunctionArguments(ctx.start.getLine());
+        CssTermVisitor cssTermVisitor = new CssTermVisitor();
+        List<CssTerm> cssTerms = new ArrayList<>();
+        for(int i = 0; i < ctx.cssterm().size(); i ++ ){
+            CssTerm cssTerm = cssTermVisitor.visit(ctx.cssterm(i));
+            cssTerms.add(cssTerm);
+        }
+        cssFunctionArguments.setCssTerms(cssTerms);
+
+        return cssFunctionArguments;
     }
 }
