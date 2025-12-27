@@ -17,6 +17,10 @@ public abstract class ASTNode {
         this.line_number = line_number;
     }
 
+    public String symbolTablePrint(){
+        return toString();
+    }
+
     @Override
     public String toString() {
         return node_name + " [Line: " + this.line_number + "]";

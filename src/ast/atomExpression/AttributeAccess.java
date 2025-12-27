@@ -16,6 +16,16 @@ public class AttributeAccess extends AtomExpression {
     }
 
     @Override
+    public String symbolTablePrint() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(super.getVarName());
+        for (Atom atom : attributes) {
+            stringBuilder.append(".").append(atom.toString());
+        }
+        return stringBuilder.toString();
+    }
+
+    @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(super.toString());

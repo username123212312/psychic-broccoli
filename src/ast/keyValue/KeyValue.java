@@ -14,6 +14,12 @@ public abstract class KeyValue extends ASTNode {
         this.key = key;
     }
 
+
+    @Override
+    public String symbolTablePrint() {
+        return key.toString() + " : ";
+    }
+
     @Override
     public String toString() {
         return key.toString() + " : ";

@@ -20,6 +20,16 @@ public class ComplexArguments extends ArgumentsList {
     }
 
     @Override
+    public String symbolTablePrint() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Argument arg : arguments) {
+            stringBuilder.append(arg.symbolTablePrint())
+                    .append((arguments.indexOf(arg) == arguments.size() - 1) ? "" : ", ");
+        }
+        return stringBuilder.toString();
+    }
+
+    @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         for (Argument arg : arguments) {

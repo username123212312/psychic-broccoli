@@ -14,6 +14,16 @@ public class MethodAccess extends AtomExpression {
     }
 
     @Override
+    public String symbolTablePrint() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(getVarName());
+        for (AtomExpression atomExpression : methodCalls) {
+            stringBuilder.append(".").append(atomExpression.symbolTablePrint());
+        }
+        return stringBuilder.toString();
+    }
+
+    @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(super.toString());

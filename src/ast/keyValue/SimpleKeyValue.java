@@ -16,6 +16,11 @@ public class SimpleKeyValue extends KeyValue {
     }
 
     @Override
+    public String symbolTablePrint() {
+        return super.symbolTablePrint() + value.symbolTablePrint();
+    }
+
+    @Override
     public String toString() {
         return super.toString() + value.toString();
     }

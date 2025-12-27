@@ -32,6 +32,18 @@ public class ArithmeticExpression extends SimpleExpression {
     }
 
     @Override
+    public String symbolTablePrint() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(left.symbolTablePrint());
+        if(right != null){
+            for(PythonExpression pythonExpression : right){
+                stringBuilder.append(operator).append(" ").append(pythonExpression.symbolTablePrint());
+            }
+        }
+        return stringBuilder.toString();
+    }
+
+    @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(left.toString());

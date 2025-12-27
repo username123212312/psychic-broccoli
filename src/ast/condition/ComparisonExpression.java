@@ -23,6 +23,21 @@ public class ComparisonExpression extends Condition {
         this.operatorPythonExpressionMap = operatorPythonExpressionMap;
     }
 
+
+    @Override
+    public String symbolTablePrint() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(baseExpr == null ? "Null" : baseExpr.symbolTablePrint());
+        if(operatorPythonExpressionMap != null){
+            for (ComparisonOperator comparisonOperator : operatorPythonExpressionMap.keySet()) {
+                PythonExpression compExpr = operatorPythonExpressionMap.get(comparisonOperator);
+                stringBuilder.append(comparisonOperator == null ? "Null" : comparisonOperator.toString()).append(" ")
+                        .append(compExpr == null ? "Null" : compExpr.symbolTablePrint());
+            }
+        }
+        return stringBuilder.toString();
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();

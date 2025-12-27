@@ -13,6 +13,15 @@ public abstract class AtomExpression extends PythonExpression {
         this.varName = varName;
     }
 
+    public String getVarName() {
+        return varName;
+    }
+
+    @Override
+    public String symbolTablePrint() {
+        return " ( " + varName + " ";
+    }
+
     @Override
     public String toString() {
         return super.toString() + " ( " + varName + " ";

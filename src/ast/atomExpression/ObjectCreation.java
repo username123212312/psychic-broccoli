@@ -13,6 +13,11 @@ public class ObjectCreation extends AtomExpression{
     }
 
     @Override
+    public String symbolTablePrint() {
+        return super.getVarName() + "(" + argumentsList.symbolTablePrint() + ")";
+    }
+
+    @Override
     public String toString() {
         return super.toString() + argumentsList.toString() + " ) ";
     }

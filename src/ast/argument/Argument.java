@@ -15,6 +15,11 @@ public abstract class Argument extends ASTNode {
     }
 
     @Override
+    public String symbolTablePrint() {
+        return arg.symbolTablePrint();
+    }
+
+    @Override
     public String toString() {
         return arg.toString();
     }

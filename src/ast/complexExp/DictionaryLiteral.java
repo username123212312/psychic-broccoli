@@ -16,6 +16,18 @@ public class DictionaryLiteral extends ComplexExpression {
     }
 
     @Override
+    public String symbolTablePrint() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(" { ");
+        for (KeyValue keyValue : keyValues) {
+            stringBuilder.append(keyValue.symbolTablePrint())
+                    .append((keyValues.indexOf(keyValue) == (keyValues.size() - 1)) ? "" : ", ");
+        }
+        stringBuilder.append(" }");
+        return stringBuilder.toString();
+    }
+
+    @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(super.toString()).append(" { ");

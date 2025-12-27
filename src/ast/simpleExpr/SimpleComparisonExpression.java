@@ -14,6 +14,11 @@ public class SimpleComparisonExpression extends SimpleExpression {
     }
 
     @Override
+    public String symbolTablePrint() {
+        return condition.symbolTablePrint();
+    }
+
+    @Override
     public String toString() {
         return condition.toString();
     }

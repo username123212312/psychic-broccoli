@@ -1,6 +1,7 @@
 package symbolTable;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class SymbolTable {
 
@@ -59,6 +60,24 @@ public class SymbolTable {
 
     @Override
     public String toString() {
-        return "Symbol table";
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("\n=================== SYMBOL TABLE ===================\n");
+        stringBuilder.append(String.format("%-20s | %s\n", "Symbol Name", "Attributes"));
+        stringBuilder.append("----------------------------------------------------\n");
+
+        for (Map.Entry<String, SymbolEntry> entry : table.entrySet()) {
+            String symbolName = entry.getKey();
+            SymbolEntry symbolEntry = entry.getValue();
+
+            Object value = symbolEntry.getAttribute("Value");
+            String valueStr = (value != null) ? value.toString() : "null";
+
+            stringBuilder.append(String.format("%-20s | %s\n",
+                    symbolName, valueStr));
+        }
+
+        stringBuilder.append("====================================================\n");
+        return stringBuilder.toString();
     }
+
 }

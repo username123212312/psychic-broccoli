@@ -6,6 +6,11 @@ public class SimpleVariable extends AtomExpression {
     }
 
     @Override
+    public String symbolTablePrint() {
+        return super.getVarName();
+    }
+
+    @Override
     public String toString() {
         return super.toString() + " ) ";
     }
