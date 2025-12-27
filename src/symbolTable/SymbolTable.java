@@ -76,7 +76,7 @@ public class SymbolTable {
                     symbolName, valueStr));
         }
 
-        stringBuilder.append("====================================================\n");
+        stringBuilder.append("=========================<I HATE COMPILER!>=========================\n");
         return stringBuilder.toString();
     }
 
