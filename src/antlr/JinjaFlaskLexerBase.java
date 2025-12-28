@@ -18,7 +18,6 @@ abstract class JinjaFlaskLexerBase extends Lexer {
     // The most recently produced token.
     private Token lastToken = null;
     // Track the start position of the current NEWLINE rule match
-    private int newLineRuleStart = 0;
 
     protected JinjaFlaskLexerBase(CharStream input) {
         super(input);
@@ -101,7 +100,7 @@ abstract class JinjaFlaskLexerBase extends Lexer {
     /**
      * Creates a token at a specific position in the input
      */
-    private CommonToken createTokenAtPosition(int position) {
+    private CommonToken createTokenAtPosition() {
 
         return (CommonToken) createDEDENT();
     }
@@ -187,9 +186,9 @@ abstract class JinjaFlaskLexerBase extends Lexer {
         }
         else {
             // Create NEWLINE token (first part of the matched text)
-            int newLineStart = ruleStart;
+
             int newLineEnd = ruleStart + newLine.length() - 1;
-            emit(createTokenWithPositions(JinjaFlaskLexer.NEWLINE, newLine, newLineStart, newLineEnd));
+            emit(createTokenWithPositions(JinjaFlaskLexer.NEWLINE, newLine, ruleStart, newLineEnd));
 
             int indent = getIndentationCount(spaces);
             int previous = indents.isEmpty() ? 0 : indents.peek();
@@ -209,7 +208,7 @@ abstract class JinjaFlaskLexerBase extends Lexer {
                 // Possibly emit more than 1 DEDENT token.
                 while(!indents.isEmpty() && indents.peek() > indent) {
                     // DEDENT tokens have no text, use current position
-                    emit(createTokenAtPosition(getCharIndex()));
+                    emit(createTokenAtPosition());
                     indents.pop();
                 }
             }
@@ -227,7 +226,6 @@ abstract class JinjaFlaskLexerBase extends Lexer {
         indents = new ArrayDeque<>();
         opened = 0;
         lastToken = null;
-        newLineRuleStart = 0;
         super.reset();
     }
 }

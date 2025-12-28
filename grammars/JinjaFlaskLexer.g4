@@ -63,7 +63,8 @@ MINUS: '-';
 MOD: '%';
 
 
-NEWLINE: ({this.atStartOfInput()}? SPACES | ( '\r'? '\n' | '\r' | '\f') SPACES?) {this.onNewLine();};
+NEWLINE: ({this.atStartOfInput()}? SPACES
+       | ( '\r'? '\n' | '\r' | '\f') SPACES?) {this.onNewLine();};
 
 CLASS_NAME: [A-Z][a-zA-Z0-9_]*;
 NAME: [a-zA-Z_][a-zA-Z0-9_]*;
@@ -82,16 +83,16 @@ SKIP_: ( COMMENT | LINE_JOINING) -> skip;
 SPACES_INLINE: [ \t]+ -> skip;
 DOT: '.';
 
-// Start rules push into HTMLMODE
-TRIPLE_DOUBLE_START: '"""' -> pushMode(HTMLMODE);
-TRIPLE_SINGLE_START: '\'\'\'' -> pushMode(HTMLMODE);
+// Start rules push into HTML_MODE
+TRIPLE_DOUBLE_START: '"""' -> pushMode(HTML_MODE);
+TRIPLE_SINGLE_START: '\'\'\'' -> pushMode(HTML_MODE);
 
 fragment SPACES: [ \t]+;
 fragment LINE_JOINING: '\\' SPACES? ( '\r'? '\n' | '\r' | '\f');
 fragment COMMENT: '#' ~[\r\n\f]*;
 
 // =================== HTML MODE (JinjaFlask Templates) ===================
-mode HTMLMODE;
+mode HTML_MODE;
 
 TRIPLE_DOUBLE_END: '"""' -> popMode;
 TRIPLE_SINGLE_END: '\'\'\'' -> popMode;
@@ -130,24 +131,24 @@ SEA_WS
     : [ \t\r\n]+ -> channel(HIDDEN)
     ;
 
-// 4. Mode-Pushing Tag Starts
+// 4. Mode-Pushing TAG_MODE Starts
 SCRIPT_OPEN
-    : '<script' ~'>'* '>' -> pushMode(SCRIPT)
+    : '<script' ~'>'* '>' -> pushMode(SCRIPT_MODE)
     ;
 
 STYLE_OPEN
-    : '<style' ~'>'* '>' -> pushMode(STYLE)
+    : '<style' ~'>'* '>' -> pushMode(STYLE_MODE)
     ;
 
 TAG_OPEN
-    : '<' -> pushMode(TAG)
+    : '<' -> pushMode(TAG_MODE)
     ;
 
 HTML_TEXT
    : ~[<{"] (~[<{"])*
    ;
-// =================== TAG MODE (Inside <...>) ===================
-mode TAG;
+// =================== TAG_MODE MODE (Inside <...>) ===================
+mode TAG_MODE;
 
 TAG_CLOSE
     : '>' -> popMode
@@ -179,14 +180,14 @@ ATTVALUE_VALUE
     ;
 
 // =================== SCRIPT MODE (Raw Text) ===================
-mode SCRIPT;
+mode SCRIPT_MODE;
 
 SCRIPT_BODY
     : .*? '</script>' -> popMode
     ;
 
-// =================== STYLE MODE (CSS Parsing) ===================
-mode STYLE;
+// =================== STYLE_MODE MODE (CSS Parsing) ===================
+mode STYLE_MODE;
 
 // 1. Mode Exit (Must be prioritized)
 STYLE_CLOSE
