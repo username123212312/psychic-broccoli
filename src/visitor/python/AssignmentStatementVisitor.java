@@ -70,7 +70,7 @@ public class AssignmentStatementVisitor extends JinjaFlaskParserBaseVisitor<Assi
         PythonExpression pythonExpression = pythonExpressionVisitor.visit(ctx.python_expr());
         ArithmeticExpression arithmeticExpression = new ArithmeticExpressionVisitor().visit(ctx.arithmetic_expr());
         arithmeticAssignStatement.setVar(pythonExpression);
-        arithmeticAssignStatement.setArithmeticExpression(arithmeticExpression);
+        arithmeticAssignStatement.setValue(arithmeticExpression);
         String symbolEntryName = pythonExpression.symbolTablePrint();
         SymbolEntry symbolEntry = sb.insert(symbolEntryName);
         if (symbolEntry != null) {

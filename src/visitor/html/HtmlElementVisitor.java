@@ -2,35 +2,35 @@ package visitor.html;
 
 import antlr.JinjaFlaskParser;
 import antlr.JinjaFlaskParserBaseVisitor;
-import ast.htmlElement.HtmlElementItem;
+import ast.htmlElement.HtmlElement;
 import ast.htmlElement.ScriptElement;
 import ast.htmlElement.StyleSheet;
 import ast.htmlElement.TagElement;
-import ast.tagContent.TagContent;
+import ast.tagContent.TagElementItem;
 import visitor.css.StyleSheetVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HtmlElementVisitor extends JinjaFlaskParserBaseVisitor<HtmlElementItem> {
+public class HtmlElementVisitor extends JinjaFlaskParserBaseVisitor<HtmlElement> {
 
     @Override
-    public HtmlElementItem visitTagElement(JinjaFlaskParser.TagElementContext ctx) {
+    public HtmlElement visitTagElement(JinjaFlaskParser.TagElementContext ctx) {
         TagElement tagElement = new TagElement(ctx.getStart().getLine());
         TagContentVisitor tagContentVisitor = new TagContentVisitor();
         if (ctx.tag_content() != null) {
-            List<TagContent> tagContentList = new ArrayList<>();
+            List<TagElementItem> tagElementItemList = new ArrayList<>();
             for (int i = 0; i < ctx.tag_content().size(); i++) {
-                TagContent tagContent = tagContentVisitor.visit(ctx.tag_content(i));
-                tagContentList.add(tagContent);
+                TagElementItem tagElementItem = tagContentVisitor.visit(ctx.tag_content(i));
+                tagElementItemList.add(tagElementItem);
             }
-            tagElement.setTags(tagContentList);
+            tagElement.setTags(tagElementItemList);
         }
         return tagElement;
     }
 
     @Override
-    public HtmlElementItem visitScriptElement(JinjaFlaskParser.ScriptElementContext ctx) {
+    public HtmlElement visitScriptElement(JinjaFlaskParser.ScriptElementContext ctx) {
         ScriptElement scriptElement = new ScriptElement(ctx.getStart().getLine());
         scriptElement.setScriptBody(ctx.SCRIPT_BODY().getText());
 
@@ -38,7 +38,7 @@ public class HtmlElementVisitor extends JinjaFlaskParserBaseVisitor<HtmlElementI
     }
 
     @Override
-    public HtmlElementItem visitStyleElement(JinjaFlaskParser.StyleElementContext ctx) {
+    public HtmlElement visitStyleElement(JinjaFlaskParser.StyleElementContext ctx) {
         return (StyleSheet) new StyleSheetVisitor().visit(ctx.style_sheet());
     }
 }

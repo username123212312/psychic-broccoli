@@ -5,7 +5,7 @@ import ast.css.RuleSet;
 
 import java.util.List;
 
-public class StyleSheet extends HtmlElementItem {
+public class StyleSheet extends HtmlElement {
     private List<RuleSet> ruleSets;
 
     public StyleSheet(int line_number) {

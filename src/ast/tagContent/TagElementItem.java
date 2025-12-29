@@ -2,11 +2,11 @@ package ast.tagContent;
 
 import ast.ASTNode;
 
-public class TagContent extends ASTNode {
+public class TagElementItem extends ASTNode {
     private String attributeName;
     private String attributeValue;
 
-    public TagContent(int line_number) {
+    public TagElementItem(int line_number) {
         super("TagContent", line_number);
     }
 

@@ -1,6 +1,6 @@
 package ast.htmlElement;
 
-public class ScriptElement extends HtmlElementItem {
+public class ScriptElement extends HtmlElement {
     private String scriptBody;
 
     public ScriptElement(int line_number) {

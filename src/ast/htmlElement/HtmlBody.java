@@ -5,10 +5,10 @@ import ast.htmlContentItem.HtmlContentItem;
 
 import java.util.List;
 
-public class HtmlBodyItem extends HtmlElementItem {
+public class HtmlBody extends HtmlElement {
     private List<HtmlContentItem> contentItems;
 
-    public HtmlBodyItem(int line_number, List<HtmlContentItem> contentItems) {
+    public HtmlBody(int line_number, List<HtmlContentItem> contentItems) {
         super("Html Body ", line_number);
         this.contentItems = contentItems;
     }

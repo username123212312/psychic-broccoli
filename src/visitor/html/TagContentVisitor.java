@@ -2,18 +2,18 @@ package visitor.html;
 
 import antlr.JinjaFlaskParser;
 import antlr.JinjaFlaskParserBaseVisitor;
-import ast.tagContent.TagContent;
+import ast.tagContent.TagElementItem;
 
-public class TagContentVisitor extends JinjaFlaskParserBaseVisitor<TagContent> {
+public class TagContentVisitor extends JinjaFlaskParserBaseVisitor<TagElementItem> {
 
     @Override
-    public TagContent visitHtmlAttribute(JinjaFlaskParser.HtmlAttributeContext ctx) {
-        TagContent tagContent = new TagContent(ctx.start.getLine());
-        tagContent.setAttributeName(ctx.TAG_NAME().getText());
+    public TagElementItem visitHtmlAttribute(JinjaFlaskParser.HtmlAttributeContext ctx) {
+        TagElementItem tagElementItem = new TagElementItem(ctx.start.getLine());
+        tagElementItem.setAttributeName(ctx.TAG_NAME().getText());
         if (ctx.ATTVALUE_VALUE() != null) {
-            tagContent.setAttributeValue(ctx.ATTVALUE_VALUE().getText());
+            tagElementItem.setAttributeValue(ctx.ATTVALUE_VALUE().getText());
         }
-        return tagContent;
+        return tagElementItem;
     }
 
 //    @Override

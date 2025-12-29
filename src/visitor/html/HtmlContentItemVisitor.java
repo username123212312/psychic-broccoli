@@ -4,8 +4,6 @@ import antlr.JinjaFlaskParser;
 import antlr.JinjaFlaskParserBaseVisitor;
 import ast.htmlContentItem.HtmlContentItem;
 import ast.htmlContentItem.HtmlTextItem;
-import ast.htmlElement.HtmlElementItem;
-import ast.jinja.jinjaStatment.JinjaStatement;
 import visitor.jinja.JinjaExpressionVisitor;
 import visitor.jinja.JinjaStatementVisitor;
 import visitor.jinja.JinjaVisitor;
