@@ -1,10 +1,20 @@
 package ast.assignStmt;
 
+import ast.TemplateLiteral;
 import ast.compundStmt.PythonExpression;
 
 public class TemplateLiteralAssignmentStatement extends AssignmentStatement {
+    private TemplateLiteral templateLiteral;
+    public TemplateLiteralAssignmentStatement(int line_number) {
+        super("TemplateLiteralAssignmentStatement", line_number);
+    }
 
-    public TemplateLiteralAssignmentStatement(String node_name, int line_number, PythonExpression var) {
-        super(node_name, line_number, var);
+    public void setTemplateLiteral(TemplateLiteral templateLiteral) {
+        this.templateLiteral = templateLiteral;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + templateLiteral.toString() + " ) ";
     }
 }

@@ -2,7 +2,7 @@ package app;
 
 import antlr.JinjaFlaskLexer;
 import antlr.JinjaFlaskParser;
-import ast.ASTNode;
+import ast.Program;
 import listener.CustomErrorListener;
 import org.antlr.v4.gui.TreeViewer;
 import org.antlr.v4.runtime.CharStream;
@@ -10,6 +10,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
+import symbolTable.SymbolTableManager;
 import visitor.python.ProgramVisitor;
 
 import javax.swing.*;
@@ -42,8 +43,10 @@ public class App {
                 ParseTree antlrAST = parser.prog();
                 showParseTree(parser.getRuleNames(), antlrAST);
                 ProgramVisitor programVisitor = new ProgramVisitor();
-                ASTNode program = programVisitor.visit(antlrAST);
+                Program program = programVisitor.visit(antlrAST);
+                System.out.println(program);
 
+                System.out.println(SymbolTableManager.INSTANCE.getSymbolTable());
                 // If we reach here, the parse was successful!
                 System.out.println("--- Parsing SUCCESSFUL! ---");
 

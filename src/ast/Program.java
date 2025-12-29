@@ -15,4 +15,13 @@ public class Program extends ASTNode{
         }
     }
 
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(super.toString());
+        for(Statement s : this.statements){
+            stringBuilder.append(Consts.printIndent(1)).append(s.toString());
+        }
+        return stringBuilder.toString();
+    }
 }

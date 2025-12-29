@@ -11,18 +11,20 @@ import java.util.List;
 public class StatementVisitor extends JinjaFlaskParserBaseVisitor<Statement> {
     @Override
     public Statement visitCompoundStatement(JinjaFlaskParser.CompoundStatementContext ctx) {
+        Statement statement = new Statement(ctx.getStart().getLine());
         List<CompoundStatement> compoundStatementList = new ArrayList<>();
         CompoundStatementVisitor compoundStatementVisitor = new CompoundStatementVisitor();
         for (int i = 0; i < ctx.compound_stmt().size(); i++) {
             compoundStatementList.add(compoundStatementVisitor.visit(ctx.compound_stmt(i)));
         }
-        return new Statement(ctx.getStart().getLine(), compoundStatementList);
+        statement.setCompoundStatements(compoundStatementList);
+        return statement;
     }
 
     @Override
     public Statement visitPassStatement(JinjaFlaskParser.PassStatementContext ctx) {
-        return super.visitPassStatement(ctx);
+        Statement statement = new Statement(ctx.getStart().getLine());
+        statement.setPass(true);
+        return statement;
     }
-
-
 }

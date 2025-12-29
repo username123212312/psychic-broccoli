@@ -5,37 +5,97 @@ import antlr.JinjaFlaskParserBaseVisitor;
 import ast.ASTNode;
 import ast.HtmlContent;
 import ast.Imported;
-import ast.complexExp.ExpressionList;
-import ast.css.CssDeclaration;
-import ast.css.CssSelectorList;
-import ast.css.RuleSet;
-import ast.css.SelectorDeclaration;
+import ast.argsList.ArgumentsList;
+import ast.atom.Atom;
+import ast.atom.Bool;
+import ast.complexExp.ListItems;
+import ast.compundStmt.GlobalStatement;
 import ast.functionDef.Decorator;
 import ast.functionDef.FunctionParameters;
+import ast.htmlContentItem.HtmlContentItem;
 import ast.htmlElement.StyleSheet;
 import ast.keyValue.KeyValue;
 import visitor.css.StyleSheetVisitor;
+import visitor.html.HtmlContentItemVisitor;
 import visitor.python.ArgumentListVisitor;
+import visitor.python.AtomVisitor;
+import visitor.python.FunctionParametersVisitor;
 import visitor.python.KeyValueVisitor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UniversalVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
     @Override
     public FunctionParameters visitFunctionParameters(JinjaFlaskParser.FunctionParametersContext ctx) {
-        return new FunctionParameters(ctx.getStart().getLine(), new ArrayList<>());
+        FunctionParametersVisitor functionParametersVisitor = new FunctionParametersVisitor();
+        if (ctx.fun_params() == null) {
+            FunctionParameters functionParameters = new FunctionParameters(ctx.getStart().getLine());
+            functionParameters.setParameters(new ArrayList<>());
+            return functionParameters;
+        }
+        return functionParametersVisitor.visit(ctx.fun_params());
+    }
+
+    @Override
+    public ListItems visitListItems(JinjaFlaskParser.ListItemsContext ctx) {
+        ListItems listItems = new ListItems(ctx.getStart().getLine());
+        List<Atom> atomList = new ArrayList<>();
+        AtomVisitor atomVisitor = new AtomVisitor();
+        for (int i = 0; i < ctx.atom().size(); i++) {
+            Atom atom = atomVisitor.visit(ctx.atom(i));
+            atomList.add(atom);
+        }
+        listItems.setAtomList(atomList);
+
+        return listItems;
+    }
+
+    @Override
+    public GlobalStatement visitGlobalStatementDef(JinjaFlaskParser.GlobalStatementDefContext ctx) {
+        GlobalStatement globalStatement = new GlobalStatement(ctx.getStart().getLine());
+        List<String> globals = new ArrayList<>();
+        for (int i = 0; i < ctx.NAME().size(); i++) {
+            globals.add(ctx.NAME(i).getText());
+        }
+        globalStatement.setGlobals(globals);
+        return globalStatement;
     }
 
     @Override
     public Decorator visitDecorator(JinjaFlaskParser.DecoratorContext ctx) {
         ArgumentListVisitor argumentListVisitor = new ArgumentListVisitor();
-        return new Decorator(ctx.getStart().getLine(), "", argumentListVisitor.visit(ctx));
+        Decorator decorator = new Decorator(ctx.getStart().getLine());
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(ctx.NAME(0));
+        for (int i = 1; i < ctx.NAME().size(); i++) {
+            stringBuilder.append(".").append(ctx.NAME(i));
+        }
+        decorator.setDecoratorName(stringBuilder.toString());
+        if (ctx.arglist() != null) {
+            ArgumentsList argumentsList = new ArgumentListVisitor().visit(ctx.arglist());
+            decorator.setArguments(argumentsList);
+        }
+        return decorator;
     }
 
     @Override
     public Imported visitImported(JinjaFlaskParser.ImportedContext ctx) {
-        return new Imported(ctx.getStart().getLine(), "");
+        Imported imported = new Imported(ctx.getStart().getLine());
+        if (ctx.NAME() == null || ctx.NAME().isEmpty()) {
+            imported.setName(ctx.CLASS_NAME(0).getText());
+            if (ctx.CLASS_NAME(1) != null) {
+                imported.setAlias(ctx.CLASS_NAME(1).getText());
+            }
+        } else {
+            imported.setName(ctx.NAME(0).getText());
+            if (ctx.NAME(1) != null) {
+                imported.setAlias(ctx.NAME(1).getText());
+            }
+        }
+        return imported;
     }
+
 
     @Override
     public KeyValue visitKeyValuePairs(JinjaFlaskParser.KeyValuePairsContext ctx) {
@@ -45,20 +105,31 @@ public class UniversalVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
     }
 
     @Override
-    public ExpressionList visitExpressionList(JinjaFlaskParser.ExpressionListContext ctx) {
-        return new ExpressionList(ctx.getStart().getLine(), new ArrayList<>());
-    }
-
-    @Override
     public HtmlContent visitHtmlContent(JinjaFlaskParser.HtmlContentContext ctx) {
-        return new HtmlContent(ctx.getStart().getLine(), new ArrayList<>());
+        HtmlContent htmlContent = new HtmlContent(ctx.getStart().getLine());
+        List<HtmlContentItem> htmlContentItems = new ArrayList<>();
+        HtmlContentItemVisitor htmlContentItemVisitor = new HtmlContentItemVisitor();
+        for(int i = 0; i < ctx.html_content_item().size(); i ++){
+            HtmlContentItem htmlContentItem = htmlContentItemVisitor
+                    .visit(ctx.html_content_item(i));
+            htmlContentItems.add(htmlContentItem);
+        }
+        htmlContent.setItems(htmlContentItems);
+        return htmlContent;
     }
 
     @Override
-    public StyleSheet visitStyleSheet(JinjaFlaskParser.StyleSheetContext ctx) {
-        StyleSheetVisitor styleSheetVisitor = new StyleSheetVisitor();
-        return styleSheetVisitor.visitStyleSheet(ctx);
+    public Bool visitTrueAtom(JinjaFlaskParser.TrueAtomContext ctx) {
+        Bool bool = new Bool(ctx.getStart().getLine());
+        bool.setValue("True");
+        return bool;
     }
 
+    @Override
+    public Bool visitFalseAtom(JinjaFlaskParser.FalseAtomContext ctx) {
+        Bool bool = new Bool(ctx.getStart().getLine());
+        bool.setValue("False");
+        return bool;
+    }
 
 }

@@ -17,6 +17,8 @@ statement
 compound_stmt
     : if_stmt      NEWLINE?      # IfStatement
     | assign_stmt  NEWLINE?      # AssignmentStatement
+    | atom_expr    NEWLINE?      # AtomExpression
+    | simple_expr  NEWLINE?      # SimpleExpression
     | for_loop     NEWLINE?      # ForLoopStatement
     | python_expr  NEWLINE?      # PythonExpression
     | func_def     NEWLINE?      # FunctionDefinition
@@ -31,29 +33,49 @@ return_stmt
     ;
 
 global_stmt
-    : GLOBAL NAME (COMMA NAME)*            
+    : GLOBAL NAME (COMMA NAME)*    # GlobalStatementDef
     ;
 
 import_from
-    : FROM NAME (DOT NAME)* IMPORT imptd (COMMA imptd)*
+    : FROM NAME (DOT NAME)* IMPORT imptd (COMMA imptd)* # ImportFromDef
     ;
 
 imptd
-    : NAME (AS NAME)?   # Imported
+    : (NAME | CLASS_NAME) (AS (NAME | CLASS_NAME))?   # Imported
     ;
 
 if_stmt
-    : IF condition COLON statement ( ELIF condition COLON statement )* ( ELSE COLON statement )?
+    : IF condition COLON statement
+     ( ELIF condition COLON statement )*
+     ( ELSE COLON statement )? # IfStatementDef
     ;
 
 condition
-    : NOT python_expr                        # NotExpression
+    : bool_exp                               # BooleanCondition
+    | NOT python_expr                        # NotExpression
     | python_expr (comp_op python_expr)*     # ComparisonExpression
     ;
 
 python_expr
-    : complex_expr               # ComplexExpression
-    | atom complex_expr*         # AtomComplexExpression
+    : atom_expr                  # AtomComplexExpression
+    | complex_expr               # ComplexExpression
+    ;
+
+atom_expr
+    : atom LBRACK NUMBER RBRACK         # ListAccess
+    | atom LBRACK STRING RBRACK         # DictionaryAccess
+    | atom (DOT atom)+                  # AttributeAccess
+    | atom (DOT atom_expr)+             # MethodAccess
+    | CLASS_NAME LP arglist? RP         # ObjectCreation
+    | NAME LP arglist? RP               # FunctionCall
+    | atom                              # SimpleVar
+    ;
+
+complex_expr
+    : LP for_loop RP               # Generator
+    | LBRACK for_loop RBRACK       # ListComprehension
+    | LKBRACE dict_maker? RKBRACE  # DictionaryLiteral
+    | LBRACK list_items? RBRACK    # ListLiteral
     ;
 
 comp_op
@@ -70,10 +92,14 @@ comp_op
     | IS NOT   # IsNotOperator
     ;
 
+
 assign_stmt
-    : python_expr ASSIGN condition NEWLINE?          # ComparisonAssignStmt
+    : python_expr ASSIGN python_expr NEWLINE?       # PythonExpressionAssignStmt
+    | python_expr ASSIGN condition NEWLINE?          # ComparisonAssignStmt
+    | python_expr ASSIGN arithmetic_expr NEWLINE?    # ArithmeticAssignStmt
     | python_expr ASSIGN template_literal NEWLINE?    # TemplateLiteralAssignStmt
     ;
+
 
 template_literal
    : TRIPLE_DOUBLE_START html_content  TRIPLE_DOUBLE_END      # HtmlContentDoubleTemplate
@@ -81,12 +107,12 @@ template_literal
    ;
 
 for_loop
-    : FOR python_expr IN python_expr statement            # SimpleForLoop
-    | atom FOR python_expr IN atom (IF condition)*       # ComplexForLoop
+    : FOR atom IN python_expr statement                  # SimpleForLoop
+    | atom FOR atom IN python_expr (IF condition)?       # ComplexForLoop
     ;
 
 func_def
-    : dec? DEF NAME parameters COLON statement
+    : dec? DEF NAME parameters COLON statement      # FunctionDefDef
     ;
 
 dec
@@ -102,18 +128,9 @@ fun_params
     | NAME (COMMA NAME)*                         # PositionalParams
     ;
 
-
-complex_expr
-    : LP for_loop RP               # Generator
-    | LP arglist? RP               # FunctionCall
-    | LBRACK for_loop RBRACK       # ListComprehension
-    | LKBRACE dict_maker? RKBRACE  # DictionaryLiteral
-    | LBRACK exprlist? RBRACK      # ListLiteral      
-    | DOT NAME                     # AttributeAccess
-    ;
-
 atom
     : NAME   # NameAtom
+    | CLASS_NAME  # ClassAtom
     | NUMBER # NumberAtom
     | STRING # StringAtom
     | NONE   # NoneAtom
@@ -125,8 +142,8 @@ bool_exp:
     | FALSE  # FalseAtom
     ;
 
-exprlist
-    : atom (COMMA atom)* COMMA? # ExpressionList
+list_items
+    : atom (COMMA atom)* COMMA? # ListItems
     ;
 
 dict_maker
@@ -144,15 +161,15 @@ simple_expr
     ;
 
 arithmetic_expr
-    : python_expr (PLUS python_expr)*           # Addition
-    | python_expr (MINUS python_expr)*          # Subtraction
-    | python_expr (SLASH python_expr)*          # Division
-    | python_expr (STAR python_expr)*           # Multiplication
+    : python_expr (PLUS python_expr)+           # Addition
+    | python_expr (MINUS python_expr)+          # Subtraction
+    | python_expr (SLASH python_expr)+          # Division
+    | python_expr (STAR python_expr)+          # Multiplication
     ;
 
 arglist
-    :  atom (COMMA atom )* COMMA?            # AtomArgs
-    |  argument (COMMA argument )* COMMA?    # ComplexArgs
+    : atom (COMMA atom )* COMMA?            # AtomArgs
+    | argument (COMMA argument )* COMMA?    # ComplexArgs
     ;
 
 argument
@@ -173,27 +190,15 @@ html_content_item
     ;
 
 htmlElement
-    // Regular HTML tags
-    : TAG_OPEN tag_content*? (TAG_SLASH_CLOSE | TAG_CLOSE) # TagElement
-
-    // Special elements with content
-    | SCRIPT_OPEN SCRIPT_BODY                             # ScriptElement
-    | STYLE_OPEN style_sheet STYLE_CLOSE                   # StyleElement
-
-    // XML/HTML special constructs
-    | XML_DECLARATION                                     # ProcessingInstruction
-    | CDATA                                               # CDataSection
-    | DTD                                                 # DocTypeDeclaration
-    | SCRIPTLET                                           # ServerScript
+    : TAG_OPEN tag_content*? (TAG_SLASH_CLOSE | TAG_CLOSE)  # TagElement
+    | SCRIPT_OPEN SCRIPT_BODY                               # ScriptElement
+    | STYLE_OPEN style_sheet STYLE_CLOSE                    # StyleElement
     ;
 
 tag_content
-    // Attribute definitions
     : TAG_NAME (TAG_EQUALS ATTVALUE_VALUE)? # HtmlAttribute
-    // Syntax markers
-    | TAG_SLASH  # ClosingMarker
+    | TAG_SLASH                             # ClosingMarker
     ;
-
 
 //===============CSS RULE======================
 
@@ -245,14 +250,13 @@ cssterm
     | CSS_ID                    # IdentifierTerm
     ;
 
-
 //=================jinja rules======================
 jinjaStatementBlock
-   : JINJA_STMT_START jStatement
+   : JINJA_STMT_START jStatement                    # JinjaStmtBlock
    ;
 
 jinjaExpressionBlock
-    : JINJA_EXPR_START j_expression JINJA_EXPR_END
+    : JINJA_EXPR_START j_expression JINJA_EXPR_END  # JinjaExprBlock
     ;
 
 jStatement
@@ -263,25 +267,25 @@ jStatement
     ;
 
 j_extends_stmt
-    : J_EXTENDS J_STRING JINJA_STMT_END
+    : J_EXTENDS J_STRING JINJA_STMT_END # JinjaExtendsStmtDef
     ;
 
 j_block_stmt
     : J_BLOCK J_NAME JINJA_STMT_END
       html_content
-      JINJA_STMT_START J_ENDBLOCK ( J_NAME )? JINJA_STMT_END
+      JINJA_STMT_START J_ENDBLOCK ( J_NAME )? JINJA_STMT_END # JinjaBlockStmtDef
     ;
 
 j_for_stmt
     : J_FOR J_NAME J_IN j_expression JINJA_STMT_END
       html_content
-      JINJA_STMT_START J_ENDFOR JINJA_STMT_END
+      JINJA_STMT_START J_ENDFOR JINJA_STMT_END  # JinjaForStmtDef
     ;
 
 j_if_stmt
     : J_IF j_expression JINJA_STMT_END
       html_content
-      JINJA_STMT_START J_ENDIF JINJA_STMT_END
+      JINJA_STMT_START J_ENDIF JINJA_STMT_END   # JinjaIfStmtDef
     ;
 
 j_expression
@@ -297,11 +301,11 @@ j_call_expr
     ;
 
 j_var_access
-    : J_NAME ( J_DOT J_NAME )*
+    : J_NAME ( J_DOT J_NAME )*  # JinjaVarAccessOnlyDef
     ;
 
 j_argument_list
-    : j_argument ( J_COMMA j_argument )* # JinjaArgList
+    : j_argument ( J_COMMA j_argument )* # JinjaArgListDef
     ;
 
 j_argument

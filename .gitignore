@@ -40,3 +40,4 @@ src/antlr/JinjaFlaskParserBaseListener.java
 src/antlr/JinjaFlaskParserBaseVisitor.java
 src/antlr/JinjaFlaskParserListener.java
 src/antlr/JinjaFlaskParserVisitor.java
+compiler_project.iml

@@ -3,26 +3,49 @@ package visitor.python;
 import antlr.JinjaFlaskParser;
 import antlr.JinjaFlaskParserBaseVisitor;
 import ast.arithmeticExpr.ArithmeticExpression;
+import ast.arithmeticExpr.Operator;
+import ast.compundStmt.PythonExpression;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ArithmeticExpressionVisitor extends JinjaFlaskParserBaseVisitor<ArithmeticExpression> {
+    private final PythonExpressionVisitor pythonExpressionVisitor = new PythonExpressionVisitor();
+
     @Override
     public ArithmeticExpression visitAddition(JinjaFlaskParser.AdditionContext ctx) {
-        return super.visitAddition(ctx);
+        return evaluate(Operator.Addition, ctx.getStart().getLine(), ctx.python_expr());
     }
 
     @Override
     public ArithmeticExpression visitSubtraction(JinjaFlaskParser.SubtractionContext ctx) {
-        return super.visitSubtraction(ctx);
+        return evaluate(Operator.Subtraction, ctx.getStart().getLine(), ctx.python_expr());
     }
 
     @Override
     public ArithmeticExpression visitDivision(JinjaFlaskParser.DivisionContext ctx) {
-        return super.visitDivision(ctx);
+        return evaluate(Operator.Division, ctx.getStart().getLine(), ctx.python_expr());
     }
 
     @Override
     public ArithmeticExpression visitMultiplication(JinjaFlaskParser.MultiplicationContext ctx) {
-        return super.visitMultiplication(ctx);
+        return evaluate(Operator.Multiplication, ctx.getStart().getLine(), ctx.python_expr());
+
     }
 
+    private ArithmeticExpression evaluate(Operator operator, int line,
+                                          List<JinjaFlaskParser.Python_exprContext> pythonExprs) {
+        ArithmeticExpression arithmeticExpression =
+                new ArithmeticExpression("Addition", line);
+        arithmeticExpression.setOperator(operator);
+        PythonExpression left = pythonExpressionVisitor.visit(pythonExprs.getFirst());
+        List<PythonExpression> right = new ArrayList<>();
+        for (int i = 1; i < pythonExprs.size(); i++) {
+            PythonExpression pythonExpression = pythonExpressionVisitor.visit(pythonExprs.get(i));
+            right.add(pythonExpression);
+        }
+        arithmeticExpression.setLeft(left);
+        arithmeticExpression.setRight(right);
+        return arithmeticExpression;
+    }
 }
