@@ -25,16 +25,22 @@ import java.util.List;
 public class CompoundStatementVisitor extends JinjaFlaskParserBaseVisitor<CompoundStatement> {
     UniversalVisitor universalVisitor = new UniversalVisitor();
 
-    @Override
-    public CompoundStatement visitIfStatement(JinjaFlaskParser.IfStatementContext ctx) {
-        return visit(ctx.if_stmt());
-    }
 
     @Override
     public CompoundStatement visitAtomExpression(JinjaFlaskParser.AtomExpressionContext ctx) {
         AtomExpressionVisitor atomExpressionVisitor = new AtomExpressionVisitor();
-        AtomExpression atomExpression = atomExpressionVisitor.visit(ctx.atom_expr());
-        return atomExpression;
+        return atomExpressionVisitor.visit(ctx.atom_expr());
+    }
+
+    @Override
+    public CompoundStatement visitSimpleExpression(JinjaFlaskParser.SimpleExpressionContext ctx) {
+        SimpleExpressionVisitor simpleExpressionVisitor = new SimpleExpressionVisitor();
+        return simpleExpressionVisitor.visit(ctx.simple_expr());
+    }
+
+    @Override
+    public CompoundStatement visitIfStatement(JinjaFlaskParser.IfStatementContext ctx) {
+        return visit(ctx.if_stmt());
     }
 
     @Override
