@@ -25,6 +25,7 @@ public class AssignmentStatementVisitor extends JinjaFlaskParserBaseVisitor<Assi
         SymbolEntry symbolEntry = sb.insert(symbolEntryName);
         if (symbolEntry != null) {
             sb.setAttribute(symbolEntryName, "Value", condition.symbolTablePrint());
+            sb.setAttribute(symbolEntryName, "Type", condition.node_name);
         }
         comparisonAssignmentStmt.setValue(condition);
         return comparisonAssignmentStmt;
@@ -42,6 +43,7 @@ public class AssignmentStatementVisitor extends JinjaFlaskParserBaseVisitor<Assi
         SymbolEntry symbolEntry = sb.insert(symbolEntryName);
         if (symbolEntry != null) {
             sb.setAttribute(symbolEntryName, "Value", "Multiline String");
+            sb.setAttribute(symbolEntryName, "Type", pythonExpression.node_name);
         }
         return templateLiteralAssignmentStatement;
     }
@@ -57,6 +59,8 @@ public class AssignmentStatementVisitor extends JinjaFlaskParserBaseVisitor<Assi
         SymbolEntry symbolEntry = sb.insert(symbolEntryName);
         if (symbolEntry != null) {
             sb.setAttribute(symbolEntryName, "Value", value.symbolTablePrint());
+            sb.setAttribute(symbolEntryName, "Type", value.node_name);
+
         }
         pythonExpressionAssignStatement.setVar(var);
         pythonExpressionAssignStatement.setValue(value);
@@ -75,6 +79,7 @@ public class AssignmentStatementVisitor extends JinjaFlaskParserBaseVisitor<Assi
         SymbolEntry symbolEntry = sb.insert(symbolEntryName);
         if (symbolEntry != null) {
             sb.setAttribute(symbolEntryName, "Value", arithmeticExpression.symbolTablePrint());
+            sb.setAttribute(symbolEntryName, "Type", arithmeticExpression.node_name);
         }
 
         return arithmeticAssignStatement;

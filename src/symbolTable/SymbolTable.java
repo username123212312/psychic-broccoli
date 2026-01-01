@@ -62,18 +62,23 @@ public class SymbolTable {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\n=================== SYMBOL TABLE ===================\n");
-        stringBuilder.append(String.format("%-20s | %s\n", "Symbol Name", "Attributes"));
+        stringBuilder.append(String.format("%-20s | %-20s | %s\n", "Symbol Name", "Type", "Attributes"));
         stringBuilder.append("----------------------------------------------------\n");
 
         for (Map.Entry<String, SymbolEntry> entry : table.entrySet()) {
             String symbolName = entry.getKey();
             SymbolEntry symbolEntry = entry.getValue();
 
+
+            Object type = symbolEntry.getAttribute("Type");
+            String typeStr = (type != null) ? type.toString() : "null";
+
+
             Object value = symbolEntry.getAttribute("Value");
             String valueStr = (value != null) ? value.toString() : "null";
 
-            stringBuilder.append(String.format("%-20s | %s\n",
-                    symbolName, valueStr));
+            stringBuilder.append(String.format("%-20s | %-20s | %s\n",
+                    symbolName, typeStr, valueStr));
         }
 
         return stringBuilder.toString();
