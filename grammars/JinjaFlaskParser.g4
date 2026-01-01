@@ -233,12 +233,13 @@ declaration
     : CSS_ID  CSS_COLON  cssterm+  CSS_SEMI # CssDeclaration
     ;
 
-css_function_call
-    : CSS_ID CSS_LPAREN  css_function_args?  CSS_RPAREN # CssFunctionCall
-    ;
-
 css_function_args
     : cssterm+ (  CSS_COMMA  cssterm+ )* # FunctionArguments
+    ;
+
+
+css_function_call
+    : CSS_ID CSS_LPAREN  css_function_args?  CSS_RPAREN # CssFunctionCall
     ;
 
 cssterm

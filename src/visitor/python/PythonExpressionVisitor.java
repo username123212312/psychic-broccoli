@@ -2,14 +2,8 @@ package visitor.python;
 
 import antlr.JinjaFlaskParser;
 import antlr.JinjaFlaskParserBaseVisitor;
-import ast.AtomComplexExpression;
-import ast.atom.Atom;
-import ast.atomExpression.AtomExpression;
-import ast.complexExp.ComplexExpression;
 import ast.compundStmt.PythonExpression;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class PythonExpressionVisitor extends JinjaFlaskParserBaseVisitor<PythonExpression> {
     private final ComplexExpressionVisitor complexExpressionVisitor = new ComplexExpressionVisitor();
