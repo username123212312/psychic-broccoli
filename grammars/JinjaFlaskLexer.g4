@@ -104,7 +104,7 @@ JINJA_STMT_START: '{%' -> pushMode(JINJA_MODE);
 JINJA_COMMENT_START: '{#' -> pushMode(JINJA_MODE);
 
 HTML_COMMENT
-    : 'd' -> channel(HIDDEN)
+    : '<!--' .*? '-->' -> channel(HIDDEN)
     ;
 
 HTML_CONDITIONAL_COMMENT
