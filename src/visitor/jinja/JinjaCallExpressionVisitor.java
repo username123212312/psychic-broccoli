@@ -37,20 +37,10 @@ public class JinjaCallExpressionVisitor extends JinjaFlaskParserBaseVisitor<Jinj
 
     @Override
     public JinjaCallExpression visitJinjaVarAccessOnly(JinjaFlaskParser.JinjaVarAccessOnlyContext ctx) {
-        return visit(ctx.j_var_access());
+        return (JinjaCallExpression) jinjaVisitor.visit(ctx.j_var_access());
     }
 
-    @Override
-    public JinjaCallExpression visitJinjaVarAccessOnlyDef(JinjaFlaskParser.JinjaVarAccessOnlyDefContext ctx) {
-        JinjaVariableAccess jinjaVariableAccess = new JinjaVariableAccess(ctx.start.getLine());
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(ctx.J_NAME(0));
-        for (int i = 0; i < ctx.J_NAME().size(); i++) {
-            stringBuilder.append(".").append(ctx.J_NAME(i));
-        }
-        jinjaVariableAccess.setDottedName(stringBuilder.toString());
-        return jinjaVariableAccess;
-    }
+
 
     @Override
     public JinjaCallExpression visitJinjaAtomOnly(JinjaFlaskParser.JinjaAtomOnlyContext ctx) {
