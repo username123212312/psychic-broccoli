@@ -16,4 +16,11 @@ public class TemplateLiteralVisitor extends JinjaFlaskParserBaseVisitor<Template
         return templateLiteral;
     }
 
+    @Override
+    public TemplateLiteral visitHtmlContentSingleTemplate(JinjaFlaskParser.HtmlContentSingleTemplateContext ctx) {
+        TemplateLiteral templateLiteral = new TemplateLiteral(ctx.getStart().getLine());
+        HtmlContent htmlContent = (HtmlContent) new UniversalVisitor().visit(ctx.html_content());
+        templateLiteral.setHtmlContent(htmlContent);
+        return templateLiteral;
+    }
 }
