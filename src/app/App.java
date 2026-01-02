@@ -33,6 +33,7 @@ public class App {
                 System.out.println(program);
 
                 System.out.println(SymbolTableManager.INSTANCE.getSymbolTable());
+
                 System.out.println("--- Parsing SUCCESSFUL! ---");
 
             } catch (Exception e) {
