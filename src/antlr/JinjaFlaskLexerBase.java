@@ -31,32 +31,26 @@ abstract class JinjaFlaskLexerBase extends Lexer {
 
     @Override
     public Token nextToken() {
-        // Check if the end-of-file is ahead and there are still some DEDENTS expected.
         if (_input.LA(1) == EOF && !this.indents.isEmpty()) {
-            // Remove any trailing EOF tokens from our buffer.
             for (int i = tokens.size() - 1; i >= 0; i--) {
                 if (tokens.get(i).getType() == EOF) {
                     tokens.remove(i);
                 }
             }
 
-            // First emit an extra line break that serves as the end of the statement.
             this.emit(createSyntheticToken(JinjaFlaskLexer.NEWLINE, "\n"));
 
-            // Now emit as much DEDENT tokens as needed.
             while (!indents.isEmpty()) {
                 this.emit(createSyntheticToken(JinjaFlaskLexer.DEDENT, ""));
                 indents.pop();
             }
 
-            // Put the EOF back on the token stream.
             this.emit(createSyntheticToken(JinjaFlaskLexer.EOF, "<EOF>"));
         }
 
         Token next = super.nextToken();
 
         if (next.getChannel() == Token.DEFAULT_CHANNEL) {
-            // Keep track of the last token on the default channel.
             this.lastToken = next;
         }
 
@@ -64,17 +58,11 @@ abstract class JinjaFlaskLexerBase extends Lexer {
     }
 
     private Token createSyntheticToken(int type, String text) {
-        System.out.println("=== DEBUG createSyntheticToken ===");
-        System.out.println("type=" + type + " text='" + escapeString(text) + "'");
-
-        // Create synthetic token (not from input)
         CommonToken token = new CommonToken(type, text);
 
-        // Set positions to -1 to indicate synthetic
         token.setStartIndex(-1);
         token.setStopIndex(-1);
 
-        // Use line/char position from last token (or default)
         if (lastToken != null) {
             token.setLine(lastToken.getLine());
             token.setCharPositionInLine(lastToken.getCharPositionInLine() + 1);
@@ -87,7 +75,6 @@ abstract class JinjaFlaskLexerBase extends Lexer {
     }
 
     private Token createDEDENT() {
-        // Create proper DEDENT token
         int pos = getCharIndex();
         CommonToken token = new CommonToken(JinjaFlaskLexer.DEDENT, "");
         token.setStartIndex(pos);
@@ -97,44 +84,24 @@ abstract class JinjaFlaskLexerBase extends Lexer {
         return token;
     }
 
-    /**
-     * Creates a token at a specific position in the input
-     */
     private CommonToken createTokenAtPosition() {
 
         return (CommonToken) createDEDENT();
     }
 
-    /**
-     * Creates a token with explicit start and stop positions
-     */
     private CommonToken createTokenWithPositions(int type, String text, int start, int stop) {
-        // Ensure non-negative positions
         if (start < 0) start = 0;
         if (stop < 0) stop = 0;
-
-        System.out.println("=== DEBUG createTokenWithPositions ===");
-        System.out.println("type=" + type + " (" + JinjaFlaskLexer.VOCABULARY.getSymbolicName(type) + ")");
-        System.out.println("text='" + escapeString(text) + "', length=" + text.length());
-        System.out.println("start=" + start + ", stop=" + stop);
 
         return new CommonToken(this._tokenFactorySourcePair, type, DEFAULT_TOKEN_CHANNEL, start, stop);
     }
 
-    // Calculates the indentation of the provided spaces, taking the
-    // following rules into account:
-    //
-    // "Tabs are replaced (from left to right) by one to eight spaces
-    //  such that the total number of characters up to and including
-    //  the replacement is a multiple of eight [...]"
-    //
-    //  -- https://docs.python.org/3.1/reference/lexical_analysis.html#indentation
     static int getIndentationCount(String spaces) {
         int count = 0;
         for (char ch : spaces.toCharArray()) {
             if (ch == '\t') {
                 count += 8 - (count % 8);
-            } else {// A normal space char.
+            } else {
                 count++;
             }
         }
@@ -159,33 +126,17 @@ abstract class JinjaFlaskLexerBase extends Lexer {
         int ruleStart = _tokenStartCharIndex;
         String original = getText();
 
-        System.out.println("=== DEBUG onNewLine ===");
-        System.out.println("ruleStart=" + ruleStart);
-        System.out.println("getText() = '" + escapeString(original) + "'");
-        System.out.println("Length = " + original.length());
-        for (int i = 0; i < original.length(); i++) {
-            char c = original.charAt(i);
-            System.out.printf("  [%d] = 0x%02x %s\n", i, (int)c,
-                    c == '\r' ? "\\r" : c == '\n' ? "\\n" : c == ' ' ? "[space]" : "'" + c + "'");
-        }
+
 
         String newLine = original.replaceAll("[^\r\n\f]+", "");
         String spaces = original.replaceAll("[\r\n\f]+", "");
 
-        System.out.println("newLine='" + escapeString(newLine) + "' length=" + newLine.length());
-        System.out.println("spaces='" + spaces + "' length=" + spaces.length());
-
-        // Strip newlines inside open clauses except if we are near EOF. We keep NEWLINEs near EOF to
-        // satisfy the final newline needed by the single_put rule used by the REPL.
         int next = _input.LA(1);
         int nextnext = _input.LA(2);
         if (opened > 0 || (nextnext != -1 && (next == '\r' || next == '\n' || next == '\f' || next == '#'))) {
-            // If we're inside a list or on a blank line, ignore all indents,
-            // dedents and line breaks.
             skip();
         }
         else {
-            // Create NEWLINE token (first part of the matched text)
 
             int newLineEnd = ruleStart + newLine.length() - 1;
             emit(createTokenWithPositions(JinjaFlaskLexer.NEWLINE, newLine, ruleStart, newLineEnd));
@@ -194,20 +145,16 @@ abstract class JinjaFlaskLexerBase extends Lexer {
             int previous = indents.isEmpty() ? 0 : indents.peek();
 
             if (indent == previous) {
-                // skip indents of the same size as the present indent-size
                 skip();
             }
             else if (indent > previous) {
                 indents.push(indent);
-                // Create INDENT token (second part of the matched text)
                 int spacesStart = ruleStart + newLine.length();
                 int spacesEnd = ruleStart + original.length() - 1;
                 emit(createTokenWithPositions(JinjaFlaskLexer.INDENT, spaces, spacesStart, spacesEnd));
             }
             else {
-                // Possibly emit more than 1 DEDENT token.
                 while(!indents.isEmpty() && indents.peek() > indent) {
-                    // DEDENT tokens have no text, use current position
                     emit(createTokenAtPosition());
                     indents.pop();
                 }
