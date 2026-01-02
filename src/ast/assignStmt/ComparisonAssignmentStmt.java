@@ -1,8 +1,6 @@
 package ast.assignStmt;
 
 import ast.condition.Condition;
-import ast.compundStmt.PythonExpression;
-
 public class ComparisonAssignmentStmt extends AssignmentStatement {
     private Condition value;
 

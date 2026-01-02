@@ -1,6 +1,5 @@
 package ast.jinja.jinjaCallExpr;
 
-import ast.ASTNode;
 
 public class JinjaVariableAccess extends JinjaCallExpression {
     private String dottedName;

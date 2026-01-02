@@ -1,6 +1,5 @@
 package ast.simpleExpr;
 
-import ast.ASTNode;
 import ast.compundStmt.CompoundStatement;
 
 public abstract class SimpleExpression extends CompoundStatement {

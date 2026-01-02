@@ -1,8 +1,6 @@
 package ast.assignStmt;
 
 import ast.TemplateLiteral;
-import ast.compundStmt.PythonExpression;
-
 public class TemplateLiteralAssignmentStatement extends AssignmentStatement {
     private TemplateLiteral templateLiteral;
     public TemplateLiteralAssignmentStatement(int line_number) {

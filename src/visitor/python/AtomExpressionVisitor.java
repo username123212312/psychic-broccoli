@@ -2,11 +2,9 @@ package visitor.python;
 
 import antlr.JinjaFlaskParser;
 import antlr.JinjaFlaskParserBaseVisitor;
-import ast.ASTNode;
 import ast.argsList.ArgumentsList;
 import ast.atom.Atom;
 import ast.atomExpression.*;
-import visitor.UniversalVisitor;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -6,7 +6,6 @@ import ast.ASTNode;
 import ast.css.*;
 import ast.cssTerm.CssFunctionArguments;
 import ast.cssTerm.CssTerm;
-import ast.cssTerm.FunctionTerm;
 import ast.htmlElement.StyleSheet;
 
 import java.util.ArrayList;

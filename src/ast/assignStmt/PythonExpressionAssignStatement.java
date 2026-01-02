@@ -1,6 +1,5 @@
 package ast.assignStmt;
 
-import ast.complexExp.ComplexExpression;
 import ast.compundStmt.PythonExpression;
 
 public class PythonExpressionAssignStatement extends AssignmentStatement {

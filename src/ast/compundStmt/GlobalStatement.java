@@ -1,7 +1,5 @@
 package ast.compundStmt;
 
-import ast.atom.Name;
-
 import java.util.List;
 
 public class GlobalStatement extends CompoundStatement{

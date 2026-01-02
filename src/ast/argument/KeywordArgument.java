@@ -1,7 +1,5 @@
 package ast.argument;
 
-import ast.compundStmt.PythonExpression;
-
 public class KeywordArgument extends Argument {
     private String argName;
 

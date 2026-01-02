@@ -2,7 +2,6 @@ package visitor.python;
 
 import antlr.JinjaFlaskParser;
 import antlr.JinjaFlaskParserBaseVisitor;
-import ast.atom.Atom;
 import ast.complexExp.*;
 import ast.compundStmt.ForLoop;
 import ast.keyValue.KeyValue;

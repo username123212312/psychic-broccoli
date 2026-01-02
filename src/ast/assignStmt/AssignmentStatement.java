@@ -1,6 +1,5 @@
 package ast.assignStmt;
 
-import ast.ASTNode;
 import ast.compundStmt.CompoundStatement;
 import ast.compundStmt.PythonExpression;
 

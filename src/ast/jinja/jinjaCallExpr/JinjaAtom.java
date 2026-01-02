@@ -1,6 +1,5 @@
 package ast.jinja.jinjaCallExpr;
 
-import ast.ASTNode;
 import ast.atom.Atom;
 
 public class JinjaAtom extends JinjaCallExpression {

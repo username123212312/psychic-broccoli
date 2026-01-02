@@ -1,6 +1,5 @@
 package ast.functionDef;
 
-import ast.ASTNode;
 import ast.Consts;
 import ast.Statement;
 import ast.compundStmt.CompoundStatement;

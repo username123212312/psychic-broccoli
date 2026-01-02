@@ -1,6 +1,5 @@
 package ast.keyValue;
 
-import ast.atom.Atom;
 import ast.simpleExpr.SimpleExpression;
 
 public class SimpleKeyValue extends KeyValue {

@@ -1,7 +1,6 @@
 package ast.argsList;
 
 import ast.argument.Argument;
-import ast.atom.Atom;
 
 import java.util.List;
 

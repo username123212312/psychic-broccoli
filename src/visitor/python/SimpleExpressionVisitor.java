@@ -2,7 +2,6 @@ package visitor.python;
 
 import antlr.JinjaFlaskParser;
 import antlr.JinjaFlaskParserBaseVisitor;
-import ast.arithmeticExpr.ArithmeticExpression;
 import ast.condition.Condition;
 import ast.simpleExpr.SimpleComparisonExpression;
 import ast.simpleExpr.SimpleExpression;
