@@ -103,7 +103,6 @@ assign_stmt
 
 template_literal
    : TRIPLE_DOUBLE_START html_content  TRIPLE_DOUBLE_END      # HtmlContentDoubleTemplate
-   | TRIPLE_SINGLE_START html_content  TRIPLE_SINGLE_END      # HtmlContentSingleTemplate
    ;
 
 for_loop
