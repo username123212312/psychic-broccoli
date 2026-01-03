@@ -34,7 +34,7 @@ public class ListLiteral extends ComplexExpression {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(super.toString()).append(" [ ");
+        stringBuilder.append(super.toString()).append(" ( [ ");
         if (listItems != null) {
             for (Atom listItem : listItems) {
                 stringBuilder.append(listItem.toString())
@@ -42,7 +42,7 @@ public class ListLiteral extends ComplexExpression {
                                 ? "" : ", ");
             }
         }
-        stringBuilder.append(" ] ");
+        stringBuilder.append(" ] ) ");
 
         return stringBuilder.toString();
     }

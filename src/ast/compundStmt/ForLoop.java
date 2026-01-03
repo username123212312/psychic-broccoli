@@ -27,6 +27,14 @@ public class ForLoop extends CompoundStatement {
     }
 
     @Override
+    public String symbolTablePrint() {
+        return "for " +
+                var.toString() + " in " +
+                iter.symbolTablePrint() + (condition == null ? ""
+                : " if " + condition.symbolTablePrint());
+    }
+
+    @Override
     public String toString() {
         return super.toString() +
                 " ( " + var.toString() + " in " +

@@ -12,6 +12,11 @@ public class DictionaryAccess extends AtomExpression {
     }
 
     @Override
+    public String symbolTablePrint() {
+        return super.getVarName() + "[" + key + "]";
+    }
+
+    @Override
     public String toString() {
         return super.toString() + "[" + key + "]" + " ) ";
     }

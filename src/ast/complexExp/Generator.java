@@ -13,6 +13,11 @@ public class Generator extends ComplexExpression{
     }
 
     @Override
+    public String symbolTablePrint() {
+        return  " ( " + forLoop.symbolTablePrint() + " ) ";
+    }
+
+    @Override
     public String toString() {
         return super.toString() + " ( " + forLoop.toString() + " ) ";
     }

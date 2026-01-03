@@ -35,7 +35,7 @@ public class CssSelector extends ASTNode {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(super.toString()).append(Consts.printIndent(3));
+        sb.append(super.toString()).append(Consts.printIndent(7));
 
         // 1. Element name (if present)
         if (elementName != null && !elementName.isEmpty()) {

@@ -33,7 +33,7 @@ public class FunctionDefinition extends CompoundStatement {
     @Override
     public String toString() {
         return super.toString() + "( " + (decorator == null ? "" : decorator.toString())
-                + functionName + "(" + functionParameters.toString() + ")"
+                + functionName + "(" + functionParameters.toString() + ") ) "
                 + Consts.printIndent(2) + functionBody.toString()
                 ;
     }

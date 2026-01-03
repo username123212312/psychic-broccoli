@@ -22,7 +22,7 @@ public class StyleSheet extends HtmlElement {
         stringBuilder.append(super.toString());
         if (ruleSets != null) {
             for (RuleSet ruleSet : ruleSets) {
-                stringBuilder.append(Consts.printIndent(2)).append(ruleSet.toString());
+                stringBuilder.append(Consts.printIndent(5)).append(ruleSet.toString());
             }
         }
         return stringBuilder.toString();

@@ -42,8 +42,10 @@ public class SymbolTable {
     public void setAttribute(String name, String key, Object value) {
         SymbolEntry entry = lookup(name);
         if (entry == null) {
-            System.out.println("Error: symbol '" + name + "' not defined!");
-            return;
+            entry = new SymbolEntry(name);
+            table.put(name, entry);
+//            System.out.println("Error: symbol '" + name + "' not defined!");
+//            return;
         }
         entry.setAttribute(key, value);
     }

@@ -13,6 +13,6 @@ public class TemplateLiteral extends ASTNode {
 
     @Override
     public String toString() {
-        return super.toString() + Consts.printIndent(2) + htmlContent.toString();
+        return super.toString() + Consts.printIndent(3) + htmlContent.toString();
     }
 }

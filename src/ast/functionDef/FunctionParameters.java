@@ -18,12 +18,10 @@ public class FunctionParameters extends ASTNode {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("[ ");
         for (FunctionParameter functionParameter : parameters) {
             stringBuilder.append(functionParameter).append((parameters
                     .indexOf(functionParameter) == parameters.size() - 1) ? "" : ",");
         }
-        stringBuilder.append(" ] ");
         return stringBuilder.toString();
     }
 }

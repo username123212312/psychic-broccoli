@@ -26,7 +26,7 @@ public class CssDeclaration extends ASTNode {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(super.toString()).append(" ( ").append(id).append(" ) ")
-                .append(Consts.printIndent(3));
+                .append(Consts.printIndent(7));
         stringBuilder.append(" [ ");
         if (cssTermList != null) {
             for (CssTerm cssTerm : cssTermList) {

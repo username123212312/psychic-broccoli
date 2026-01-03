@@ -22,6 +22,6 @@ public class RuleSet extends ASTNode {
     public String toString() {
         return super.toString() + " ( "
                 + selectorDeclaration.toString()
-                + Consts.printIndent(3) + declarationList.toString();
+                + Consts.printIndent(6) + declarationList.toString();
     }
 }

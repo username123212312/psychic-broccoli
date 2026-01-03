@@ -32,6 +32,7 @@ public class FunctionParametersVisitor extends JinjaFlaskParserBaseVisitor<Funct
         for (int i = 0; i < ctx.NAME().size(); i++) {
             FunctionParameter functionParameter = new FunctionParameter(ctx.NAME(i).getSymbol().getLine());
             functionParameter.setId(ctx.NAME(i).getText());
+            functionParameterList.add(functionParameter);
         }
         functionParameters.setParameters(functionParameterList);
         return functionParameters;

@@ -1,5 +1,6 @@
 package ast.assignStmt;
 
+import ast.Consts;
 import ast.compundStmt.CompoundStatement;
 import ast.compundStmt.PythonExpression;
 
@@ -15,6 +16,6 @@ public abstract class AssignmentStatement extends CompoundStatement {
 
     @Override
     public String toString() {
-        return super.toString() + " ( " + var.toString() + " = " ;
+        return super.toString() + Consts.printIndent(2) + var.toString() + " = " + Consts.printIndent(2);
     }
 }

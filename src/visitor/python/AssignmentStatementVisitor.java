@@ -22,11 +22,9 @@ public class AssignmentStatementVisitor extends JinjaFlaskParserBaseVisitor<Assi
         Condition condition = new ConditionVisitor().visit(ctx.condition());
         comparisonAssignmentStmt.setVar(pythonExpression);
         String symbolEntryName = pythonExpression.symbolTablePrint();
-        SymbolEntry symbolEntry = sb.insert(symbolEntryName);
-        if (symbolEntry != null) {
-            sb.setAttribute(symbolEntryName, "Value", condition.symbolTablePrint());
-            sb.setAttribute(symbolEntryName, "Type", condition.node_name);
-        }
+//        SymbolEntry symbolEntry = sb.insert(symbolEntryName);
+        sb.setAttribute(symbolEntryName, "Value", condition.symbolTablePrint());
+        sb.setAttribute(symbolEntryName, "Type", condition.node_name);
         comparisonAssignmentStmt.setValue(condition);
         return comparisonAssignmentStmt;
     }
@@ -40,11 +38,10 @@ public class AssignmentStatementVisitor extends JinjaFlaskParserBaseVisitor<Assi
         templateLiteralAssignmentStatement.setVar(pythonExpression);
         templateLiteralAssignmentStatement.setTemplateLiteral(templateLiteral);
         String symbolEntryName = pythonExpression.symbolTablePrint();
-        SymbolEntry symbolEntry = sb.insert(symbolEntryName);
-        if (symbolEntry != null) {
-            sb.setAttribute(symbolEntryName, "Value", "Multiline String");
-            sb.setAttribute(symbolEntryName, "Type", pythonExpression.node_name);
-        }
+//        SymbolEntry symbolEntry = sb.insert(symbolEntryName);
+        sb.setAttribute(symbolEntryName, "Value", "Multiline String");
+        sb.setAttribute(symbolEntryName, "Type", pythonExpression.node_name);
+
         return templateLiteralAssignmentStatement;
     }
 
@@ -56,12 +53,9 @@ public class AssignmentStatementVisitor extends JinjaFlaskParserBaseVisitor<Assi
         PythonExpression var = pythonExpressionVisitor.visit(ctx.python_expr(0));
         PythonExpression value = pythonExpressionVisitor.visit(ctx.python_expr(1));
         String symbolEntryName = var.symbolTablePrint();
-        SymbolEntry symbolEntry = sb.insert(symbolEntryName);
-        if (symbolEntry != null) {
-            sb.setAttribute(symbolEntryName, "Value", value.symbolTablePrint());
-            sb.setAttribute(symbolEntryName, "Type", value.node_name);
-
-        }
+//        SymbolEntry symbolEntry = sb.insert(symbolEntryName);
+        sb.setAttribute(symbolEntryName, "Value", value.symbolTablePrint());
+        sb.setAttribute(symbolEntryName, "Type", value.node_name);
         pythonExpressionAssignStatement.setVar(var);
         pythonExpressionAssignStatement.setValue(value);
         return pythonExpressionAssignStatement;
@@ -76,11 +70,8 @@ public class AssignmentStatementVisitor extends JinjaFlaskParserBaseVisitor<Assi
         arithmeticAssignStatement.setVar(pythonExpression);
         arithmeticAssignStatement.setValue(arithmeticExpression);
         String symbolEntryName = pythonExpression.symbolTablePrint();
-        SymbolEntry symbolEntry = sb.insert(symbolEntryName);
-        if (symbolEntry != null) {
-            sb.setAttribute(symbolEntryName, "Value", arithmeticExpression.symbolTablePrint());
-            sb.setAttribute(symbolEntryName, "Type", arithmeticExpression.node_name);
-        }
+        sb.setAttribute(symbolEntryName, "Value", arithmeticExpression.symbolTablePrint());
+        sb.setAttribute(symbolEntryName, "Type", arithmeticExpression.node_name);
 
         return arithmeticAssignStatement;
     }
