@@ -44,8 +44,6 @@ public class SymbolTable {
         if (entry == null) {
             entry = new SymbolEntry(name);
             table.put(name, entry);
-//            System.out.println("Error: symbol '" + name + "' not defined!");
-//            return;
         }
         entry.setAttribute(key, value);
     }
