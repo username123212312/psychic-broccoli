@@ -174,13 +174,6 @@ ATTVALUE_VALUE
     | '\'' ~'\''* '\''
     ;
 
-// =================== SCRIPT MODE (Raw Text) ===================
-mode SCRIPT_MODE;
-
-SCRIPT_BODY
-    : .*? '</script>' -> popMode
-    ;
-
 // =================== STYLE_MODE MODE (CSS Parsing) ===================
 mode STYLE_MODE;
 
