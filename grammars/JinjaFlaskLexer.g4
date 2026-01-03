@@ -131,11 +131,6 @@ SEA_WS
     : [ \t\r\n]+ -> channel(HIDDEN)
     ;
 
-// 4. Mode-Pushing TAG_MODE Starts
-SCRIPT_OPEN
-    : '<script' ~'>'* '>' -> pushMode(SCRIPT_MODE)
-    ;
-
 STYLE_OPEN
     : '<style' ~'>'* '>' -> pushMode(STYLE_MODE)
     ;

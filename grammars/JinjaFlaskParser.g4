@@ -191,7 +191,6 @@ html_content_item
 
 htmlElement
     : TAG_OPEN tag_content*? (TAG_SLASH_CLOSE | TAG_CLOSE)  # TagElement
-    | SCRIPT_OPEN SCRIPT_BODY                               # ScriptElement
     | STYLE_OPEN style_sheet STYLE_CLOSE                    # StyleElement
     ;
 

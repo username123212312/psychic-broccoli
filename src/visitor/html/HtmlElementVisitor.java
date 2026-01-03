@@ -3,7 +3,6 @@ package visitor.html;
 import antlr.JinjaFlaskParser;
 import antlr.JinjaFlaskParserBaseVisitor;
 import ast.htmlElement.HtmlElement;
-import ast.htmlElement.ScriptElement;
 import ast.htmlElement.StyleSheet;
 import ast.htmlElement.TagElement;
 import ast.tagContent.TagElementItem;
@@ -27,14 +26,6 @@ public class HtmlElementVisitor extends JinjaFlaskParserBaseVisitor<HtmlElement>
             tagElement.setTags(tagElementItemList);
         }
         return tagElement;
-    }
-
-    @Override
-    public HtmlElement visitScriptElement(JinjaFlaskParser.ScriptElementContext ctx) {
-        ScriptElement scriptElement = new ScriptElement(ctx.getStart().getLine());
-        scriptElement.setScriptBody(ctx.SCRIPT_BODY().getText());
-
-        return scriptElement;
     }
 
     @Override
