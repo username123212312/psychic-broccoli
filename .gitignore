@@ -41,6 +41,3 @@ src/antlr/JinjaFlaskParserBaseVisitor.java
 src/antlr/JinjaFlaskParserListener.java
 src/antlr/JinjaFlaskParserVisitor.java
 compiler_project.iml
-src/app/App_Compiler2.java
-src/listener
-src/antlr/JinjaFlaskLexerBase_Compiler2.java
