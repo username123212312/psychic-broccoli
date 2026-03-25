@@ -1,22 +1,21 @@
 package visitor.python;
 
-import antlr.JinjaFlaskParser;
-import antlr.JinjaFlaskParserBaseVisitor;
+import antlr.python.PythonParser;
+import antlr.python.PythonParserBaseVisitor;
 import ast.TemplateLiteral;
 import ast.arithmeticExpr.ArithmeticExpression;
 import ast.assignStmt.*;
 import ast.compundStmt.PythonExpression;
 import ast.condition.Condition;
-import symbolTable.SymbolEntry;
 import symbolTable.SymbolTable;
 import symbolTable.SymbolTableManager;
 
-public class AssignmentStatementVisitor extends JinjaFlaskParserBaseVisitor<AssignmentStatement> {
+public class AssignmentStatementVisitor extends PythonParserBaseVisitor<AssignmentStatement> {
     private final PythonExpressionVisitor pythonExpressionVisitor = new PythonExpressionVisitor();
     private final SymbolTable sb = SymbolTableManager.INSTANCE.getSymbolTable();
 
     @Override
-    public AssignmentStatement visitComparisonAssignStmt(JinjaFlaskParser.ComparisonAssignStmtContext ctx) {
+    public AssignmentStatement visitComparisonAssignStmt(PythonParser.ComparisonAssignStmtContext ctx) {
         ComparisonAssignmentStmt comparisonAssignmentStmt = new ComparisonAssignmentStmt(ctx.getStart().getLine());
         PythonExpression pythonExpression = pythonExpressionVisitor.visit(ctx.python_expr());
         Condition condition = new ConditionVisitor().visit(ctx.condition());
@@ -30,7 +29,7 @@ public class AssignmentStatementVisitor extends JinjaFlaskParserBaseVisitor<Assi
     }
 
     @Override
-    public AssignmentStatement visitTemplateLiteralAssignStmt(JinjaFlaskParser.TemplateLiteralAssignStmtContext ctx) {
+    public AssignmentStatement visitTemplateLiteralAssignStmt(PythonParser.TemplateLiteralAssignStmtContext ctx) {
         TemplateLiteralAssignmentStatement templateLiteralAssignmentStatement
                 = new TemplateLiteralAssignmentStatement(ctx.getStart().getLine());
         PythonExpression pythonExpression = pythonExpressionVisitor.visit(ctx.python_expr());
@@ -46,7 +45,7 @@ public class AssignmentStatementVisitor extends JinjaFlaskParserBaseVisitor<Assi
     }
 
     @Override
-    public AssignmentStatement visitPythonExpressionAssignStmt(JinjaFlaskParser.PythonExpressionAssignStmtContext ctx) {
+    public AssignmentStatement visitPythonExpressionAssignStmt(PythonParser.PythonExpressionAssignStmtContext ctx) {
 
         PythonExpressionAssignStatement pythonExpressionAssignStatement
                 = new PythonExpressionAssignStatement(ctx.getStart().getLine());
@@ -63,7 +62,7 @@ public class AssignmentStatementVisitor extends JinjaFlaskParserBaseVisitor<Assi
 
 
     @Override
-    public AssignmentStatement visitArithmeticAssignStmt(JinjaFlaskParser.ArithmeticAssignStmtContext ctx) {
+    public AssignmentStatement visitArithmeticAssignStmt(PythonParser.ArithmeticAssignStmtContext ctx) {
         ArithmeticAssignStatement arithmeticAssignStatement = new ArithmeticAssignStatement(ctx.getStart().getLine());
         PythonExpression pythonExpression = pythonExpressionVisitor.visit(ctx.python_expr());
         ArithmeticExpression arithmeticExpression = new ArithmeticExpressionVisitor().visit(ctx.arithmetic_expr());

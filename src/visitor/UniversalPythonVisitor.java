@@ -1,9 +1,8 @@
 package visitor;
 
-import antlr.JinjaFlaskParser;
-import antlr.JinjaFlaskParserBaseVisitor;
+import antlr.python.PythonParser;
+import antlr.python.PythonParserBaseVisitor;
 import ast.ASTNode;
-import ast.HtmlContent;
 import ast.Imported;
 import ast.argsList.ArgumentsList;
 import ast.atom.Atom;
@@ -12,9 +11,7 @@ import ast.complexExp.ListItems;
 import ast.compundStmt.GlobalStatement;
 import ast.functionDef.Decorator;
 import ast.functionDef.FunctionParameters;
-import ast.htmlContentItem.HtmlContentItem;
 import ast.keyValue.KeyValue;
-import visitor.html.HtmlContentItemVisitor;
 import visitor.python.ArgumentListVisitor;
 import visitor.python.AtomVisitor;
 import visitor.python.FunctionParametersVisitor;
@@ -23,9 +20,9 @@ import visitor.python.KeyValueVisitor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UniversalVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
+public class UniversalPythonVisitor extends PythonParserBaseVisitor<ASTNode> {
     @Override
-    public FunctionParameters visitFunctionParameters(JinjaFlaskParser.FunctionParametersContext ctx) {
+    public FunctionParameters visitFunctionParameters(PythonParser.FunctionParametersContext ctx) {
         FunctionParametersVisitor functionParametersVisitor = new FunctionParametersVisitor();
         if (ctx.fun_params() == null) {
             FunctionParameters functionParameters = new FunctionParameters(ctx.getStart().getLine());
@@ -36,7 +33,7 @@ public class UniversalVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
     }
 
     @Override
-    public ListItems visitListItems(JinjaFlaskParser.ListItemsContext ctx) {
+    public ListItems visitListItems(PythonParser.ListItemsContext ctx) {
         ListItems listItems = new ListItems(ctx.getStart().getLine());
         List<Atom> atomList = new ArrayList<>();
         AtomVisitor atomVisitor = new AtomVisitor();
@@ -50,7 +47,7 @@ public class UniversalVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
     }
 
     @Override
-    public GlobalStatement visitGlobalStatementDef(JinjaFlaskParser.GlobalStatementDefContext ctx) {
+    public GlobalStatement visitGlobalStatementDef(PythonParser.GlobalStatementDefContext ctx) {
         GlobalStatement globalStatement = new GlobalStatement(ctx.getStart().getLine());
         List<String> globals = new ArrayList<>();
         for (int i = 0; i < ctx.NAME().size(); i++) {
@@ -61,7 +58,7 @@ public class UniversalVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
     }
 
     @Override
-    public Decorator visitDecorator(JinjaFlaskParser.DecoratorContext ctx) {
+    public Decorator visitDecorator(PythonParser.DecoratorContext ctx) {
         ArgumentListVisitor argumentListVisitor = new ArgumentListVisitor();
         Decorator decorator = new Decorator(ctx.getStart().getLine());
         StringBuilder stringBuilder = new StringBuilder();
@@ -78,7 +75,7 @@ public class UniversalVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
     }
 
     @Override
-    public Imported visitImported(JinjaFlaskParser.ImportedContext ctx) {
+    public Imported visitImported(PythonParser.ImportedContext ctx) {
         Imported imported = new Imported(ctx.getStart().getLine());
         if (ctx.NAME() == null || ctx.NAME().isEmpty()) {
             imported.setName(ctx.CLASS_NAME(0).getText());
@@ -96,35 +93,21 @@ public class UniversalVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
 
 
     @Override
-    public KeyValue visitKeyValuePairs(JinjaFlaskParser.KeyValuePairsContext ctx) {
+    public KeyValue visitKeyValuePairs(PythonParser.KeyValuePairsContext ctx) {
         KeyValueVisitor keyValueVisitor = new KeyValueVisitor();
         // Dummy
         return keyValueVisitor.visit(ctx.key_value(0));
     }
 
     @Override
-    public HtmlContent visitHtmlContent(JinjaFlaskParser.HtmlContentContext ctx) {
-        HtmlContent htmlContent = new HtmlContent(ctx.getStart().getLine());
-        List<HtmlContentItem> htmlContentItems = new ArrayList<>();
-        HtmlContentItemVisitor htmlContentItemVisitor = new HtmlContentItemVisitor();
-        for(int i = 0; i < ctx.html_content_item().size(); i ++){
-            HtmlContentItem htmlContentItem = htmlContentItemVisitor
-                    .visit(ctx.html_content_item(i));
-            htmlContentItems.add(htmlContentItem);
-        }
-        htmlContent.setItems(htmlContentItems);
-        return htmlContent;
-    }
-
-    @Override
-    public Bool visitTrueAtom(JinjaFlaskParser.TrueAtomContext ctx) {
+    public Bool visitTrueAtom(PythonParser.TrueAtomContext ctx) {
         Bool bool = new Bool(ctx.getStart().getLine());
         bool.setValue("True");
         return bool;
     }
 
     @Override
-    public Bool visitFalseAtom(JinjaFlaskParser.FalseAtomContext ctx) {
+    public Bool visitFalseAtom(PythonParser.FalseAtomContext ctx) {
         Bool bool = new Bool(ctx.getStart().getLine());
         bool.setValue("False");
         return bool;

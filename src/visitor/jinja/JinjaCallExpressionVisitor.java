@@ -1,7 +1,7 @@
 package visitor.jinja;
 
-import antlr.JinjaFlaskParser;
-import antlr.JinjaFlaskParserBaseVisitor;
+import antlr.html.HtmlParser;
+import antlr.html.HtmlParserBaseVisitor;
 import ast.atom.Atom;
 import ast.jinja.JinjaArgumentsList;
 import ast.jinja.jinjaCallExpr.JinjaAtom;
@@ -10,11 +10,11 @@ import ast.jinja.jinjaCallExpr.JinjaFilteredExpression;
 import ast.jinja.jinjaCallExpr.JinjaFunctionCall;
 import ast.jinja.jinjaCallExpr.JinjaVariableAccess;
 
-public class JinjaCallExpressionVisitor extends JinjaFlaskParserBaseVisitor<JinjaCallExpression> {
+public class JinjaCallExpressionVisitor extends HtmlParserBaseVisitor<JinjaCallExpression> {
     JinjaVisitor jinjaVisitor = new JinjaVisitor();
 
     @Override
-    public JinjaCallExpression visitJinjaFilteredExpr(JinjaFlaskParser.JinjaFilteredExprContext ctx) {
+    public JinjaCallExpression visitJinjaFilteredExpr(HtmlParser.JinjaFilteredExprContext ctx) {
         JinjaFilteredExpression jinjaFilteredExpression = new JinjaFilteredExpression(ctx.start.getLine());
         JinjaVariableAccess jinjaVariableAccess = (JinjaVariableAccess) jinjaVisitor.visit(ctx.j_var_access());
         jinjaFilteredExpression.setJinjaVariableAccess(jinjaVariableAccess);
@@ -25,7 +25,7 @@ public class JinjaCallExpressionVisitor extends JinjaFlaskParserBaseVisitor<Jinj
     }
 
     @Override
-    public JinjaCallExpression visitJinjaFunctionCall(JinjaFlaskParser.JinjaFunctionCallContext ctx) {
+    public JinjaCallExpression visitJinjaFunctionCall(HtmlParser.JinjaFunctionCallContext ctx) {
         JinjaFunctionCall jinjaFunctionCall = new JinjaFunctionCall(ctx.start.getLine());
         jinjaFunctionCall.setFunctionName(ctx.J_NAME().getText());
         if (ctx.j_argument_list() != null) {
@@ -36,14 +36,14 @@ public class JinjaCallExpressionVisitor extends JinjaFlaskParserBaseVisitor<Jinj
     }
 
     @Override
-    public JinjaCallExpression visitJinjaVarAccessOnly(JinjaFlaskParser.JinjaVarAccessOnlyContext ctx) {
+    public JinjaCallExpression visitJinjaVarAccessOnly(HtmlParser.JinjaVarAccessOnlyContext ctx) {
         return (JinjaCallExpression) jinjaVisitor.visit(ctx.j_var_access());
     }
 
 
 
     @Override
-    public JinjaCallExpression visitJinjaAtomOnly(JinjaFlaskParser.JinjaAtomOnlyContext ctx) {
+    public JinjaCallExpression visitJinjaAtomOnly(HtmlParser.JinjaAtomOnlyContext ctx) {
         JinjaAtomVisitor jinjaAtomVisitor = new JinjaAtomVisitor();
         Atom atom = jinjaAtomVisitor.visit(ctx.j_atom());
         return new JinjaAtom(ctx.start.getLine(), atom);

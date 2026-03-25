@@ -2,7 +2,16 @@ package app;
 
 import antlr.JinjaFlaskLexer;
 import antlr.JinjaFlaskParser;
+import antlr.css.CssLexer;
+import antlr.css.CssParser;
+import antlr.html.HtmlLexer;
+import antlr.html.HtmlParser;
+import antlr.python.PythonLexer;
+import antlr.python.PythonParser;
+import ast.ASTNode;
+import ast.HtmlContent;
 import ast.Program;
+import ast.htmlElement.StyleSheet;
 import listener.CustomErrorListener;
 import org.antlr.v4.gui.TreeViewer;
 import org.antlr.v4.runtime.CharStream;
@@ -11,52 +20,124 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 import symbolTable.SymbolTableManager;
+import visitor.css.StyleSheetVisitor;
+import visitor.html.HtmlContentItemVisitor;
+import visitor.html.HtmlContentVisitor;
 import visitor.python.ProgramVisitor;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class App {
     public static void main(String[] args) {
         if (args.length != 1) {
-            System.err.println("Usage: java app.App <file_name>");
+            System.err.println("Usage: java app.App <directory_path_or_file>");
         } else {
-            String fileName = args[0];
-            try {
-                // Step 1: Get the tokens stream
-                CommonTokenStream tokens = getTokenStream(fileName);
+            Path startPath = Paths.get(args[0]);
 
-                // CRITICAL DEBUG STEP: Print all tokens before parsing
-                debugTokenStream(tokens);
+            try (Stream<Path> paths = Files.walk(startPath)) {
+                paths.filter(Files::isRegularFile)
+                        .forEach(path -> {
+                            String fileName = path.toString();
+                            System.out.println("\n--- Processing: " + fileName + " ---");
+                            processFile(fileName);
+                        });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+//            String fileName = args[0];
+//            try {
+//                // Step 1: Get the tokens stream
+//                CommonTokenStream tokens = getTokenStream(fileName);
+//
+//                // CRITICAL DEBUG STEP: Print all tokens before parsing
+//                debugTokenStream(tokens);
+//
+//                // Step 2: Create the parser and parse
+//                tokens.reset(); // Reset the stream to the beginning for the parser
+//                JinjaFlaskParser parser = new JinjaFlaskParser(tokens);
+//
+//                // Add the custom error listener
+//                parser.removeErrorListeners();
+//                parser.addErrorListener(new CustomErrorListener());
+//
+//                // tell ANTLR to build a parse tree
+//                ParseTree antlrAST = parser.prog();
+//                showParseTree(parser.getRuleNames(), antlrAST);
+//                ProgramVisitor programVisitor = new ProgramVisitor();
+//                Program program = programVisitor.visit(antlrAST);
+//                System.out.println(program);
+//
+//                System.out.println(SymbolTableManager.INSTANCE.getSymbolTable());
+//                // If we reach here, the parse was successful!
+//                System.out.println("--- Parsing SUCCESSFUL! ---");
+//
+//            } catch (Exception e) {
+//                System.err.println("Parsing halted due to error: " + (e.getMessage() != null ? e.getMessage() : "Unknown Error (Likely ANTLR Stack Crash)"));
+//                // Print stack trace for better debugging of 'null' errors
+//                e.printStackTrace();
+//            }
+        }
+    }
 
-                // Step 2: Create the parser and parse
-                tokens.reset(); // Reset the stream to the beginning for the parser
-                JinjaFlaskParser parser = new JinjaFlaskParser(tokens);
-
-                // Add the custom error listener
+    private static void processFile(String fileName) {
+        try {
+            if (fileName.endsWith(".py")) {
+                PythonLexer lexer = new PythonLexer(CharStreams.fromFileName(fileName));
+                CommonTokenStream tokens = new CommonTokenStream(lexer);
+                PythonParser parser = new PythonParser(tokens);
+                ParseTree tree = parser.prog(); // Start rule for Python
                 parser.removeErrorListeners();
                 parser.addErrorListener(new CustomErrorListener());
 
                 // tell ANTLR to build a parse tree
-                ParseTree antlrAST = parser.prog();
-                showParseTree(parser.getRuleNames(), antlrAST);
-                ProgramVisitor programVisitor = new ProgramVisitor();
-                Program program = programVisitor.visit(antlrAST);
+                showParseTree(parser.getRuleNames(), tree);
+                // Visit Python AST
+                ProgramVisitor visitor = new ProgramVisitor();
+                Program program = visitor.visit(tree);
                 System.out.println(program);
-
                 System.out.println(SymbolTableManager.INSTANCE.getSymbolTable());
-                // If we reach here, the parse was successful!
-                System.out.println("--- Parsing SUCCESSFUL! ---");
+            } else if (fileName.endsWith(".html") || fileName.endsWith(".j2")) {
+                HtmlLexer lexer = new HtmlLexer(CharStreams.fromFileName(fileName));
+                CommonTokenStream tokens = new CommonTokenStream(lexer);
+                HtmlParser parser = new HtmlParser(tokens);
+                ParseTree tree = parser.html_content(); // Start rule for Python
+                // Visit Python AST
+                parser.removeErrorListeners();
+                parser.addErrorListener(new CustomErrorListener());
 
-            } catch (Exception e) {
-                System.err.println("Parsing halted due to error: " + (e.getMessage() != null ? e.getMessage() : "Unknown Error (Likely ANTLR Stack Crash)"));
-                // Print stack trace for better debugging of 'null' errors
-                e.printStackTrace();
+                // tell ANTLR to build a parse tree
+                showParseTree(parser.getRuleNames(), tree);
+                HtmlContentVisitor visitor = new HtmlContentVisitor();
+                HtmlContent htmlContent = visitor.visit(tree);
+                System.out.println(htmlContent);
+            } else if (fileName.endsWith(".css")) {
+                CssLexer lexer = new CssLexer(CharStreams.fromFileName(fileName));
+                CommonTokenStream tokens = new CommonTokenStream(lexer);
+                CssParser parser = new CssParser(tokens);
+                ParseTree tree = parser.style_sheet(); // Start rule for Python
+                parser.removeErrorListeners();
+                parser.addErrorListener(new CustomErrorListener());
+
+                // tell ANTLR to build a parse tree
+                showParseTree(parser.getRuleNames(), tree);
+                // Visit Python AST
+                StyleSheetVisitor visitor = new StyleSheetVisitor();
+                ASTNode styleSheet = visitor.visit(tree);
+                System.out.println(styleSheet);
             }
+        } catch (Exception e) {
+            System.err.println("Error parsing " + fileName + ": " + e.getMessage());
         }
+
     }
+
 
     private static void showParseTree(String[] ruleNames, ParseTree parseTree) {
         TreeViewer viewer = new TreeViewer(
@@ -112,18 +193,6 @@ public class App {
         // Set size and display
         frame.setSize(1000, 640);
         frame.setVisible(true);
-    }
-
-    private static CommonTokenStream getTokenStream(String fileName) throws IOException {
-        CharStream input = CharStreams.fromFileName(fileName);
-
-        // CRITICAL FIX: Use the custom JinjaFlaskLexer instead of the base Lexer.
-        JinjaFlaskLexer lexer = new JinjaFlaskLexer(input);
-
-        // Remove default ConsoleErrorListener from the Lexer too, to reduce noise
-        lexer.removeErrorListeners();
-
-        return new CommonTokenStream(lexer);
     }
 
 

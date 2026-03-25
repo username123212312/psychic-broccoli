@@ -1,7 +1,7 @@
 package visitor.html;
 
-import antlr.JinjaFlaskParser;
-import antlr.JinjaFlaskParserBaseVisitor;
+import antlr.html.HtmlParser;
+import antlr.html.HtmlParserBaseVisitor;
 import ast.htmlElement.HtmlElement;
 import ast.htmlElement.StyleSheet;
 import ast.htmlElement.TagElement;
@@ -11,10 +11,10 @@ import visitor.css.StyleSheetVisitor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HtmlElementVisitor extends JinjaFlaskParserBaseVisitor<HtmlElement> {
+public class HtmlElementVisitor extends HtmlParserBaseVisitor<HtmlElement> {
 
     @Override
-    public HtmlElement visitTagElement(JinjaFlaskParser.TagElementContext ctx) {
+    public HtmlElement visitTagElement(HtmlParser.TagElementContext ctx) {
         TagElement tagElement = new TagElement(ctx.getStart().getLine());
         TagContentVisitor tagContentVisitor = new TagContentVisitor();
         if (ctx.tag_content() != null) {
@@ -29,7 +29,7 @@ public class HtmlElementVisitor extends JinjaFlaskParserBaseVisitor<HtmlElement>
     }
 
     @Override
-    public HtmlElement visitStyleElement(JinjaFlaskParser.StyleElementContext ctx) {
+    public HtmlElement visitStyleElement(HtmlParser.StyleElementContext ctx) {
         return (StyleSheet) new StyleSheetVisitor().visit(ctx.style_sheet());
     }
 }

@@ -1,7 +1,7 @@
 package visitor.python;
 
-import antlr.JinjaFlaskParser;
-import antlr.JinjaFlaskParserBaseVisitor;
+import antlr.python.PythonParser;
+import antlr.python.PythonParserBaseVisitor;
 import ast.argsList.ArgumentsList;
 import ast.atom.Atom;
 import ast.atomExpression.*;
@@ -9,11 +9,11 @@ import ast.atomExpression.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AtomExpressionVisitor extends JinjaFlaskParserBaseVisitor<AtomExpression> {
+public class AtomExpressionVisitor extends PythonParserBaseVisitor<AtomExpression> {
     private final AtomVisitor atomVisitor = new AtomVisitor();
 
     @Override
-    public AtomExpression visitListAccess(JinjaFlaskParser.ListAccessContext ctx) {
+    public AtomExpression visitListAccess(PythonParser.ListAccessContext ctx) {
         ListAccess listAccess = new ListAccess(ctx.getStart().getLine());
         Atom atom = atomVisitor.visit(ctx.atom());
         listAccess.setVarName(atom.getValue().toString());
@@ -23,7 +23,7 @@ public class AtomExpressionVisitor extends JinjaFlaskParserBaseVisitor<AtomExpre
     }
 
     @Override
-    public AtomExpression visitDictionaryAccess(JinjaFlaskParser.DictionaryAccessContext ctx) {
+    public AtomExpression visitDictionaryAccess(PythonParser.DictionaryAccessContext ctx) {
         DictionaryAccess dictionaryAccess = new DictionaryAccess(ctx.getStart().getLine());
         Atom atom = atomVisitor.visit(ctx.atom());
         dictionaryAccess.setVarName(atom.getValue().toString());
@@ -32,7 +32,7 @@ public class AtomExpressionVisitor extends JinjaFlaskParserBaseVisitor<AtomExpre
     }
 
     @Override
-    public AtomExpression visitAttributeAccess(JinjaFlaskParser.AttributeAccessContext ctx) {
+    public AtomExpression visitAttributeAccess(PythonParser.AttributeAccessContext ctx) {
         AttributeAccess attributeAccess = new AttributeAccess(ctx.getStart().getLine());
         Atom atom = atomVisitor.visit(ctx.atom(0));
         List<Atom> atomList = new ArrayList<>();
@@ -46,7 +46,7 @@ public class AtomExpressionVisitor extends JinjaFlaskParserBaseVisitor<AtomExpre
     }
 
     @Override
-    public AtomExpression visitMethodAccess(JinjaFlaskParser.MethodAccessContext ctx) {
+    public AtomExpression visitMethodAccess(PythonParser.MethodAccessContext ctx) {
         MethodAccess methodAccess = new MethodAccess(ctx.getStart().getLine());
         Atom atom = atomVisitor.visit(ctx.atom());
         List<AtomExpression> atomExpressions = new ArrayList<>();
@@ -60,7 +60,7 @@ public class AtomExpressionVisitor extends JinjaFlaskParserBaseVisitor<AtomExpre
     }
 
     @Override
-    public AtomExpression visitObjectCreation(JinjaFlaskParser.ObjectCreationContext ctx) {
+    public AtomExpression visitObjectCreation(PythonParser.ObjectCreationContext ctx) {
         ObjectCreation objectCreation = new ObjectCreation(ctx.getStart().getLine());
         objectCreation.setVarName(ctx.CLASS_NAME().getText());
         if (ctx.arglist() != null) {
@@ -71,7 +71,7 @@ public class AtomExpressionVisitor extends JinjaFlaskParserBaseVisitor<AtomExpre
     }
 
     @Override
-    public AtomExpression visitFunctionCall(JinjaFlaskParser.FunctionCallContext ctx) {
+    public AtomExpression visitFunctionCall(PythonParser.FunctionCallContext ctx) {
         FunctionCall functionCall = new FunctionCall(ctx.getStart().getLine());
         functionCall.setVarName(ctx.NAME().getText());
         if (ctx.arglist() != null) {
@@ -82,7 +82,7 @@ public class AtomExpressionVisitor extends JinjaFlaskParserBaseVisitor<AtomExpre
     }
 
     @Override
-    public AtomExpression visitSimpleVar(JinjaFlaskParser.SimpleVarContext ctx) {
+    public AtomExpression visitSimpleVar(PythonParser.SimpleVarContext ctx) {
         SimpleVariable simpleVariable = new SimpleVariable(ctx.getStart().getLine());
         Atom atom = atomVisitor.visit(ctx.atom());
         simpleVariable.setVarName(atom.getValue().toString());

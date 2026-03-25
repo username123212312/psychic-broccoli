@@ -1,16 +1,16 @@
 package visitor.python;
 
-import antlr.JinjaFlaskParser;
-import antlr.JinjaFlaskParserBaseVisitor;
+import antlr.python.PythonParser;
+import antlr.python.PythonParserBaseVisitor;
 import ast.Program;
 import ast.Statement;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProgramVisitor extends JinjaFlaskParserBaseVisitor<Program> {
+public class ProgramVisitor extends PythonParserBaseVisitor<Program> {
     @Override
-    public Program visitProgram(JinjaFlaskParser.ProgramContext ctx) {
+    public Program visitProgram(PythonParser.ProgramContext ctx) {
         List<Statement> statements = new ArrayList<>();
         StatementVisitor statementVisitor = new StatementVisitor();
         for (int i = 0; i < ctx.statement().size(); i++) {

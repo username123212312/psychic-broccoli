@@ -1,7 +1,7 @@
 package visitor.css;
 
-import antlr.JinjaFlaskParser;
-import antlr.JinjaFlaskParserBaseVisitor;
+import antlr.css.CssParser;
+import antlr.css.CssParserBaseVisitor;
 import ast.ASTNode;
 import ast.css.*;
 import ast.cssTerm.CssFunctionArguments;
@@ -11,10 +11,10 @@ import ast.htmlElement.StyleSheet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StyleSheetVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
+public class StyleSheetVisitor extends CssParserBaseVisitor<ASTNode> {
 
     @Override
-    public StyleSheet visitStyleSheet(JinjaFlaskParser.StyleSheetContext ctx) {
+    public StyleSheet visitStyleSheet(CssParser.StyleSheetContext ctx) {
         StyleSheet styleSheet = new StyleSheet(ctx.getStart().getLine());
         List<RuleSet> ruleSetList = new ArrayList<>();
         for (int i = 0; i < ctx.ruleSet().size(); i++) {
@@ -26,7 +26,7 @@ public class StyleSheetVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
     }
 
     @Override
-    public RuleSet visitCssRule(JinjaFlaskParser.CssRuleContext ctx) {
+    public RuleSet visitCssRule(CssParser.CssRuleContext ctx) {
         RuleSet ruleSet = new RuleSet(ctx.getStart().getLine());
         SelectorDeclaration selectorDeclaration = (SelectorDeclaration) visit(ctx.selector_decl());
         CssDeclarationList declarationList = (CssDeclarationList) visit(ctx.declarationList());
@@ -36,7 +36,7 @@ public class StyleSheetVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
     }
 
     @Override
-    public SelectorDeclaration visitCssSelectorDeclaration(JinjaFlaskParser.CssSelectorDeclarationContext ctx) {
+    public SelectorDeclaration visitCssSelectorDeclaration(CssParser.CssSelectorDeclarationContext ctx) {
         SelectorDeclaration selectorDeclaration = new SelectorDeclaration(ctx.getStart().getLine());
         List<CssSelectorList> cssSelectorLists = new ArrayList<>();
         for (int i = 0; i < ctx.css_selector_list().size(); i++) {
@@ -48,7 +48,7 @@ public class StyleSheetVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
     }
 
     @Override
-    public CssSelectorList visitCssSelectorList(JinjaFlaskParser.CssSelectorListContext ctx) {
+    public CssSelectorList visitCssSelectorList(CssParser.CssSelectorListContext ctx) {
         CssSelectorList cssSelectorList = new CssSelectorList(ctx.getStart().getLine());
         CssSelectorVisitor cssSelectorVisitor = new CssSelectorVisitor();
         List<CssSelector> cssSelectors = new ArrayList<>();
@@ -61,7 +61,7 @@ public class StyleSheetVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
     }
 
     @Override
-    public CssDeclarationList visitDeclarationBlock(JinjaFlaskParser.DeclarationBlockContext ctx) {
+    public CssDeclarationList visitDeclarationBlock(CssParser.DeclarationBlockContext ctx) {
         CssDeclarationList cssDeclarationList = new CssDeclarationList(ctx.start.getLine());
         List<CssDeclaration> declarations = new ArrayList<>();
         if (!ctx.declaration().isEmpty()) {
@@ -76,7 +76,7 @@ public class StyleSheetVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
     }
 
     @Override
-    public CssDeclaration visitCssDeclaration(JinjaFlaskParser.CssDeclarationContext ctx) {
+    public CssDeclaration visitCssDeclaration(CssParser.CssDeclarationContext ctx) {
         CssDeclaration cssDeclaration = new CssDeclaration(ctx.start.getLine());
         CssTermVisitor cssTermVisitor = new CssTermVisitor();
         List<CssTerm> terms = new ArrayList<>();
@@ -92,7 +92,7 @@ public class StyleSheetVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
 
 
     @Override
-    public CssFunctionArguments visitFunctionArguments(JinjaFlaskParser.FunctionArgumentsContext ctx) {
+    public CssFunctionArguments visitFunctionArguments(CssParser.FunctionArgumentsContext ctx) {
         CssFunctionArguments cssFunctionArguments = new CssFunctionArguments(ctx.start.getLine());
         CssTermVisitor cssTermVisitor = new CssTermVisitor();
         List<CssTerm> cssTerms = new ArrayList<>();

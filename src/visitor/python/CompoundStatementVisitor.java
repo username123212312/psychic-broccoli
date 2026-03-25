@@ -1,7 +1,7 @@
 package visitor.python;
 
-import antlr.JinjaFlaskParser;
-import antlr.JinjaFlaskParserBaseVisitor;
+import antlr.python.PythonParser;
+import antlr.python.PythonParserBaseVisitor;
 import ast.ElIfStatement;
 import ast.Imported;
 import ast.Statement;
@@ -13,34 +13,34 @@ import ast.functionDef.Decorator;
 import ast.functionDef.FunctionDefinition;
 import ast.functionDef.FunctionParameters;
 import org.antlr.v4.runtime.tree.TerminalNode;
-import visitor.UniversalVisitor;
+import visitor.UniversalPythonVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompoundStatementVisitor extends JinjaFlaskParserBaseVisitor<CompoundStatement> {
-    UniversalVisitor universalVisitor = new UniversalVisitor();
+public class CompoundStatementVisitor extends PythonParserBaseVisitor<CompoundStatement> {
+    UniversalPythonVisitor universalVisitor = new UniversalPythonVisitor();
 
 
     @Override
-    public CompoundStatement visitAtomExpression(JinjaFlaskParser.AtomExpressionContext ctx) {
+    public CompoundStatement visitAtomExpression(PythonParser.AtomExpressionContext ctx) {
         AtomExpressionVisitor atomExpressionVisitor = new AtomExpressionVisitor();
         return atomExpressionVisitor.visit(ctx.atom_expr());
     }
 
     @Override
-    public CompoundStatement visitSimpleExpression(JinjaFlaskParser.SimpleExpressionContext ctx) {
+    public CompoundStatement visitSimpleExpression(PythonParser.SimpleExpressionContext ctx) {
         SimpleExpressionVisitor simpleExpressionVisitor = new SimpleExpressionVisitor();
         return simpleExpressionVisitor.visit(ctx.simple_expr());
     }
 
     @Override
-    public CompoundStatement visitIfStatement(JinjaFlaskParser.IfStatementContext ctx) {
+    public CompoundStatement visitIfStatement(PythonParser.IfStatementContext ctx) {
         return visit(ctx.if_stmt());
     }
 
     @Override
-    public CompoundStatement visitIfStatementDef(JinjaFlaskParser.IfStatementDefContext ctx) {
+    public CompoundStatement visitIfStatementDef(PythonParser.IfStatementDefContext ctx) {
         IfStatement ifStatement = new IfStatement(ctx.getStart().getLine());
         ConditionVisitor conditionVisitor = new ConditionVisitor();
         StatementVisitor statementVisitor = new StatementVisitor();
@@ -69,20 +69,20 @@ public class CompoundStatementVisitor extends JinjaFlaskParserBaseVisitor<Compou
     }
 
     @Override
-    public CompoundStatement visitAssignmentStatement(JinjaFlaskParser.AssignmentStatementContext ctx) {
+    public CompoundStatement visitAssignmentStatement(PythonParser.AssignmentStatementContext ctx) {
         AssignmentStatementVisitor assignmentStatementVisitor = new AssignmentStatementVisitor();
         return assignmentStatementVisitor.visit(ctx.assign_stmt());
     }
 
 
     @Override
-    public CompoundStatement visitFunctionDefinition(JinjaFlaskParser.FunctionDefinitionContext ctx) {
+    public CompoundStatement visitFunctionDefinition(PythonParser.FunctionDefinitionContext ctx) {
         return visit(ctx.func_def());
     }
 
     @Override
-    public CompoundStatement visitFunctionDefDef(JinjaFlaskParser.FunctionDefDefContext ctx) {
-        UniversalVisitor universalVisitor = new UniversalVisitor();
+    public CompoundStatement visitFunctionDefDef(PythonParser.FunctionDefDefContext ctx) {
+        UniversalPythonVisitor universalVisitor = new UniversalPythonVisitor();
         FunctionDefinition functionDefinition = new FunctionDefinition(ctx.getStart().getLine());
         if (ctx.dec() != null) {
             Decorator decorator = (Decorator) universalVisitor.visit(ctx.dec());
@@ -97,18 +97,18 @@ public class CompoundStatementVisitor extends JinjaFlaskParserBaseVisitor<Compou
     }
 
     @Override
-    public CompoundStatement visitReturnStatement(JinjaFlaskParser.ReturnStatementContext ctx) {
+    public CompoundStatement visitReturnStatement(PythonParser.ReturnStatementContext ctx) {
         ReturnStatementVisitor returnStatementVisitor = new ReturnStatementVisitor();
         return returnStatementVisitor.visit(ctx.return_stmt());
     }
 
     @Override
-    public CompoundStatement visitImportStatement(JinjaFlaskParser.ImportStatementContext ctx) {
+    public CompoundStatement visitImportStatement(PythonParser.ImportStatementContext ctx) {
         return visit(ctx.import_from());
     }
 
     @Override
-    public ImportStatement visitImportFromDef(JinjaFlaskParser.ImportFromDefContext ctx) {
+    public ImportStatement visitImportFromDef(PythonParser.ImportFromDefContext ctx) {
         ImportStatement importStatement = new ImportStatement(ctx.getStart().getLine());
         StringBuilder moduleBuilder = new StringBuilder();
         List<TerminalNode> moduleNameTokens = ctx.NAME();
@@ -124,7 +124,7 @@ public class CompoundStatementVisitor extends JinjaFlaskParserBaseVisitor<Compou
 
         List<Imported> importedList = new ArrayList<>();
 
-        for (JinjaFlaskParser.ImptdContext imported : ctx.imptd()) {
+        for (PythonParser.ImptdContext imported : ctx.imptd()) {
             importedList.add((Imported) universalVisitor.visit(imported));
         }
         importStatement.setImportedList(importedList);
@@ -134,7 +134,7 @@ public class CompoundStatementVisitor extends JinjaFlaskParserBaseVisitor<Compou
     }
 
     @Override
-    public CompoundStatement visitGlobalStatement(JinjaFlaskParser.GlobalStatementContext ctx) {
+    public CompoundStatement visitGlobalStatement(PythonParser.GlobalStatementContext ctx) {
         return (CompoundStatement) universalVisitor.visit(ctx.global_stmt());
     }
 }
