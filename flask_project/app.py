@@ -5,7 +5,9 @@ app = Flask(__name__)
 # ---- RAM STORAGE ----
 products = []  # each product is a dict
 
-
+multi = """
+hello world
+"""
 @app.route("/")
 def index():
     return render_template("index.html", products=products)
