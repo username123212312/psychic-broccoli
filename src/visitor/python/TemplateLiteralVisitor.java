@@ -8,6 +8,8 @@ public class TemplateLiteralVisitor extends PythonParserBaseVisitor<TemplateLite
 
     @Override
     public TemplateLiteral visitTemplateLiteral(PythonParser.TemplateLiteralContext ctx) {
-        return super.visitTemplateLiteral(ctx);
+        TemplateLiteral templateLiteral = new TemplateLiteral(ctx.getStart().getLine());
+        templateLiteral.setContent(ctx.TRIPLE_QUOTE_STRING().getText());
+        return templateLiteral;
     }
 }

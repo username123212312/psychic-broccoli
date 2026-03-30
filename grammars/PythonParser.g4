@@ -101,7 +101,7 @@ assign_stmt
     ;
 
 template_literal
-    : TRIPLE_QUOTE_STRING  .*? TRIPLE_QUOTE_STRING # TemplateLiteral;
+    : TRIPLE_QUOTE_STRING  # TemplateLiteral;
 
 for_loop
     : FOR atom IN python_expr statement                  # SimpleForLoop

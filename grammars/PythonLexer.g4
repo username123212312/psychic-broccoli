@@ -83,7 +83,10 @@ SKIP_: ( COMMENT | LINE_JOINING) -> skip;
 SPACES_INLINE: [ \t]+ -> skip;
 DOT: '.';
 
-TRIPLE_QUOTE_STRING : '"""' ;
+TRIPLE_QUOTE_STRING : '"""' .*? '"""'
+{String content = getText();
+setText(content.substring(3, content.length() - 3));}
+;
 
 fragment SPACES: [ \t]+;
 fragment LINE_JOINING: '\\' SPACES? ( '\r'? '\n' | '\r' | '\f');
