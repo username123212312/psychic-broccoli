@@ -1,6 +1,5 @@
 package antlr.python;
 
-import antlr.python.PythonLexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.Lexer;
