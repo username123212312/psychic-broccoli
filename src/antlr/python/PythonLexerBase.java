@@ -1,6 +1,6 @@
 package antlr.python;
 
-import antlr.JinjaFlaskLexer;
+import antlr.python.PythonLexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.Lexer;
@@ -43,16 +43,16 @@ abstract public class PythonLexerBase extends Lexer {
             }
 
             // First emit an extra line break that serves as the end of the statement.
-            this.emit(createSyntheticToken(JinjaFlaskLexer.NEWLINE, "\n"));
+            this.emit(createSyntheticToken(PythonLexer.NEWLINE, "\n"));
 
             // Now emit as much DEDENT tokens as needed.
             while (!indents.isEmpty()) {
-                this.emit(createSyntheticToken(JinjaFlaskLexer.DEDENT, ""));
+                this.emit(createSyntheticToken(PythonLexer.DEDENT, ""));
                 indents.pop();
             }
 
             // Put the EOF back on the token stream.
-            this.emit(createSyntheticToken(JinjaFlaskLexer.EOF, "<EOF>"));
+            this.emit(createSyntheticToken(PythonLexer.EOF, "<EOF>"));
         }
 
         Token next = super.nextToken();
@@ -93,7 +93,7 @@ abstract public class PythonLexerBase extends Lexer {
     private Token createDEDENT() {
         // Create proper DEDENT token
         int pos = getCharIndex();
-        CommonToken token = new CommonToken(JinjaFlaskLexer.DEDENT, "");
+        CommonToken token = new CommonToken(PythonLexer.DEDENT, "");
         token.setStartIndex(pos);
         token.setStopIndex(pos);
         token.setLine(getLine());
@@ -118,7 +118,7 @@ abstract public class PythonLexerBase extends Lexer {
         if (stop < 0) stop = 0;
         if (isDebug) {
             System.out.println("=== DEBUG createTokenWithPositions ===");
-            System.out.println("type=" + type + " (" + JinjaFlaskLexer.VOCABULARY.getSymbolicName(type) + ")");
+            System.out.println("type=" + type + " (" + PythonLexer.VOCABULARY.getSymbolicName(type) + ")");
             System.out.println("text='" + escapeString(text) + "', length=" + text.length());
             System.out.println("start=" + start + ", stop=" + stop);
         }
@@ -194,7 +194,7 @@ abstract public class PythonLexerBase extends Lexer {
             // Create NEWLINE token (first part of the matched text)
 
             int newLineEnd = ruleStart + newLine.length() - 1;
-            emit(createTokenWithPositions(JinjaFlaskLexer.NEWLINE, newLine, ruleStart, newLineEnd));
+            emit(createTokenWithPositions(PythonLexer.NEWLINE, newLine, ruleStart, newLineEnd));
 
             int indent = getIndentationCount(spaces);
             int previous = indents.isEmpty() ? 0 : indents.peek();
@@ -207,7 +207,7 @@ abstract public class PythonLexerBase extends Lexer {
                 // Create INDENT token (second part of the matched text)
                 int spacesStart = ruleStart + newLine.length();
                 int spacesEnd = ruleStart + original.length() - 1;
-                emit(createTokenWithPositions(JinjaFlaskLexer.INDENT, spaces, spacesStart, spacesEnd));
+                emit(createTokenWithPositions(PythonLexer.INDENT, spaces, spacesStart, spacesEnd));
             } else {
                 // Possibly emit more than 1 DEDENT token.
                 while (!indents.isEmpty() && indents.peek() > indent) {
