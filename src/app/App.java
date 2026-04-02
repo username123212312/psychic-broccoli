@@ -1,7 +1,5 @@
 package app;
 
-import antlr.JinjaFlaskLexer;
-import antlr.JinjaFlaskParser;
 import antlr.css.CssLexer;
 import antlr.css.CssParser;
 import antlr.html.HtmlLexer;
@@ -11,17 +9,15 @@ import antlr.python.PythonParser;
 import ast.ASTNode;
 import ast.HtmlContent;
 import ast.Program;
-import ast.htmlElement.StyleSheet;
 import listener.CustomErrorListener;
 import org.antlr.v4.gui.TreeViewer;
-import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 import symbolTable.SymbolTableManager;
 import visitor.css.StyleSheetVisitor;
-import visitor.html.HtmlContentItemVisitor;
 import visitor.html.HtmlContentVisitor;
 import visitor.python.ProgramVisitor;
 
@@ -196,7 +192,7 @@ public class App {
     }
 
 
-    private static void debugTokenStream(CommonTokenStream tokens) {
+    private static void debugTokenStream(CommonTokenStream tokens, Lexer lexer) {
         tokens.fill(); // Ensure all tokens are generated
         List<Token> allTokens = tokens.getTokens();
 
@@ -204,7 +200,7 @@ public class App {
         for (Token t : allTokens) {
             // Only show tokens on the default channel (skipping WS and Comments)
             if (t.getChannel() == Token.DEFAULT_CHANNEL) {
-                String tokenName = JinjaFlaskLexer.VOCABULARY.getSymbolicName(t.getType());
+                String tokenName = PythonLexer.VOCABULARY.getSymbolicName(t.getType());
                 String tokenText = t.getText().replace("\n", "\\n").replace("\r", "\\r");
 
                 // Use the type number if the name is null (for virtual tokens like INDENT/DEDENT)

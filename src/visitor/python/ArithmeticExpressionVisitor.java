@@ -1,7 +1,5 @@
 package visitor.python;
 
-import antlr.JinjaFlaskParser;
-import antlr.JinjaFlaskParserBaseVisitor;
 import antlr.python.PythonParser;
 import antlr.python.PythonParserBaseVisitor;
 import ast.arithmeticExpr.ArithmeticExpression;
