@@ -24,10 +24,10 @@ public class ArithmeticExpression extends SimpleExpression {
 
     public void setOperator(Operator operator) {
         switch (operator){
-            case Operator.Addition -> this.operator = "+";
-            case Operator.Multiplication -> this.operator = "*";
-            case Operator.Division -> this.operator = "/";
-            case Operator.Subtraction -> this.operator = "-";
+            case Addition -> this.operator = "+";
+            case Multiplication -> this.operator = "*";
+            case Division -> this.operator = "/";
+            case Subtraction -> this.operator = "-";
         }
     }
 
