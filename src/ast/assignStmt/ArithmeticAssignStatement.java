@@ -12,6 +12,10 @@ public class ArithmeticAssignStatement extends AssignmentStatement {
         this.value = value;
     }
 
+    public ArithmeticExpression getValue() {
+        return value;
+    }
+
     @Override
     public String toString() {
         return super.toString() + value.toString() + " ) ";

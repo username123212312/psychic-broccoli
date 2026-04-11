@@ -15,8 +15,16 @@ public class FunctionParameter extends ASTNode {
         this.id = id;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public void setValue(Atom value) {
         this.value = value;
+    }
+
+    public Atom getValue() {
+        return value;
     }
 
     @Override

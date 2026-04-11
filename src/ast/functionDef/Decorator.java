@@ -15,8 +15,16 @@ public class Decorator extends ASTNode {
         this.decoratorName = decoratorName;
     }
 
+    public String getDecoratorName() {
+        return decoratorName;
+    }
+
     public void setArguments(ArgumentsList arguments) {
         this.arguments = arguments;
+    }
+
+    public ArgumentsList getArguments() {
+        return arguments;
     }
 
     @Override

@@ -18,9 +18,17 @@ public class ComparisonExpression extends Condition {
         this.baseExpr = baseExpr;
     }
 
+    public PythonExpression getBaseExpr() {
+        return baseExpr;
+    }
+
     public void setOperatorPythonExpressionMap(Map<ComparisonOperator,
             PythonExpression> operatorPythonExpressionMap) {
         this.operatorPythonExpressionMap = operatorPythonExpressionMap;
+    }
+
+    public Map<ComparisonOperator, PythonExpression> getOperatorPythonExpressionMap() {
+        return operatorPythonExpressionMap;
     }
 
 

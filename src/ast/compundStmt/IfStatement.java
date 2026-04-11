@@ -21,16 +21,32 @@ public class IfStatement extends CompoundStatement {
         this.elseStatement = elseStatement;
     }
 
+    public Statement getElseStatement() {
+        return elseStatement;
+    }
+
     public void setElifStatements(List<ElIfStatement> elifStatements) {
         this.elifStatements = elifStatements;
+    }
+
+    public List<ElIfStatement> getElifStatements() {
+        return elifStatements;
     }
 
     public void setCondition(Condition condition) {
         this.condition = condition;
     }
 
+    public Condition getCondition() {
+        return condition;
+    }
+
     public void setStatement(Statement statement) {
         this.statement = statement;
+    }
+
+    public Statement getStatement() {
+        return statement;
     }
 
     @Override

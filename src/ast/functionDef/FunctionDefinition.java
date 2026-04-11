@@ -18,16 +18,32 @@ public class FunctionDefinition extends CompoundStatement {
         this.decorator = decorator;
     }
 
+    public Decorator getDecorator() {
+        return decorator;
+    }
+
     public void setFunctionParameters(FunctionParameters functionParameters) {
         this.functionParameters = functionParameters;
+    }
+
+    public FunctionParameters getFunctionParameters() {
+        return functionParameters;
     }
 
     public void setFunctionName(String functionName) {
         this.functionName = functionName;
     }
 
+    public String getFunctionName() {
+        return functionName;
+    }
+
     public void setFunctionBody(Statement functionBody) {
         this.functionBody = functionBody;
+    }
+
+    public Statement getFunctionBody() {
+        return functionBody;
     }
 
     @Override

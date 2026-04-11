@@ -15,6 +15,10 @@ public class FunctionParameters extends ASTNode {
         this.parameters = parameters;
     }
 
+    public List<FunctionParameter> getParameters() {
+        return parameters;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();

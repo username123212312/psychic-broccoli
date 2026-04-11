@@ -11,6 +11,10 @@ public class Program extends ASTNode{
         this.statements = statements;
     }
 
+    public List<Statement> getStatements() {
+        return statements;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();

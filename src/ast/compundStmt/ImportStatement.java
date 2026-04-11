@@ -17,8 +17,16 @@ public class ImportStatement extends CompoundStatement {
         this.module = module;
     }
 
+    public String getModule() {
+        return module;
+    }
+
     public void setImportedList(List<Imported> importedList) {
         this.importedList = importedList;
+    }
+
+    public List<Imported> getImportedList() {
+        return importedList;
     }
 
     @Override

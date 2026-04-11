@@ -14,6 +14,10 @@ public class SimpleKeyValue extends KeyValue {
         this.value = value;
     }
 
+    public SimpleExpression getValue() {
+        return value;
+    }
+
     @Override
     public String symbolTablePrint() {
         return super.symbolTablePrint() + value.symbolTablePrint();

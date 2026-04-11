@@ -13,6 +13,10 @@ public class SimpleComparisonExpression extends SimpleExpression {
         this.condition = condition;
     }
 
+    public Condition getCondition() {
+        return condition;
+    }
+
     @Override
     public String symbolTablePrint() {
         return condition.symbolTablePrint();

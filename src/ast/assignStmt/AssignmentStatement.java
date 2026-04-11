@@ -14,6 +14,10 @@ public abstract class AssignmentStatement extends CompoundStatement {
         this.var = var;
     }
 
+    public PythonExpression getVar() {
+        return var;
+    }
+
     @Override
     public String toString() {
         return super.toString() + Consts.printIndent(2) + var.toString() + " = " + Consts.printIndent(2);

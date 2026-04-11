@@ -14,6 +14,10 @@ public class NotExpression extends Condition {
         this.pythonExpression = pythonExpression;
     }
 
+    public PythonExpression getPythonExpression() {
+        return pythonExpression;
+    }
+
     @Override
     public String symbolTablePrint() {
         return "not " + pythonExpression.symbolTablePrint();

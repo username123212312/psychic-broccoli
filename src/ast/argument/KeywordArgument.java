@@ -11,6 +11,10 @@ public class KeywordArgument extends Argument {
         this.argName = argName;
     }
 
+    public String getArgName() {
+        return argName;
+    }
+
     @Override
     public String toString() {
         return argName + " = " + super.toString();

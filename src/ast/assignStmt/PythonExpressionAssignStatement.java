@@ -13,6 +13,10 @@ public class PythonExpressionAssignStatement extends AssignmentStatement {
         this.value = value;
     }
 
+    public PythonExpression getValue() {
+        return value;
+    }
+
     @Override
     public String toString() {
         return super.toString() + value.toString();

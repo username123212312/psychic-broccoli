@@ -12,6 +12,10 @@ public class ComparisonAssignmentStmt extends AssignmentStatement {
         this.value = value;
     }
 
+    public Condition getValue() {
+        return value;
+    }
+
     @Override
     public String toString() {
         return super.toString() + value.toString() + " ) ";

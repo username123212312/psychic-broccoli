@@ -15,6 +15,10 @@ public class ListLiteral extends ComplexExpression {
         this.listItems = listItems;
     }
 
+    public List<Atom> getListItems() {
+        return listItems;
+    }
+
     @Override
     public String symbolTablePrint() {
         StringBuilder stringBuilder = new StringBuilder();

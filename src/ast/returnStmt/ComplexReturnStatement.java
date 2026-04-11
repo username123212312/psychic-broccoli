@@ -13,6 +13,10 @@ public class ComplexReturnStatement extends ReturnStatement {
         this.pythonExpression = pythonExpression;
     }
 
+    public PythonExpression getPythonExpression() {
+        return pythonExpression;
+    }
+
     @Override
     public String toString() {
         return super.toString() + pythonExpression.toString();
