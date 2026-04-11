@@ -20,6 +20,14 @@ public class JinjaIfStatement extends JinjaStatement {
         this.htmlContent = htmlContent;
     }
 
+    public JinjaExpression getCondition() {
+        return condition;
+    }
+
+    public HtmlContent getHtmlContent() {
+        return htmlContent;
+    }
+
     @Override
     public String toString() {
         return super.toString() +

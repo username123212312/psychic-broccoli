@@ -18,6 +18,14 @@ public class JinjaBlockStatement extends JinjaStatement {
         this.htmlContent = htmlContent;
     }
 
+    public String getBlockName() {
+        return blockName;
+    }
+
+    public HtmlContent getHtmlContent() {
+        return htmlContent;
+    }
+
     @Override
     public String toString() {
         return super.toString() +

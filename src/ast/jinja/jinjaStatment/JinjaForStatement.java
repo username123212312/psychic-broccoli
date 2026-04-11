@@ -25,6 +25,18 @@ public class JinjaForStatement extends JinjaStatement {
         this.iterable = iterable;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public HtmlContent getHtmlContent() {
+        return htmlContent;
+    }
+
+    public JinjaExpression getIterable() {
+        return iterable;
+    }
+
     @Override
     public String toString() {
         return super.toString() + " ( " + id +

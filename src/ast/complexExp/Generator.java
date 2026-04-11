@@ -12,6 +12,10 @@ public class Generator extends ComplexExpression{
         this.forLoop = forLoop;
     }
 
+    public ForLoop getForLoop() {
+        return forLoop;
+    }
+
     @Override
     public String symbolTablePrint() {
         return  " ( " + forLoop.symbolTablePrint() + " ) ";

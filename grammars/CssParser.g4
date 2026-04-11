@@ -17,7 +17,7 @@ selector_decl
     ;
 
 css_selector_list
-    : css_selector (CSS_GT  css_selector )* # CssSelectorList
+    : css_selector ((CSS_GT)? css_selector )* # CssSelectorList
     ;
 
 css_selector

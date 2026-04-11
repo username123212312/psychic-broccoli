@@ -3,8 +3,6 @@ package ast.compundStmt;
 import ast.atom.Atom;
 import ast.condition.Condition;
 
-import java.util.List;
-
 public class ForLoop extends CompoundStatement {
     private Atom var;
     private PythonExpression iter;
@@ -24,6 +22,18 @@ public class ForLoop extends CompoundStatement {
 
     public void setCondition(Condition condition) {
         this.condition = condition;
+    }
+
+    public Atom getVar() {
+        return var;
+    }
+
+    public PythonExpression getIter() {
+        return iter;
+    }
+
+    public Condition getCondition() {
+        return condition;
     }
 
     @Override

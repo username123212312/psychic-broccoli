@@ -15,6 +15,14 @@ public class JinjaFilteredExpression extends JinjaCallExpression{
         this.filterName = filterName;
     }
 
+    public JinjaVariableAccess getJinjaVariableAccess() {
+        return jinjaVariableAccess;
+    }
+
+    public String getFilterName() {
+        return filterName;
+    }
+
     @Override
     public String toString() {
         return super.toString() + " ( " + jinjaVariableAccess.toString()

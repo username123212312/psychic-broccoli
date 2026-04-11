@@ -11,6 +11,10 @@ public class JinjaVariableAccess extends JinjaCallExpression {
         this.dottedName = dottedName;
     }
 
+    public String getDottedName() {
+        return dottedName;
+    }
+
     @Override
     public String toString() {
         return dottedName;

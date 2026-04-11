@@ -18,6 +18,14 @@ public class RuleSet extends ASTNode {
         this.declarationList = declarationList;
     }
 
+    public SelectorDeclaration getSelectorDeclaration() {
+        return selectorDeclaration;
+    }
+
+    public CssDeclarationList getDeclarationList() {
+        return declarationList;
+    }
+
     @Override
     public String toString() {
         return super.toString() + " ( "

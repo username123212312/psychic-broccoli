@@ -11,6 +11,10 @@ public class JinjaExtendStatement extends JinjaStatement {
         this.extended = extended;
     }
 
+    public String getExtended() {
+        return extended;
+    }
+
     @Override
     public String toString() {
         return super.toString() + " ( extended : " + extended + " ) ";

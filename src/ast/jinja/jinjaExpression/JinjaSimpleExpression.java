@@ -13,6 +13,10 @@ public class JinjaSimpleExpression extends JinjaExpression {
         this.expr = expr;
     }
 
+    public JinjaCallExpression getExpr() {
+        return expr;
+    }
+
     @Override
     public String toString() {
         return expr.toString();

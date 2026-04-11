@@ -16,6 +16,10 @@ public class StyleSheet extends HtmlElement {
         this.ruleSets = ruleSets;
     }
 
+    public List<RuleSet> getRuleSets() {
+        return ruleSets;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();

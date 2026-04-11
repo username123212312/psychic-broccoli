@@ -14,6 +14,10 @@ public class JinjaArgumentsList extends ASTNode{
         this.arguments = arguments;
     }
 
+    public List<JinjaArgument> getArguments() {
+        return arguments;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();

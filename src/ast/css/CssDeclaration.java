@@ -22,6 +22,14 @@ public class CssDeclaration extends ASTNode {
         this.id = id;
     }
 
+    public List<CssTerm> getCssTermList() {
+        return cssTermList;
+    }
+
+    public String getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();

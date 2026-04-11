@@ -15,6 +15,10 @@ public class HtmlContent extends ASTNode {
         this.items = items;
     }
 
+    public List<HtmlContentItem> getItems() {
+        return items;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
