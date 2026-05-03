@@ -9,6 +9,7 @@ import antlr.python.PythonParser;
 import ast.ASTNode;
 import ast.HtmlContent;
 import ast.Program;
+import ast.htmlElement.StyleSheet;
 import listener.CustomErrorListener;
 import org.antlr.v4.gui.TreeViewer;
 import org.antlr.v4.runtime.CharStreams;
@@ -42,7 +43,7 @@ public class App {
                         .forEach(path -> {
                             String fileName = path.toString();
                             System.out.println("\n--- Processing: " + fileName + " ---");
-                            processFile(fileName);
+                            processFile(path);
                         });
             } catch (IOException e) {
                 e.printStackTrace();
@@ -82,15 +83,16 @@ public class App {
         }
     }
 
-    private static void processFile(String fileName) {
+    private static void processFile(Path filePath) {
+        String fileName = filePath.toString();
         try {
             if (fileName.endsWith(".py")) {
                 PythonLexer lexer = new PythonLexer(CharStreams.fromFileName(fileName));
                 CommonTokenStream tokens = new CommonTokenStream(lexer);
                 PythonParser parser = new PythonParser(tokens);
-                ParseTree tree = parser.prog(); // Start rule for Python
                 parser.removeErrorListeners();
                 parser.addErrorListener(new CustomErrorListener());
+                ParseTree tree = parser.prog(); // Start rule for Python
 
                 // tell ANTLR to build a parse tree
                 showParseTree(parser.getRuleNames(), tree);
@@ -99,6 +101,7 @@ public class App {
                 Program program = visitor.visit(tree);
                 System.out.println(program);
                 System.out.println(SymbolTableManager.INSTANCE.getSymbolTable());
+
             } else if (fileName.endsWith(".html") || fileName.endsWith(".j2")) {
                 HtmlLexer lexer = new HtmlLexer(CharStreams.fromFileName(fileName));
                 CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -127,6 +130,7 @@ public class App {
                 StyleSheetVisitor visitor = new StyleSheetVisitor();
                 ASTNode styleSheet = visitor.visit(tree);
                 System.out.println(styleSheet);
+
             }
         } catch (Exception e) {
             System.err.println("Error parsing " + fileName + ": " + e.getMessage());
@@ -134,8 +138,39 @@ public class App {
 
     }
 
+    private static void writeGeneratedSource(Path projectRoot, Path filePath, String content) throws IOException {
+        if (projectRoot == null) {
+            return;
+        }
+
+        Path outputRoot = projectRoot.resolve("generated");
+        Path relativePath;
+        try {
+            relativePath = projectRoot.relativize(filePath);
+        } catch (IllegalArgumentException ex) {
+            relativePath = filePath.getFileName();
+        }
+
+        if (relativePath == null) {
+            return;
+        }
+
+        Path outputFile = outputRoot.resolve(relativePath);
+        Path parent = outputFile.getParent();
+        if (parent != null) {
+            Files.createDirectories(parent);
+        }
+        Files.writeString(outputFile, content);
+        System.out.println("Generated asset at: " + outputFile.toAbsolutePath());
+    }
+
 
     private static void showParseTree(String[] ruleNames, ParseTree parseTree) {
+        if (GraphicsEnvironment.isHeadless()) {
+            System.out.println("Parse tree viewer skipped in headless mode.");
+            return;
+        }
+
         TreeViewer viewer = new TreeViewer(
                 java.util.Arrays.asList(ruleNames),
                 parseTree

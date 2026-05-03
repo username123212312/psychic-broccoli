@@ -6,20 +6,25 @@ import ast.ElIfStatement;
 import ast.Imported;
 import ast.Statement;
 import ast.compundStmt.CompoundStatement;
+import ast.compundStmt.GlobalStatement;
 import ast.compundStmt.IfStatement;
 import ast.compundStmt.ImportStatement;
 import ast.condition.Condition;
 import ast.functionDef.Decorator;
+import ast.functionDef.FunctionParameter;
 import ast.functionDef.FunctionDefinition;
 import ast.functionDef.FunctionParameters;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import visitor.UniversalPythonVisitor;
+import symbolTable.SymbolTable;
+import symbolTable.SymbolTableManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CompoundStatementVisitor extends PythonParserBaseVisitor<CompoundStatement> {
     UniversalPythonVisitor universalVisitor = new UniversalPythonVisitor();
+    private final SymbolTable symbolTable = SymbolTableManager.INSTANCE.getSymbolTable();
 
 
     @Override
@@ -90,9 +95,24 @@ public class CompoundStatementVisitor extends PythonParserBaseVisitor<CompoundSt
         }
         functionDefinition.setFunctionName(ctx.NAME().getText());
         FunctionParameters functionParameters = (FunctionParameters) universalVisitor.visit(ctx.parameters());
-        Statement statement = new StatementVisitor().visit(ctx.statement());
         functionDefinition.setFunctionParameters(functionParameters);
-        functionDefinition.setFunctionBody(statement);
+        symbolTable.setAttribute(functionDefinition.getFunctionName(), "Type", functionDefinition.node_name);
+        symbolTable.setAttribute(functionDefinition.getFunctionName(), "Value", "FunctionDefinition");
+        symbolTable.enterScope(functionDefinition.getFunctionName());
+        try {
+            if (functionParameters != null && functionParameters.getParameters() != null) {
+                for (FunctionParameter functionParameter : functionParameters.getParameters()) {
+                    symbolTable.setAttribute(functionParameter.getId(), "Type", "Parameter");
+                    if (functionParameter.getValue() != null) {
+                        symbolTable.setAttribute(functionParameter.getId(), "Value", functionParameter.getValue().symbolTablePrint());
+                    }
+                }
+            }
+            Statement statement = new StatementVisitor().visit(ctx.statement());
+            functionDefinition.setFunctionBody(statement);
+        } finally {
+            symbolTable.exitScope();
+        }
         return functionDefinition;
     }
 
@@ -135,6 +155,12 @@ public class CompoundStatementVisitor extends PythonParserBaseVisitor<CompoundSt
 
     @Override
     public CompoundStatement visitGlobalStatement(PythonParser.GlobalStatementContext ctx) {
-        return (CompoundStatement) universalVisitor.visit(ctx.global_stmt());
+        GlobalStatement globalStatement = (GlobalStatement) universalVisitor.visit(ctx.global_stmt());
+        if (globalStatement.getGlobals() != null) {
+            for (String globalName : globalStatement.getGlobals()) {
+                symbolTable.declareGlobal(globalName);
+            }
+        }
+        return globalStatement;
     }
 }

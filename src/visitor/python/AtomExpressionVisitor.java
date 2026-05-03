@@ -4,6 +4,8 @@ import antlr.python.PythonParser;
 import antlr.python.PythonParserBaseVisitor;
 import ast.argsList.ArgumentsList;
 import ast.atom.Atom;
+import ast.atom.ClassAtom;
+import ast.atom.Name;
 import ast.atomExpression.*;
 
 import java.util.ArrayList;
@@ -16,7 +18,11 @@ public class AtomExpressionVisitor extends PythonParserBaseVisitor<AtomExpressio
     public AtomExpression visitListAccess(PythonParser.ListAccessContext ctx) {
         ListAccess listAccess = new ListAccess(ctx.getStart().getLine());
         Atom atom = atomVisitor.visit(ctx.atom());
-        listAccess.setVarName(atom.getValue().toString());
+        if (atom instanceof Name || atom instanceof ClassAtom) {
+            listAccess.setVarName(atom.getValue().toString());
+        } else {
+            listAccess.setVarName(null);
+        }
         listAccess.setIndex(ctx.NUMBER().getText());
 
         return listAccess;
@@ -26,7 +32,11 @@ public class AtomExpressionVisitor extends PythonParserBaseVisitor<AtomExpressio
     public AtomExpression visitDictionaryAccess(PythonParser.DictionaryAccessContext ctx) {
         DictionaryAccess dictionaryAccess = new DictionaryAccess(ctx.getStart().getLine());
         Atom atom = atomVisitor.visit(ctx.atom());
-        dictionaryAccess.setVarName(atom.getValue().toString());
+        if (atom instanceof Name || atom instanceof ClassAtom) {
+            dictionaryAccess.setVarName(atom.getValue().toString());
+        } else {
+            dictionaryAccess.setVarName(null);
+        }
         dictionaryAccess.setKey(ctx.STRING().getText());
         return dictionaryAccess;
     }
@@ -40,7 +50,11 @@ public class AtomExpressionVisitor extends PythonParserBaseVisitor<AtomExpressio
             Atom a = atomVisitor.visit(ctx.atom(i));
             atomList.add(a);
         }
-        attributeAccess.setVarName(atom.getValue().toString());
+        if (atom instanceof Name || atom instanceof ClassAtom) {
+            attributeAccess.setVarName(atom.getValue().toString());
+        } else {
+            attributeAccess.setVarName(null);
+        }
         attributeAccess.setAttributes(atomList);
         return attributeAccess;
     }
@@ -54,7 +68,11 @@ public class AtomExpressionVisitor extends PythonParserBaseVisitor<AtomExpressio
             AtomExpression atomExpression = visit(ctx.atom_expr(i));
             atomExpressions.add(atomExpression);
         }
-        methodAccess.setVarName(atom.getValue().toString());
+        if (atom instanceof Name || atom instanceof ClassAtom) {
+            methodAccess.setVarName(atom.getValue().toString());
+        } else {
+            methodAccess.setVarName(null);
+        }
         methodAccess.setMethodCalls(atomExpressions);
         return methodAccess;
     }
@@ -83,9 +101,17 @@ public class AtomExpressionVisitor extends PythonParserBaseVisitor<AtomExpressio
 
     @Override
     public AtomExpression visitSimpleVar(PythonParser.SimpleVarContext ctx) {
-        SimpleVariable simpleVariable = new SimpleVariable(ctx.getStart().getLine());
         Atom atom = atomVisitor.visit(ctx.atom());
-        simpleVariable.setVarName(atom.getValue().toString());
-        return simpleVariable;
+        String literalValue = atom.getValue() == null ? atom.toString() : atom.getValue().toString();
+
+        if (atom instanceof Name || atom instanceof ClassAtom) {
+            SimpleVariable simpleVariable = new SimpleVariable(ctx.getStart().getLine());
+            simpleVariable.setVarName(literalValue);
+            return simpleVariable;
+        }
+
+        LiteralExpression literalExpression = new LiteralExpression(ctx.getStart().getLine());
+        literalExpression.setLiteralValue(literalValue);
+        return literalExpression;
     }
 }

@@ -20,6 +20,7 @@ public class FunctionParametersVisitor extends PythonParserBaseVisitor<FunctionP
             functionParameter.setId(ctx.NAME(i).getText());
             Atom atom = atomVisitor.visit(ctx.atom(i));
             functionParameter.setValue(atom);
+            functionParameterList.add(functionParameter);
         }
         functionParameters.setParameters(functionParameterList);
         return functionParameters;
