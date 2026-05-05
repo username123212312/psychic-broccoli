@@ -17,8 +17,7 @@ import java.util.regex.Pattern;
 public class AssignmentStatementVisitor extends PythonParserBaseVisitor<AssignmentStatement> {
     private final PythonExpressionVisitor pythonExpressionVisitor = new PythonExpressionVisitor();
     private final SymbolTable sb = SymbolTableManager.INSTANCE.getSymbolTable();
-    private static final Pattern GET_STRING_KEY_PATTERN =
-            Pattern.compile("\\bget\\s*\\(\\s*[\"']([A-Za-z_][A-Za-z0-9_]*)[\"']\\s*\\)");
+
 
     @Override
     public AssignmentStatement visitComparisonAssignStmt(PythonParser.ComparisonAssignStmtContext ctx) {
@@ -28,7 +27,7 @@ public class AssignmentStatementVisitor extends PythonParserBaseVisitor<Assignme
         comparisonAssignmentStmt.setVar(pythonExpression);
         String symbolEntryName = resolveSymbolName(pythonExpression);
         String conditionValue = condition.symbolTablePrint();
-        if (symbolEntryName != null && !isStringKeyFetchAlias(symbolEntryName, conditionValue)) {
+        if (symbolEntryName != null) {
             sb.setAttribute(symbolEntryName, "Value", conditionValue);
             sb.setAttribute(symbolEntryName, "Type", condition.node_name);
         }
@@ -62,7 +61,7 @@ public class AssignmentStatementVisitor extends PythonParserBaseVisitor<Assignme
         PythonExpression value = pythonExpressionVisitor.visit(ctx.python_expr(1));
         String symbolEntryName = resolveSymbolName(var);
         String valueText = value.symbolTablePrint();
-        if (symbolEntryName != null && !isStringKeyFetchAlias(symbolEntryName, valueText)) {
+        if (symbolEntryName != null) {
             sb.setAttribute(symbolEntryName, "Value", valueText);
             sb.setAttribute(symbolEntryName, "Type", value.node_name);
         }
@@ -98,16 +97,4 @@ public class AssignmentStatementVisitor extends PythonParserBaseVisitor<Assignme
         return null;
     }
 
-    private boolean isStringKeyFetchAlias(String symbolName, String expressionText) {
-        if (symbolName == null || expressionText == null) {
-            return false;
-        }
-        Matcher matcher = GET_STRING_KEY_PATTERN.matcher(expressionText);
-        while (matcher.find()) {
-            if (symbolName.equals(matcher.group(1))) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

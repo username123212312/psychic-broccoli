@@ -9,7 +9,6 @@ import antlr.python.PythonParser;
 import ast.ASTNode;
 import ast.HtmlContent;
 import ast.Program;
-import ast.htmlElement.StyleSheet;
 import listener.CustomErrorListener;
 import org.antlr.v4.gui.TreeViewer;
 import org.antlr.v4.runtime.CharStreams;
@@ -48,38 +47,6 @@ public class App {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-//            String fileName = args[0];
-//            try {
-//                // Step 1: Get the tokens stream
-//                CommonTokenStream tokens = getTokenStream(fileName);
-//
-//                // CRITICAL DEBUG STEP: Print all tokens before parsing
-//                debugTokenStream(tokens);
-//
-//                // Step 2: Create the parser and parse
-//                tokens.reset(); // Reset the stream to the beginning for the parser
-//                JinjaFlaskParser parser = new JinjaFlaskParser(tokens);
-//
-//                // Add the custom error listener
-//                parser.removeErrorListeners();
-//                parser.addErrorListener(new CustomErrorListener());
-//
-//                // tell ANTLR to build a parse tree
-//                ParseTree antlrAST = parser.prog();
-//                showParseTree(parser.getRuleNames(), antlrAST);
-//                ProgramVisitor programVisitor = new ProgramVisitor();
-//                Program program = programVisitor.visit(antlrAST);
-//                System.out.println(program);
-//
-//                System.out.println(SymbolTableManager.INSTANCE.getSymbolTable());
-//                // If we reach here, the parse was successful!
-//                System.out.println("--- Parsing SUCCESSFUL! ---");
-//
-//            } catch (Exception e) {
-//                System.err.println("Parsing halted due to error: " + (e.getMessage() != null ? e.getMessage() : "Unknown Error (Likely ANTLR Stack Crash)"));
-//                // Print stack trace for better debugging of 'null' errors
-//                e.printStackTrace();
-//            }
         }
     }
 
