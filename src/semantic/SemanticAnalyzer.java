@@ -57,7 +57,6 @@ public class SemanticAnalyzer {
                 for (Statement statement : program.getStatements()) {
                     walk(statement, reporter);
                 }
-                return;
             }
             case Statement statement -> {
                 if (statement.getCompoundStatements() != null) {
@@ -65,7 +64,6 @@ public class SemanticAnalyzer {
                         walk(compoundStatement, reporter);
                     }
                 }
-                return;
             }
             case IfStatement ifStatement -> {
                 walk(ifStatement.getCondition(), reporter);
@@ -76,22 +74,18 @@ public class SemanticAnalyzer {
                     }
                 }
                 walk(ifStatement.getElseStatement(), reporter);
-                return;
             }
             case ElIfStatement elIfStatement -> {
                 walk(elIfStatement.getCondition(), reporter);
                 walk(elIfStatement.getStatement(), reporter);
-                return;
             }
             case WhileStatement whileStatement -> {
                 walk(whileStatement.getCondition(), reporter);
                 walk(whileStatement.getStatement(), reporter);
-                return;
             }
             case ForLoop forLoop -> {
                 walk(forLoop.getCondition(), reporter);
                 walk(forLoop.getStatement(), reporter);
-                return;
             }
             case FunctionDefinition functionDefinition -> walk(functionDefinition.getFunctionBody(), reporter);
             default -> {

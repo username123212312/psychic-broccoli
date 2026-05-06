@@ -58,91 +58,70 @@ public class JinjaSemanticAnalyzer {
 
         reportUndefinedIfNeeded(node, reporter);
 
-        if (node instanceof HtmlContent htmlContent) {
-            if (htmlContent.getItems() != null) {
-                for (HtmlContentItem item : htmlContent.getItems()) {
-                    walk(item, reporter);
+        switch (node) {
+            case HtmlContent htmlContent -> {
+                if (htmlContent.getItems() != null) {
+                    for (HtmlContentItem item : htmlContent.getItems()) {
+                        walk(item, reporter);
+                    }
                 }
             }
-            return;
-        }
-
-        if (node instanceof JinjaIfStatement jinjaIfStatement) {
-            walk(jinjaIfStatement.getCondition(), reporter);
-            walk(jinjaIfStatement.getHtmlContent(), reporter);
-            return;
-        }
-
-        if (node instanceof JinjaForStatement jinjaForStatement) {
-            walk(jinjaForStatement.getIterable(), reporter);
-            symbolTable.enterTemporaryScope("jinja for", jinjaForStatement);
-            try {
-                if (jinjaForStatement.getId() != null && !jinjaForStatement.getId().isBlank()) {
-                    symbolTable.define(jinjaForStatement.getId());
-                }
-                walk(jinjaForStatement.getHtmlContent(), reporter);
-            } finally {
-                symbolTable.exitScope();
+            case JinjaIfStatement jinjaIfStatement -> {
+                walk(jinjaIfStatement.getCondition(), reporter);
+                walk(jinjaIfStatement.getHtmlContent(), reporter);
             }
-            return;
-        }
-
-        if (node instanceof JinjaBlockStatement jinjaBlockStatement) {
-            walk(jinjaBlockStatement.getHtmlContent(), reporter);
-            return;
-        }
-
-        if (node instanceof JinjaStatement) {
-            return;
-        }
-
-        if (node instanceof JinjaSimpleExpression jinjaSimpleExpression) {
-            walk(jinjaSimpleExpression.getExpr(), reporter);
-            return;
-        }
-
-        if (node instanceof JinjaBinaryExpression jinjaBinaryExpression) {
-            walk(jinjaBinaryExpression.getLeft(), reporter);
-            walk(jinjaBinaryExpression.getRight(), reporter);
-            return;
-        }
-
-        if (node instanceof JinjaFilteredExpression jinjaFilteredExpression) {
-            walk(jinjaFilteredExpression.getJinjaVariableAccess(), reporter);
-            return;
-        }
-
-        if (node instanceof JinjaFunctionCall jinjaFunctionCall) {
-            walk(jinjaFunctionCall.getArgumentsList(), reporter);
-            return;
-        }
-
-        if (node instanceof JinjaAtom jinjaAtom) {
-            Name name = jinjaAtom.getAtom() instanceof Name atomName ? atomName : null;
-            if (name != null) {
-                Object value = name.getValue();
-                reportName(value == null ? null : value.toString(), node, reporter);
-            }
-            return;
-        }
-
-        if (node instanceof JinjaVariableAccess jinjaVariableAccess) {
-            reportDottedName(jinjaVariableAccess.getDottedName(), node, reporter);
-            return;
-        }
-
-        if (node instanceof JinjaArgumentsList jinjaArgumentsList) {
-            if (jinjaArgumentsList.getArguments() != null) {
-                for (JinjaArgument argument : jinjaArgumentsList.getArguments()) {
-                    walk(argument, reporter);
+            case JinjaForStatement jinjaForStatement -> {
+                walk(jinjaForStatement.getIterable(), reporter);
+                symbolTable.enterTemporaryScope("jinja for", jinjaForStatement);
+                try {
+                    if (jinjaForStatement.getId() != null && !jinjaForStatement.getId().isBlank()) {
+                        symbolTable.define(jinjaForStatement.getId());
+                    }
+                    walk(jinjaForStatement.getHtmlContent(), reporter);
+                } finally {
+                    symbolTable.exitScope();
                 }
             }
-            return;
-        }
-
-        if (node instanceof JinjaArgument jinjaArgument) {
-            walk(jinjaArgument.getArgument(), reporter);
-            return;
+            case JinjaBlockStatement jinjaBlockStatement -> {
+                walk(jinjaBlockStatement.getHtmlContent(), reporter);
+            }
+            case JinjaStatement jinjaStatement -> {
+            }
+            case JinjaSimpleExpression jinjaSimpleExpression -> {
+                walk(jinjaSimpleExpression.getExpr(), reporter);
+            }
+            case JinjaBinaryExpression jinjaBinaryExpression -> {
+                walk(jinjaBinaryExpression.getLeft(), reporter);
+                walk(jinjaBinaryExpression.getRight(), reporter);
+            }
+            case JinjaFilteredExpression jinjaFilteredExpression -> {
+                walk(jinjaFilteredExpression.getJinjaVariableAccess(), reporter);
+            }
+            case JinjaFunctionCall jinjaFunctionCall -> {
+                walk(jinjaFunctionCall.getArgumentsList(), reporter);
+            }
+            case JinjaAtom jinjaAtom -> {
+                Name name = jinjaAtom.getAtom() instanceof Name atomName ? atomName : null;
+                if (name != null) {
+                    Object value = name.getValue();
+                    reportName(value == null ? null : value.toString(), node, reporter);
+                }
+            }
+            case JinjaVariableAccess jinjaVariableAccess -> {
+                reportDottedName(jinjaVariableAccess.getDottedName(), node, reporter);
+            }
+            case JinjaArgumentsList jinjaArgumentsList -> {
+                if (jinjaArgumentsList.getArguments() != null) {
+                    for (JinjaArgument argument : jinjaArgumentsList.getArguments()) {
+                        walk(argument, reporter);
+                    }
+                }
+            }
+            case JinjaArgument jinjaArgument -> {
+                walk(jinjaArgument.getArgument(), reporter);
+            }
+            default -> {
+            }
         }
 
     }
