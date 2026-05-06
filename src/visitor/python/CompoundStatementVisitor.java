@@ -40,6 +40,16 @@ public class CompoundStatementVisitor extends PythonParserBaseVisitor<CompoundSt
     }
 
     @Override
+    public CompoundStatement visitForLoopStatement(PythonParser.ForLoopStatementContext ctx) {
+        return new ForLoopVisitor().visit(ctx.for_loop());
+    }
+
+    @Override
+    public CompoundStatement visitWhileStatement(PythonParser.WhileStatementContext ctx) {
+        return (CompoundStatement) universalVisitor.visit(ctx.while_loop());
+    }
+
+    @Override
     public CompoundStatement visitIfStatement(PythonParser.IfStatementContext ctx) {
         return visit(ctx.if_stmt());
     }
@@ -47,28 +57,43 @@ public class CompoundStatementVisitor extends PythonParserBaseVisitor<CompoundSt
     @Override
     public CompoundStatement visitIfStatementDef(PythonParser.IfStatementDefContext ctx) {
         IfStatement ifStatement = new IfStatement(ctx.getStart().getLine());
+        symbolTable.enterTemporaryScope("if", ifStatement);
         ConditionVisitor conditionVisitor = new ConditionVisitor();
         StatementVisitor statementVisitor = new StatementVisitor();
-        Condition condition = conditionVisitor.visit(ctx.condition(0));
-        Statement statement = statementVisitor.visit(ctx.statement(0));
-        ifStatement.setCondition(condition);
-        ifStatement.setStatement(statement);
+        try {
+            Condition condition = conditionVisitor.visit(ctx.condition(0));
+            Statement statement = statementVisitor.visit(ctx.statement(0));
+            ifStatement.setCondition(condition);
+            ifStatement.setStatement(statement);
 
-        int elifCount = ctx.ELIF().size();
-        List<ElIfStatement> elIfStatements = new ArrayList<>();
-        for (int i = 0; i < elifCount; i++) {
-            ElIfStatement elIfStatement = new ElIfStatement(ctx.ELIF(i).getSymbol().getLine());
-            condition = conditionVisitor.visit(ctx.condition(i + 1));
-            statement = statementVisitor.visit(ctx.statement(i + 1));
-            elIfStatement.setCondition(condition);
-            elIfStatement.setStatement(statement);
-            elIfStatements.add(elIfStatement);
-        }
-        ifStatement.setElifStatements(elIfStatements);
-        if (ctx.ELSE() != null) {
-            int elseStmtIndex = ctx.statement().size() - 1;
-            statement = statementVisitor.visit(ctx.statement(elseStmtIndex));
-            ifStatement.setElseStatement(statement);
+            int elifCount = ctx.ELIF().size();
+            List<ElIfStatement> elIfStatements = new ArrayList<>();
+            for (int i = 0; i < elifCount; i++) {
+                ElIfStatement elIfStatement = new ElIfStatement(ctx.ELIF(i).getSymbol().getLine());
+                symbolTable.enterTemporaryScope("elif", elIfStatement);
+                try {
+                    condition = conditionVisitor.visit(ctx.condition(i + 1));
+                    statement = statementVisitor.visit(ctx.statement(i + 1));
+                    elIfStatement.setCondition(condition);
+                    elIfStatement.setStatement(statement);
+                } finally {
+                    symbolTable.exitScope();
+                }
+                elIfStatements.add(elIfStatement);
+            }
+            ifStatement.setElifStatements(elIfStatements);
+            if (ctx.ELSE() != null) {
+                int elseStmtIndex = ctx.statement().size() - 1;
+                symbolTable.enterTemporaryScope("else", ctx.statement(elseStmtIndex));
+                try {
+                    statement = statementVisitor.visit(ctx.statement(elseStmtIndex));
+                    ifStatement.setElseStatement(statement);
+                } finally {
+                    symbolTable.exitScope();
+                }
+            }
+        } finally {
+            symbolTable.exitScope();
         }
         return ifStatement;
     }

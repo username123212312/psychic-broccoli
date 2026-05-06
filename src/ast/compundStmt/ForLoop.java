@@ -1,5 +1,7 @@
 package ast.compundStmt;
 
+import ast.Consts;
+import ast.Statement;
 import ast.atom.Atom;
 import ast.condition.Condition;
 
@@ -7,9 +9,18 @@ public class ForLoop extends CompoundStatement {
     private Atom var;
     private PythonExpression iter;
     private Condition condition;
+    private Statement statement;
 
     public ForLoop(int line_number) {
         super("ForLoop", line_number);
+    }
+
+    public Statement getStatement() {
+        return statement;
+    }
+
+    public void setStatement(Statement statement) {
+        this.statement = statement;
     }
 
     public void setVar(Atom var) {
@@ -41,14 +52,14 @@ public class ForLoop extends CompoundStatement {
         return "for " +
                 var.toString() + " in " +
                 iter.symbolTablePrint() + (condition == null ? ""
-                : " if " + condition.symbolTablePrint());
+                : " if " + condition.symbolTablePrint()) + (statement == null ? "" : Consts.printIndent(2) + statement.symbolTablePrint());
     }
 
     @Override
     public String toString() {
         return super.toString() +
-                " ( " + var.toString() + " in " +
-                iter.toString() + (condition == null ? ""
-                : condition.toString()) + " ) ";
+                (var == null ? "" : " ( " + var.toString() + " in " +
+                        iter.toString() + (condition == null ? ""
+                        : condition.toString()) + " ) " + (statement == null ? "" : " : " + Consts.printIndent(2) + statement));
     }
 }

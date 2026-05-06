@@ -23,6 +23,7 @@ compound_stmt
     | python_expr  NEWLINE?      # PythonExpression
     | func_def     NEWLINE?      # FunctionDefinition
     | return_stmt  NEWLINE?      # ReturnStatement
+    | while_loop   NEWLINE?      # WhileStatement
     | import_from  NEWLINE?      # ImportStatement
     | global_stmt  NEWLINE?      # GlobalStatement
     ;
@@ -104,8 +105,12 @@ template_literal
     : TRIPLE_QUOTE_STRING  # TemplateLiteral;
 
 for_loop
-    : FOR atom IN python_expr statement                  # SimpleForLoop
+    : FOR atom IN python_expr COLON statement                  # SimpleForLoop
     | atom FOR atom IN python_expr (IF condition)?       # ComplexForLoop
+    ;
+
+while_loop
+    : WHILE condition COLON statement   # WhileStatementDef
     ;
 
 func_def

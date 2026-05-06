@@ -88,6 +88,13 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitReturnStatement(PythonParser.ReturnStatementContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code WhileStatement}
+	 * labeled alternative in {@link PythonParser#compound_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhileStatement(PythonParser.WhileStatementContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code ImportStatement}
 	 * labeled alternative in {@link PythonParser#compound_stmt}.
 	 * @param ctx the parse tree
@@ -381,6 +388,13 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitComplexForLoop(PythonParser.ComplexForLoopContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code WhileStatementDef}
+	 * labeled alternative in {@link PythonParser#while_loop}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhileStatementDef(PythonParser.WhileStatementDefContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code FunctionDefDef}
 	 * labeled alternative in {@link PythonParser#func_def}.

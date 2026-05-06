@@ -140,6 +140,18 @@ public interface PythonParserListener extends ParseTreeListener {
 	 */
 	void exitReturnStatement(PythonParser.ReturnStatementContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code WhileStatement}
+	 * labeled alternative in {@link PythonParser#compound_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterWhileStatement(PythonParser.WhileStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code WhileStatement}
+	 * labeled alternative in {@link PythonParser#compound_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitWhileStatement(PythonParser.WhileStatementContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code ImportStatement}
 	 * labeled alternative in {@link PythonParser#compound_stmt}.
 	 * @param ctx the parse tree
@@ -643,6 +655,18 @@ public interface PythonParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitComplexForLoop(PythonParser.ComplexForLoopContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code WhileStatementDef}
+	 * labeled alternative in {@link PythonParser#while_loop}.
+	 * @param ctx the parse tree
+	 */
+	void enterWhileStatementDef(PythonParser.WhileStatementDefContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code WhileStatementDef}
+	 * labeled alternative in {@link PythonParser#while_loop}.
+	 * @param ctx the parse tree
+	 */
+	void exitWhileStatementDef(PythonParser.WhileStatementDefContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code FunctionDefDef}
 	 * labeled alternative in {@link PythonParser#func_def}.

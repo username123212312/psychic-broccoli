@@ -4,23 +4,43 @@ import antlr.python.PythonParser;
 import antlr.python.PythonParserBaseVisitor;
 import ast.ASTNode;
 import ast.Imported;
+import ast.Statement;
+import ast.WhileStatement;
 import ast.argsList.ArgumentsList;
 import ast.atom.Atom;
 import ast.atom.Bool;
 import ast.complexExp.ListItems;
+import ast.compundStmt.CompoundStatement;
 import ast.compundStmt.GlobalStatement;
+import ast.condition.Condition;
 import ast.functionDef.Decorator;
 import ast.functionDef.FunctionParameters;
 import ast.keyValue.KeyValue;
-import visitor.python.ArgumentListVisitor;
-import visitor.python.AtomVisitor;
-import visitor.python.FunctionParametersVisitor;
-import visitor.python.KeyValueVisitor;
+import symbolTable.SymbolTable;
+import symbolTable.SymbolTableManager;
+import visitor.python.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UniversalPythonVisitor extends PythonParserBaseVisitor<ASTNode> {
+    SymbolTable sb = SymbolTableManager.INSTANCE.getSymbolTable();
+
+    @Override
+    public WhileStatement visitWhileStatementDef(PythonParser.WhileStatementDefContext ctx) {
+        WhileStatement whileStatement = new WhileStatement(ctx.getStart().getLine());
+        sb.enterTemporaryScope("while", whileStatement);
+        try {
+            Condition condition = new ConditionVisitor().visit(ctx.condition());
+            Statement statement = new StatementVisitor().visit(ctx.statement());
+            whileStatement.setCondition(condition);
+            whileStatement.setStatement(statement);
+        } finally {
+            sb.exitScope();
+        }
+        return whileStatement;
+    }
+
     @Override
     public FunctionParameters visitFunctionParameters(PythonParser.FunctionParametersContext ctx) {
         FunctionParametersVisitor functionParametersVisitor = new FunctionParametersVisitor();

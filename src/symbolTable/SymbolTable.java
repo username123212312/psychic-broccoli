@@ -47,6 +47,17 @@ public class SymbolTable {
         scopes.push(new Scope(scopeName, scopes.size()));
     }
 
+    public void enterTemporaryScope(String statementKind, Object owner) {
+        enterScope(buildTemporaryScopeName(statementKind, owner));
+    }
+
+    public String buildTemporaryScopeName(String statementKind, Object owner) {
+        String normalizedKind = (statementKind == null || statementKind.isBlank())
+                ? "statement"
+                : statementKind.trim().toLowerCase();
+        return normalizedKind + " statement " + System.identityHashCode(owner);
+    }
+
     public void exitScope() {
         if (scopes.size() <= 1) {
             return;
