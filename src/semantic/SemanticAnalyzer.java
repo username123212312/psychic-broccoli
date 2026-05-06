@@ -10,6 +10,7 @@ import ast.compundStmt.IfStatement;
 import ast.functionDef.FunctionDefinition;
 import semantic.rules.SemanticError;
 import semantic.rules.TypeError;
+import semantic.rules.UndefinedVariableError;
 import symbolTable.SymbolTable;
 import symbolTable.SymbolTableManager;
 
@@ -33,6 +34,7 @@ public class SemanticAnalyzer {
         ErrorReporter reporter = new ErrorReporter();
         if (rules.isEmpty()) {
             registerRule(new TypeError());
+            registerRule(new UndefinedVariableError());
         }
 
         walk(program, reporter);
