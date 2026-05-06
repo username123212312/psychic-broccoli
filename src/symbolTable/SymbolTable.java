@@ -77,7 +77,26 @@ public class SymbolTable {
                 return entry;
             }
         }
+        for (int i = exitedScopes.size() - 1; i >= 0; i--) {
+            Scope scope = exitedScopes.get(i);
+            SymbolEntry entry = scope.table.get(name);
+            if (entry != null) {
+                return entry;
+            }
+        }
         return null;
+    }
+
+    public SymbolEntry lookupInCurrentScope(String name) {
+        Scope currentScope = currentScope();
+        if (currentScope == null) {
+            return null;
+        }
+        return currentScope.table.get(name);
+    }
+
+    public boolean isDefinedInCurrentScope(String name) {
+        return lookupInCurrentScope(name) != null;
     }
 
     // insert: add new entry

@@ -16,6 +16,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
+import semantic.jinja.JinjaSemanticAnalyzer;
 import symbolTable.SymbolTableManager;
 import visitor.css.StyleSheetVisitor;
 import visitor.html.HtmlContentVisitor;
@@ -38,7 +39,18 @@ public class App {
             Path startPath = Paths.get(args[0]);
 
             try (Stream<Path> paths = Files.walk(startPath)) {
-                paths.filter(Files::isRegularFile)
+                List<Path> files = paths.filter(Files::isRegularFile).sorted().toList();
+
+                files.stream()
+                        .filter(path -> path.toString().endsWith(".py"))
+                        .forEach(path -> {
+                            String fileName = path.toString();
+                            System.out.println("\n--- Processing: " + fileName + " ---");
+                            processFile(path);
+                        });
+
+                files.stream()
+                        .filter(path -> !path.toString().endsWith(".py"))
                         .forEach(path -> {
                             String fileName = path.toString();
                             System.out.println("\n--- Processing: " + fileName + " ---");
@@ -67,6 +79,11 @@ public class App {
                 ProgramVisitor visitor = new ProgramVisitor();
                 Program program = visitor.visit(tree);
                 System.out.println(program);
+
+                // run semantic analysis pass
+                semantic.SemanticAnalyzer analyzer = new semantic.SemanticAnalyzer();
+                analyzer.analyze(program);
+
                 System.out.println(SymbolTableManager.INSTANCE.getSymbolTable());
 
             } else if (fileName.endsWith(".html") || fileName.endsWith(".j2")) {
@@ -83,6 +100,11 @@ public class App {
                 HtmlContentVisitor visitor = new HtmlContentVisitor();
                 HtmlContent htmlContent = visitor.visit(tree);
                 System.out.println(htmlContent);
+
+                JinjaSemanticAnalyzer analyzer = new JinjaSemanticAnalyzer();
+                analyzer.analyze(htmlContent);
+
+                System.out.println(SymbolTableManager.INSTANCE.getSymbolTable());
             } else if (fileName.endsWith(".css")) {
                 CssLexer lexer = new CssLexer(CharStreams.fromFileName(fileName));
                 CommonTokenStream tokens = new CommonTokenStream(lexer);

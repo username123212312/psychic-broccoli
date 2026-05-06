@@ -101,8 +101,6 @@ public class AssignmentStatementVisitor extends PythonParserBaseVisitor<Assignme
         SymbolEntry currentEntry = sb.lookup(symbolEntryName);
         Object previousType = currentEntry == null ? null : currentEntry.getAttribute("Type");
         if (previousType != null && !previousType.toString().equals(dynamicType)) {
-            System.out.println("Dynamic type update at line " + lineNumber + ": '" + symbolEntryName
-                    + "' changed from " + previousType + " to " + dynamicType);
             sb.setAttribute(symbolEntryName, "PreviousType", previousType.toString());
         }
 
