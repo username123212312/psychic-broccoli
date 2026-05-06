@@ -6,13 +6,22 @@ import ast.TemplateLiteral;
 import ast.arithmeticExpr.ArithmeticExpression;
 import ast.assignStmt.*;
 import ast.atomExpression.AtomExpression;
+import ast.atomExpression.AttributeAccess;
+import ast.atomExpression.FunctionCall;
+import ast.atomExpression.LiteralExpression;
+import ast.atomExpression.MethodAccess;
+import ast.atomExpression.ObjectCreation;
+import ast.atomExpression.SimpleVariable;
 import ast.compundStmt.PythonExpression;
 import ast.condition.Condition;
+import ast.complexExp.DictionaryLiteral;
+import ast.complexExp.ListLiteral;
+import symbolTable.SymbolEntry;
 import symbolTable.SymbolTable;
 import symbolTable.SymbolTableManager;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AssignmentStatementVisitor extends PythonParserBaseVisitor<AssignmentStatement> {
     private final PythonExpressionVisitor pythonExpressionVisitor = new PythonExpressionVisitor();
@@ -28,8 +37,7 @@ public class AssignmentStatementVisitor extends PythonParserBaseVisitor<Assignme
         String symbolEntryName = resolveSymbolName(pythonExpression);
         String conditionValue = condition.symbolTablePrint();
         if (symbolEntryName != null) {
-            sb.setAttribute(symbolEntryName, "Value", conditionValue);
-            sb.setAttribute(symbolEntryName, "Type", condition.node_name);
+            recordDynamicType(symbolEntryName, "Boolean", conditionValue, ctx.getStart().getLine());
         }
         comparisonAssignmentStmt.setValue(condition);
         return comparisonAssignmentStmt;
@@ -45,8 +53,7 @@ public class AssignmentStatementVisitor extends PythonParserBaseVisitor<Assignme
         templateLiteralAssignmentStatement.setTemplateLiteral(templateLiteral);
         String symbolEntryName = resolveSymbolName(pythonExpression);
         if (symbolEntryName != null) {
-            sb.setAttribute(symbolEntryName, "Value", "Multiline String");
-            sb.setAttribute(symbolEntryName, "Type", pythonExpression.node_name);
+            recordDynamicType(symbolEntryName, "String", templateLiteral.getContent(), ctx.getStart().getLine());
         }
 
         return templateLiteralAssignmentStatement;
@@ -62,8 +69,7 @@ public class AssignmentStatementVisitor extends PythonParserBaseVisitor<Assignme
         String symbolEntryName = resolveSymbolName(var);
         String valueText = value.symbolTablePrint();
         if (symbolEntryName != null) {
-            sb.setAttribute(symbolEntryName, "Value", valueText);
-            sb.setAttribute(symbolEntryName, "Type", value.node_name);
+            recordDynamicType(symbolEntryName, inferDynamicType(value), valueText, ctx.getStart().getLine());
         }
         pythonExpressionAssignStatement.setVar(var);
         pythonExpressionAssignStatement.setValue(value);
@@ -80,11 +86,148 @@ public class AssignmentStatementVisitor extends PythonParserBaseVisitor<Assignme
         arithmeticAssignStatement.setValue(arithmeticExpression);
         String symbolEntryName = resolveSymbolName(pythonExpression);
         if (symbolEntryName != null) {
-            sb.setAttribute(symbolEntryName, "Value", arithmeticExpression.symbolTablePrint());
-            sb.setAttribute(symbolEntryName, "Type", arithmeticExpression.node_name);
+            recordDynamicType(symbolEntryName, inferDynamicType(arithmeticExpression),
+                    arithmeticExpression.symbolTablePrint(), ctx.getStart().getLine());
         }
 
         return arithmeticAssignStatement;
+    }
+
+    private void recordDynamicType(String symbolEntryName, String dynamicType, String valueText, int lineNumber) {
+        if (symbolEntryName == null) {
+            return;
+        }
+
+        SymbolEntry currentEntry = sb.lookup(symbolEntryName);
+        Object previousType = currentEntry == null ? null : currentEntry.getAttribute("Type");
+        if (previousType != null && !previousType.toString().equals(dynamicType)) {
+            System.out.println("Dynamic type update at line " + lineNumber + ": '" + symbolEntryName
+                    + "' changed from " + previousType + " to " + dynamicType);
+            sb.setAttribute(symbolEntryName, "PreviousType", previousType.toString());
+        }
+
+        sb.setAttribute(symbolEntryName, "Value", valueText);
+        sb.setAttribute(symbolEntryName, "Type", dynamicType);
+    }
+
+    private String inferDynamicType(PythonExpression expression) {
+        if (expression == null) {
+            return "Unknown";
+        }
+
+        if (expression instanceof LiteralExpression literalExpression) {
+            return inferLiteralType(literalExpression.symbolTablePrint());
+        }
+
+        if (expression instanceof ObjectCreation objectCreation) {
+            return objectCreation.getVarName() == null ? "Object" : objectCreation.getVarName();
+        }
+
+        if (expression instanceof FunctionCall) {
+            return "Unknown";
+        }
+
+        if (expression instanceof ListLiteral) {
+            return "List";
+        }
+
+        if (expression instanceof DictionaryLiteral) {
+            return "Dictionary";
+        }
+
+        if (expression instanceof SimpleVariable simpleVariable) {
+            return resolveReferencedType(simpleVariable.getVarName());
+        }
+
+        if (expression instanceof AttributeAccess || expression instanceof MethodAccess) {
+            return "Unknown";
+        }
+
+        return expression.node_name;
+    }
+
+    private String inferDynamicType(ArithmeticExpression arithmeticExpression) {
+        if (arithmeticExpression == null) {
+            return "Unknown";
+        }
+        return inferArithmeticType(arithmeticExpression);
+    }
+
+    private String inferArithmeticType(ArithmeticExpression arithmeticExpression) {
+        List<String> operandTypes = new ArrayList<>();
+        operandTypes.add(inferDynamicType(arithmeticExpression.getLeft()));
+        if (arithmeticExpression.getRight() != null) {
+            for (PythonExpression pythonExpression : arithmeticExpression.getRight()) {
+                operandTypes.add(inferDynamicType(pythonExpression));
+            }
+        }
+
+        boolean allNumeric = operandTypes.stream().allMatch(this::isNumericType);
+        if (allNumeric) {
+            return operandTypes.contains("Float") ? "Float" : "Integer";
+        }
+
+        boolean allString = operandTypes.stream().allMatch(type -> "String".equals(type));
+        if ("+".equals(arithmeticExpression.getOperator()) && allString) {
+            return "String";
+        }
+
+        boolean mixedStringAndNumeric = operandTypes.stream().anyMatch(type -> "String".equals(type))
+                && operandTypes.stream().anyMatch(this::isNumericType);
+        if (mixedStringAndNumeric) {
+            System.out.println("Semantic error at line " + arithmeticExpression.line_number
+                    + ": cannot apply operator '" + arithmeticExpression.getOperator()
+                    + "' to incompatible types " + operandTypes);
+            return "Unknown";
+        }
+
+        return "Unknown";
+    }
+
+    private String inferLiteralType(String literalValue) {
+        if (literalValue == null) {
+            return "Unknown";
+        }
+
+        if (literalValue.startsWith("\"") && literalValue.endsWith("\"")
+                || literalValue.startsWith("'") && literalValue.endsWith("'")) {
+            return "String";
+        }
+
+        if (literalValue.equals("True") || literalValue.equals("False")) {
+            return "Boolean";
+        }
+
+        if (literalValue.equals("None")) {
+            return "None";
+        }
+
+        if (literalValue.matches("[0-9]+\\.[0-9]+")) {
+            return "Float";
+        }
+
+        if (literalValue.matches("[0-9]+")) {
+            return "Integer";
+        }
+
+        return "Unknown";
+    }
+
+    private boolean isNumericType(String type) {
+        return "Integer".equals(type) || "Float".equals(type);
+    }
+
+    private String resolveReferencedType(String symbolName) {
+        if (symbolName == null) {
+            return "Unknown";
+        }
+
+        Object currentType = sb.getAttribute(symbolName, "Type");
+        if (currentType == null) {
+            return "Unknown";
+        }
+
+        return currentType.toString();
     }
 
     private String resolveSymbolName(PythonExpression expression) {

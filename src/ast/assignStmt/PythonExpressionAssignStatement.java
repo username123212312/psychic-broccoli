@@ -19,6 +19,6 @@ public class PythonExpressionAssignStatement extends AssignmentStatement {
 
     @Override
     public String toString() {
-        return super.toString() + value.toString();
+        return super.toString() + (value == null ? "" : value.toString());
     }
 }
