@@ -11,12 +11,13 @@ import ast.atomExpression.LiteralExpression;
 import ast.atomExpression.SimpleVariable;
 import ast.compundStmt.PythonExpression;
 import semantic.ErrorReporter;
+import semantic.errors.SemanticError;
 import symbolTable.SymbolTable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TypeError implements SemanticError {
+public class TypeRule implements SemanticRule {
 
     @Override
     public void apply(ASTNode node, SymbolTable symbolTable, ErrorReporter reporter) {
@@ -37,7 +38,7 @@ public class TypeError implements SemanticError {
             String symbolName = var.symbolTablePrint();
             if (symbolName == null || !symbolName.matches("[A-Za-z_][A-Za-z0-9_]*")) return;
 
-            String inferred = inferType(value, symbolTable, reporter);
+            inferType(value, symbolTable, reporter);
             // keep this rule read-only: only detect invalid expressions here
             // the symbol table already contains the visitor-produced types/values
         }
@@ -87,8 +88,9 @@ public class TypeError implements SemanticError {
 
         boolean mixed = operandTypes.stream().anyMatch("String"::equals) && operandTypes.stream().anyMatch(this::isNumeric);
         if (mixed) {
-            reporter.addError("Type error at line " + ae.line_number + ": cannot apply '" + ae.getOperator() + "' to " + operandTypes);
-            return "Unknown";
+            String errorMessage = "Type error at line " + ae.line_number + ": cannot apply '" + ae.getOperator() + "' to " + operandTypes;
+            reporter.addError(errorMessage);
+            throw new SemanticError(errorMessage);
         }
         return "Unknown";
     }

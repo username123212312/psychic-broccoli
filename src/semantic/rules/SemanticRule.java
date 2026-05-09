@@ -4,6 +4,6 @@ import ast.ASTNode;
 import semantic.ErrorReporter;
 import symbolTable.SymbolTable;
 
-public interface SemanticError {
+public interface SemanticRule {
     void apply(ASTNode node, SymbolTable symbolTable, ErrorReporter reporter);
 }

@@ -3,9 +3,10 @@ package semantic.rules;
 import ast.ASTNode;
 import ast.atom.Name;
 import semantic.ErrorReporter;
+import semantic.errors.SemanticError;
 import symbolTable.SymbolTable;
 
-public class UndefinedVariableError implements SemanticError {
+public class UndefinedVariableRule implements SemanticRule {
     @Override
     public void apply(ASTNode node, SymbolTable symbolTable, ErrorReporter reporter) {
         if (node instanceof Name name) {
@@ -25,7 +26,8 @@ public class UndefinedVariableError implements SemanticError {
         if (name.isBlank() || symbolTable.lookup(name) != null) {
             return;
         }
-
-        reporter.addError("Undefined variable '" + name + "' at line " + node.line_number);
+        String errorMessage = "Undefined variable '" + name + "' at line " + node.line_number;
+        reporter.addError(errorMessage);
+        throw new SemanticError(errorMessage);
     }
 }

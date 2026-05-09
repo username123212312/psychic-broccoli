@@ -8,9 +8,10 @@ import ast.WhileStatement;
 import ast.compundStmt.ForLoop;
 import ast.compundStmt.IfStatement;
 import ast.functionDef.FunctionDefinition;
-import semantic.rules.SemanticError;
-import semantic.rules.TypeError;
-import semantic.rules.UndefinedVariableError;
+import semantic.errors.SemanticError;
+import semantic.rules.SemanticRule;
+import semantic.rules.TypeRule;
+import semantic.rules.UndefinedVariableRule;
 import symbolTable.SymbolTable;
 import symbolTable.SymbolTableManager;
 
@@ -18,13 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SemanticAnalyzer {
-    private final List<SemanticError> rules = new ArrayList<>();
+    private final List<SemanticRule> rules = new ArrayList<>();
     private final SymbolTable symbolTable = SymbolTableManager.INSTANCE.getSymbolTable();
 
-    public SemanticAnalyzer() {
-    }
 
-    public void registerRule(SemanticError r) {
+    public void registerRule(SemanticRule r) {
         if (r != null) rules.add(r);
     }
 
@@ -33,8 +32,8 @@ public class SemanticAnalyzer {
 
         ErrorReporter reporter = new ErrorReporter();
         if (rules.isEmpty()) {
-            registerRule(new TypeError());
-            registerRule(new UndefinedVariableError());
+            registerRule(new TypeRule());
+            registerRule(new UndefinedVariableRule());
         }
 
         walk(program, reporter);
@@ -44,11 +43,11 @@ public class SemanticAnalyzer {
     private void walk(ASTNode node, ErrorReporter reporter) {
         if (node == null) return;
 
-        for (SemanticError rule : rules) {
+        for (SemanticRule rule : rules) {
             try {
                 rule.apply(node, symbolTable, reporter);
-            } catch (Exception ex) {
-                reporter.addError("Rule error: " + ex.getMessage());
+            } catch (SemanticError se) {
+                reporter.addError("Rule error: " + se.getMessage());
             }
         }
 
@@ -91,6 +90,5 @@ public class SemanticAnalyzer {
             default -> {
             }
         }
-
     }
 }

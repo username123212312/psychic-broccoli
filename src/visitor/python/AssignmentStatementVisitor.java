@@ -109,32 +109,30 @@ public class AssignmentStatementVisitor extends PythonParserBaseVisitor<Assignme
     }
 
     private String inferDynamicType(PythonExpression expression) {
-        if (expression == null) {
-            return "Unknown";
-        }
-
-        if (expression instanceof LiteralExpression literalExpression) {
-            return inferLiteralType(literalExpression.symbolTablePrint());
-        }
-
-        if (expression instanceof ObjectCreation objectCreation) {
-            return objectCreation.getVarName() == null ? "Object" : objectCreation.getVarName();
-        }
-
-        if (expression instanceof FunctionCall) {
-            return "Unknown";
-        }
-
-        if (expression instanceof ListLiteral) {
-            return "List";
-        }
-
-        if (expression instanceof DictionaryLiteral) {
-            return "Dictionary";
-        }
-
-        if (expression instanceof SimpleVariable simpleVariable) {
-            return resolveReferencedType(simpleVariable.getVarName());
+        switch (expression) {
+            case null -> {
+                return "Unknown";
+            }
+            case LiteralExpression literalExpression -> {
+                return inferLiteralType(literalExpression.symbolTablePrint());
+            }
+            case ObjectCreation objectCreation -> {
+                return objectCreation.getVarName() == null ? "Object" : objectCreation.getVarName();
+            }
+            case FunctionCall functionCall -> {
+                return "Unknown";
+            }
+            case ListLiteral listLiteral -> {
+                return "List";
+            }
+            case DictionaryLiteral dictionaryLiteral -> {
+                return "Dictionary";
+            }
+            case SimpleVariable simpleVariable -> {
+                return resolveReferencedType(simpleVariable.getVarName());
+            }
+            default -> {
+            }
         }
 
         if (expression instanceof AttributeAccess || expression instanceof MethodAccess) {

@@ -17,6 +17,7 @@ import ast.jinja.jinjaStatment.JinjaStatement;
 import ast.htmlContentItem.HtmlContentItem;
 import ast.atom.Name;
 import semantic.ErrorReporter;
+import semantic.errors.SemanticError;
 import symbolTable.SymbolTable;
 import symbolTable.SymbolTableManager;
 
@@ -162,6 +163,8 @@ public class JinjaSemanticAnalyzer {
             return;
         }
 
-        reporter.addError("Undefined Jinja name '" + name + "' at line " + node.line_number);
+        String errorMessage = "Undefined Jinja name '" + name + "' at line " + node.line_number;
+        reporter.addError(errorMessage);
+        throw new SemanticError(errorMessage);
     }
 }
