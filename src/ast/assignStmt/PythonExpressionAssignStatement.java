@@ -1,6 +1,5 @@
 package ast.assignStmt;
 
-import ast.complexExp.ComplexExpression;
 import ast.compundStmt.PythonExpression;
 
 public class PythonExpressionAssignStatement extends AssignmentStatement {
@@ -14,8 +13,12 @@ public class PythonExpressionAssignStatement extends AssignmentStatement {
         this.value = value;
     }
 
+    public PythonExpression getValue() {
+        return value;
+    }
+
     @Override
     public String toString() {
-        return super.toString() + value.toString() + " ) ";
+        return super.toString() + (value == null ? "" : value.toString());
     }
 }

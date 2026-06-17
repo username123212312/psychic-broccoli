@@ -15,6 +15,10 @@ public class CssSelectorList extends ASTNode {
         this.selectors = selectors;
     }
 
+    public List<CssSelector> getSelectors() {
+        return selectors;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();

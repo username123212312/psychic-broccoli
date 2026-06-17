@@ -1,4 +1,4 @@
-package antlr;
+package antlr.python;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonToken;
@@ -8,7 +8,7 @@ import org.antlr.v4.runtime.Token;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-abstract class JinjaFlaskLexerBase extends Lexer {
+abstract public class PythonLexerBase extends Lexer {
     // A queue where extra tokens are pushed on (see the NEWLINE lexer rule).
     private java.util.LinkedList<Token> tokens = new java.util.LinkedList<>();
     // The stack that keeps track of the indentation level.
@@ -18,8 +18,9 @@ abstract class JinjaFlaskLexerBase extends Lexer {
     // The most recently produced token.
     private Token lastToken = null;
     // Track the start position of the current NEWLINE rule match
+    private boolean isDebug = false;
 
-    protected JinjaFlaskLexerBase(CharStream input) {
+    protected PythonLexerBase(CharStream input) {
         super(input);
     }
 
@@ -41,16 +42,16 @@ abstract class JinjaFlaskLexerBase extends Lexer {
             }
 
             // First emit an extra line break that serves as the end of the statement.
-            this.emit(createSyntheticToken(JinjaFlaskLexer.NEWLINE, "\n"));
+            this.emit(createSyntheticToken(PythonLexer.NEWLINE, "\n"));
 
             // Now emit as much DEDENT tokens as needed.
             while (!indents.isEmpty()) {
-                this.emit(createSyntheticToken(JinjaFlaskLexer.DEDENT, ""));
+                this.emit(createSyntheticToken(PythonLexer.DEDENT, ""));
                 indents.pop();
             }
 
             // Put the EOF back on the token stream.
-            this.emit(createSyntheticToken(JinjaFlaskLexer.EOF, "<EOF>"));
+            this.emit(createSyntheticToken(PythonLexer.EOF, "<EOF>"));
         }
 
         Token next = super.nextToken();
@@ -64,8 +65,10 @@ abstract class JinjaFlaskLexerBase extends Lexer {
     }
 
     private Token createSyntheticToken(int type, String text) {
-        System.out.println("=== DEBUG createSyntheticToken ===");
-        System.out.println("type=" + type + " text='" + escapeString(text) + "'");
+        if (isDebug) {
+            System.out.println("=== DEBUG createSyntheticToken ===");
+            System.out.println("type=" + type + " text='" + escapeString(text) + "'");
+        }
 
         // Create synthetic token (not from input)
         CommonToken token = new CommonToken(type, text);
@@ -89,7 +92,7 @@ abstract class JinjaFlaskLexerBase extends Lexer {
     private Token createDEDENT() {
         // Create proper DEDENT token
         int pos = getCharIndex();
-        CommonToken token = new CommonToken(JinjaFlaskLexer.DEDENT, "");
+        CommonToken token = new CommonToken(PythonLexer.DEDENT, "");
         token.setStartIndex(pos);
         token.setStopIndex(pos);
         token.setLine(getLine());
@@ -112,11 +115,12 @@ abstract class JinjaFlaskLexerBase extends Lexer {
         // Ensure non-negative positions
         if (start < 0) start = 0;
         if (stop < 0) stop = 0;
-
-        System.out.println("=== DEBUG createTokenWithPositions ===");
-        System.out.println("type=" + type + " (" + JinjaFlaskLexer.VOCABULARY.getSymbolicName(type) + ")");
-        System.out.println("text='" + escapeString(text) + "', length=" + text.length());
-        System.out.println("start=" + start + ", stop=" + stop);
+        if (isDebug) {
+            System.out.println("=== DEBUG createTokenWithPositions ===");
+            System.out.println("type=" + type + " (" + PythonLexer.VOCABULARY.getSymbolicName(type) + ")");
+            System.out.println("text='" + escapeString(text) + "', length=" + text.length());
+            System.out.println("start=" + start + ", stop=" + stop);
+        }
 
         return new CommonToken(this._tokenFactorySourcePair, type, DEFAULT_TOKEN_CHANNEL, start, stop);
     }
@@ -146,34 +150,36 @@ abstract class JinjaFlaskLexerBase extends Lexer {
         return super.getCharPositionInLine() == 0 && super.getLine() == 1;
     }
 
-    void openBrace(){
+    void openBrace() {
         this.opened++;
     }
 
-    void closeBrace(){
+    void closeBrace() {
         this.opened--;
     }
 
-    void onNewLine(){
+    void onNewLine() {
         // Save the start position of this rule match
         int ruleStart = _tokenStartCharIndex;
         String original = getText();
-
-        System.out.println("=== DEBUG onNewLine ===");
-        System.out.println("ruleStart=" + ruleStart);
-        System.out.println("getText() = '" + escapeString(original) + "'");
-        System.out.println("Length = " + original.length());
-        for (int i = 0; i < original.length(); i++) {
-            char c = original.charAt(i);
-            System.out.printf("  [%d] = 0x%02x %s\n", i, (int)c,
-                    c == '\r' ? "\\r" : c == '\n' ? "\\n" : c == ' ' ? "[space]" : "'" + c + "'");
+        if (isDebug) {
+            System.out.println("=== DEBUG onNewLine ===");
+            System.out.println("ruleStart=" + ruleStart);
+            System.out.println("getText() = '" + escapeString(original) + "'");
+            System.out.println("Length = " + original.length());
+            for (int i = 0; i < original.length(); i++) {
+                char c = original.charAt(i);
+                System.out.printf("  [%d] = 0x%02x %s\n", i, (int) c,
+                        c == '\r' ? "\\r" : c == '\n' ? "\\n" : c == ' ' ? "[space]" : "'" + c + "'");
+            }
         }
 
         String newLine = original.replaceAll("[^\r\n\f]+", "");
         String spaces = original.replaceAll("[\r\n\f]+", "");
-
-        System.out.println("newLine='" + escapeString(newLine) + "' length=" + newLine.length());
-        System.out.println("spaces='" + spaces + "' length=" + spaces.length());
+        if (isDebug) {
+            System.out.println("newLine='" + escapeString(newLine) + "' length=" + newLine.length());
+            System.out.println("spaces='" + spaces + "' length=" + spaces.length());
+        }
 
         // Strip newlines inside open clauses except if we are near EOF. We keep NEWLINEs near EOF to
         // satisfy the final newline needed by the single_put rule used by the REPL.
@@ -183,12 +189,11 @@ abstract class JinjaFlaskLexerBase extends Lexer {
             // If we're inside a list or on a blank line, ignore all indents,
             // dedents and line breaks.
             skip();
-        }
-        else {
+        } else {
             // Create NEWLINE token (first part of the matched text)
 
             int newLineEnd = ruleStart + newLine.length() - 1;
-            emit(createTokenWithPositions(JinjaFlaskLexer.NEWLINE, newLine, ruleStart, newLineEnd));
+            emit(createTokenWithPositions(PythonLexer.NEWLINE, newLine, ruleStart, newLineEnd));
 
             int indent = getIndentationCount(spaces);
             int previous = indents.isEmpty() ? 0 : indents.peek();
@@ -196,17 +201,15 @@ abstract class JinjaFlaskLexerBase extends Lexer {
             if (indent == previous) {
                 // skip indents of the same size as the present indent-size
                 skip();
-            }
-            else if (indent > previous) {
+            } else if (indent > previous) {
                 indents.push(indent);
                 // Create INDENT token (second part of the matched text)
                 int spacesStart = ruleStart + newLine.length();
                 int spacesEnd = ruleStart + original.length() - 1;
-                emit(createTokenWithPositions(JinjaFlaskLexer.INDENT, spaces, spacesStart, spacesEnd));
-            }
-            else {
+                emit(createTokenWithPositions(PythonLexer.INDENT, spaces, spacesStart, spacesEnd));
+            } else {
                 // Possibly emit more than 1 DEDENT token.
-                while(!indents.isEmpty() && indents.peek() > indent) {
+                while (!indents.isEmpty() && indents.peek() > indent) {
                     // DEDENT tokens have no text, use current position
                     emit(createTokenAtPosition());
                     indents.pop();
@@ -220,8 +223,7 @@ abstract class JinjaFlaskLexerBase extends Lexer {
     }
 
     @Override
-    public void reset()
-    {
+    public void reset() {
         tokens = new java.util.LinkedList<>();
         indents = new ArrayDeque<>();
         opened = 0;

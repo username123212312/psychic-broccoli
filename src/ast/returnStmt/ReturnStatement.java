@@ -1,6 +1,5 @@
 package ast.returnStmt;
 
-import ast.ASTNode;
 import ast.compundStmt.CompoundStatement;
 
 public abstract class ReturnStatement extends CompoundStatement {

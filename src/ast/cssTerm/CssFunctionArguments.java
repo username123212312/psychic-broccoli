@@ -15,6 +15,10 @@ public class CssFunctionArguments extends ASTNode {
         this.cssTerms = cssTerms;
     }
 
+    public List<CssTerm> getCssTerms() {
+        return cssTerms;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();

@@ -20,6 +20,10 @@ public class FunctionCall extends AtomExpression {
         this.argumentsList = argumentsList;
     }
 
+    public ArgumentsList getArgumentsList() {
+        return argumentsList;
+    }
+
     @Override
     public String symbolTablePrint() {
         return super.getVarName() + " ( " + argumentsList.symbolTablePrint() + " ) ";
@@ -27,6 +31,6 @@ public class FunctionCall extends AtomExpression {
 
     @Override
     public String toString() {
-        return super.toString() + "( " + argumentsList.toString() + " )";
+        return super.toString() + "( " + argumentsList.toString() + " ) )";
     }
 }

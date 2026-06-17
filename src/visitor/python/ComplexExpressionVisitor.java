@@ -1,19 +1,18 @@
 package visitor.python;
 
-import antlr.JinjaFlaskParser;
-import antlr.JinjaFlaskParserBaseVisitor;
-import ast.atom.Atom;
+import antlr.python.PythonParser;
+import antlr.python.PythonParserBaseVisitor;
 import ast.complexExp.*;
 import ast.compundStmt.ForLoop;
 import ast.keyValue.KeyValue;
-import visitor.UniversalVisitor;
+import visitor.UniversalPythonVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ComplexExpressionVisitor extends JinjaFlaskParserBaseVisitor<ComplexExpression> {
+public class ComplexExpressionVisitor extends PythonParserBaseVisitor<ComplexExpression> {
     @Override
-    public ComplexExpression visitGenerator(JinjaFlaskParser.GeneratorContext ctx) {
+    public ComplexExpression visitGenerator(PythonParser.GeneratorContext ctx) {
         Generator generator = new Generator(ctx.getStart().getLine());
         ForLoopVisitor forLoopVisitor = new ForLoopVisitor();
         ForLoop forLoop = forLoopVisitor.visit(ctx.for_loop());
@@ -23,7 +22,7 @@ public class ComplexExpressionVisitor extends JinjaFlaskParserBaseVisitor<Comple
 
 
     @Override
-    public ComplexExpression visitListComprehension(JinjaFlaskParser.ListComprehensionContext ctx) {
+    public ComplexExpression visitListComprehension(PythonParser.ListComprehensionContext ctx) {
         ListComprehension listComprehension = new ListComprehension(ctx.getStart().getLine());
         ForLoop forLoop = new ForLoopVisitor().visit(ctx.for_loop());
         listComprehension.setForLoop(forLoop);
@@ -31,12 +30,12 @@ public class ComplexExpressionVisitor extends JinjaFlaskParserBaseVisitor<Comple
     }
 
     @Override
-    public ComplexExpression visitDictionaryLiteral(JinjaFlaskParser.DictionaryLiteralContext ctx) {
+    public ComplexExpression visitDictionaryLiteral(PythonParser.DictionaryLiteralContext ctx) {
         return visit(ctx.dict_maker());
     }
 
     @Override
-    public ComplexExpression visitKeyValuePairs(JinjaFlaskParser.KeyValuePairsContext ctx) {
+    public ComplexExpression visitKeyValuePairs(PythonParser.KeyValuePairsContext ctx) {
         DictionaryLiteral dictionaryLiteral = new DictionaryLiteral(ctx.getStart().getLine());
         List<KeyValue> keyValueList = new ArrayList<>();
         for (int i = 0; i < ctx.key_value().size(); i++) {
@@ -49,13 +48,13 @@ public class ComplexExpressionVisitor extends JinjaFlaskParserBaseVisitor<Comple
     }
 
     @Override
-    public ComplexExpression visitListLiteral(JinjaFlaskParser.ListLiteralContext ctx) {
+    public ComplexExpression visitListLiteral(PythonParser.ListLiteralContext ctx) {
         ListLiteral listLiteral = new ListLiteral(ctx.getStart().getLine());
         if (ctx.list_items() == null){
             listLiteral.setListItems(new ArrayList<>());
             return listLiteral;
         }
-        ListItems listItems = (ListItems) new UniversalVisitor().visit(ctx.list_items());
+        ListItems listItems = (ListItems) new UniversalPythonVisitor().visit(ctx.list_items());
 
         listLiteral.setListItems(listItems.getAtomList());
 

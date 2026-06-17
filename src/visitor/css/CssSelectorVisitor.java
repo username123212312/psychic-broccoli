@@ -1,15 +1,15 @@
 package visitor.css;
 
-import antlr.JinjaFlaskParser;
-import antlr.JinjaFlaskParserBaseVisitor;
+import antlr.css.CssParser;
+import antlr.css.CssParserBaseVisitor;
 import ast.css.CssSelector;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CssSelectorVisitor extends JinjaFlaskParserBaseVisitor<CssSelector> {
+public class CssSelectorVisitor extends CssParserBaseVisitor<CssSelector> {
     @Override
-    public CssSelector visitQualifiedSelector(JinjaFlaskParser.QualifiedSelectorContext ctx) {
+    public CssSelector visitQualifiedSelector(CssParser.QualifiedSelectorContext ctx) {
 
         CssSelector cssSelector = new CssSelector(ctx.getStart().getLine());
         List<String> classes = new ArrayList<>();
@@ -22,7 +22,7 @@ public class CssSelectorVisitor extends JinjaFlaskParserBaseVisitor<CssSelector>
     }
 
     @Override
-    public CssSelector visitStandaloneSimpleSelector(JinjaFlaskParser.StandaloneSimpleSelectorContext ctx) {
+    public CssSelector visitStandaloneSimpleSelector(CssParser.StandaloneSimpleSelectorContext ctx) {
         CssSelector cssSelector = new CssSelector(ctx.getStart().getLine());
         List<String> classes = new ArrayList<>();
         for (int i = 0; i < ctx.CSS_ID().size(); i++) {
@@ -34,7 +34,7 @@ public class CssSelectorVisitor extends JinjaFlaskParserBaseVisitor<CssSelector>
     }
 
     @Override
-    public CssSelector visitTypeAndIdSelector(JinjaFlaskParser.TypeAndIdSelectorContext ctx) {
+    public CssSelector visitTypeAndIdSelector(CssParser.TypeAndIdSelectorContext ctx) {
         CssSelector cssSelector = new CssSelector(ctx.start.getLine());
 
         cssSelector.setElementName(ctx.CSS_ID(0).getText());
@@ -47,7 +47,7 @@ public class CssSelectorVisitor extends JinjaFlaskParserBaseVisitor<CssSelector>
     }
 
     @Override
-    public CssSelector visitTypeSelector(JinjaFlaskParser.TypeSelectorContext ctx) {
+    public CssSelector visitTypeSelector(CssParser.TypeSelectorContext ctx) {
         CssSelector cssSelector = new CssSelector(ctx.start.getLine());
 
         String text = ctx.CSS_ID().getText();

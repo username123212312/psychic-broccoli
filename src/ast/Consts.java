@@ -1,7 +1,5 @@
 package ast;
 
-import java.util.List;
-
 public class Consts {
     public static String STRING_INDENT = "\n│   ";
 

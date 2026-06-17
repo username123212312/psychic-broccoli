@@ -18,17 +18,29 @@ public class ArithmeticExpression extends SimpleExpression {
         this.left = left;
     }
 
+    public PythonExpression getLeft() {
+        return left;
+    }
+
     public void setRight(List<PythonExpression> right) {
         this.right = right;
     }
 
+    public List<PythonExpression> getRight() {
+        return right;
+    }
+
     public void setOperator(Operator operator) {
         switch (operator){
-            case Operator.Addition -> this.operator = "+";
-            case Operator.Multiplication -> this.operator = "*";
-            case Operator.Division -> this.operator = "/";
-            case Operator.Subtraction -> this.operator = "-";
+            case Addition -> this.operator = "+";
+            case Multiplication -> this.operator = "*";
+            case Division -> this.operator = "/";
+            case Subtraction -> this.operator = "-";
         }
+    }
+
+    public String getOperator() {
+        return operator;
     }
 
     @Override

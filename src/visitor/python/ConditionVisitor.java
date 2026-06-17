@@ -1,7 +1,7 @@
 package visitor.python;
 
-import antlr.JinjaFlaskParser;
-import antlr.JinjaFlaskParserBaseVisitor;
+import antlr.python.PythonParser;
+import antlr.python.PythonParserBaseVisitor;
 import ast.atom.Bool;
 import ast.comparisonOp.ComparisonOperator;
 import ast.compundStmt.PythonExpression;
@@ -9,31 +9,31 @@ import ast.condition.BooleanCondition;
 import ast.condition.ComparisonExpression;
 import ast.condition.Condition;
 import ast.condition.NotExpression;
-import visitor.UniversalVisitor;
+import visitor.UniversalPythonVisitor;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ConditionVisitor extends JinjaFlaskParserBaseVisitor<Condition> {
+public class ConditionVisitor extends PythonParserBaseVisitor<Condition> {
     PythonExpressionVisitor pythonExpressionVisitor = new PythonExpressionVisitor();
 
     @Override
-    public Condition visitBooleanCondition(JinjaFlaskParser.BooleanConditionContext ctx) {
+    public Condition visitBooleanCondition(PythonParser.BooleanConditionContext ctx) {
         BooleanCondition booleanCondition = new BooleanCondition(ctx.getStart().getLine());
-        Bool bool = (Bool) new UniversalVisitor().visit(ctx.bool_exp());
+        Bool bool = (Bool) new UniversalPythonVisitor().visit(ctx.bool_exp());
         booleanCondition.setBoolValue(bool);
         return booleanCondition;
     }
 
     @Override
-    public Condition visitNotExpression(JinjaFlaskParser.NotExpressionContext ctx) {
+    public Condition visitNotExpression(PythonParser.NotExpressionContext ctx) {
         NotExpression notExpression = new NotExpression(ctx.getStart().getLine());
         notExpression.setPythonExpression(pythonExpressionVisitor.visit(ctx.python_expr()));
         return notExpression;
     }
 
     @Override
-    public Condition visitComparisonExpression(JinjaFlaskParser.ComparisonExpressionContext ctx) {
+    public Condition visitComparisonExpression(PythonParser.ComparisonExpressionContext ctx) {
         ComparisonExpression comparisonExpression = new ComparisonExpression(ctx.getStart().getLine());
         PythonExpression baseExpr = pythonExpressionVisitor.visit(ctx.python_expr(0));
         comparisonExpression.setBaseExpr(baseExpr);

@@ -104,7 +104,7 @@ JINJA_STMT_START: '{%' -> pushMode(JINJA_MODE);
 JINJA_COMMENT_START: '{#' -> pushMode(JINJA_MODE);
 
 HTML_COMMENT
-    : 'd' -> channel(HIDDEN)
+    : '<!--' .*? '-->' -> channel(HIDDEN)
     ;
 
 HTML_CONDITIONAL_COMMENT
@@ -129,11 +129,6 @@ SCRIPTLET
 
 SEA_WS
     : [ \t\r\n]+ -> channel(HIDDEN)
-    ;
-
-// 4. Mode-Pushing TAG_MODE Starts
-SCRIPT_OPEN
-    : '<script' ~'>'* '>' -> pushMode(SCRIPT_MODE)
     ;
 
 STYLE_OPEN
@@ -177,13 +172,6 @@ TAG_WHITESPACE
 ATTVALUE_VALUE
     : '"' ~'"'* '"'
     | '\'' ~'\''* '\''
-    ;
-
-// =================== SCRIPT MODE (Raw Text) ===================
-mode SCRIPT_MODE;
-
-SCRIPT_BODY
-    : .*? '</script>' -> popMode
     ;
 
 // =================== STYLE_MODE MODE (CSS Parsing) ===================

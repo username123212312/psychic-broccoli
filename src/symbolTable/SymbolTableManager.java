@@ -12,4 +12,16 @@ public enum SymbolTableManager {
     public SymbolTable getSymbolTable() {
         return symbolTable;
     }
+
+    public void enterScope(String scopeName) {
+        symbolTable.enterScope(scopeName);
+    }
+
+    public void exitScope() {
+        symbolTable.exitScope();
+    }
+
+    public void declareGlobal(String name) {
+        symbolTable.declareGlobal(name);
+    }
 }

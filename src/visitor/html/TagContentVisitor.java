@@ -1,13 +1,13 @@
 package visitor.html;
 
-import antlr.JinjaFlaskParser;
-import antlr.JinjaFlaskParserBaseVisitor;
+import antlr.html.HtmlParser;
+import antlr.html.HtmlParserBaseVisitor;
 import ast.tagContent.TagElementItem;
 
-public class TagContentVisitor extends JinjaFlaskParserBaseVisitor<TagElementItem> {
+public class TagContentVisitor extends HtmlParserBaseVisitor<TagElementItem> {
 
     @Override
-    public TagElementItem visitHtmlAttribute(JinjaFlaskParser.HtmlAttributeContext ctx) {
+    public TagElementItem visitHtmlAttribute(HtmlParser.HtmlAttributeContext ctx) {
         TagElementItem tagElementItem = new TagElementItem(ctx.start.getLine());
         tagElementItem.setAttributeName(ctx.TAG_NAME().getText());
         if (ctx.ATTVALUE_VALUE() != null) {
@@ -17,7 +17,7 @@ public class TagContentVisitor extends JinjaFlaskParserBaseVisitor<TagElementIte
     }
 
 //    @Override
-//    public TagContent visitClosingMarker(JinjaFlaskParser.ClosingMarkerContext ctx) {
+//    public TagContent visitClosingMarker(HtmlParser.ClosingMarkerContext ctx) {
 //        TagContent tagContent = new TagContent(ctx.start.getLine());
 //        tagContent.setAttributeName("");
 //        tagContent.setAttributeValue("");

@@ -24,6 +24,18 @@ public class JinjaBinaryExpression extends JinjaExpression {
         this.operator = operator;
     }
 
+    public JinjaCallExpression getLeft() {
+        return left;
+    }
+
+    public JinjaCallExpression getRight() {
+        return right;
+    }
+
+    public String getOperator() {
+        return operator;
+    }
+
     @Override
     public String toString() {
         return left.toString() + " " + operator + " " + right.toString();

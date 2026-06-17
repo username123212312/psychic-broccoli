@@ -1,6 +1,5 @@
 package ast.jinja.jinjaExpression;
 
-import ast.ASTNode;
 import ast.htmlContentItem.HtmlContentItem;
 
 public abstract class JinjaExpression extends HtmlContentItem {

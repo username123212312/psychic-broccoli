@@ -20,13 +20,17 @@ public class HtmlContent extends ASTNode {
         }
     }
 
+    public List<HtmlContentItem> getItems() {
+        return items;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(super.toString());
         if (items != null) {
             for (HtmlContentItem htmlContentItem : items) {
-                stringBuilder.append(Consts.printIndent(2))
+                stringBuilder.append(Consts.printIndent(4))
                         .append(htmlContentItem.toString());
             }
         }

@@ -14,6 +14,10 @@ public class FunctionTerm extends CssTerm {
         this.arguments = arguments;
     }
 
+    public CssFunctionArguments getArguments() {
+        return arguments;
+    }
+
     @Override
     public String toString() {
         return super.toString() + Consts.printIndent(3) + arguments.toString();

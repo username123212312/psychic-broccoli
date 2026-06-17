@@ -9,8 +9,6 @@ public class TemplateLiteral extends ASTNode {
 
     public void setHtmlContent(HtmlContent htmlContent) {
         this.htmlContent = htmlContent;
-
-        if (htmlContent != null) this.children.add(htmlContent);
     }
 
     @Override

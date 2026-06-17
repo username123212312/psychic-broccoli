@@ -15,6 +15,10 @@ public class DictionaryLiteral extends ComplexExpression {
         this.keyValues = keyValues;
     }
 
+    public List<KeyValue> getKeyValues() {
+        return keyValues;
+    }
+
     @Override
     public String symbolTablePrint() {
         StringBuilder stringBuilder = new StringBuilder();

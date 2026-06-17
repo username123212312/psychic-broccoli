@@ -17,6 +17,14 @@ public class JinjaFunctionCall extends JinjaCallExpression {
         this.functionName = functionName;
     }
 
+    public JinjaArgumentsList getArgumentsList() {
+        return argumentsList;
+    }
+
+    public String getFunctionName() {
+        return functionName;
+    }
+
     @Override
     public String toString() {
         return functionName + " ( " + argumentsList.toString() + " )";

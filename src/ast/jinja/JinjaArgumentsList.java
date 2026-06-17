@@ -2,8 +2,6 @@ package ast.jinja;
 
 import ast.ASTNode;
 import ast.jinja.jinjaArg.JinjaArgument;
-import ast.jinja.jinjaCallExpr.JinjaCallExpression;
-
 import java.util.List;
 
 public class JinjaArgumentsList extends ASTNode{
@@ -14,6 +12,10 @@ public class JinjaArgumentsList extends ASTNode{
 
     public void setArguments(List<JinjaArgument> arguments) {
         this.arguments = arguments;
+    }
+
+    public List<JinjaArgument> getArguments() {
+        return arguments;
     }
 
     @Override

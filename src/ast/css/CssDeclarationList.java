@@ -15,6 +15,10 @@ public class CssDeclarationList extends ASTNode {
         this.declarations = declarations;
     }
 
+    public List<CssDeclaration> getDeclarations() {
+        return declarations;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();

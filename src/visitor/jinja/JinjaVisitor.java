@@ -1,7 +1,7 @@
 package visitor.jinja;
 
-import antlr.JinjaFlaskParser;
-import antlr.JinjaFlaskParserBaseVisitor;
+import antlr.html.HtmlParser;
+import antlr.html.HtmlParserBaseVisitor;
 import ast.ASTNode;
 import ast.jinja.JinjaArgumentsList;
 import ast.jinja.jinjaArg.JinjaArgument;
@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class JinjaVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
+public class JinjaVisitor extends HtmlParserBaseVisitor<ASTNode> {
 
     @Override
-    public JinjaVariableAccess visitJinjaVarAccessOnlyDef(JinjaFlaskParser.JinjaVarAccessOnlyDefContext ctx) {
+    public JinjaVariableAccess visitJinjaVarAccessOnlyDef(HtmlParser.JinjaVarAccessOnlyDefContext ctx) {
         JinjaVariableAccess jinjaVariableAccess = new JinjaVariableAccess(ctx.start.getLine());
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(ctx.J_NAME(0));
@@ -26,7 +26,7 @@ public class JinjaVisitor extends JinjaFlaskParserBaseVisitor<ASTNode> {
     }
 
     @Override
-    public JinjaArgumentsList visitJinjaArgListDef(JinjaFlaskParser.JinjaArgListDefContext ctx) {
+    public JinjaArgumentsList visitJinjaArgListDef(HtmlParser.JinjaArgListDefContext ctx) {
         JinjaArgumentsList jinjaArgumentsList = new JinjaArgumentsList(ctx.start.getLine());
         JinjaArgumentVisitor jinjaArgumentVisitor = new JinjaArgumentVisitor();
         List<JinjaArgument> arguments = new ArrayList<>();

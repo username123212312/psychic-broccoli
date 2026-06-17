@@ -16,13 +16,17 @@ public class StyleSheet extends HtmlElement {
         this.ruleSets = ruleSets;
     }
 
+    public List<RuleSet> getRuleSets() {
+        return ruleSets;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(super.toString());
         if (ruleSets != null) {
             for (RuleSet ruleSet : ruleSets) {
-                stringBuilder.append(Consts.printIndent(2)).append(ruleSet.toString());
+                stringBuilder.append(Consts.printIndent(5)).append(ruleSet.toString());
             }
         }
         return stringBuilder.toString();

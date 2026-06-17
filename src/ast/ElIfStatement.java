@@ -14,12 +14,20 @@ public class ElIfStatement extends ASTNode {
         this.condition = condition;
     }
 
+    public Condition getCondition() {
+        return condition;
+    }
+
     public void setStatement(Statement statement) {
         this.statement = statement;
 
 
         if (condition != null) this.children.add(condition);
         if (statement != null) this.children.add(statement);
+    }
+
+    public Statement getStatement() {
+        return statement;
     }
 
     @Override

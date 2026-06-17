@@ -191,7 +191,6 @@ html_content_item
 
 htmlElement
     : TAG_OPEN tag_content*? (TAG_SLASH_CLOSE | TAG_CLOSE)  # TagElement
-    | SCRIPT_OPEN SCRIPT_BODY                               # ScriptElement
     | STYLE_OPEN style_sheet STYLE_CLOSE                    # StyleElement
     ;
 
@@ -233,12 +232,13 @@ declaration
     : CSS_ID  CSS_COLON  cssterm+  CSS_SEMI # CssDeclaration
     ;
 
-css_function_call
-    : CSS_ID CSS_LPAREN  css_function_args?  CSS_RPAREN # CssFunctionCall
-    ;
-
 css_function_args
     : cssterm+ (  CSS_COMMA  cssterm+ )* # FunctionArguments
+    ;
+
+
+css_function_call
+    : CSS_ID CSS_LPAREN  css_function_args?  CSS_RPAREN # CssFunctionCall
     ;
 
 cssterm

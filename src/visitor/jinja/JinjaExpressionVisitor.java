@@ -1,18 +1,18 @@
 package visitor.jinja;
 
-import antlr.JinjaFlaskParser;
-import antlr.JinjaFlaskParserBaseVisitor;
+import antlr.html.HtmlParser;
+import antlr.html.HtmlParserBaseVisitor;
 import ast.jinja.jinjaCallExpr.JinjaCallExpression;
 import ast.jinja.jinjaExpression.JinjaBinaryExpression;
 import ast.jinja.jinjaExpression.JinjaExpression;
 import ast.jinja.jinjaExpression.JinjaSimpleExpression;
 
-public class JinjaExpressionVisitor extends JinjaFlaskParserBaseVisitor<JinjaExpression> {
+public class JinjaExpressionVisitor extends HtmlParserBaseVisitor<JinjaExpression> {
     private final JinjaCallExpressionVisitor jinjaCallExpressionVisitor
             = new JinjaCallExpressionVisitor();
 
     @Override
-    public JinjaExpression visitJinjaBinaryExpr(JinjaFlaskParser.JinjaBinaryExprContext ctx) {
+    public JinjaExpression visitJinjaBinaryExpr(HtmlParser.JinjaBinaryExprContext ctx) {
         JinjaBinaryExpression jinjaBinaryExpression = new JinjaBinaryExpression(ctx.start.getLine());
         JinjaCallExpression left = jinjaCallExpressionVisitor.visit(ctx.j_call_expr(0));
         JinjaCallExpression right = jinjaCallExpressionVisitor.visit(ctx.j_call_expr(1));
@@ -23,7 +23,7 @@ public class JinjaExpressionVisitor extends JinjaFlaskParserBaseVisitor<JinjaExp
     }
 
     @Override
-    public JinjaExpression visitJinjaSimpleExpr(JinjaFlaskParser.JinjaSimpleExprContext ctx) {
+    public JinjaExpression visitJinjaSimpleExpr(HtmlParser.JinjaSimpleExprContext ctx) {
         JinjaSimpleExpression jinjaSimpleExpression = new JinjaSimpleExpression(ctx.start.getLine());
         JinjaCallExpression jinjaCallExpression = jinjaCallExpressionVisitor.visit(ctx.j_call_expr());
         jinjaSimpleExpression.setExpr(jinjaCallExpression);

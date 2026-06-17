@@ -1,6 +1,5 @@
 package ast.jinja.jinjaCallExpr;
 
-import ast.ASTNode;
 
 public class JinjaVariableAccess extends JinjaCallExpression {
     private String dottedName;
@@ -10,6 +9,10 @@ public class JinjaVariableAccess extends JinjaCallExpression {
 
     public void setDottedName(String dottedName) {
         this.dottedName = dottedName;
+    }
+
+    public String getDottedName() {
+        return dottedName;
     }
 
     @Override

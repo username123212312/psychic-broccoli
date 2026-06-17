@@ -22,11 +22,19 @@ public class CssDeclaration extends ASTNode {
         this.id = id;
     }
 
+    public List<CssTerm> getCssTermList() {
+        return cssTermList;
+    }
+
+    public String getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(super.toString()).append(" ( ").append(id).append(" ) ")
-                .append(Consts.printIndent(3));
+                .append(Consts.printIndent(7));
         stringBuilder.append(" [ ");
         if (cssTermList != null) {
             for (CssTerm cssTerm : cssTermList) {

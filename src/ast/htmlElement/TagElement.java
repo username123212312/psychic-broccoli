@@ -16,6 +16,10 @@ public class TagElement extends HtmlElement {
         this.tags = tags;
     }
 
+    public List<TagElementItem> getTags() {
+        return tags;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();

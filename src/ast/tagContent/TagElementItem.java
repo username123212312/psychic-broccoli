@@ -18,6 +18,14 @@ public class TagElementItem extends ASTNode {
         this.attributeValue = attributeValue;
     }
 
+    public String getAttributeName() {
+        return attributeName;
+    }
+
+    public String getAttributeValue() {
+        return attributeValue;
+    }
+
     @Override
     public String toString() {
         if (!attributeName.isEmpty()) {

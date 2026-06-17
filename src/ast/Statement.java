@@ -26,6 +26,14 @@ public class Statement extends ASTNode {
         isPass = pass;
     }
 
+    public List<CompoundStatement> getCompoundStatements() {
+        return compoundStatements;
+    }
+
+    public boolean isPass() {
+        return isPass;
+    }
+
     @Override
     public String toString() {
         if (isPass) {

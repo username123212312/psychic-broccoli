@@ -1,6 +1,5 @@
 package ast.jinja.jinjaCallExpr;
 
-import ast.ASTNode;
 import ast.atom.Atom;
 
 public class JinjaAtom extends JinjaCallExpression {
@@ -8,6 +7,10 @@ public class JinjaAtom extends JinjaCallExpression {
     public JinjaAtom(int line_number, Atom atom) {
         super(atom.node_name, line_number);
         this.atom = atom;
+    }
+
+    public Atom getAtom() {
+        return atom;
     }
 
     @Override

@@ -1,7 +1,5 @@
 package ast.compundStmt;
 
-import ast.atom.Name;
-
 import java.util.List;
 
 public class GlobalStatement extends CompoundStatement{
@@ -13,6 +11,10 @@ public class GlobalStatement extends CompoundStatement{
 
     public void setGlobals(List<String> globals) {
         this.globals = globals;
+    }
+
+    public List<String> getGlobals() {
+        return globals;
     }
 
     @Override

@@ -1,7 +1,5 @@
 package ast.argument;
 
-import ast.compundStmt.PythonExpression;
-
 public class KeywordArgument extends Argument {
     private String argName;
 
@@ -11,6 +9,10 @@ public class KeywordArgument extends Argument {
 
     public void setArgName(String argName) {
         this.argName = argName;
+    }
+
+    public String getArgName() {
+        return argName;
     }
 
     @Override

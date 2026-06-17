@@ -18,9 +18,17 @@ public class ComparisonExpression extends Condition {
         this.baseExpr = baseExpr;
     }
 
+    public PythonExpression getBaseExpr() {
+        return baseExpr;
+    }
+
     public void setOperatorPythonExpressionMap(Map<ComparisonOperator,
             PythonExpression> operatorPythonExpressionMap) {
         this.operatorPythonExpressionMap = operatorPythonExpressionMap;
+    }
+
+    public Map<ComparisonOperator, PythonExpression> getOperatorPythonExpressionMap() {
+        return operatorPythonExpressionMap;
     }
 
 
@@ -31,7 +39,7 @@ public class ComparisonExpression extends Condition {
         if(operatorPythonExpressionMap != null){
             for (ComparisonOperator comparisonOperator : operatorPythonExpressionMap.keySet()) {
                 PythonExpression compExpr = operatorPythonExpressionMap.get(comparisonOperator);
-                stringBuilder.append(comparisonOperator == null ? "Null" : comparisonOperator.toString()).append(" ")
+                stringBuilder.append(" ").append(comparisonOperator == null ? "Null" : comparisonOperator.toString()).append(" ")
                         .append(compExpr == null ? "Null" : compExpr.symbolTablePrint());
             }
         }
@@ -41,12 +49,12 @@ public class ComparisonExpression extends Condition {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(super.toString()).append(Consts.printIndent(1))
+        stringBuilder.append(super.toString()).append(Consts.printIndent(3))
                 .append(baseExpr == null ? "Null" : baseExpr.toString());
         if(operatorPythonExpressionMap != null){
             for (ComparisonOperator comparisonOperator : operatorPythonExpressionMap.keySet()) {
                 PythonExpression compExpr = operatorPythonExpressionMap.get(comparisonOperator);
-                stringBuilder.append(Consts.printIndent(1)).append(comparisonOperator == null ? "Null" : comparisonOperator.toString()).append(" ")
+                stringBuilder.append(Consts.printIndent(3)).append(comparisonOperator == null ? "Null" : comparisonOperator.toString()).append(" ")
                         .append(compExpr == null ? "Null" : compExpr.toString());
             }
         }

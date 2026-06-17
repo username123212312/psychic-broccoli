@@ -1,86 +1,118 @@
 package visitor.python;
 
-import antlr.JinjaFlaskParser;
-import antlr.JinjaFlaskParserBaseVisitor;
+import antlr.python.PythonParser;
+import antlr.python.PythonParserBaseVisitor;
 import ast.ElIfStatement;
 import ast.Imported;
 import ast.Statement;
-import ast.atomExpression.AtomExpression;
 import ast.compundStmt.CompoundStatement;
 import ast.compundStmt.GlobalStatement;
 import ast.compundStmt.IfStatement;
 import ast.compundStmt.ImportStatement;
 import ast.condition.Condition;
 import ast.functionDef.Decorator;
-import ast.functionDef.FunctionDefinition;
 import ast.functionDef.FunctionParameter;
+import ast.functionDef.FunctionDefinition;
 import ast.functionDef.FunctionParameters;
-import ast.returnStmt.ReturnStatement;
 import org.antlr.v4.runtime.tree.TerminalNode;
-import visitor.UniversalVisitor;
+import visitor.UniversalPythonVisitor;
+import symbolTable.SymbolTable;
+import symbolTable.SymbolTableManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompoundStatementVisitor extends JinjaFlaskParserBaseVisitor<CompoundStatement> {
-    UniversalVisitor universalVisitor = new UniversalVisitor();
+public class CompoundStatementVisitor extends PythonParserBaseVisitor<CompoundStatement> {
+    UniversalPythonVisitor universalVisitor = new UniversalPythonVisitor();
+    private final SymbolTable symbolTable = SymbolTableManager.INSTANCE.getSymbolTable();
+
 
     @Override
-    public CompoundStatement visitIfStatement(JinjaFlaskParser.IfStatementContext ctx) {
+    public CompoundStatement visitAtomExpression(PythonParser.AtomExpressionContext ctx) {
+        AtomExpressionVisitor atomExpressionVisitor = new AtomExpressionVisitor();
+        return atomExpressionVisitor.visit(ctx.atom_expr());
+    }
+
+    @Override
+    public CompoundStatement visitSimpleExpression(PythonParser.SimpleExpressionContext ctx) {
+        SimpleExpressionVisitor simpleExpressionVisitor = new SimpleExpressionVisitor();
+        return simpleExpressionVisitor.visit(ctx.simple_expr());
+    }
+
+    @Override
+    public CompoundStatement visitForLoopStatement(PythonParser.ForLoopStatementContext ctx) {
+        return new ForLoopVisitor().visit(ctx.for_loop());
+    }
+
+    @Override
+    public CompoundStatement visitWhileStatement(PythonParser.WhileStatementContext ctx) {
+        return (CompoundStatement) universalVisitor.visit(ctx.while_loop());
+    }
+
+    @Override
+    public CompoundStatement visitIfStatement(PythonParser.IfStatementContext ctx) {
         return visit(ctx.if_stmt());
     }
 
     @Override
-    public CompoundStatement visitAtomExpression(JinjaFlaskParser.AtomExpressionContext ctx) {
-        AtomExpressionVisitor atomExpressionVisitor = new AtomExpressionVisitor();
-        AtomExpression atomExpression = atomExpressionVisitor.visit(ctx.atom_expr());
-        return atomExpression;
-    }
-
-    @Override
-    public CompoundStatement visitIfStatementDef(JinjaFlaskParser.IfStatementDefContext ctx) {
+    public CompoundStatement visitIfStatementDef(PythonParser.IfStatementDefContext ctx) {
         IfStatement ifStatement = new IfStatement(ctx.getStart().getLine());
+        symbolTable.enterTemporaryScope("if", ifStatement);
         ConditionVisitor conditionVisitor = new ConditionVisitor();
         StatementVisitor statementVisitor = new StatementVisitor();
-        Condition condition = conditionVisitor.visit(ctx.condition(0));
-        Statement statement = statementVisitor.visit(ctx.statement(0));
-        ifStatement.setCondition(condition);
-        ifStatement.setStatement(statement);
+        try {
+            Condition condition = conditionVisitor.visit(ctx.condition(0));
+            Statement statement = statementVisitor.visit(ctx.statement(0));
+            ifStatement.setCondition(condition);
+            ifStatement.setStatement(statement);
 
-        int elifCount = ctx.ELIF().size();
-        List<ElIfStatement> elIfStatements = new ArrayList<>();
-        for (int i = 0; i < elifCount; i++) {
-            ElIfStatement elIfStatement = new ElIfStatement(ctx.ELIF(i).getSymbol().getLine());
-            condition = conditionVisitor.visit(ctx.condition(i + 1));
-            statement = statementVisitor.visit(ctx.statement(i + 1));
-            elIfStatement.setCondition(condition);
-            elIfStatement.setStatement(statement);
-            elIfStatements.add(elIfStatement);
-        }
-        ifStatement.setElifStatements(elIfStatements);
-        if (ctx.ELSE() != null) {
-            int elseStmtIndex = ctx.statement().size() - 1;
-            statement = statementVisitor.visit(ctx.statement(elseStmtIndex));
-            ifStatement.setElseStatement(statement);
+            int elifCount = ctx.ELIF().size();
+            List<ElIfStatement> elIfStatements = new ArrayList<>();
+            for (int i = 0; i < elifCount; i++) {
+                ElIfStatement elIfStatement = new ElIfStatement(ctx.ELIF(i).getSymbol().getLine());
+                symbolTable.enterTemporaryScope("elif", elIfStatement);
+                try {
+                    condition = conditionVisitor.visit(ctx.condition(i + 1));
+                    statement = statementVisitor.visit(ctx.statement(i + 1));
+                    elIfStatement.setCondition(condition);
+                    elIfStatement.setStatement(statement);
+                } finally {
+                    symbolTable.exitScope();
+                }
+                elIfStatements.add(elIfStatement);
+            }
+            ifStatement.setElifStatements(elIfStatements);
+            if (ctx.ELSE() != null) {
+                int elseStmtIndex = ctx.statement().size() - 1;
+                symbolTable.enterTemporaryScope("else", ctx.statement(elseStmtIndex));
+                try {
+                    statement = statementVisitor.visit(ctx.statement(elseStmtIndex));
+                    ifStatement.setElseStatement(statement);
+                } finally {
+                    symbolTable.exitScope();
+                }
+            }
+        } finally {
+            symbolTable.exitScope();
         }
         return ifStatement;
     }
 
     @Override
-    public CompoundStatement visitAssignmentStatement(JinjaFlaskParser.AssignmentStatementContext ctx) {
+    public CompoundStatement visitAssignmentStatement(PythonParser.AssignmentStatementContext ctx) {
         AssignmentStatementVisitor assignmentStatementVisitor = new AssignmentStatementVisitor();
         return assignmentStatementVisitor.visit(ctx.assign_stmt());
     }
 
 
     @Override
-    public CompoundStatement visitFunctionDefinition(JinjaFlaskParser.FunctionDefinitionContext ctx) {
+    public CompoundStatement visitFunctionDefinition(PythonParser.FunctionDefinitionContext ctx) {
         return visit(ctx.func_def());
     }
 
     @Override
-    public CompoundStatement visitFunctionDefDef(JinjaFlaskParser.FunctionDefDefContext ctx) {
-        UniversalVisitor universalVisitor = new UniversalVisitor();
+    public CompoundStatement visitFunctionDefDef(PythonParser.FunctionDefDefContext ctx) {
+        UniversalPythonVisitor universalVisitor = new UniversalPythonVisitor();
         FunctionDefinition functionDefinition = new FunctionDefinition(ctx.getStart().getLine());
         if (ctx.dec() != null) {
             Decorator decorator = (Decorator) universalVisitor.visit(ctx.dec());
@@ -88,25 +120,40 @@ public class CompoundStatementVisitor extends JinjaFlaskParserBaseVisitor<Compou
         }
         functionDefinition.setFunctionName(ctx.NAME().getText());
         FunctionParameters functionParameters = (FunctionParameters) universalVisitor.visit(ctx.parameters());
-        Statement statement = new StatementVisitor().visit(ctx.statement());
         functionDefinition.setFunctionParameters(functionParameters);
-        functionDefinition.setFunctionBody(statement);
+        symbolTable.setAttribute(functionDefinition.getFunctionName(), "Type", functionDefinition.node_name);
+        symbolTable.setAttribute(functionDefinition.getFunctionName(), "Value", "FunctionDefinition");
+        symbolTable.enterScope(functionDefinition.getFunctionName());
+        try {
+            if (functionParameters != null && functionParameters.getParameters() != null) {
+                for (FunctionParameter functionParameter : functionParameters.getParameters()) {
+                    symbolTable.setAttribute(functionParameter.getId(), "Type", "Parameter");
+                    if (functionParameter.getValue() != null) {
+                        symbolTable.setAttribute(functionParameter.getId(), "Value", functionParameter.getValue().symbolTablePrint());
+                    }
+                }
+            }
+            Statement statement = new StatementVisitor().visit(ctx.statement());
+            functionDefinition.setFunctionBody(statement);
+        } finally {
+            symbolTable.exitScope();
+        }
         return functionDefinition;
     }
 
     @Override
-    public CompoundStatement visitReturnStatement(JinjaFlaskParser.ReturnStatementContext ctx) {
+    public CompoundStatement visitReturnStatement(PythonParser.ReturnStatementContext ctx) {
         ReturnStatementVisitor returnStatementVisitor = new ReturnStatementVisitor();
         return returnStatementVisitor.visit(ctx.return_stmt());
     }
 
     @Override
-    public CompoundStatement visitImportStatement(JinjaFlaskParser.ImportStatementContext ctx) {
+    public CompoundStatement visitImportStatement(PythonParser.ImportStatementContext ctx) {
         return visit(ctx.import_from());
     }
 
     @Override
-    public ImportStatement visitImportFromDef(JinjaFlaskParser.ImportFromDefContext ctx) {
+    public ImportStatement visitImportFromDef(PythonParser.ImportFromDefContext ctx) {
         ImportStatement importStatement = new ImportStatement(ctx.getStart().getLine());
         StringBuilder moduleBuilder = new StringBuilder();
         List<TerminalNode> moduleNameTokens = ctx.NAME();
@@ -122,7 +169,7 @@ public class CompoundStatementVisitor extends JinjaFlaskParserBaseVisitor<Compou
 
         List<Imported> importedList = new ArrayList<>();
 
-        for (JinjaFlaskParser.ImptdContext imported : ctx.imptd()) {
+        for (PythonParser.ImptdContext imported : ctx.imptd()) {
             importedList.add((Imported) universalVisitor.visit(imported));
         }
         importStatement.setImportedList(importedList);
@@ -132,7 +179,13 @@ public class CompoundStatementVisitor extends JinjaFlaskParserBaseVisitor<Compou
     }
 
     @Override
-    public CompoundStatement visitGlobalStatement(JinjaFlaskParser.GlobalStatementContext ctx) {
-        return (CompoundStatement) universalVisitor.visit(ctx.global_stmt());
+    public CompoundStatement visitGlobalStatement(PythonParser.GlobalStatementContext ctx) {
+        GlobalStatement globalStatement = (GlobalStatement) universalVisitor.visit(ctx.global_stmt());
+        if (globalStatement.getGlobals() != null) {
+            for (String globalName : globalStatement.getGlobals()) {
+                symbolTable.declareGlobal(globalName);
+            }
+        }
+        return globalStatement;
     }
 }
