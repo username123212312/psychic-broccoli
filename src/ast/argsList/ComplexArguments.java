@@ -29,6 +29,12 @@ public class ComplexArguments extends ArgumentsList {
     }
 
     @Override
+    public String generateCode() {
+        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+    }
+
+
+    @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         for (Argument arg : arguments) {

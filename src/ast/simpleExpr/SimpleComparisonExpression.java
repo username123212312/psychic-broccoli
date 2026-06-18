@@ -22,6 +22,13 @@ public class SimpleComparisonExpression extends SimpleExpression {
         return condition.symbolTablePrint();
     }
 
+
+    @Override
+    public String generateCode() {
+        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+    }
+
+
     @Override
     public String toString() {
         return condition.toString();

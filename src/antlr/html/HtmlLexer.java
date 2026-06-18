@@ -1,5 +1,6 @@
-// Generated from grammars/HtmlLexer.g4 by ANTLR 4.13.2
+// Generated from HtmlLexer.g4 by ANTLR 4.13.2
 package antlr.html;
+
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;

@@ -8,7 +8,7 @@ public class Program extends ASTNode{
 
     public Program(int line_number, List<Statement> statements) {
         super("Program", line_number);
-        //this.statements = statements;
+        this.statements = statements;
 
         if (statements != null) {
             this.children.addAll(statements);
@@ -27,5 +27,15 @@ public class Program extends ASTNode{
             stringBuilder.append(Consts.printIndent(1)).append(s.toString());
         }
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String generateCode() {
+        if (statements == null) return "";
+        StringBuilder sb = new StringBuilder();
+        for (Statement s : statements) {
+            if (s != null) sb.append(s.generateCode());
+        }
+        return sb.toString();
     }
 }

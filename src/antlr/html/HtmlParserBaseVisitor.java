@@ -1,5 +1,6 @@
-// Generated from grammars/HtmlParser.g4 by ANTLR 4.13.2
+// Generated from HtmlParser.g4 by ANTLR 4.13.2
 package antlr.html;
+
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
@@ -61,6 +62,13 @@ public class HtmlParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitStyleElement(HtmlParser.StyleElementContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitTag_attribute(HtmlParser.Tag_attributeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -1,4 +1,4 @@
-// Generated from grammars/HtmlParser.g4 by ANTLR 4.13.2
+// Generated from HtmlParser.g4 by ANTLR 4.13.2
 package antlr.html;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -59,6 +59,12 @@ public interface HtmlParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitStyleElement(HtmlParser.StyleElementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link HtmlParser#tag_attribute}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTag_attribute(HtmlParser.Tag_attributeContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code HtmlAttribute}
 	 * labeled alternative in {@link HtmlParser#tag_content}.

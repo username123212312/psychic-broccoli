@@ -35,6 +35,12 @@ public class Statement extends ASTNode {
     }
 
     @Override
+    public String generateCode() {
+        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+    }
+
+
+    @Override
     public String toString() {
         if (isPass) {
             super.setNode_name("PassStatement");

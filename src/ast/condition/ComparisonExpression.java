@@ -31,6 +31,11 @@ public class ComparisonExpression extends Condition {
         return operatorPythonExpressionMap;
     }
 
+    @Override
+    public String generateCode() {
+        return "";
+    }
+
 
     @Override
     public String symbolTablePrint() {

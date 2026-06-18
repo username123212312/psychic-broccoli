@@ -30,4 +30,9 @@ public class JinjaArgumentsList extends ASTNode{
         }
         return stringBuilder.toString();
     }
+
+    @Override
+    public String generateCode() {
+        return "";
+    }
 }

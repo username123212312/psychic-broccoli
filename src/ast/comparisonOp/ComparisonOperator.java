@@ -18,6 +18,11 @@ public class ComparisonOperator extends ASTNode {
     }
 
     @Override
+    public String generateCode() {
+        return "";
+    }
+
+    @Override
     public String toString() {
         return operator;
     }

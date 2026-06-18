@@ -28,6 +28,11 @@ public class AttributeAccess extends AtomExpression {
         }
         return stringBuilder.toString();
     }
+    @Override
+    public String generateCode() {
+        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+    }
+
 
     @Override
     public String toString() {

@@ -1,8 +1,5 @@
 parser grammar HtmlParser;
 
-@header {package antlr.html;}
-
-
 options { tokenVocab=HtmlLexer; }
 
 html_content
@@ -17,8 +14,12 @@ html_content_item
     ;
 
 htmlElement
-    : TAG_OPEN tag_content*? (TAG_SLASH_CLOSE | TAG_CLOSE)  # TagElement
-    | STYLE_OPEN style_sheet STYLE_CLOSE                    # StyleElement
+    : TAG_OPEN TAG_NAME tag_attribute* (TAG_SLASH_CLOSE | TAG_CLOSE html_content TAG_OPEN TAG_SLASH TAG_NAME TAG_CLOSE) # TagElement
+    | STYLE_OPEN style_sheet STYLE_CLOSE                             # StyleElement
+    ;
+
+tag_attribute
+    : TAG_NAME (TAG_EQUALS ATTVALUE_VALUE)?
     ;
 
 tag_content

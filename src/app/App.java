@@ -2,7 +2,6 @@ package app;
 
 import antlr.css.CssLexer;
 import antlr.css.CssParser;
-import antlr.html.HtmlLexer;
 import antlr.html.HtmlParser;
 import antlr.python.PythonLexer;
 import antlr.python.PythonParser;
@@ -46,7 +45,7 @@ public class App {
                         .forEach(path -> {
                             String fileName = path.toString();
                             System.out.println("\n--- Processing: " + fileName + " ---");
-                            processFile(path);
+                            processFile(startPath, path);
                         });
 
                 files.stream()
@@ -54,7 +53,7 @@ public class App {
                         .forEach(path -> {
                             String fileName = path.toString();
                             System.out.println("\n--- Processing: " + fileName + " ---");
-                            processFile(path);
+                            processFile(startPath, path);
                         });
             } catch (IOException e) {
                 e.printStackTrace();
@@ -62,7 +61,7 @@ public class App {
         }
     }
 
-    private static void processFile(Path filePath) {
+    private static void processFile(Path projectRoot, Path filePath) {
         String fileName = filePath.toString();
         try {
             if (fileName.endsWith(".py")) {
@@ -87,7 +86,7 @@ public class App {
                 System.out.println(SymbolTableManager.INSTANCE.getSymbolTable());
 
             } else if (fileName.endsWith(".html") || fileName.endsWith(".j2")) {
-                HtmlLexer lexer = new HtmlLexer(CharStreams.fromFileName(fileName));
+                antlr.html.HtmlLexer lexer = new antlr.html.HtmlLexer(CharStreams.fromFileName(fileName));
                 CommonTokenStream tokens = new CommonTokenStream(lexer);
                 HtmlParser parser = new HtmlParser(tokens);
                 ParseTree tree = parser.html_content(); // Start rule for Python
@@ -99,12 +98,20 @@ public class App {
                 showParseTree(parser.getRuleNames(), tree);
                 HtmlContentVisitor visitor = new HtmlContentVisitor();
                 HtmlContent htmlContent = visitor.visit(tree);
-                System.out.println(htmlContent);
+                System.out.println(htmlContent.generateCode());
 
                 JinjaSemanticAnalyzer analyzer = new JinjaSemanticAnalyzer();
                 analyzer.analyze(htmlContent);
 
                 System.out.println(SymbolTableManager.INSTANCE.getSymbolTable());
+                // Generate source from AST and write to generated/ preserving structure
+                try {
+                    String content = htmlContent.generateCode();
+                    writeGeneratedSource(projectRoot, filePath, content);
+                } catch (Exception genEx) {
+                    System.err.println("Error generating output for " + fileName + ": " + genEx.getMessage());
+                    genEx.printStackTrace();
+                }
             } else if (fileName.endsWith(".css")) {
                 CssLexer lexer = new CssLexer(CharStreams.fromFileName(fileName));
                 CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -126,32 +133,22 @@ public class App {
         }
 
     }
-
     private static void writeGeneratedSource(Path projectRoot, Path filePath, String content) throws IOException {
-        if (projectRoot == null) {
-            return;
+        Path parentDir = filePath.getParent();
+
+        Path outputDir = parentDir.resolve("generated");
+
+        if (!Files.exists(outputDir)) {
+            Files.createDirectories(outputDir);
         }
 
-        Path outputRoot = projectRoot.resolve("generated");
-        Path relativePath;
-        try {
-            relativePath = projectRoot.relativize(filePath);
-        } catch (IllegalArgumentException ex) {
-            relativePath = filePath.getFileName();
-        }
+        Path outputFile = outputDir.resolve(filePath.getFileName());
 
-        if (relativePath == null) {
-            return;
-        }
-
-        Path outputFile = outputRoot.resolve(relativePath);
-        Path parent = outputFile.getParent();
-        if (parent != null) {
-            Files.createDirectories(parent);
-        }
         Files.writeString(outputFile, content);
-        System.out.println("Generated asset at: " + outputFile.toAbsolutePath());
+        System.out.println("Success! Generated at: " + outputFile.toAbsolutePath());
     }
+
+
 
 
     private static void showParseTree(String[] ruleNames, ParseTree parseTree) {

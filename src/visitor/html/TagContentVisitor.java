@@ -16,6 +16,13 @@ public class TagContentVisitor extends HtmlParserBaseVisitor<TagElementItem> {
         return tagElementItem;
     }
 
+    @Override
+    public TagElementItem visitClosingMarker(HtmlParser.ClosingMarkerContext ctx) {
+        // closing marker carries no attribute info; return null
+        return null;
+    }
+
+
 //    @Override
 //    public TagContent visitClosingMarker(HtmlParser.ClosingMarkerContext ctx) {
 //        TagContent tagContent = new TagContent(ctx.start.getLine());
@@ -25,3 +32,4 @@ public class TagContentVisitor extends HtmlParserBaseVisitor<TagElementItem> {
 //    }
 
 }
+

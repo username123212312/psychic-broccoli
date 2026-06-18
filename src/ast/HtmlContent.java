@@ -25,6 +25,19 @@ public class HtmlContent extends ASTNode {
     }
 
     @Override
+    public String generateCode() {
+        StringBuilder builder = new StringBuilder();
+        if (items != null) {
+            for (HtmlContentItem item : items) {
+                if (item != null) {
+                    builder.append(item.generateCode());
+                }
+            }
+        }
+        return builder.toString();
+    }
+
+    @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(super.toString());

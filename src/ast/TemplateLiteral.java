@@ -2,6 +2,7 @@ package ast;
 
 public class TemplateLiteral extends ASTNode {
     private HtmlContent htmlContent;
+    private String content;
 
     public TemplateLiteral(int line_number) {
         super("TemplateLiteral", line_number);
@@ -9,6 +10,19 @@ public class TemplateLiteral extends ASTNode {
 
     public void setHtmlContent(HtmlContent htmlContent) {
         this.htmlContent = htmlContent;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    @Override
+    public String generateCode() {
+        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
     }
 
     @Override
