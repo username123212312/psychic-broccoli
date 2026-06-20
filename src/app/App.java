@@ -120,7 +120,7 @@ public class App {
 
                 try {
                     String content = htmlContent.generateCode();
-                    writeGeneratedSource(projectRoot, filePath, content);
+                    writeGeneratedSource(filePath, content);
                 } catch (Exception genEx) {
                     System.err.println("Error generating output for " + fileName + ": " + genEx.getMessage());
                     genEx.printStackTrace();
@@ -156,6 +156,21 @@ public class App {
         if (!pycache.exists()) {
             pycache.mkdirs();
         }
+    }
+
+    private static void writeGeneratedSource( Path filePath, String content) throws IOException {
+        Path parentDir = filePath.getParent();
+
+        Path outputDir = parentDir.resolve("generated");
+
+        if (!Files.exists(outputDir)) {
+            Files.createDirectories(outputDir);
+        }
+
+        Path outputFile = outputDir.resolve(filePath.getFileName());
+
+        Files.writeString(outputFile, content);
+        System.out.println("Success! Generated at: " + outputFile.toAbsolutePath());
     }
 
     private static void showParseTree(String[] ruleNames, ParseTree parseTree) {
