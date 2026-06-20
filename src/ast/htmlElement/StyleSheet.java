@@ -19,6 +19,11 @@ public class StyleSheet extends HtmlElement {
     public List<RuleSet> getRuleSets() {
         return ruleSets;
     }
+    @Override
+    public String generateCode() {
+        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+    }
+
 
     @Override
     public String toString() {

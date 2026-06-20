@@ -6,4 +6,9 @@ public class None extends Atom {
         super.setValue("None");
 
     }
+    @Override
+    public String generateCode() {
+        return ""; // مؤقتاً  نصاً فارغاً لكي يعمل المشروع
+    }
+
 }

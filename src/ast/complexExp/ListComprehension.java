@@ -23,6 +23,13 @@ public class ListComprehension extends ComplexExpression {
     }
 
     @Override
+    public String generateCode() {
+        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+    }
+
+
+
+    @Override
     public String toString() {
         return super.toString() + " ( " + forLoop.toString() + " ) ";
     }

@@ -24,6 +24,12 @@ public class SimpleKeyValue extends KeyValue {
     }
 
     @Override
+    public String generateCode() {
+        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+    }
+
+
+    @Override
     public String toString() {
         return super.toString() + value.toString();
     }

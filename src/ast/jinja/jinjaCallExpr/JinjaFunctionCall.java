@@ -29,4 +29,9 @@ public class JinjaFunctionCall extends JinjaCallExpression {
     public String toString() {
         return functionName + " ( " + argumentsList.toString() + " )";
     }
+
+    @Override
+    public String generateCode() {
+        return "";
+    }
 }
