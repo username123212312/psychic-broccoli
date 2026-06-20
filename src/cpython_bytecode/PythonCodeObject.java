@@ -22,10 +22,12 @@ public class PythonCodeObject {
     public List<String> co_varnames = new ArrayList<>();
     public List<String> co_freevars = new ArrayList<>();
     public List<String> co_cellvars = new ArrayList<>();
+    public byte[] co_exceptiontable = new byte[0];
 
     // Debug/Source info
     public String co_filename = "<string>";
     public String co_name = "<module>";
+    public String co_qualname = "<module>";
     public int co_firstlineno = 1;
     public byte[] co_lnotab = new byte[0];
 

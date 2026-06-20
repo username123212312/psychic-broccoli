@@ -25,11 +25,11 @@ public enum PythonOpCode {
     RETURN_CONST(121, true),
     JUMP_FORWARD(110, true),
     JUMP_BACKWARD(140, true),
-    JUMP_BACKWARD_NO_INTERRUPT(136, true),
+    JUMP_BACKWARD_NO_INTERRUPT(134, true),
     POP_JUMP_IF_FALSE(114, true),
     POP_JUMP_IF_TRUE(115, true),
-    POP_JUMP_IF_NONE(131, true),
-    POP_JUMP_IF_NOT_NONE(130, true),
+    POP_JUMP_IF_NONE(129, true),
+    POP_JUMP_IF_NOT_NONE(128, true),
 
     // Variable and attribute access
     LOAD_CONST(100, true),
@@ -45,9 +45,9 @@ public enum PythonOpCode {
     LOAD_ATTR(106, true),
     STORE_ATTR(95, true),
     DELETE_ATTR(96, true),
-    LOAD_DEREF(139, true),
-    STORE_DEREF(140, true),
-    DELETE_DEREF(141, true),
+    LOAD_DEREF(137, true),
+    STORE_DEREF(138, true),
+    DELETE_DEREF(139, true),
 
     // Function calls and object creation
     BUILD_TUPLE(102, true),
@@ -55,7 +55,7 @@ public enum PythonOpCode {
     BUILD_SET(104, true),
     BUILD_MAP(105, true),
     CALL(171, true),
-    MAKE_FUNCTION(134, true),
+    MAKE_FUNCTION(132, true),
 
     // Iteration
     GET_ITER(68, false),

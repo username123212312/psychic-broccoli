@@ -15,7 +15,7 @@ public class PycFileWriter {
     // Magic number for Python 3.14.0rc3 (3627)
     // Formula: (MAGIC_NUMBER) | (0x0D << 16) | (0x0A << 24)
     // 3627 in hex is 0xE2B. Combined: 0x0A0DE2B
-    private static final int MAGIC_314 = 0x0A0D0E2B;
+    private static final int MAGIC_314 = 0x0A0D0DCB;
 
     public void write(PythonCodeObject codeObject, String outputPath) throws IOException {
         try (FileOutputStream fos = new FileOutputStream(outputPath)) {
