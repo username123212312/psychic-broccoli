@@ -118,6 +118,14 @@ public class App {
                 analyzer.analyze(htmlContent);
                 System.out.println(SymbolTableManager.INSTANCE.getSymbolTable());
 
+                try {
+                    String content = htmlContent.generateCode();
+                    writeGeneratedSource(projectRoot, filePath, content);
+                } catch (Exception genEx) {
+                    System.err.println("Error generating output for " + fileName + ": " + genEx.getMessage());
+                    genEx.printStackTrace();
+                }
+
             } else if (fileName.endsWith(".css")) {
                 CssLexer lexer = new CssLexer(CharStreams.fromFileName(fileName));
                 CommonTokenStream tokens = new CommonTokenStream(lexer);
