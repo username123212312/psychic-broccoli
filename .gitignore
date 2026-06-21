@@ -18,6 +18,8 @@ bin/
 
 __pycache__/
 .pyc
+
+flask_project/templates/generated/
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
