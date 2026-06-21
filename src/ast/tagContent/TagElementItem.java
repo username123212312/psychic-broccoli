@@ -27,6 +27,20 @@ public class TagElementItem extends ASTNode {
     }
 
     @Override
+    public String generateCode() {
+        if (attributeName != null && !attributeName.isEmpty()) {
+            if (attributeValue != null) {
+                return attributeName + "=\"" + attributeValue + "\"";
+            } else {
+                return attributeName;
+            }
+        }
+        return "";
+    }
+
+
+
+    @Override
     public String toString() {
         if (!attributeName.isEmpty()) {
             return "Tag [ " + super.line_number + " ] " + attributeName

@@ -28,6 +28,12 @@ public class FunctionParameter extends ASTNode {
     }
 
     @Override
+    public String generateCode() {
+        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+    }
+
+
+    @Override
     public String toString() {
         return id + (value == null ? "" : value.toString());
     }

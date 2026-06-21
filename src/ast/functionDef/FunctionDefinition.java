@@ -53,4 +53,9 @@ public class FunctionDefinition extends CompoundStatement {
                 + Consts.printIndent(2) + functionBody.toString()
                 ;
     }
+
+    @Override
+    public String generateCode() {
+        return "";
+    }
 }

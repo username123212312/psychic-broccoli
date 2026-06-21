@@ -5,4 +5,10 @@ public class Bool extends Atom{
         super("Boolean", line_number);
     }
 
+    @Override
+    public String generateCode() {
+        return ""; // مؤقتاً نصاً فارغاً لكي يعمل المشروع
+    }
+
+
 }

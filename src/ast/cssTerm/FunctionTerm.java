@@ -22,4 +22,9 @@ public class FunctionTerm extends CssTerm {
     public String toString() {
         return super.toString() + Consts.printIndent(3) + arguments.toString();
     }
+
+    @Override
+    public String generateCode() {
+        return "";
+    }
 }

@@ -34,6 +34,12 @@ public class WhileStatement extends CompoundStatement {
     }
 
     @Override
+    public String generateCode() {
+        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+    }
+
+
+    @Override
     public String toString() {
         return super.toString() + " ( " + (condition == null ? "" : condition.toString()) + " ) "
                 + Consts.printIndent(2) + (statement == null ? "" : statement.toString()) ;

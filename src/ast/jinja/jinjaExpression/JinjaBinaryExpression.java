@@ -37,6 +37,12 @@ public class JinjaBinaryExpression extends JinjaExpression {
     }
 
     @Override
+    public String generateCode() {
+        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+    }
+
+
+    @Override
     public String toString() {
         return left.toString() + " " + operator + " " + right.toString();
     }

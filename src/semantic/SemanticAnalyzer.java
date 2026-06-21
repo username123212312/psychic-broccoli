@@ -9,8 +9,7 @@ import ast.compundStmt.ForLoop;
 import ast.compundStmt.IfStatement;
 import ast.functionDef.FunctionDefinition;
 import semantic.errors.SemanticError;
-import semantic.rules.SemanticRule;
-import semantic.rules.TypeRule;
+import semantic.rules.*;
 import semantic.rules.UndefinedVariableRule;
 import symbolTable.SymbolTable;
 import symbolTable.SymbolTableManager;
@@ -34,9 +33,15 @@ public class SemanticAnalyzer {
         if (rules.isEmpty()) {
             registerRule(new TypeRule());
             registerRule(new UndefinedVariableRule());
+            registerRule(new DuplicateFunctionRule());
+            registerRule(new NamingConventionRule());
+
+
+
         }
 
         walk(program, reporter);
+
         reporter.printErrors();
     }
 

@@ -6,4 +6,9 @@ public class Name extends Atom {
         super("Name", line_number);
     }
 
+    @Override
+    public String generateCode() {
+        return "";
+    }
+
 }

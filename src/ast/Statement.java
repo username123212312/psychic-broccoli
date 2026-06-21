@@ -15,6 +15,11 @@ public class Statement extends ASTNode {
 
     public void setCompoundStatements(List<CompoundStatement> compoundStatements) {
         this.compoundStatements = compoundStatements;
+
+
+        if (compoundStatements != null) {
+            this.children.addAll(compoundStatements);
+        }
     }
 
     public void setPass(boolean pass) {
@@ -28,6 +33,12 @@ public class Statement extends ASTNode {
     public boolean isPass() {
         return isPass;
     }
+
+    @Override
+    public String generateCode() {
+        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+    }
+
 
     @Override
     public String toString() {

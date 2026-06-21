@@ -13,10 +13,28 @@ public class HtmlContent extends ASTNode {
 
     public void setItems(List<HtmlContentItem> items) {
         this.items = items;
+
+
+        if (items != null) {
+            this.children.addAll(items);
+        }
     }
 
     public List<HtmlContentItem> getItems() {
         return items;
+    }
+
+    @Override
+    public String generateCode() {
+        StringBuilder builder = new StringBuilder();
+        if (items != null) {
+            for (HtmlContentItem item : items) {
+                if (item != null) {
+                    builder.append(item.generateCode());
+                }
+            }
+        }
+        return builder.toString();
     }
 
     @Override

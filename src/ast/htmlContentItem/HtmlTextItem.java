@@ -16,6 +16,11 @@ public class HtmlTextItem extends HtmlContentItem {
     }
 
     @Override
+    public String generateCode() {
+        return (text != null) ? text : "";
+    }
+
+    @Override
     public String toString() {
         return super.toString() + " ( " + text + " ) ";
     }
