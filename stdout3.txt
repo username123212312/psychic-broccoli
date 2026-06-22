@@ -1,0 +1,11 @@
+  CALL depth=1 func=encode line=18
+START  CALL depth=1 func=encode line=18
+
+  CALL depth=1 func=app line=1
+  CALL depth=2 func=__init__ line=9
+  CALL depth=3 func=encode line=18
+FLASK_INIT  CALL depth=3 func=encode line=18
+
+  CALL depth=2 func=route line=12
+  CALL depth=3 func=encode line=18
+FLASK_ROUTE  CALL depth=3 func=encode line=18

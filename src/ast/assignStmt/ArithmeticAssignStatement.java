@@ -1,6 +1,7 @@
 package ast.assignStmt;
 
 import ast.arithmeticExpr.ArithmeticExpression;
+import cpython_bytecode.codegen.CodegenContext;
 
 public class ArithmeticAssignStatement extends AssignmentStatement {
     private ArithmeticExpression value;
@@ -17,10 +18,14 @@ public class ArithmeticAssignStatement extends AssignmentStatement {
     }
 
     @Override
-    public String generateCode() {
-        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+    public void generateBytecode(CodegenContext ctx) {
+        if (value != null) value.generateBytecode(ctx);
+        else {
+            int noneIdx = ctx.addConstant("NONE_PLACEHOLDER");
+            ctx.emitLoadConst(noneIdx);
+        }
+        ctx.storeVariable(ctx.extractVarName(getVar()));
     }
-
 
     @Override
     public String toString() {

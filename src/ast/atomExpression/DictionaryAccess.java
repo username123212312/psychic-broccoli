@@ -1,5 +1,7 @@
 package ast.atomExpression;
 
+import cpython_bytecode.codegen.CodegenContext;
+
 public class DictionaryAccess extends AtomExpression {
     private String key;
 
@@ -20,11 +22,15 @@ public class DictionaryAccess extends AtomExpression {
         return super.getVarName() + "[" + key + "]";
     }
 
-    @Override
-    public String generateCode() {
-        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
-    }
 
+    @Override
+    public void generateBytecode(CodegenContext ctx) {
+        String varName = getVarName();
+        if (varName != null) ctx.loadVariable(varName);
+        int keyIdx = ctx.addConstant(key);
+        ctx.emitLoadConst(keyIdx);
+        ctx.emitBinaryOp(26);
+    }
 
 
     @Override

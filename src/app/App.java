@@ -43,7 +43,11 @@ public class App {
             Path startPath = Paths.get(args[0]);
 
             try (Stream<Path> paths = Files.walk(startPath)) {
-                List<Path> files = paths.filter(Files::isRegularFile).sorted().toList();
+                List<Path> files = paths
+                        .filter(Files::isRegularFile)
+                        .filter(p -> !p.toString().contains("\\generated\\") && !p.toString().contains("/generated/"))
+                        .sorted()
+                        .toList();
 
                 files.stream()
                         .filter(path -> path.toString().endsWith(".py"))
@@ -178,32 +182,34 @@ public class App {
             return;
         }
 
-        TreeViewer viewer = new TreeViewer(java.util.Arrays.asList(ruleNames), parseTree);
-        viewer.setScale(1.5);
+        SwingUtilities.invokeLater(() -> {
+            TreeViewer viewer = new TreeViewer(java.util.Arrays.asList(ruleNames), parseTree);
+            viewer.setScale(1.5);
 
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.add(viewer, BorderLayout.CENTER);
+            JPanel mainPanel = new JPanel(new BorderLayout());
+            mainPanel.add(viewer, BorderLayout.CENTER);
 
-        JScrollPane scrollPane = new JScrollPane(mainPanel);
+            JScrollPane scrollPane = new JScrollPane(mainPanel);
 
-        JPanel controlPanel = new JPanel();
-        JButton zoomInButton = new JButton("Zoom In");
-        JButton zoomOutButton = new JButton("Zoom Out");
-        JButton resetButton = new JButton("Reset Zoom");
+            JPanel controlPanel = new JPanel();
+            JButton zoomInButton = new JButton("Zoom In");
+            JButton zoomOutButton = new JButton("Zoom Out");
+            JButton resetButton = new JButton("Reset Zoom");
 
-        zoomInButton.addActionListener(e -> { viewer.setScale(viewer.getScale() * 1.2); viewer.repaint(); });
-        zoomOutButton.addActionListener(e -> { viewer.setScale(viewer.getScale() / 1.2); viewer.repaint(); });
-        resetButton.addActionListener(e -> { viewer.setScale(1.0); viewer.repaint(); });
+            zoomInButton.addActionListener(e -> { viewer.setScale(viewer.getScale() * 1.2); viewer.repaint(); });
+            zoomOutButton.addActionListener(e -> { viewer.setScale(viewer.getScale() / 1.2); viewer.repaint(); });
+            resetButton.addActionListener(e -> { viewer.setScale(1.0); viewer.repaint(); });
 
-        controlPanel.add(zoomInButton);
-        controlPanel.add(zoomOutButton);
-        controlPanel.add(resetButton);
+            controlPanel.add(zoomInButton);
+            controlPanel.add(zoomOutButton);
+            controlPanel.add(resetButton);
 
-        JFrame frame = new JFrame("Parse Tree Viewer");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.add(scrollPane, BorderLayout.CENTER);
-        frame.add(controlPanel, BorderLayout.SOUTH);
-        frame.setSize(1000, 640);
-        frame.setVisible(true);
+            JFrame frame = new JFrame("Parse Tree Viewer");
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.add(scrollPane, BorderLayout.CENTER);
+            frame.add(controlPanel, BorderLayout.SOUTH);
+            frame.setSize(1000, 640);
+            frame.setVisible(true);
+        });
     }
 }

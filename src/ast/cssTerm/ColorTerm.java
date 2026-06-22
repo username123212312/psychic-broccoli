@@ -4,10 +4,5 @@ public class ColorTerm extends CssTerm {
     public ColorTerm(int line_number) {
         super("Color", line_number);
     }
-    @Override
-    public String generateCode() {
-        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
-    }
-
 
 }

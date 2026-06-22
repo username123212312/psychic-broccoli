@@ -6,8 +6,4 @@ public class Str extends Atom {
         super("String", line_number);
     }
 
-    @Override
-    public String generateCode() {
-        return "";
-    }
 }
