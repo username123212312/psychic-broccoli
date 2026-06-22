@@ -47,33 +47,38 @@ public class TagElement extends HtmlElement {
         return tagName;
     }
 
+    private boolean isClosingTag = false; // ضيف هذا المتغير فوق مع الـ tagName
+
+    public void setClosingTag(boolean closingTag) {
+        isClosingTag = closingTag;
+    }
+
     @Override
     public String generateCode() {
         StringBuilder builder = new StringBuilder();
 
-        builder.append("<").append(tagName);
-
-        if (tags != null) {
-            for (TagElementItem attr : tags) {
-                if (attr != null) {
-                    builder.append(" ").append(attr.generateCode());
+        if (isClosingTag) {
+            // إذا كان وسم إغلاق يطبع فقط </name>
+            builder.append("</").append(tagName).append(">");
+        } else {
+            // إذا كان وسم فتح يطبع <name attrs>
+            builder.append("<").append(tagName);
+            if (tags != null) {
+                for (TagElementItem attr : tags) {
+                    if (attr != null) {
+                        builder.append(" ").append(attr.generateCode());
+                    }
                 }
             }
-        }
-        builder.append(">");
-
-        if (children != null) {
-            for (ASTNode child : children) {
-                if (child != null && !(child instanceof TagElementItem)) {
-                    builder.append(child.generateCode());
-                }
+            if (isSelfClosing()) {
+                builder.append(" />");
+            } else {
+                builder.append(">");
             }
         }
-
-        builder.append("</").append(tagName).append(">");
-
         return builder.toString();
     }
+
 
 
     private static boolean isVoidElement(String name) {
