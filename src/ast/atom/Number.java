@@ -6,6 +6,7 @@ public class Number extends Atom{
         super("Number", line_number);
     }
 
+
     @Override
     public String generateCode() {
         return getValue().toString();

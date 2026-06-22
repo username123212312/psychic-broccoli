@@ -5,9 +5,11 @@ public class Bool extends Atom{
         super("Boolean", line_number);
     }
 
-    @Override
-    public String generateCode() {
-        return getValue().toString();
-    }
+
+  @Override
+  public String generateCode() {
+      return getValue().toString();
+  }
+
 
 }
