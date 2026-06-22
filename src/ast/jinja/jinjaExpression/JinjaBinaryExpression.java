@@ -38,9 +38,19 @@ public class JinjaBinaryExpression extends JinjaExpression {
 
     @Override
     public String generateCode() {
-        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+        StringBuilder builder = new StringBuilder();
+        if (left != null) {
+            builder.append(left.generateCode());
+        }
+        if (operator != null) {
+            builder.append(" ").append(operator).append(" ");
+        }
+        if (right != null) {
+            builder.append(right.generateCode());
+        }
+        String code = builder.toString();
+        return isBlock() ? "{{" + code + "}}" : code;
     }
-
 
     @Override
     public String toString() {

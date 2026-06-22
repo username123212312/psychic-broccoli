@@ -38,8 +38,11 @@ public class HtmlContentItemVisitor extends HtmlParserBaseVisitor<HtmlContentIte
         return visit(ctx.jinjaExpressionBlock());
     }
 
+
     @Override
     public HtmlContentItem visitJinjaExprBlock(HtmlParser.JinjaExprBlockContext ctx) {
-        return new JinjaExpressionVisitor().visit(ctx.j_expression());
+        ast.jinja.jinjaExpression.JinjaExpression expr = new JinjaExpressionVisitor().visit(ctx.j_expression());
+        expr.setBlock(true);
+        return expr;
     }
 }

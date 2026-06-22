@@ -8,7 +8,6 @@ public class Number extends Atom{
 
     @Override
     public String generateCode() {
-        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+        return getValue().toString();
     }
-
 }

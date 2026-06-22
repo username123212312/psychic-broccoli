@@ -32,6 +32,12 @@ public class JinjaFunctionCall extends JinjaCallExpression {
 
     @Override
     public String generateCode() {
-        return "";
+        StringBuilder builder = new StringBuilder();
+        builder.append(functionName).append("(");
+        if (argumentsList != null) {
+            builder.append(argumentsList.generateCode());
+        }
+        builder.append(")");
+        return builder.toString();
     }
 }

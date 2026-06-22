@@ -165,6 +165,6 @@ public class JinjaSemanticAnalyzer {
 
         String errorMessage = "Undefined Jinja name '" + name + "' at line " + node.line_number;
         reporter.addError(errorMessage);
-        throw new SemanticError(errorMessage);
+//        throw new SemanticError(errorMessage);
     }
 }

@@ -7,8 +7,7 @@ public class Bool extends Atom{
 
     @Override
     public String generateCode() {
-        return ""; // مؤقتاً نصاً فارغاً لكي يعمل المشروع
+        return getValue().toString();
     }
-
 
 }
