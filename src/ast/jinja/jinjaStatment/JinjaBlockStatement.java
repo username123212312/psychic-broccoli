@@ -28,7 +28,13 @@ public class JinjaBlockStatement extends JinjaStatement {
 
     @Override
     public String generateCode() {
-        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+        StringBuilder builder = new StringBuilder();
+        builder.append("{% block ").append(blockName).append(" %}\n");
+        if (htmlContent != null) {
+            builder.append(htmlContent.generateCode());
+        }
+        builder.append("{% endblock %}");
+        return builder.toString();
     }
 
 

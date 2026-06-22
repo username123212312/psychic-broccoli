@@ -8,7 +8,10 @@ public class JinjaPositionalArgument extends JinjaArgument {
 
     @Override
     public String generateCode() {
-        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+        if (getArgument() != null) {
+            return getArgument().generateCode();
+        }
+        return "";
     }
 
 

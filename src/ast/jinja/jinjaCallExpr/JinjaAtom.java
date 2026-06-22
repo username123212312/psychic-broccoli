@@ -15,7 +15,7 @@ public class JinjaAtom extends JinjaCallExpression {
 
     @Override
     public String generateCode() {
-        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+        return atom.generateCode();
     }
 
 

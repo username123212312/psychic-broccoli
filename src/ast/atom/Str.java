@@ -8,6 +8,6 @@ public class Str extends Atom {
 
     @Override
     public String generateCode() {
-        return "";
+        return getValue().toString();
     }
 }
