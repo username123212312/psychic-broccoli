@@ -1,4 +1,4 @@
-// Generated from grammars/CssParser.g4 by ANTLR 4.13.2
+// Generated from D:/RAMA/MyProject/ComplierProject-1/grammars/CssParser.g4 by ANTLR 4.13.2
 package antlr.css;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -68,17 +68,17 @@ public interface CssParserListener extends ParseTreeListener {
 	 */
 	void exitQualifiedSelector(CssParser.QualifiedSelectorContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code StandaloneSimpleSelector}
+	 * Enter a parse tree produced by the {@code ClassOnlySelector}
 	 * labeled alternative in {@link CssParser#css_selector}.
 	 * @param ctx the parse tree
 	 */
-	void enterStandaloneSimpleSelector(CssParser.StandaloneSimpleSelectorContext ctx);
+	void enterClassOnlySelector(CssParser.ClassOnlySelectorContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code StandaloneSimpleSelector}
+	 * Exit a parse tree produced by the {@code ClassOnlySelector}
 	 * labeled alternative in {@link CssParser#css_selector}.
 	 * @param ctx the parse tree
 	 */
-	void exitStandaloneSimpleSelector(CssParser.StandaloneSimpleSelectorContext ctx);
+	void exitClassOnlySelector(CssParser.ClassOnlySelectorContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code TypeAndIdSelector}
 	 * labeled alternative in {@link CssParser#css_selector}.

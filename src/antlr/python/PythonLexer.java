@@ -1,4 +1,4 @@
-// Generated from C:/Users/Yousef Razzouk/IdeaProjects/compiler_project/grammars/PythonLexer.g4 by ANTLR 4.13.2
+// Generated from D:/RAMA/MyProject/ComplierProject-1/grammars/PythonLexer.g4 by ANTLR 4.13.2
 
 package antlr.python;
 

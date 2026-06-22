@@ -6,7 +6,7 @@ public class NumberTerm extends CssTerm{
     }
     @Override
     public String generateCode() {
-        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+        return getValue() != null ? getValue() : "";
     }
 
 }

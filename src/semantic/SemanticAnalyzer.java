@@ -33,6 +33,7 @@ public class SemanticAnalyzer {
         if (rules.isEmpty()) {
             registerRule(new TypeRule());
             registerRule(new UndefinedVariableRule());
+            registerRule(new UndefinedFunctionRule());
             registerRule(new DuplicateFunctionRule());
             registerRule(new NamingConventionRule());
         }

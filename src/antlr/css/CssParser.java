@@ -1,4 +1,4 @@
-// Generated from grammars/CssParser.g4 by ANTLR 4.13.2
+// Generated from D:/RAMA/MyProject/ComplierProject-1/grammars/CssParser.g4 by ANTLR 4.13.2
 package antlr.css;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -415,6 +415,31 @@ public class CssParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
+	public static class ClassOnlySelectorContext extends Css_selectorContext {
+		public List<TerminalNode> CSS_DOT() { return getTokens(CssParser.CSS_DOT); }
+		public TerminalNode CSS_DOT(int i) {
+			return getToken(CssParser.CSS_DOT, i);
+		}
+		public List<TerminalNode> CSS_ID() { return getTokens(CssParser.CSS_ID); }
+		public TerminalNode CSS_ID(int i) {
+			return getToken(CssParser.CSS_ID, i);
+		}
+		public ClassOnlySelectorContext(Css_selectorContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CssParserListener ) ((CssParserListener)listener).enterClassOnlySelector(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CssParserListener ) ((CssParserListener)listener).exitClassOnlySelector(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CssParserVisitor ) return ((CssParserVisitor<? extends T>)visitor).visitClassOnlySelector(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class QualifiedSelectorContext extends Css_selectorContext {
 		public List<TerminalNode> CSS_ID() { return getTokens(CssParser.CSS_ID); }
 		public TerminalNode CSS_ID(int i) {
@@ -440,40 +465,12 @@ public class CssParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class StandaloneSimpleSelectorContext extends Css_selectorContext {
-		public List<TerminalNode> CSS_DOT() { return getTokens(CssParser.CSS_DOT); }
-		public TerminalNode CSS_DOT(int i) {
-			return getToken(CssParser.CSS_DOT, i);
-		}
-		public List<TerminalNode> CSS_ID() { return getTokens(CssParser.CSS_ID); }
-		public TerminalNode CSS_ID(int i) {
-			return getToken(CssParser.CSS_ID, i);
-		}
-		public StandaloneSimpleSelectorContext(Css_selectorContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CssParserListener ) ((CssParserListener)listener).enterStandaloneSimpleSelector(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CssParserListener ) ((CssParserListener)listener).exitStandaloneSimpleSelector(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CssParserVisitor ) return ((CssParserVisitor<? extends T>)visitor).visitStandaloneSimpleSelector(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class TypeAndIdSelectorContext extends Css_selectorContext {
 		public List<TerminalNode> CSS_ID() { return getTokens(CssParser.CSS_ID); }
 		public TerminalNode CSS_ID(int i) {
 			return getToken(CssParser.CSS_ID, i);
 		}
-		public List<TerminalNode> CSS_HASH() { return getTokens(CssParser.CSS_HASH); }
-		public TerminalNode CSS_HASH(int i) {
-			return getToken(CssParser.CSS_HASH, i);
-		}
+		public TerminalNode CSS_HASH() { return getToken(CssParser.CSS_HASH, 0); }
 		public TypeAndIdSelectorContext(Css_selectorContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -514,9 +511,9 @@ public class CssParser extends Parser {
 		int _la;
 		try {
 			int _alt;
-			setState(75);
+			setState(72);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
 			case 1:
 				_localctx = new QualifiedSelectorContext(_localctx);
 				enterOuterAlt(_localctx, 1);
@@ -544,41 +541,31 @@ public class CssParser extends Parser {
 				}
 				break;
 			case 2:
-				_localctx = new StandaloneSimpleSelectorContext(_localctx);
+				_localctx = new ClassOnlySelectorContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(62); 
+				setState(57);
+				match(CSS_DOT);
+				setState(58);
+				match(CSS_ID);
+				setState(63);
 				_errHandler.sync(this);
-				_alt = 1;
-				do {
-					switch (_alt) {
-					case 1:
+				_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
+				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
+					if ( _alt==1 ) {
 						{
 						{
-						setState(57);
+						setState(59);
 						match(CSS_DOT);
-						setState(58);
-						match(CSS_ID);
 						setState(60);
-						_errHandler.sync(this);
-						switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
-						case 1:
-							{
-							setState(59);
-							match(CSS_ID);
-							}
-							break;
+						match(CSS_ID);
 						}
-						}
-						}
-						break;
-					default:
-						throw new NoViableAltException(this);
+						} 
 					}
-					setState(64); 
+					setState(65);
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,6,_ctx);
-				} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
+					_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
+				}
 				}
 				break;
 			case 3:
@@ -587,29 +574,25 @@ public class CssParser extends Parser {
 				{
 				setState(66);
 				match(CSS_ID);
-				setState(71);
+				setState(69);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (_la==CSS_HASH) {
-					{
+				if (_la==CSS_HASH) {
 					{
 					setState(67);
 					match(CSS_HASH);
 					setState(68);
 					match(CSS_ID);
 					}
-					}
-					setState(73);
-					_errHandler.sync(this);
-					_la = _input.LA(1);
 				}
+
 				}
 				break;
 			case 4:
 				_localctx = new TypeSelectorContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(74);
+				setState(71);
 				match(CSS_ID);
 				}
 				break;
@@ -670,17 +653,17 @@ public class CssParser extends Parser {
 			_localctx = new DeclarationBlockContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(80);
+			setState(77);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==CSS_ID) {
 				{
 				{
-				setState(77);
+				setState(74);
 				declaration();
 				}
 				}
-				setState(82);
+				setState(79);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -744,25 +727,25 @@ public class CssParser extends Parser {
 			_localctx = new CssDeclarationContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(83);
+			setState(80);
 			match(CSS_ID);
-			setState(84);
+			setState(81);
 			match(CSS_COLON);
-			setState(86); 
+			setState(83); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(85);
+				setState(82);
 				cssterm();
 				}
 				}
-				setState(88); 
+				setState(85); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 55296L) != 0) );
-			setState(90);
+			setState(87);
 			match(CSS_SEMI);
 			}
 		}
@@ -825,45 +808,45 @@ public class CssParser extends Parser {
 			_localctx = new FunctionArgumentsContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(93); 
+			setState(90); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(92);
+				setState(89);
 				cssterm();
 				}
 				}
-				setState(95); 
+				setState(92); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 55296L) != 0) );
-			setState(105);
+			setState(102);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==CSS_COMMA) {
 				{
 				{
-				setState(97);
+				setState(94);
 				match(CSS_COMMA);
-				setState(99); 
+				setState(96); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				do {
 					{
 					{
-					setState(98);
+					setState(95);
 					cssterm();
 					}
 					}
-					setState(101); 
+					setState(98); 
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 55296L) != 0) );
 				}
 				}
-				setState(107);
+				setState(104);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -924,21 +907,21 @@ public class CssParser extends Parser {
 			_localctx = new CssFunctionCallContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(108);
+			setState(105);
 			match(CSS_ID);
-			setState(109);
+			setState(106);
 			match(CSS_LPAREN);
-			setState(111);
+			setState(108);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 55296L) != 0)) {
 				{
-				setState(110);
+				setState(107);
 				css_function_args();
 				}
 			}
 
-			setState(113);
+			setState(110);
 			match(CSS_RPAREN);
 			}
 		}
@@ -1081,14 +1064,14 @@ public class CssParser extends Parser {
 		CsstermContext _localctx = new CsstermContext(_ctx, getState());
 		enterRule(_localctx, 18, RULE_cssterm);
 		try {
-			setState(122);
+			setState(119);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,15,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,14,_ctx) ) {
 			case 1:
 				_localctx = new FunctionTermContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(115);
+				setState(112);
 				css_function_call();
 				}
 				break;
@@ -1096,7 +1079,7 @@ public class CssParser extends Parser {
 				_localctx = new StringTermContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(116);
+				setState(113);
 				match(CSS_STRING);
 				}
 				break;
@@ -1104,7 +1087,7 @@ public class CssParser extends Parser {
 				_localctx = new ColorTermContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(117);
+				setState(114);
 				match(CSS_HEX_COLOR);
 				}
 				break;
@@ -1112,9 +1095,9 @@ public class CssParser extends Parser {
 				_localctx = new UnitNumberTermContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(118);
+				setState(115);
 				match(CSS_NUMBER);
-				setState(119);
+				setState(116);
 				match(CSS_UNIT);
 				}
 				break;
@@ -1122,7 +1105,7 @@ public class CssParser extends Parser {
 				_localctx = new NumberTermContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(120);
+				setState(117);
 				match(CSS_NUMBER);
 				}
 				break;
@@ -1130,7 +1113,7 @@ public class CssParser extends Parser {
 				_localctx = new IdentifierTermContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(121);
+				setState(118);
 				match(CSS_ID);
 				}
 				break;
@@ -1148,7 +1131,7 @@ public class CssParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\u0012}\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u0001\u0012z\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
 		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002"+
 		"\b\u0007\b\u0002\t\u0007\t\u0001\u0000\u0005\u0000\u0016\b\u0000\n\u0000"+
@@ -1157,69 +1140,67 @@ public class CssParser extends Parser {
 		"\n\u0002\f\u0002&\t\u0002\u0001\u0003\u0001\u0003\u0003\u0003*\b\u0003"+
 		"\u0001\u0003\u0005\u0003-\b\u0003\n\u0003\f\u00030\t\u0003\u0001\u0004"+
 		"\u0001\u0004\u0001\u0004\u0005\u00045\b\u0004\n\u0004\f\u00048\t\u0004"+
-		"\u0001\u0004\u0001\u0004\u0001\u0004\u0003\u0004=\b\u0004\u0004\u0004"+
-		"?\b\u0004\u000b\u0004\f\u0004@\u0001\u0004\u0001\u0004\u0001\u0004\u0005"+
-		"\u0004F\b\u0004\n\u0004\f\u0004I\t\u0004\u0001\u0004\u0003\u0004L\b\u0004"+
-		"\u0001\u0005\u0005\u0005O\b\u0005\n\u0005\f\u0005R\t\u0005\u0001\u0006"+
-		"\u0001\u0006\u0001\u0006\u0004\u0006W\b\u0006\u000b\u0006\f\u0006X\u0001"+
-		"\u0006\u0001\u0006\u0001\u0007\u0004\u0007^\b\u0007\u000b\u0007\f\u0007"+
-		"_\u0001\u0007\u0001\u0007\u0004\u0007d\b\u0007\u000b\u0007\f\u0007e\u0005"+
-		"\u0007h\b\u0007\n\u0007\f\u0007k\t\u0007\u0001\b\u0001\b\u0001\b\u0003"+
-		"\bp\b\b\u0001\b\u0001\b\u0001\t\u0001\t\u0001\t\u0001\t\u0001\t\u0001"+
-		"\t\u0001\t\u0003\t{\b\t\u0001\t\u0000\u0000\n\u0000\u0002\u0004\u0006"+
-		"\b\n\f\u000e\u0010\u0012\u0000\u0000\u0088\u0000\u0017\u0001\u0000\u0000"+
-		"\u0000\u0002\u001a\u0001\u0000\u0000\u0000\u0004\u001f\u0001\u0000\u0000"+
-		"\u0000\u0006\'\u0001\u0000\u0000\u0000\bK\u0001\u0000\u0000\u0000\nP\u0001"+
-		"\u0000\u0000\u0000\fS\u0001\u0000\u0000\u0000\u000e]\u0001\u0000\u0000"+
-		"\u0000\u0010l\u0001\u0000\u0000\u0000\u0012z\u0001\u0000\u0000\u0000\u0014"+
-		"\u0016\u0003\u0002\u0001\u0000\u0015\u0014\u0001\u0000\u0000\u0000\u0016"+
-		"\u0019\u0001\u0000\u0000\u0000\u0017\u0015\u0001\u0000\u0000\u0000\u0017"+
-		"\u0018\u0001\u0000\u0000\u0000\u0018\u0001\u0001\u0000\u0000\u0000\u0019"+
-		"\u0017\u0001\u0000\u0000\u0000\u001a\u001b\u0003\u0004\u0002\u0000\u001b"+
-		"\u001c\u0005\u0001\u0000\u0000\u001c\u001d\u0003\n\u0005\u0000\u001d\u001e"+
-		"\u0005\u0002\u0000\u0000\u001e\u0003\u0001\u0000\u0000\u0000\u001f$\u0003"+
-		"\u0006\u0003\u0000 !\u0005\u0007\u0000\u0000!#\u0003\u0006\u0003\u0000"+
-		"\" \u0001\u0000\u0000\u0000#&\u0001\u0000\u0000\u0000$\"\u0001\u0000\u0000"+
-		"\u0000$%\u0001\u0000\u0000\u0000%\u0005\u0001\u0000\u0000\u0000&$\u0001"+
-		"\u0000\u0000\u0000\'.\u0003\b\u0004\u0000(*\u0005\t\u0000\u0000)(\u0001"+
-		"\u0000\u0000\u0000)*\u0001\u0000\u0000\u0000*+\u0001\u0000\u0000\u0000"+
-		"+-\u0003\b\u0004\u0000,)\u0001\u0000\u0000\u0000-0\u0001\u0000\u0000\u0000"+
-		".,\u0001\u0000\u0000\u0000./\u0001\u0000\u0000\u0000/\u0007\u0001\u0000"+
-		"\u0000\u00000.\u0001\u0000\u0000\u000016\u0005\u000f\u0000\u000023\u0005"+
-		"\b\u0000\u000035\u0005\u000f\u0000\u000042\u0001\u0000\u0000\u000058\u0001"+
-		"\u0000\u0000\u000064\u0001\u0000\u0000\u000067\u0001\u0000\u0000\u0000"+
-		"7L\u0001\u0000\u0000\u000086\u0001\u0000\u0000\u00009:\u0005\b\u0000\u0000"+
-		":<\u0005\u000f\u0000\u0000;=\u0005\u000f\u0000\u0000<;\u0001\u0000\u0000"+
-		"\u0000<=\u0001\u0000\u0000\u0000=?\u0001\u0000\u0000\u0000>9\u0001\u0000"+
-		"\u0000\u0000?@\u0001\u0000\u0000\u0000@>\u0001\u0000\u0000\u0000@A\u0001"+
-		"\u0000\u0000\u0000AL\u0001\u0000\u0000\u0000BG\u0005\u000f\u0000\u0000"+
-		"CD\u0005\n\u0000\u0000DF\u0005\u000f\u0000\u0000EC\u0001\u0000\u0000\u0000"+
-		"FI\u0001\u0000\u0000\u0000GE\u0001\u0000\u0000\u0000GH\u0001\u0000\u0000"+
-		"\u0000HL\u0001\u0000\u0000\u0000IG\u0001\u0000\u0000\u0000JL\u0005\u000f"+
-		"\u0000\u0000K1\u0001\u0000\u0000\u0000K>\u0001\u0000\u0000\u0000KB\u0001"+
-		"\u0000\u0000\u0000KJ\u0001\u0000\u0000\u0000L\t\u0001\u0000\u0000\u0000"+
-		"MO\u0003\f\u0006\u0000NM\u0001\u0000\u0000\u0000OR\u0001\u0000\u0000\u0000"+
-		"PN\u0001\u0000\u0000\u0000PQ\u0001\u0000\u0000\u0000Q\u000b\u0001\u0000"+
-		"\u0000\u0000RP\u0001\u0000\u0000\u0000ST\u0005\u000f\u0000\u0000TV\u0005"+
-		"\u0005\u0000\u0000UW\u0003\u0012\t\u0000VU\u0001\u0000\u0000\u0000WX\u0001"+
-		"\u0000\u0000\u0000XV\u0001\u0000\u0000\u0000XY\u0001\u0000\u0000\u0000"+
-		"YZ\u0001\u0000\u0000\u0000Z[\u0005\u0006\u0000\u0000[\r\u0001\u0000\u0000"+
-		"\u0000\\^\u0003\u0012\t\u0000]\\\u0001\u0000\u0000\u0000^_\u0001\u0000"+
-		"\u0000\u0000_]\u0001\u0000\u0000\u0000_`\u0001\u0000\u0000\u0000`i\u0001"+
-		"\u0000\u0000\u0000ac\u0005\u0007\u0000\u0000bd\u0003\u0012\t\u0000cb\u0001"+
-		"\u0000\u0000\u0000de\u0001\u0000\u0000\u0000ec\u0001\u0000\u0000\u0000"+
-		"ef\u0001\u0000\u0000\u0000fh\u0001\u0000\u0000\u0000ga\u0001\u0000\u0000"+
-		"\u0000hk\u0001\u0000\u0000\u0000ig\u0001\u0000\u0000\u0000ij\u0001\u0000"+
-		"\u0000\u0000j\u000f\u0001\u0000\u0000\u0000ki\u0001\u0000\u0000\u0000"+
-		"lm\u0005\u000f\u0000\u0000mo\u0005\u0003\u0000\u0000np\u0003\u000e\u0007"+
-		"\u0000on\u0001\u0000\u0000\u0000op\u0001\u0000\u0000\u0000pq\u0001\u0000"+
-		"\u0000\u0000qr\u0005\u0004\u0000\u0000r\u0011\u0001\u0000\u0000\u0000"+
-		"s{\u0003\u0010\b\u0000t{\u0005\u000e\u0000\u0000u{\u0005\u000b\u0000\u0000"+
-		"vw\u0005\f\u0000\u0000w{\u0005\r\u0000\u0000x{\u0005\f\u0000\u0000y{\u0005"+
-		"\u000f\u0000\u0000zs\u0001\u0000\u0000\u0000zt\u0001\u0000\u0000\u0000"+
-		"zu\u0001\u0000\u0000\u0000zv\u0001\u0000\u0000\u0000zx\u0001\u0000\u0000"+
-		"\u0000zy\u0001\u0000\u0000\u0000{\u0013\u0001\u0000\u0000\u0000\u0010"+
-		"\u0017$).6<@GKPX_eioz";
+		"\u0001\u0004\u0001\u0004\u0001\u0004\u0001\u0004\u0005\u0004>\b\u0004"+
+		"\n\u0004\f\u0004A\t\u0004\u0001\u0004\u0001\u0004\u0001\u0004\u0003\u0004"+
+		"F\b\u0004\u0001\u0004\u0003\u0004I\b\u0004\u0001\u0005\u0005\u0005L\b"+
+		"\u0005\n\u0005\f\u0005O\t\u0005\u0001\u0006\u0001\u0006\u0001\u0006\u0004"+
+		"\u0006T\b\u0006\u000b\u0006\f\u0006U\u0001\u0006\u0001\u0006\u0001\u0007"+
+		"\u0004\u0007[\b\u0007\u000b\u0007\f\u0007\\\u0001\u0007\u0001\u0007\u0004"+
+		"\u0007a\b\u0007\u000b\u0007\f\u0007b\u0005\u0007e\b\u0007\n\u0007\f\u0007"+
+		"h\t\u0007\u0001\b\u0001\b\u0001\b\u0003\bm\b\b\u0001\b\u0001\b\u0001\t"+
+		"\u0001\t\u0001\t\u0001\t\u0001\t\u0001\t\u0001\t\u0003\tx\b\t\u0001\t"+
+		"\u0000\u0000\n\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012\u0000\u0000"+
+		"\u0084\u0000\u0017\u0001\u0000\u0000\u0000\u0002\u001a\u0001\u0000\u0000"+
+		"\u0000\u0004\u001f\u0001\u0000\u0000\u0000\u0006\'\u0001\u0000\u0000\u0000"+
+		"\bH\u0001\u0000\u0000\u0000\nM\u0001\u0000\u0000\u0000\fP\u0001\u0000"+
+		"\u0000\u0000\u000eZ\u0001\u0000\u0000\u0000\u0010i\u0001\u0000\u0000\u0000"+
+		"\u0012w\u0001\u0000\u0000\u0000\u0014\u0016\u0003\u0002\u0001\u0000\u0015"+
+		"\u0014\u0001\u0000\u0000\u0000\u0016\u0019\u0001\u0000\u0000\u0000\u0017"+
+		"\u0015\u0001\u0000\u0000\u0000\u0017\u0018\u0001\u0000\u0000\u0000\u0018"+
+		"\u0001\u0001\u0000\u0000\u0000\u0019\u0017\u0001\u0000\u0000\u0000\u001a"+
+		"\u001b\u0003\u0004\u0002\u0000\u001b\u001c\u0005\u0001\u0000\u0000\u001c"+
+		"\u001d\u0003\n\u0005\u0000\u001d\u001e\u0005\u0002\u0000\u0000\u001e\u0003"+
+		"\u0001\u0000\u0000\u0000\u001f$\u0003\u0006\u0003\u0000 !\u0005\u0007"+
+		"\u0000\u0000!#\u0003\u0006\u0003\u0000\" \u0001\u0000\u0000\u0000#&\u0001"+
+		"\u0000\u0000\u0000$\"\u0001\u0000\u0000\u0000$%\u0001\u0000\u0000\u0000"+
+		"%\u0005\u0001\u0000\u0000\u0000&$\u0001\u0000\u0000\u0000\'.\u0003\b\u0004"+
+		"\u0000(*\u0005\t\u0000\u0000)(\u0001\u0000\u0000\u0000)*\u0001\u0000\u0000"+
+		"\u0000*+\u0001\u0000\u0000\u0000+-\u0003\b\u0004\u0000,)\u0001\u0000\u0000"+
+		"\u0000-0\u0001\u0000\u0000\u0000.,\u0001\u0000\u0000\u0000./\u0001\u0000"+
+		"\u0000\u0000/\u0007\u0001\u0000\u0000\u00000.\u0001\u0000\u0000\u0000"+
+		"16\u0005\u000f\u0000\u000023\u0005\b\u0000\u000035\u0005\u000f\u0000\u0000"+
+		"42\u0001\u0000\u0000\u000058\u0001\u0000\u0000\u000064\u0001\u0000\u0000"+
+		"\u000067\u0001\u0000\u0000\u00007I\u0001\u0000\u0000\u000086\u0001\u0000"+
+		"\u0000\u00009:\u0005\b\u0000\u0000:?\u0005\u000f\u0000\u0000;<\u0005\b"+
+		"\u0000\u0000<>\u0005\u000f\u0000\u0000=;\u0001\u0000\u0000\u0000>A\u0001"+
+		"\u0000\u0000\u0000?=\u0001\u0000\u0000\u0000?@\u0001\u0000\u0000\u0000"+
+		"@I\u0001\u0000\u0000\u0000A?\u0001\u0000\u0000\u0000BE\u0005\u000f\u0000"+
+		"\u0000CD\u0005\n\u0000\u0000DF\u0005\u000f\u0000\u0000EC\u0001\u0000\u0000"+
+		"\u0000EF\u0001\u0000\u0000\u0000FI\u0001\u0000\u0000\u0000GI\u0005\u000f"+
+		"\u0000\u0000H1\u0001\u0000\u0000\u0000H9\u0001\u0000\u0000\u0000HB\u0001"+
+		"\u0000\u0000\u0000HG\u0001\u0000\u0000\u0000I\t\u0001\u0000\u0000\u0000"+
+		"JL\u0003\f\u0006\u0000KJ\u0001\u0000\u0000\u0000LO\u0001\u0000\u0000\u0000"+
+		"MK\u0001\u0000\u0000\u0000MN\u0001\u0000\u0000\u0000N\u000b\u0001\u0000"+
+		"\u0000\u0000OM\u0001\u0000\u0000\u0000PQ\u0005\u000f\u0000\u0000QS\u0005"+
+		"\u0005\u0000\u0000RT\u0003\u0012\t\u0000SR\u0001\u0000\u0000\u0000TU\u0001"+
+		"\u0000\u0000\u0000US\u0001\u0000\u0000\u0000UV\u0001\u0000\u0000\u0000"+
+		"VW\u0001\u0000\u0000\u0000WX\u0005\u0006\u0000\u0000X\r\u0001\u0000\u0000"+
+		"\u0000Y[\u0003\u0012\t\u0000ZY\u0001\u0000\u0000\u0000[\\\u0001\u0000"+
+		"\u0000\u0000\\Z\u0001\u0000\u0000\u0000\\]\u0001\u0000\u0000\u0000]f\u0001"+
+		"\u0000\u0000\u0000^`\u0005\u0007\u0000\u0000_a\u0003\u0012\t\u0000`_\u0001"+
+		"\u0000\u0000\u0000ab\u0001\u0000\u0000\u0000b`\u0001\u0000\u0000\u0000"+
+		"bc\u0001\u0000\u0000\u0000ce\u0001\u0000\u0000\u0000d^\u0001\u0000\u0000"+
+		"\u0000eh\u0001\u0000\u0000\u0000fd\u0001\u0000\u0000\u0000fg\u0001\u0000"+
+		"\u0000\u0000g\u000f\u0001\u0000\u0000\u0000hf\u0001\u0000\u0000\u0000"+
+		"ij\u0005\u000f\u0000\u0000jl\u0005\u0003\u0000\u0000km\u0003\u000e\u0007"+
+		"\u0000lk\u0001\u0000\u0000\u0000lm\u0001\u0000\u0000\u0000mn\u0001\u0000"+
+		"\u0000\u0000no\u0005\u0004\u0000\u0000o\u0011\u0001\u0000\u0000\u0000"+
+		"px\u0003\u0010\b\u0000qx\u0005\u000e\u0000\u0000rx\u0005\u000b\u0000\u0000"+
+		"st\u0005\f\u0000\u0000tx\u0005\r\u0000\u0000ux\u0005\f\u0000\u0000vx\u0005"+
+		"\u000f\u0000\u0000wp\u0001\u0000\u0000\u0000wq\u0001\u0000\u0000\u0000"+
+		"wr\u0001\u0000\u0000\u0000ws\u0001\u0000\u0000\u0000wu\u0001\u0000\u0000"+
+		"\u0000wv\u0001\u0000\u0000\u0000x\u0013\u0001\u0000\u0000\u0000\u000f"+
+		"\u0017$).6?EHMU\\bflw";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -16,8 +16,6 @@ import listener.CustomErrorListener;
 import org.antlr.v4.gui.TreeViewer;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.Lexer;
-import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 import semantic.jinja.JinjaSemanticAnalyzer;
 import symbolTable.SymbolTableManager;
@@ -138,6 +136,11 @@ public class App {
                 StyleSheetVisitor visitor = new StyleSheetVisitor();
                 ASTNode styleSheet = visitor.visit(tree);
                 System.out.println(styleSheet);
+
+                if (styleSheet instanceof ast.css.StyleSheet cssStyleSheet) {
+                    String generatedCss = cssStyleSheet.generateCode();
+                    writeGeneratedSource(filePath, generatedCss);
+                }
             }
         } catch (Exception e) {
             System.err.println("Error processing " + fileName + ": " + e.getMessage());

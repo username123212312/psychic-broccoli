@@ -1,4 +1,4 @@
-// Generated from grammars/CssLexer.g4 by ANTLR 4.13.2
+// Generated from D:/RAMA/MyProject/ComplierProject-1/grammars/CssLexer.g4 by ANTLR 4.13.2
 package antlr.css;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;

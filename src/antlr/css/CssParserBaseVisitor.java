@@ -1,4 +1,4 @@
-// Generated from grammars/CssParser.g4 by ANTLR 4.13.2
+// Generated from D:/RAMA/MyProject/ComplierProject-1/grammars/CssParser.g4 by ANTLR 4.13.2
 package antlr.css;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
@@ -53,7 +53,7 @@ public class CssParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> impleme
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitStandaloneSimpleSelector(CssParser.StandaloneSimpleSelectorContext ctx) { return visitChildren(ctx); }
+	@Override public T visitClassOnlySelector(CssParser.ClassOnlySelectorContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
