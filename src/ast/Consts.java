@@ -5,6 +5,6 @@ public class Consts {
 
     public static String printIndent(int level) {
         return "\n" +
-                "│   ".repeat(Math.max(0, level));
+                "|   ".repeat(Math.max(0, level));
     }
 }

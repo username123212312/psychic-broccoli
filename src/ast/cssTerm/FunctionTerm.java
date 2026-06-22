@@ -1,24 +1,30 @@
 package ast.cssTerm;
 
 import ast.Consts;
-import ast.Statement;
 
 public class FunctionTerm extends CssTerm {
     private CssFunctionArguments arguments;
 
-    public FunctionTerm(int line_number, CssFunctionArguments arguments) {
-        super("FunctionTerm", line_number);
+
+    public FunctionTerm(int line_number) {
+        super("Function", line_number);
+    }
+
+    public void setArguments(CssFunctionArguments arguments) {
         this.arguments = arguments;
+    }
+
+    public CssFunctionArguments getArguments() {
+        return arguments;
     }
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(super.toString());
-        if (this.arguments != null) {
-            stringBuilder.append(Consts.STRING_INDENT)
-                    .append(this.arguments.toString());
-        }
-        return stringBuilder.toString();
+        return super.toString() + Consts.printIndent(3) + arguments.toString();
+    }
+
+    @Override
+    public String generateCode() {
+        return "";
     }
 }

@@ -1,11 +1,27 @@
 package ast.jinja.jinjaCallExpr;
 
-import ast.ASTNode;
 
-public class JinjaVariableAccess extends ASTNode {
+public class JinjaVariableAccess extends JinjaCallExpression {
     private String dottedName;
-    public JinjaVariableAccess(int line_number, String dottedName) {
+    public JinjaVariableAccess(int line_number) {
         super("JinjaVariableAccess", line_number);
+    }
+
+    public void setDottedName(String dottedName) {
         this.dottedName = dottedName;
+    }
+
+    public String getDottedName() {
+        return dottedName;
+    }
+
+    @Override
+    public String toString() {
+        return dottedName;
+    }
+
+    @Override
+    public String generateCode() {
+        return dottedName == null ? "" : dottedName;
     }
 }

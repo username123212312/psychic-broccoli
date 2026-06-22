@@ -1,17 +1,15 @@
 package visitor.python;
 
-import antlr.JinjaFlaskParser;
-import antlr.JinjaFlaskParserBaseVisitor;
+import antlr.python.PythonParser;
+import antlr.python.PythonParserBaseVisitor;
 import ast.TemplateLiteral;
 
-public class TemplateLiteralVisitor extends JinjaFlaskParserBaseVisitor<TemplateLiteral> {
-    @Override
-    public TemplateLiteral visitHtmlContentDoubleTemplate(JinjaFlaskParser.HtmlContentDoubleTemplateContext ctx) {
-        return super.visitHtmlContentDoubleTemplate(ctx);
-    }
+public class TemplateLiteralVisitor extends PythonParserBaseVisitor<TemplateLiteral> {
 
     @Override
-    public TemplateLiteral visitHtmlContentSingleTemplate(JinjaFlaskParser.HtmlContentSingleTemplateContext ctx) {
-        return super.visitHtmlContentSingleTemplate(ctx);
+    public TemplateLiteral visitTemplateLiteral(PythonParser.TemplateLiteralContext ctx) {
+        TemplateLiteral templateLiteral = new TemplateLiteral(ctx.getStart().getLine());
+        templateLiteral.setContent(ctx.TRIPLE_QUOTE_STRING().getText());
+        return templateLiteral;
     }
 }

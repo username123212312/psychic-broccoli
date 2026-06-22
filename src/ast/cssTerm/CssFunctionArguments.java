@@ -1,26 +1,39 @@
 package ast.cssTerm;
 
 import ast.ASTNode;
-import ast.Consts;
-import ast.Statement;
 
 import java.util.List;
 
 public class CssFunctionArguments extends ASTNode {
     private List<CssTerm> cssTerms;
 
-    public CssFunctionArguments(int line_number, List<CssTerm> cssTerms) {
+    public CssFunctionArguments(int line_number) {
         super("CssFunctionArguments", line_number);
+    }
+
+    public void setCssTerms(List<CssTerm> cssTerms) {
         this.cssTerms = cssTerms;
     }
+
+    public List<CssTerm> getCssTerms() {
+        return cssTerms;
+    }
+
+    @Override
+    public String generateCode() {
+        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+    }
+
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(super.toString());
-        for(CssTerm s : this.cssTerms){
-            stringBuilder.append(Consts.STRING_INDENT).append(s.toString());
+        if(cssTerms != null){
+            for(CssTerm cssTerm : cssTerms){
+                stringBuilder.append(cssTerm)
+                        .append(cssTerms.indexOf(cssTerm) == cssTerms.size() - 1 ? "" : ", ");
+            }
         }
         return stringBuilder.toString();
     }
-
 }

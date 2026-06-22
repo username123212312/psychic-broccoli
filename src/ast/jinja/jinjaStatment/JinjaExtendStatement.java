@@ -1,10 +1,28 @@
 package ast.jinja.jinjaStatment;
 
-public class JinjaExtendStatement extends JinjaStmtItem{
+public class JinjaExtendStatement extends JinjaStatement {
     private String extended;
 
-    public JinjaExtendStatement(int line_number, String extended) {
+    public JinjaExtendStatement(int line_number) {
         super("JinjaExtendStatement", line_number);
+    }
+
+    public void setExtended(String extended) {
         this.extended = extended;
+    }
+
+    public String getExtended() {
+        return extended;
+    }
+
+    @Override
+    public String generateCode() {
+        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+    }
+
+
+    @Override
+    public String toString() {
+        return super.toString() + " ( extended : " + extended + " ) ";
     }
 }

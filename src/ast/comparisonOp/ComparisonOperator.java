@@ -13,6 +13,15 @@ public class ComparisonOperator extends ASTNode {
         this.operator = operator;
     }
 
+    public String getOperator() {
+        return operator;
+    }
+
+    @Override
+    public String generateCode() {
+        return "";
+    }
+
     @Override
     public String toString() {
         return operator;

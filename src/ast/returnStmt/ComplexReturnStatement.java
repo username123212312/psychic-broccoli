@@ -2,11 +2,29 @@ package ast.returnStmt;
 
 import ast.compundStmt.PythonExpression;
 
-public class ComplexReturnStatement extends ReturnStatement{
+public class ComplexReturnStatement extends ReturnStatement {
     private PythonExpression pythonExpression;
 
-    public ComplexReturnStatement(int line_number, PythonExpression pythonExpression) {
+    public ComplexReturnStatement(int line_number) {
         super("ComplexReturnStatement", line_number);
+    }
+
+    public void setPythonExpression(PythonExpression pythonExpression) {
         this.pythonExpression = pythonExpression;
+    }
+
+    public PythonExpression getPythonExpression() {
+        return pythonExpression;
+    }
+
+    @Override
+    public String generateCode() {
+        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+    }
+
+
+    @Override
+    public String toString() {
+        return super.toString() + pythonExpression.toString();
     }
 }

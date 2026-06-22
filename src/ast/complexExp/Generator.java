@@ -11,4 +11,25 @@ public class Generator extends ComplexExpression{
     public void setForLoop(ForLoop forLoop) {
         this.forLoop = forLoop;
     }
+
+    public ForLoop getForLoop() {
+        return forLoop;
+    }
+
+    @Override
+    public String symbolTablePrint() {
+        return  " ( " + forLoop.symbolTablePrint() + " ) ";
+    }
+
+    @Override
+    public String generateCode() {
+        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+    }
+
+
+
+    @Override
+    public String toString() {
+        return super.toString() + " ( " + forLoop.toString() + " ) ";
+    }
 }

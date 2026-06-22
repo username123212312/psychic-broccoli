@@ -1,6 +1,6 @@
 package ast.assignStmt;
 
-import ast.ASTNode;
+import ast.Consts;
 import ast.compundStmt.CompoundStatement;
 import ast.compundStmt.PythonExpression;
 
@@ -14,10 +14,12 @@ public abstract class AssignmentStatement extends CompoundStatement {
         this.var = var;
     }
 
+    public PythonExpression getVar() {
+        return var;
+    }
+
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("AssignmentStatement [Line: ").append(this.line_number).append("] (PythonExpression:" + var + ")");
-        return sb.toString();
+        return super.toString() + Consts.printIndent(2) + var.toString() + " = " + Consts.printIndent(2);
     }
 }

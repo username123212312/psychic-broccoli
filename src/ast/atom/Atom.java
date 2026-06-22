@@ -2,7 +2,7 @@ package ast.atom;
 
 import ast.ASTNode;
 
-public class Atom extends ASTNode {
+public abstract class Atom extends ASTNode {
     private Object value;
 
     public Atom(String node_name, int line_number) {
@@ -16,5 +16,9 @@ public class Atom extends ASTNode {
     @Override
     public String toString() {
         return value.toString();
+    }
+
+    public Object getValue() {
+        return value;
     }
 }

@@ -1,25 +1,42 @@
 package ast.css;
 
 import ast.ASTNode;
-import ast.Consts;
-import ast.cssTerm.CssTerm;
 
 import java.util.List;
 
 public class CssDeclarationList extends ASTNode {
     private List<CssDeclaration> declarations;
-    public CssDeclarationList(int line_number, List<CssDeclaration> declarations) {
+    public CssDeclarationList(int line_number) {
         super("CssDeclarationList", line_number);
+    }
+
+
+    public void setDeclarations(List<CssDeclaration> declarations) {
         this.declarations = declarations;
     }
+
+    public List<CssDeclaration> getDeclarations() {
+        return declarations;
+    }
+
+    @Override
+    public String generateCode() {
+        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+    }
+
 
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(super.toString());
-        for(CssDeclaration s : this.declarations){
-            stringBuilder.append(Consts.STRING_INDENT).append(s.toString());
+        stringBuilder.append(super.toString()).append("( [ ");
+        if(declarations != null){
+            for (CssDeclaration cssDeclaration : declarations){
+                stringBuilder.append(cssDeclaration.toString())
+                        .append(declarations.indexOf(cssDeclaration)
+                                == declarations.size() - 1 ? "" : ", ");
+            }
         }
+        stringBuilder.append(" ] ) ");
         return stringBuilder.toString();
     }
 }

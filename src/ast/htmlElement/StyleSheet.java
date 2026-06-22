@@ -1,27 +1,39 @@
 package ast.htmlElement;
 
 import ast.Consts;
-import ast.Statement;
 import ast.css.RuleSet;
 
 import java.util.List;
 
-public class StyleSheet extends HtmlElementItem {
+public class StyleSheet extends HtmlElement {
     private List<RuleSet> ruleSets;
-    public StyleSheet(int line_number, List<RuleSet> ruleSets) {
+
+    public StyleSheet(int line_number) {
         super("StyleSheet", line_number);
+    }
+
+    public void setRuleSets(List<RuleSet> ruleSets) {
         this.ruleSets = ruleSets;
     }
+
+    public List<RuleSet> getRuleSets() {
+        return ruleSets;
+    }
+    @Override
+    public String generateCode() {
+        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+    }
+
 
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(super.toString());
-        for(RuleSet s : this.ruleSets){
-            stringBuilder.append(Consts.STRING_INDENT).append(s.toString());
+        if (ruleSets != null) {
+            for (RuleSet ruleSet : ruleSets) {
+                stringBuilder.append(Consts.printIndent(5)).append(ruleSet.toString());
+            }
         }
         return stringBuilder.toString();
     }
-
-
 }

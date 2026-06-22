@@ -1,1 +1,5 @@
-products = (p for p in products if p["id"] != product_id)
+fun(123, "deewe", True)
+list[1]
+dictionaary["d"]
+
+app = Flask(__name__)

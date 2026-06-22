@@ -1,8 +1,6 @@
 package ast.assignStmt;
 
 import ast.condition.Condition;
-import ast.compundStmt.PythonExpression;
-
 public class ComparisonAssignmentStmt extends AssignmentStatement {
     private Condition value;
 
@@ -14,10 +12,18 @@ public class ComparisonAssignmentStmt extends AssignmentStatement {
         this.value = value;
     }
 
+    public Condition getValue() {
+        return value;
+    }
+
+    @Override
+    public String generateCode() {
+        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+    }
+
+
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("ComparisonAssignStmt [Line: ").append(this.line_number).append("] (Condition:" + value + ")");
-        return sb.toString();
+        return super.toString() + value.toString() + " ) ";
     }
 }

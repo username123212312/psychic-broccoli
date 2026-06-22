@@ -1,28 +1,30 @@
 package visitor.python;
 
-import antlr.JinjaFlaskParser;
-import antlr.JinjaFlaskParserBaseVisitor;
+import antlr.python.PythonParser;
+import antlr.python.PythonParserBaseVisitor;
 import ast.Statement;
 import ast.compundStmt.CompoundStatement;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StatementVisitor extends JinjaFlaskParserBaseVisitor<Statement> {
+public class StatementVisitor extends PythonParserBaseVisitor<Statement> {
     @Override
-    public Statement visitCompoundStatement(JinjaFlaskParser.CompoundStatementContext ctx) {
+    public Statement visitCompoundStatement(PythonParser.CompoundStatementContext ctx) {
+        Statement statement = new Statement(ctx.getStart().getLine());
         List<CompoundStatement> compoundStatementList = new ArrayList<>();
         CompoundStatementVisitor compoundStatementVisitor = new CompoundStatementVisitor();
         for (int i = 0; i < ctx.compound_stmt().size(); i++) {
             compoundStatementList.add(compoundStatementVisitor.visit(ctx.compound_stmt(i)));
         }
-        return new Statement(ctx.getStart().getLine(), compoundStatementList);
+        statement.setCompoundStatements(compoundStatementList);
+        return statement;
     }
 
     @Override
-    public Statement visitPassStatement(JinjaFlaskParser.PassStatementContext ctx) {
-        return super.visitPassStatement(ctx);
+    public Statement visitPassStatement(PythonParser.PassStatementContext ctx) {
+        Statement statement = new Statement(ctx.getStart().getLine());
+        statement.setPass(true);
+        return statement;
     }
-
-
 }

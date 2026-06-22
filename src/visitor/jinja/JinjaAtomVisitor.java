@@ -1,37 +1,48 @@
 package visitor.jinja;
 
-import antlr.JinjaFlaskParser;
-import antlr.JinjaFlaskParserBaseVisitor;
-import ast.atom.Atom;
+import antlr.html.HtmlParser;
+import antlr.html.HtmlParserBaseVisitor;
+import ast.atom.*;
+import ast.atom.Number;
 
-public class JinjaAtomVisitor extends JinjaFlaskParserBaseVisitor<Atom> {
+public class JinjaAtomVisitor extends HtmlParserBaseVisitor<Atom> {
     @Override
-    public Atom visitJinjaNumberAtom(JinjaFlaskParser.JinjaNumberAtomContext ctx) {
-        return super.visitJinjaNumberAtom(ctx);
+    public Atom visitJinjaNumberAtom(HtmlParser.JinjaNumberAtomContext ctx) {
+        Number number = new Number(ctx.start.getLine());
+        number.setValue(ctx.J_NUMBER().getText());
+        return number;
     }
 
     @Override
-    public Atom visitJinjaStringAtom(JinjaFlaskParser.JinjaStringAtomContext ctx) {
-        return super.visitJinjaStringAtom(ctx);
+    public Atom visitJinjaStringAtom(HtmlParser.JinjaStringAtomContext ctx) {
+        Str str = new Str(ctx.start.getLine());
+        str.setValue(ctx.J_STRING().getText());
+        return str;
     }
 
     @Override
-    public Atom visitJinjaTrueAtom(JinjaFlaskParser.JinjaTrueAtomContext ctx) {
-        return super.visitJinjaTrueAtom(ctx);
+    public Atom visitJinjaTrueAtom(HtmlParser.JinjaTrueAtomContext ctx) {
+        Bool bool = new Bool(ctx.start.getLine());
+        bool.setValue("True");
+        return bool;
     }
 
     @Override
-    public Atom visitJinjaFalseAtom(JinjaFlaskParser.JinjaFalseAtomContext ctx) {
-        return super.visitJinjaFalseAtom(ctx);
+    public Atom visitJinjaFalseAtom(HtmlParser.JinjaFalseAtomContext ctx) {
+        Bool bool = new Bool(ctx.start.getLine());
+        bool.setValue("False");
+        return bool;
     }
 
     @Override
-    public Atom visitJinjaNoneAtom(JinjaFlaskParser.JinjaNoneAtomContext ctx) {
-        return super.visitJinjaNoneAtom(ctx);
+    public Atom visitJinjaNoneAtom(HtmlParser.JinjaNoneAtomContext ctx) {
+        return new None(ctx.start.getLine());
     }
 
     @Override
-    public Atom visitJinjaNameAtom(JinjaFlaskParser.JinjaNameAtomContext ctx) {
-        return super.visitJinjaNameAtom(ctx);
+    public Atom visitJinjaNameAtom(HtmlParser.JinjaNameAtomContext ctx) {
+        Name name = new Name(ctx.start.getLine());
+        name.setValue(ctx.J_NAME().getText());
+        return name;
     }
 }

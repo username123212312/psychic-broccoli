@@ -2,7 +2,6 @@ package ast.condition;
 
 import ast.Consts;
 import ast.comparisonOp.ComparisonOperator;
-import ast.compundStmt.CompoundStatement;
 import ast.compundStmt.PythonExpression;
 
 import java.util.Map;
@@ -19,44 +18,51 @@ public class ComparisonExpression extends Condition {
         this.baseExpr = baseExpr;
     }
 
+    public PythonExpression getBaseExpr() {
+        return baseExpr;
+    }
+
     public void setOperatorPythonExpressionMap(Map<ComparisonOperator,
             PythonExpression> operatorPythonExpressionMap) {
         this.operatorPythonExpressionMap = operatorPythonExpressionMap;
     }
 
+    public Map<ComparisonOperator, PythonExpression> getOperatorPythonExpressionMap() {
+        return operatorPythonExpressionMap;
+    }
+
     @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
+    public String generateCode() {
+        return "";
+    }
 
-        sb.append("ComparisonExpression [Line: ").append(this.line_number).append("]\n");
-        if (baseExpr != null) {
-            sb.append("         "+ baseExpr + " : ");
-        }
 
-        if (operatorPythonExpressionMap != null) {
-            for (ComparisonOperator op : operatorPythonExpressionMap.keySet()) {
-                PythonExpression val = operatorPythonExpressionMap.get(op);
-
-                String opStr = (op == null) ? "Null" : op.toString();
-                String valStr = (val == null) ? "Null" : val.toString();
-                String combined = opStr + " " + valStr;
-
-                combined = combined.replace("\n", "\n  ");
-                sb.append("\n      ").append(combined);
+    @Override
+    public String symbolTablePrint() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(baseExpr == null ? "Null" : baseExpr.symbolTablePrint());
+        if(operatorPythonExpressionMap != null){
+            for (ComparisonOperator comparisonOperator : operatorPythonExpressionMap.keySet()) {
+                PythonExpression compExpr = operatorPythonExpressionMap.get(comparisonOperator);
+                stringBuilder.append(" ").append(comparisonOperator == null ? "Null" : comparisonOperator.toString()).append(" ")
+                        .append(compExpr == null ? "Null" : compExpr.symbolTablePrint());
             }
         }
-        return sb.toString();
+        return stringBuilder.toString();
     }
-//        StringBuilder stringBuilder = new StringBuilder();
-//        stringBuilder.append(super.toString()).append(Consts.printIndent(1))
-//                .append(baseExpr == null ? "Null" : baseExpr.toString());
-//        if(operatorPythonExpressionMap != null){
-//            for (ComparisonOperator comparisonOperator : operatorPythonExpressionMap.keySet()) {
-//                PythonExpression compExpr = operatorPythonExpressionMap.get(comparisonOperator);
-//                stringBuilder.append(Consts.printIndent(1)).append(comparisonOperator == null ? "Null" : comparisonOperator.toString()).append(" ")
-//                        .append(compExpr == null ? "Null" : compExpr.toString());
-//            }
-//        }
-//        return stringBuilder.toString();
-//    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(super.toString()).append(Consts.printIndent(3))
+                .append(baseExpr == null ? "Null" : baseExpr.toString());
+        if(operatorPythonExpressionMap != null){
+            for (ComparisonOperator comparisonOperator : operatorPythonExpressionMap.keySet()) {
+                PythonExpression compExpr = operatorPythonExpressionMap.get(comparisonOperator);
+                stringBuilder.append(Consts.printIndent(3)).append(comparisonOperator == null ? "Null" : comparisonOperator.toString()).append(" ")
+                        .append(compExpr == null ? "Null" : compExpr.toString());
+            }
+        }
+        return stringBuilder.toString();
+    }
 }

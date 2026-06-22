@@ -21,7 +21,7 @@ BASE_HTML = """
 
     <style>
     body {
-        text-align: center;
+    text-align: center;
     }
 
 
@@ -31,6 +31,7 @@ BASE_HTML = """
         gap: 20px;
         padding: 20px;
     }
+
 
     .product-card {
         width: 300px;
@@ -81,12 +82,14 @@ BASE_HTML = """
         box-shadow: 0 0 8px #ccc;
     }
 
+
     .form input,
-        .form textarea {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 15px;
+    .form textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
     }
+
 
     .detail-container {
         display: flex;
@@ -218,7 +221,8 @@ app.jinja_loader = DictLoader(
         "index.html": INDEX_HTML,
         "add.html": ADD_HTML,
         "detail.html": DETAIL_HTML,
-    })
+    }
+)
 
 
 # =========================================
@@ -254,7 +258,15 @@ def add_product():
 # Product detail page
 @app.route("/product/<int:product_id>")
 def detail(product_id):
-    pass
+    # Find the product by ID
+    product = next((p for p in products if p["id"] == product_id), None)
+
+    if not product:
+        # Simple error handling - redirect to home if product is not found
+        return redirect(url_for("index"))
+
+    return render_template("detail.html",
+                           product=product)
 
 
 # Delete product action

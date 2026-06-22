@@ -1,12 +1,27 @@
 package ast.argument;
 
-import ast.compundStmt.PythonExpression;
-
 public class KeywordArgument extends Argument {
     private String argName;
 
-    public KeywordArgument(int line_number, PythonExpression arg, String argName) {
-        super("KeywordArgument", line_number, arg);
+    public KeywordArgument(int line_number) {
+        super("KeywordArgument", line_number);
+    }
+
+    public void setArgName(String argName) {
         this.argName = argName;
+    }
+
+    public String getArgName() {
+        return argName;
+    }
+
+    @Override
+    public String generateCode() {
+        return "";
+    }
+
+    @Override
+    public String toString() {
+        return argName + " = " + super.toString();
     }
 }

@@ -1,18 +1,52 @@
 package ast.jinja.jinjaStatment;
 
+import ast.Consts;
 import ast.HtmlContent;
-import ast.jinja.JinjaExprItem;
+import ast.jinja.jinjaExpression.JinjaExpression;
 
-public class JinjaForStatement extends JinjaStmtItem{
+public class JinjaForStatement extends JinjaStatement {
     private String id;
     private HtmlContent htmlContent;
-    private JinjaExprItem iterable;
+    private JinjaExpression iterable;
 
-    public JinjaForStatement(int line_number, String id, HtmlContent htmlContent,
-                             JinjaExprItem iterable) {
+    public JinjaForStatement(int line_number) {
         super("JinjaForStatement", line_number);
+    }
+
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public void setHtmlContent(HtmlContent htmlContent) {
         this.htmlContent = htmlContent;
+    }
+
+    public void setIterable(JinjaExpression iterable) {
         this.iterable = iterable;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public HtmlContent getHtmlContent() {
+        return htmlContent;
+    }
+
+    public JinjaExpression getIterable() {
+        return iterable;
+    }
+
+    @Override
+    public String generateCode() {
+        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+    }
+
+
+    @Override
+    public String toString() {
+        return super.toString() + " ( " + id +
+                " in " + iterable.toString() + " ) " +
+                Consts.printIndent(3) + htmlContent.toString();
     }
 }

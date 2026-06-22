@@ -12,9 +12,23 @@ public class Imported extends ASTNode {
         this.alias = alias;
     }
 
+    public String getAlias() {
+        return alias;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String generateCode() {
+        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+    }
+
 
     @Override
     public String toString() {

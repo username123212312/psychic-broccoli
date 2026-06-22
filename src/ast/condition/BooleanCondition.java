@@ -12,6 +12,16 @@ public class BooleanCondition extends Condition {
         this.boolValue = boolValue;
     }
 
+    public Bool getBoolValue() {
+        return boolValue;
+    }
+
+    @Override
+    public String generateCode() {
+        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+    }
+
+
     @Override
     public String toString() {
         return boolValue.toString();

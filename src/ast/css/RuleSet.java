@@ -2,30 +2,40 @@ package ast.css;
 
 import ast.ASTNode;
 import ast.Consts;
-import ast.Statement;
 
 public class RuleSet extends ASTNode {
     private SelectorDeclaration selectorDeclaration;
     private CssDeclarationList declarationList;
-    public RuleSet(int line_number, SelectorDeclaration selectorDeclaration, CssDeclarationList declarationList) {
+    public RuleSet(int line_number) {
         super("RuleSet", line_number);
+    }
+
+    public void setSelectorDeclaration(SelectorDeclaration selectorDeclaration) {
         this.selectorDeclaration = selectorDeclaration;
+    }
+
+    public void setDeclarationList(CssDeclarationList declarationList) {
         this.declarationList = declarationList;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(super.toString());
-        if (this.selectorDeclaration != null) {
-            stringBuilder.append(Consts.STRING_INDENT)
-                    .append(this.selectorDeclaration.toString());
-        }
-        if (this.declarationList != null) {
-            stringBuilder.append(Consts.STRING_INDENT)
-                    .append(this.declarationList.toString());
-        }
-        return stringBuilder.toString();
+    public SelectorDeclaration getSelectorDeclaration() {
+        return selectorDeclaration;
     }
 
+    public CssDeclarationList getDeclarationList() {
+        return declarationList;
+    }
+
+    @Override
+    public String generateCode() {
+        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+    }
+
+
+    @Override
+    public String toString() {
+        return super.toString() + " ( "
+                + selectorDeclaration.toString()
+                + Consts.printIndent(6) + declarationList.toString();
+    }
 }

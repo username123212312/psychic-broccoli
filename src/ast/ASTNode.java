@@ -3,6 +3,7 @@ package ast;
 public abstract class ASTNode {
     public String node_name;
     public int line_number;
+    protected final java.util.List<ASTNode> children = new java.util.ArrayList<>();
 
     public ASTNode(String node_name, int line_number) {
         this.node_name = node_name;
@@ -17,8 +18,14 @@ public abstract class ASTNode {
         this.line_number = line_number;
     }
 
+    public String symbolTablePrint(){
+        return toString();
+    }
+
+    public abstract String generateCode();
+
     @Override
     public String toString() {
-        return node_name + ", line : " + line_number;
+        return node_name ;
     }
 }

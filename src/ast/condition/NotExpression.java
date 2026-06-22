@@ -3,8 +3,9 @@ package ast.condition;
 import ast.Consts;
 import ast.compundStmt.PythonExpression;
 
-public class NotExpression extends Condition{
+public class NotExpression extends Condition {
     private PythonExpression pythonExpression;
+
     public NotExpression(int line_number) {
         super("NotExpression", line_number);
     }
@@ -13,11 +14,23 @@ public class NotExpression extends Condition{
         this.pythonExpression = pythonExpression;
     }
 
+    public PythonExpression getPythonExpression() {
+        return pythonExpression;
+    }
+
+    @Override
+    public String generateCode() {
+        return "";
+    }
+
+    @Override
+    public String symbolTablePrint() {
+        return "not " + pythonExpression.symbolTablePrint();
+    }
+
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(super.toString()).append(Consts.printIndent(1))
-                .append(pythonExpression.toString());
-        return stringBuilder.toString();
+        return super.toString() + Consts.printIndent(1) +
+                pythonExpression.toString();
     }
 }

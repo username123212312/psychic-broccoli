@@ -9,32 +9,49 @@ public class Statement extends ASTNode {
     private List<CompoundStatement> compoundStatements;
     private boolean isPass = false;
 
-    public Statement(int line_number, List<CompoundStatement> compoundStatements) {
+    public Statement(int line_number) {
         super("Statement", line_number);
-        this.compoundStatements = compoundStatements;
     }
+
+    public void setCompoundStatements(List<CompoundStatement> compoundStatements) {
+        this.compoundStatements = compoundStatements;
+
+
+        if (compoundStatements != null) {
+            this.children.addAll(compoundStatements);
+        }
+    }
+
+    public void setPass(boolean pass) {
+        isPass = pass;
+    }
+
+    public List<CompoundStatement> getCompoundStatements() {
+        return compoundStatements;
+    }
+
+    public boolean isPass() {
+        return isPass;
+    }
+
+    @Override
+    public String generateCode() {
+        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+    }
+
 
     @Override
     public String toString() {
         if (isPass) {
-            return "PassStatement";
+            super.setNode_name("PassStatement");
+            return super.toString();
         }
-        StringBuilder sb = new StringBuilder();
-        sb.append("Statement [Line: ").append(this.line_number).append("]");
-
-        for (CompoundStatement cs : compoundStatements) {
-            String childStr = (cs == null) ? "[Empty/Null Node]" : cs.toString();
-
-            childStr = childStr.replace("\n", "\n  ");
-            sb.append("\n      ").append(childStr);
+        StringBuilder stringBuilder = new StringBuilder();
+        for (CompoundStatement compoundStatement : compoundStatements) {
+            stringBuilder.append((compoundStatements.indexOf(compoundStatement) == 0) ? "" : Consts.printIndent(1))
+                    .append(compoundStatement == null ? "Null"
+                            : compoundStatement.toString());
         }
-        return sb.toString();
-//        StringBuilder stringBuilder = new StringBuilder();
-//        for (CompoundStatement compoundStatement : compoundStatements) {
-//            stringBuilder.append((compoundStatements.indexOf(compoundStatement) == 0) ? "" : Consts.printIndent(1))
-//                    .append(compoundStatement == null ? "Null"
-//                    : compoundStatement.toString());
-//        }
-//        return stringBuilder.toString();
+        return stringBuilder.toString();
     }
 }
