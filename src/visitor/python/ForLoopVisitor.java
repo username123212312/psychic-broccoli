@@ -38,9 +38,12 @@ public class ForLoopVisitor extends PythonParserBaseVisitor<ForLoop> {
         ForLoop forLoop = new ForLoop(ctx.getStart().getLine());
         symbolTable.enterTemporaryScope("for", forLoop);
         try {
-            Atom atom = atomVisitor.visit(ctx.atom(0));
+            // atom(0) = yield expression (before 'for'), atom(1) = loop variable (after 'for')
+            Atom yieldAtom = atomVisitor.visit(ctx.atom(0));
+            Atom loopAtom = atomVisitor.visit(ctx.atom(1));
             PythonExpression pythonExpression = pythonExpressionVisitor.visit(ctx.python_expr());
-            forLoop.setVar(atom);
+            forLoop.setYieldExpr(yieldAtom);
+            forLoop.setVar(loopAtom);
             forLoop.setIter(pythonExpression);
             if (ctx.condition() != null) {
                 Condition condition = new ConditionVisitor().visit(ctx.condition());

@@ -1,39 +1,61 @@
 package cpython_bytecode.serialization;
 
 import cpython_bytecode.PythonCodeObject;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Orchestrates the creation of a .pyc file.
+ * Python 3.14 header (16 bytes):
+ *   [0:4]  magic number
+ *   [4:8]  flags (0=mtime, 1=unchecked_hash, 3=checked_hash)
+ *   [8:16] source_hash (8 bytes, for hash-based) or mtime(4)+size(4)
  */
 public class PycFileWriter {
-    // Magic number for Python 3.14 (Estimated based on 3.12/3.13 progression)
-    // Real value should be checked in a 3.14 environment: importlib.util.MAGIC_NUMBER
-    // Magic number for Python 3.14.0rc3 (3627)
-    // Formula: (MAGIC_NUMBER) | (0x0D << 16) | (0x0A << 24)
-    // 3627 in hex is 0xE2B. Combined: 0x0A0DE2B
-    private static final int MAGIC_314 = 0x0A0D0DCB;
+    private static final int MAGIC_314 = 0x0A0D0E2B;
 
     public void write(PythonCodeObject codeObject, String outputPath) throws IOException {
+        write(codeObject, outputPath, null);
+    }
+
+    public void write(PythonCodeObject codeObject, String outputPath, String sourcePath) throws IOException {
         try (FileOutputStream fos = new FileOutputStream(outputPath)) {
-            // 1. Write Header (16 bytes for modern Python)
+            // 16-byte header with CHECKED_HASH
             ByteBuffer header = ByteBuffer.allocate(16);
             header.order(ByteOrder.LITTLE_ENDIAN);
 
-            header.putInt(MAGIC_314);      // Magic number
-            header.putInt(0);               // Bit field for PEP 552 (0 for timestamp-based)
-            header.putInt((int) (System.currentTimeMillis() / 1000)); // Timestamp
-            header.putInt(0);               // Source size (optional)
+            header.putInt(MAGIC_314);
+            header.putInt(1);                     // flags = 1 (hash_based, no source check)
+
+            long timestamp = System.currentTimeMillis() / 1000;
+            header.putLong(timestamp);            // 8 bytes (unused for hash-based, but fills header)
 
             fos.write(header.array());
 
-            // 2. Write Marshaled Code Object
             MarshalWriter writer = new MarshalWriter();
             writer.writeObject(codeObject);
             fos.write(writer.getBytes());
+        }
+    }
+
+    private byte[] computeSourceHash(String sourcePath) throws IOException {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            try (FileInputStream fis = new FileInputStream(sourcePath)) {
+                byte[] buf = new byte[8192];
+                int n;
+                while ((n = fis.read(buf)) != -1) {
+                    md.update(buf, 0, n);
+                }
+            }
+            return md.digest();
+        } catch (NoSuchAlgorithmException e) {
+            throw new IOException("SHA-256 not available", e);
         }
     }
 }

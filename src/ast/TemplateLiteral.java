@@ -20,10 +20,7 @@ public class TemplateLiteral extends ASTNode {
         this.content = content;
     }
 
-    @Override
-    public String generateCode() {
-        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
-    }
+
 
     @Override
     public String toString() {

@@ -8,7 +8,7 @@ public class Name extends Atom {
 
     @Override
     public String generateCode() {
-        return "";
+        return getValue().toString();
     }
 
 }

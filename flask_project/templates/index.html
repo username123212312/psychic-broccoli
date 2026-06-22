@@ -4,7 +4,7 @@
 <div class="product-grid">
     {% for p in products %}
     <div class="product-card">
-        <img src="{{ p.img }}" alt="product image">
+        <img src="{% if p.img.startswith('static/') %}{{ url_for('static', filename=p.img[7:]) }}{% else %}{{ p.img }}{% endif %}" alt="product image">
         <h3>{{ p.name }}</h3>
         <p class="price">${{ p.price }}</p>
         <a class="btn" href="{{ url_for('detail', product_id=p.id) }}">View</a>

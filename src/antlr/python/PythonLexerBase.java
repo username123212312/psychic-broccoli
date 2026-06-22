@@ -65,11 +65,6 @@ abstract public class PythonLexerBase extends Lexer {
     }
 
     private Token createSyntheticToken(int type, String text) {
-        if (isDebug) {
-            System.out.println("=== DEBUG createSyntheticToken ===");
-            System.out.println("type=" + type + " text='" + escapeString(text) + "'");
-        }
-
         // Create synthetic token (not from input)
         CommonToken token = new CommonToken(type, text);
 
@@ -115,12 +110,6 @@ abstract public class PythonLexerBase extends Lexer {
         // Ensure non-negative positions
         if (start < 0) start = 0;
         if (stop < 0) stop = 0;
-        if (isDebug) {
-            System.out.println("=== DEBUG createTokenWithPositions ===");
-            System.out.println("type=" + type + " (" + PythonLexer.VOCABULARY.getSymbolicName(type) + ")");
-            System.out.println("text='" + escapeString(text) + "', length=" + text.length());
-            System.out.println("start=" + start + ", stop=" + stop);
-        }
 
         return new CommonToken(this._tokenFactorySourcePair, type, DEFAULT_TOKEN_CHANNEL, start, stop);
     }
@@ -162,24 +151,9 @@ abstract public class PythonLexerBase extends Lexer {
         // Save the start position of this rule match
         int ruleStart = _tokenStartCharIndex;
         String original = getText();
-        if (isDebug) {
-            System.out.println("=== DEBUG onNewLine ===");
-            System.out.println("ruleStart=" + ruleStart);
-            System.out.println("getText() = '" + escapeString(original) + "'");
-            System.out.println("Length = " + original.length());
-            for (int i = 0; i < original.length(); i++) {
-                char c = original.charAt(i);
-                System.out.printf("  [%d] = 0x%02x %s\n", i, (int) c,
-                        c == '\r' ? "\\r" : c == '\n' ? "\\n" : c == ' ' ? "[space]" : "'" + c + "'");
-            }
-        }
 
         String newLine = original.replaceAll("[^\r\n\f]+", "");
         String spaces = original.replaceAll("[\r\n\f]+", "");
-        if (isDebug) {
-            System.out.println("newLine='" + escapeString(newLine) + "' length=" + newLine.length());
-            System.out.println("spaces='" + spaces + "' length=" + spaces.length());
-        }
 
         // Strip newlines inside open clauses except if we are near EOF. We keep NEWLINEs near EOF to
         // satisfy the final newline needed by the single_put rule used by the REPL.

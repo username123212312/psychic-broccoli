@@ -2,6 +2,7 @@ package visitor.python;
 
 import antlr.python.PythonParser;
 import antlr.python.PythonParserBaseVisitor;
+import ast.ASTNode;
 import ast.atom.Atom;
 import ast.compundStmt.PythonExpression;
 import ast.returnStmt.ComplexReturnStatement;
@@ -23,5 +24,22 @@ public class ReturnStatementVisitor extends PythonParserBaseVisitor<ReturnStatem
         Atom atom = new AtomVisitor().visit(ctx.atom());
         statement.setAtom(atom);
         return statement;
+    }
+
+    @Override
+    public ReturnStatement visitArithmeticReturn(PythonParser.ArithmeticReturnContext ctx) {
+        ComplexReturnStatement complexReturnStatement = new ComplexReturnStatement(ctx.getStart().getLine());
+        ArithmeticExpressionVisitor arithmeticVisitor = new ArithmeticExpressionVisitor();
+        ASTNode arithmeticExpr = arithmeticVisitor.visit(ctx.arithmetic_expr());
+        complexReturnStatement.setExpression(arithmeticExpr);
+        return complexReturnStatement;
+    }
+
+    @Override
+    public ReturnStatement visitConditionReturn(PythonParser.ConditionReturnContext ctx) {
+        ComplexReturnStatement complexReturnStatement = new ComplexReturnStatement(ctx.getStart().getLine());
+        ASTNode condition = new ConditionVisitor().visit(ctx.condition());
+        complexReturnStatement.setExpression(condition);
+        return complexReturnStatement;
     }
 }

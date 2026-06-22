@@ -30,7 +30,9 @@ public class TagElementItem extends ASTNode {
     public String generateCode() {
         if (attributeName != null && !attributeName.isEmpty()) {
             if (attributeValue != null) {
-                return attributeName + "=\"" + attributeValue + "\"";
+                // بنشيل علامات التنصيص الموجودة أصلاً عشان ما تتكرر
+                String val = attributeValue.replace("\"", "");
+                return attributeName + "=\"" + val + "\"";
             } else {
                 return attributeName;
             }

@@ -41,7 +41,11 @@ public class App {
             Path startPath = Paths.get(args[0]);
 
             try (Stream<Path> paths = Files.walk(startPath)) {
-                List<Path> files = paths.filter(Files::isRegularFile).sorted().toList();
+                List<Path> files = paths
+                        .filter(Files::isRegularFile)
+                        .filter(p -> !p.toString().contains("\\generated\\") && !p.toString().contains("/generated/"))
+                        .sorted()
+                        .toList();
 
                 files.stream()
                         .filter(path -> path.toString().endsWith(".py"))
@@ -93,10 +97,13 @@ public class App {
                 System.out.println("[3/4] CPython Bytecode Generated.");
 
                 // 4. Bytecode Serialization (.pyc creation)
-                ensurePycacheDirectory();
-                String outputPycPath = "./__pycache__/" + moduleName + ".cpython-314.pyc";
+                Path parentDir = filePath.getParent();
+                if (parentDir == null) parentDir = Paths.get(".");
+                File pycacheDir = new File(parentDir.toFile(), "__pycache__");
+                if (!pycacheDir.exists()) pycacheDir.mkdirs();
+                String outputPycPath = new File(pycacheDir, moduleName + ".cpython-314.pyc").getAbsolutePath();
                 PycFileWriter pycWriter = new PycFileWriter();
-                pycWriter.write(compiledCode, outputPycPath);
+                pycWriter.write(compiledCode, outputPycPath, fileName);
                 System.out.println("[4/4] .pyc file created at: " + outputPycPath);
 
             } else if (fileName.endsWith(".html") || fileName.endsWith(".j2")) {
@@ -154,13 +161,6 @@ public class App {
         return (dotIndex == -1) ? filename : filename.substring(0, dotIndex);
     }
 
-    private static void ensurePycacheDirectory() {
-        File pycache = new File("./__pycache__");
-        if (!pycache.exists()) {
-            pycache.mkdirs();
-        }
-    }
-
     private static void writeGeneratedSource( Path filePath, String content) throws IOException {
         Path parentDir = filePath.getParent();
 
@@ -181,32 +181,34 @@ public class App {
             return;
         }
 
-        TreeViewer viewer = new TreeViewer(java.util.Arrays.asList(ruleNames), parseTree);
-        viewer.setScale(1.5);
+        SwingUtilities.invokeLater(() -> {
+            TreeViewer viewer = new TreeViewer(java.util.Arrays.asList(ruleNames), parseTree);
+            viewer.setScale(1.5);
 
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.add(viewer, BorderLayout.CENTER);
+            JPanel mainPanel = new JPanel(new BorderLayout());
+            mainPanel.add(viewer, BorderLayout.CENTER);
 
-        JScrollPane scrollPane = new JScrollPane(mainPanel);
+            JScrollPane scrollPane = new JScrollPane(mainPanel);
 
-        JPanel controlPanel = new JPanel();
-        JButton zoomInButton = new JButton("Zoom In");
-        JButton zoomOutButton = new JButton("Zoom Out");
-        JButton resetButton = new JButton("Reset Zoom");
+            JPanel controlPanel = new JPanel();
+            JButton zoomInButton = new JButton("Zoom In");
+            JButton zoomOutButton = new JButton("Zoom Out");
+            JButton resetButton = new JButton("Reset Zoom");
 
-        zoomInButton.addActionListener(e -> { viewer.setScale(viewer.getScale() * 1.2); viewer.repaint(); });
-        zoomOutButton.addActionListener(e -> { viewer.setScale(viewer.getScale() / 1.2); viewer.repaint(); });
-        resetButton.addActionListener(e -> { viewer.setScale(1.0); viewer.repaint(); });
+            zoomInButton.addActionListener(e -> { viewer.setScale(viewer.getScale() * 1.2); viewer.repaint(); });
+            zoomOutButton.addActionListener(e -> { viewer.setScale(viewer.getScale() / 1.2); viewer.repaint(); });
+            resetButton.addActionListener(e -> { viewer.setScale(1.0); viewer.repaint(); });
 
-        controlPanel.add(zoomInButton);
-        controlPanel.add(zoomOutButton);
-        controlPanel.add(resetButton);
+            controlPanel.add(zoomInButton);
+            controlPanel.add(zoomOutButton);
+            controlPanel.add(resetButton);
 
-        JFrame frame = new JFrame("Parse Tree Viewer");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.add(scrollPane, BorderLayout.CENTER);
-        frame.add(controlPanel, BorderLayout.SOUTH);
-        frame.setSize(1000, 640);
-        frame.setVisible(true);
+            JFrame frame = new JFrame("Parse Tree Viewer");
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.add(scrollPane, BorderLayout.CENTER);
+            frame.add(controlPanel, BorderLayout.SOUTH);
+            frame.setSize(1000, 640);
+            frame.setVisible(true);
+        });
     }
 }

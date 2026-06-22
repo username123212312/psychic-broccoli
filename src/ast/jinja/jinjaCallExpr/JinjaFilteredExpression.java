@@ -31,6 +31,13 @@ public class JinjaFilteredExpression extends JinjaCallExpression{
 
     @Override
     public String generateCode() {
-        return "";
+        StringBuilder builder = new StringBuilder();
+        if (jinjaVariableAccess != null) {
+            builder.append(jinjaVariableAccess.generateCode());
+        }
+        if (filterName != null && !filterName.isEmpty()) {
+            builder.append("|").append(filterName);
+        }
+        return builder.toString();
     }
 }

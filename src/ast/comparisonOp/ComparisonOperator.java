@@ -17,10 +17,6 @@ public class ComparisonOperator extends ASTNode {
         return operator;
     }
 
-    @Override
-    public String generateCode() {
-        return "";
-    }
 
     @Override
     public String toString() {

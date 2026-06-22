@@ -17,14 +17,33 @@ public class HtmlElementVisitor extends HtmlParserBaseVisitor<HtmlElement> {
     public HtmlElement visitTagElement(HtmlParser.TagElementContext ctx) {
         TagElement tagElement = new TagElement(ctx.getStart().getLine());
         TagContentVisitor tagContentVisitor = new TagContentVisitor();
-        if (ctx.tag_content() != null) {
-            List<TagElementItem> tagElementItemList = new ArrayList<>();
-            for (int i = 0; i < ctx.tag_content().size(); i++) {
-                TagElementItem tagElementItem = tagContentVisitor.visit(ctx.tag_content(i));
-                tagElementItemList.add(tagElementItem);
+
+        boolean isClosing = false;
+        String tagName = null;
+        List<TagElementItem> attributes = new ArrayList<>();
+
+
+        for (HtmlParser.Tag_contentContext tCtx : ctx.tag_content()) {
+            if (tCtx instanceof HtmlParser.ClosingMarkerContext) {
+
+                isClosing = true;
+            } else if (tCtx instanceof HtmlParser.HtmlAttributeContext) {
+                HtmlParser.HtmlAttributeContext attrCtx = (HtmlParser.HtmlAttributeContext) tCtx;
+                if (tagName == null) {
+
+                    tagName = attrCtx.TAG_NAME().getText();
+                } else {
+
+                    attributes.add(tagContentVisitor.visit(attrCtx));
+                }
             }
-            tagElement.setTags(tagElementItemList);
         }
+
+        tagElement.setTagName(tagName);
+        tagElement.setClosingTag(isClosing);
+        tagElement.setTags(attributes);
+        tagElement.setSelfClosing(ctx.TAG_SLASH_CLOSE() != null);
+
         return tagElement;
     }
 

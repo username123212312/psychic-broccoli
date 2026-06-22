@@ -1,7 +1,5 @@
 lexer grammar HtmlLexer;
 
-@header {package antlr.html;}
-
 JINJA_EXPR_START: '{{' -> pushMode(JINJA_MODE);
 JINJA_STMT_START: '{%' -> pushMode(JINJA_MODE);
 JINJA_COMMENT_START: '{#' -> pushMode(JINJA_MODE);
@@ -147,5 +145,5 @@ J_WS         : [ \t\r\n]+ -> skip ;
 
 fragment
 TAG_NameChar
-    : ~[ \t\r\n"'<>/=-]
+    : ~[ \t\r\n"'<>/=]
     ;

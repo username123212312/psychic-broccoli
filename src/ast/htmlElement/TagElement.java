@@ -12,6 +12,11 @@ public class TagElement extends HtmlElement {
     private List<TagElementItem> tags;
     private String tagName;
     private boolean selfClosing = false;
+    private boolean isClosingTag = false;
+
+    public void setClosingTag(boolean closingTag) {
+        isClosingTag = closingTag;
+    }
 
     public TagElement(int line_number) {
         super("TagElement", line_number);
@@ -51,27 +56,25 @@ public class TagElement extends HtmlElement {
     public String generateCode() {
         StringBuilder builder = new StringBuilder();
 
-        builder.append("<").append(tagName);
+        if (isClosingTag) {
 
-        if (tags != null) {
-            for (TagElementItem attr : tags) {
-                if (attr != null) {
-                    builder.append(" ").append(attr.generateCode());
+            builder.append("</").append(tagName).append(">");
+        } else {
+
+            builder.append("<").append(tagName);
+            if (tags != null) {
+                for (TagElementItem attr : tags) {
+                    if (attr != null) {
+                        builder.append(" ").append(attr.generateCode());
+                    }
                 }
             }
-        }
-        builder.append(">");
-
-        if (children != null) {
-            for (ASTNode child : children) {
-                if (child != null && !(child instanceof TagElementItem)) {
-                    builder.append(child.generateCode());
-                }
+            if (isSelfClosing()) {
+                builder.append(" />");
+            } else {
+                builder.append(">");
             }
         }
-
-        builder.append("</").append(tagName).append(">");
-
         return builder.toString();
     }
 

@@ -1,0 +1,9 @@
+<h1>Hello {{ undefined_variable }}</h1>
+
+<!-- ✅ هذا متحول مدمج -->
+<p>{{ request.url }}</p>
+
+<!-- ❌ هذا متحول غير معرّف -->
+{% for item in undefined_list %}
+<p>{{ item }}</p>
+{% endfor %}

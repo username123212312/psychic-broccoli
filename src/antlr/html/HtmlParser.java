@@ -154,14 +154,6 @@ public class HtmlParser extends Parser {
 		}
 		public HtmlContentContext(Html_contentContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterHtmlContent(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitHtmlContent(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitHtmlContent(this);
 			else return visitor.visitChildren(this);
@@ -224,14 +216,6 @@ public class HtmlParser extends Parser {
 		}
 		public JinjaStmtItemContext(Html_content_itemContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaStmtItem(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaStmtItem(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaStmtItem(this);
 			else return visitor.visitChildren(this);
@@ -243,14 +227,6 @@ public class HtmlParser extends Parser {
 			return getRuleContext(JinjaExpressionBlockContext.class,0);
 		}
 		public JinjaExprItemContext(Html_content_itemContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaExprItem(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaExprItem(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaExprItem(this);
@@ -264,14 +240,6 @@ public class HtmlParser extends Parser {
 		}
 		public HtmlElementItemContext(Html_content_itemContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterHtmlElementItem(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitHtmlElementItem(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitHtmlElementItem(this);
 			else return visitor.visitChildren(this);
@@ -281,14 +249,6 @@ public class HtmlParser extends Parser {
 	public static class HtmlTextItemContext extends Html_content_itemContext {
 		public TerminalNode HTML_TEXT() { return getToken(HtmlParser.HTML_TEXT, 0); }
 		public HtmlTextItemContext(Html_content_itemContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterHtmlTextItem(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitHtmlTextItem(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitHtmlTextItem(this);
@@ -376,14 +336,6 @@ public class HtmlParser extends Parser {
 		}
 		public TagElementContext(HtmlElementContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterTagElement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitTagElement(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitTagElement(this);
 			else return visitor.visitChildren(this);
@@ -397,14 +349,6 @@ public class HtmlParser extends Parser {
 		}
 		public TerminalNode STYLE_CLOSE() { return getToken(HtmlParser.STYLE_CLOSE, 0); }
 		public StyleElementContext(HtmlElementContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterStyleElement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitStyleElement(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitStyleElement(this);
@@ -499,14 +443,6 @@ public class HtmlParser extends Parser {
 		public TerminalNode TAG_SLASH() { return getToken(HtmlParser.TAG_SLASH, 0); }
 		public ClosingMarkerContext(Tag_contentContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterClosingMarker(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitClosingMarker(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitClosingMarker(this);
 			else return visitor.visitChildren(this);
@@ -518,14 +454,6 @@ public class HtmlParser extends Parser {
 		public TerminalNode TAG_EQUALS() { return getToken(HtmlParser.TAG_EQUALS, 0); }
 		public TerminalNode ATTVALUE_VALUE() { return getToken(HtmlParser.ATTVALUE_VALUE, 0); }
 		public HtmlAttributeContext(Tag_contentContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterHtmlAttribute(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitHtmlAttribute(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitHtmlAttribute(this);
@@ -606,14 +534,6 @@ public class HtmlParser extends Parser {
 		}
 		public StyleSheetContext(Style_sheetContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterStyleSheet(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitStyleSheet(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitStyleSheet(this);
 			else return visitor.visitChildren(this);
@@ -679,14 +599,6 @@ public class HtmlParser extends Parser {
 		public TerminalNode CSS_RBRACE() { return getToken(HtmlParser.CSS_RBRACE, 0); }
 		public CssRuleContext(RuleSetContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterCssRule(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitCssRule(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitCssRule(this);
 			else return visitor.visitChildren(this);
@@ -746,14 +658,6 @@ public class HtmlParser extends Parser {
 			return getToken(HtmlParser.CSS_COMMA, i);
 		}
 		public CssSelectorDeclarationContext(Selector_declContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterCssSelectorDeclaration(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitCssSelectorDeclaration(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitCssSelectorDeclaration(this);
@@ -825,14 +729,6 @@ public class HtmlParser extends Parser {
 			return getToken(HtmlParser.CSS_GT, i);
 		}
 		public CssSelectorListContext(Css_selector_listContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterCssSelectorList(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitCssSelectorList(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitCssSelectorList(this);
@@ -911,14 +807,6 @@ public class HtmlParser extends Parser {
 		}
 		public QualifiedSelectorContext(Css_selectorContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterQualifiedSelector(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitQualifiedSelector(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitQualifiedSelector(this);
 			else return visitor.visitChildren(this);
@@ -935,14 +823,6 @@ public class HtmlParser extends Parser {
 			return getToken(HtmlParser.CSS_ID, i);
 		}
 		public StandaloneSimpleSelectorContext(Css_selectorContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterStandaloneSimpleSelector(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitStandaloneSimpleSelector(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitStandaloneSimpleSelector(this);
@@ -961,14 +841,6 @@ public class HtmlParser extends Parser {
 		}
 		public TypeAndIdSelectorContext(Css_selectorContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterTypeAndIdSelector(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitTypeAndIdSelector(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitTypeAndIdSelector(this);
 			else return visitor.visitChildren(this);
@@ -978,14 +850,6 @@ public class HtmlParser extends Parser {
 	public static class TypeSelectorContext extends Css_selectorContext {
 		public TerminalNode CSS_ID() { return getToken(HtmlParser.CSS_ID, 0); }
 		public TypeSelectorContext(Css_selectorContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterTypeSelector(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitTypeSelector(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitTypeSelector(this);
@@ -1133,14 +997,6 @@ public class HtmlParser extends Parser {
 		}
 		public DeclarationBlockContext(DeclarationListContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterDeclarationBlock(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitDeclarationBlock(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitDeclarationBlock(this);
 			else return visitor.visitChildren(this);
@@ -1206,14 +1062,6 @@ public class HtmlParser extends Parser {
 			return getRuleContext(CsstermContext.class,i);
 		}
 		public CssDeclarationContext(DeclarationContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterCssDeclaration(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitCssDeclaration(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitCssDeclaration(this);
@@ -1287,14 +1135,6 @@ public class HtmlParser extends Parser {
 			return getToken(HtmlParser.CSS_COMMA, i);
 		}
 		public FunctionArgumentsContext(Css_function_argsContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterFunctionArguments(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitFunctionArguments(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitFunctionArguments(this);
@@ -1387,14 +1227,6 @@ public class HtmlParser extends Parser {
 		}
 		public CssFunctionCallContext(Css_function_callContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterCssFunctionCall(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitCssFunctionCall(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitCssFunctionCall(this);
 			else return visitor.visitChildren(this);
@@ -1457,14 +1289,6 @@ public class HtmlParser extends Parser {
 		}
 		public FunctionTermContext(CsstermContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterFunctionTerm(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitFunctionTerm(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitFunctionTerm(this);
 			else return visitor.visitChildren(this);
@@ -1475,14 +1299,6 @@ public class HtmlParser extends Parser {
 		public TerminalNode CSS_STRING() { return getToken(HtmlParser.CSS_STRING, 0); }
 		public StringTermContext(CsstermContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterStringTerm(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitStringTerm(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitStringTerm(this);
 			else return visitor.visitChildren(this);
@@ -1492,14 +1308,6 @@ public class HtmlParser extends Parser {
 	public static class NumberTermContext extends CsstermContext {
 		public TerminalNode CSS_NUMBER() { return getToken(HtmlParser.CSS_NUMBER, 0); }
 		public NumberTermContext(CsstermContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterNumberTerm(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitNumberTerm(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitNumberTerm(this);
@@ -1512,14 +1320,6 @@ public class HtmlParser extends Parser {
 		public TerminalNode CSS_UNIT() { return getToken(HtmlParser.CSS_UNIT, 0); }
 		public UnitNumberTermContext(CsstermContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterUnitNumberTerm(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitUnitNumberTerm(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitUnitNumberTerm(this);
 			else return visitor.visitChildren(this);
@@ -1530,14 +1330,6 @@ public class HtmlParser extends Parser {
 		public TerminalNode CSS_HEX_COLOR() { return getToken(HtmlParser.CSS_HEX_COLOR, 0); }
 		public ColorTermContext(CsstermContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterColorTerm(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitColorTerm(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitColorTerm(this);
 			else return visitor.visitChildren(this);
@@ -1547,14 +1339,6 @@ public class HtmlParser extends Parser {
 	public static class IdentifierTermContext extends CsstermContext {
 		public TerminalNode CSS_ID() { return getToken(HtmlParser.CSS_ID, 0); }
 		public IdentifierTermContext(CsstermContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterIdentifierTerm(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitIdentifierTerm(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitIdentifierTerm(this);
@@ -1652,14 +1436,6 @@ public class HtmlParser extends Parser {
 		}
 		public JinjaStmtBlockContext(JinjaStatementBlockContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaStmtBlock(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaStmtBlock(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaStmtBlock(this);
 			else return visitor.visitChildren(this);
@@ -1710,14 +1486,6 @@ public class HtmlParser extends Parser {
 		}
 		public TerminalNode JINJA_EXPR_END() { return getToken(HtmlParser.JINJA_EXPR_END, 0); }
 		public JinjaExprBlockContext(JinjaExpressionBlockContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaExprBlock(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaExprBlock(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaExprBlock(this);
@@ -1770,14 +1538,6 @@ public class HtmlParser extends Parser {
 		}
 		public JinjaForStmtContext(JStatementContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaForStmt(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaForStmt(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaForStmt(this);
 			else return visitor.visitChildren(this);
@@ -1789,14 +1549,6 @@ public class HtmlParser extends Parser {
 			return getRuleContext(J_extends_stmtContext.class,0);
 		}
 		public JinjaExtendsStmtContext(JStatementContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaExtendsStmt(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaExtendsStmt(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaExtendsStmt(this);
@@ -1810,14 +1562,6 @@ public class HtmlParser extends Parser {
 		}
 		public JinjaBlockStmtContext(JStatementContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaBlockStmt(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaBlockStmt(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaBlockStmt(this);
 			else return visitor.visitChildren(this);
@@ -1829,14 +1573,6 @@ public class HtmlParser extends Parser {
 			return getRuleContext(J_if_stmtContext.class,0);
 		}
 		public JinjaIfStmtContext(JStatementContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaIfStmt(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaIfStmt(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaIfStmt(this);
@@ -1917,14 +1653,6 @@ public class HtmlParser extends Parser {
 		public TerminalNode JINJA_STMT_END() { return getToken(HtmlParser.JINJA_STMT_END, 0); }
 		public JinjaExtendsStmtDefContext(J_extends_stmtContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaExtendsStmtDef(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaExtendsStmtDef(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaExtendsStmtDef(this);
 			else return visitor.visitChildren(this);
@@ -1986,14 +1714,6 @@ public class HtmlParser extends Parser {
 		public TerminalNode JINJA_STMT_START() { return getToken(HtmlParser.JINJA_STMT_START, 0); }
 		public TerminalNode J_ENDBLOCK() { return getToken(HtmlParser.J_ENDBLOCK, 0); }
 		public JinjaBlockStmtDefContext(J_block_stmtContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaBlockStmtDef(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaBlockStmtDef(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaBlockStmtDef(this);
@@ -2077,14 +1797,6 @@ public class HtmlParser extends Parser {
 		public TerminalNode J_ENDFOR() { return getToken(HtmlParser.J_ENDFOR, 0); }
 		public JinjaForStmtDefContext(J_for_stmtContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaForStmtDef(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaForStmtDef(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaForStmtDef(this);
 			else return visitor.visitChildren(this);
@@ -2158,14 +1870,6 @@ public class HtmlParser extends Parser {
 		public TerminalNode J_ENDIF() { return getToken(HtmlParser.J_ENDIF, 0); }
 		public JinjaIfStmtDefContext(J_if_stmtContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaIfStmtDef(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaIfStmtDef(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaIfStmtDef(this);
 			else return visitor.visitChildren(this);
@@ -2225,14 +1929,6 @@ public class HtmlParser extends Parser {
 		}
 		public JinjaSimpleExprContext(J_expressionContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaSimpleExpr(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaSimpleExpr(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaSimpleExpr(this);
 			else return visitor.visitChildren(this);
@@ -2251,14 +1947,6 @@ public class HtmlParser extends Parser {
 		public TerminalNode J_GT() { return getToken(HtmlParser.J_GT, 0); }
 		public TerminalNode J_LT() { return getToken(HtmlParser.J_LT, 0); }
 		public JinjaBinaryExprContext(J_expressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaBinaryExpr(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaBinaryExpr(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaBinaryExpr(this);
@@ -2334,14 +2022,6 @@ public class HtmlParser extends Parser {
 		}
 		public JinjaVarAccessOnlyContext(J_call_exprContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaVarAccessOnly(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaVarAccessOnly(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaVarAccessOnly(this);
 			else return visitor.visitChildren(this);
@@ -2357,14 +2037,6 @@ public class HtmlParser extends Parser {
 		}
 		public JinjaFunctionCallContext(J_call_exprContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaFunctionCall(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaFunctionCall(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaFunctionCall(this);
 			else return visitor.visitChildren(this);
@@ -2376,14 +2048,6 @@ public class HtmlParser extends Parser {
 			return getRuleContext(J_atomContext.class,0);
 		}
 		public JinjaAtomOnlyContext(J_call_exprContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaAtomOnly(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaAtomOnly(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaAtomOnly(this);
@@ -2399,14 +2063,6 @@ public class HtmlParser extends Parser {
 		public TerminalNode J_NAME() { return getToken(HtmlParser.J_NAME, 0); }
 		public TerminalNode J_LENGTH() { return getToken(HtmlParser.J_LENGTH, 0); }
 		public JinjaFilteredExprContext(J_call_exprContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaFilteredExpr(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaFilteredExpr(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaFilteredExpr(this);
@@ -2525,14 +2181,6 @@ public class HtmlParser extends Parser {
 		}
 		public JinjaVarAccessOnlyDefContext(J_var_accessContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaVarAccessOnlyDef(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaVarAccessOnlyDef(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaVarAccessOnlyDef(this);
 			else return visitor.visitChildren(this);
@@ -2604,14 +2252,6 @@ public class HtmlParser extends Parser {
 		}
 		public JinjaArgListDefContext(J_argument_listContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaArgListDef(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaArgListDef(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaArgListDef(this);
 			else return visitor.visitChildren(this);
@@ -2678,14 +2318,6 @@ public class HtmlParser extends Parser {
 		}
 		public JinjaKwArgContext(J_argumentContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaKwArg(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaKwArg(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaKwArg(this);
 			else return visitor.visitChildren(this);
@@ -2697,14 +2329,6 @@ public class HtmlParser extends Parser {
 			return getRuleContext(J_expressionContext.class,0);
 		}
 		public JinjaPosArgContext(J_argumentContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaPosArg(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaPosArg(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaPosArg(this);
@@ -2769,14 +2393,6 @@ public class HtmlParser extends Parser {
 		public TerminalNode J_NUMBER() { return getToken(HtmlParser.J_NUMBER, 0); }
 		public JinjaNumberAtomContext(J_atomContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaNumberAtom(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaNumberAtom(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaNumberAtom(this);
 			else return visitor.visitChildren(this);
@@ -2786,14 +2402,6 @@ public class HtmlParser extends Parser {
 	public static class JinjaTrueAtomContext extends J_atomContext {
 		public TerminalNode J_TRUE() { return getToken(HtmlParser.J_TRUE, 0); }
 		public JinjaTrueAtomContext(J_atomContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaTrueAtom(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaTrueAtom(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaTrueAtom(this);
@@ -2805,14 +2413,6 @@ public class HtmlParser extends Parser {
 		public TerminalNode J_FALSE() { return getToken(HtmlParser.J_FALSE, 0); }
 		public JinjaFalseAtomContext(J_atomContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaFalseAtom(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaFalseAtom(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaFalseAtom(this);
 			else return visitor.visitChildren(this);
@@ -2822,14 +2422,6 @@ public class HtmlParser extends Parser {
 	public static class JinjaNoneAtomContext extends J_atomContext {
 		public TerminalNode J_NONE() { return getToken(HtmlParser.J_NONE, 0); }
 		public JinjaNoneAtomContext(J_atomContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaNoneAtom(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaNoneAtom(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaNoneAtom(this);
@@ -2841,14 +2433,6 @@ public class HtmlParser extends Parser {
 		public TerminalNode J_STRING() { return getToken(HtmlParser.J_STRING, 0); }
 		public JinjaStringAtomContext(J_atomContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaStringAtom(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaStringAtom(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaStringAtom(this);
 			else return visitor.visitChildren(this);
@@ -2858,14 +2442,6 @@ public class HtmlParser extends Parser {
 	public static class JinjaNameAtomContext extends J_atomContext {
 		public TerminalNode J_NAME() { return getToken(HtmlParser.J_NAME, 0); }
 		public JinjaNameAtomContext(J_atomContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).enterJinjaNameAtom(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlParserListener ) ((HtmlParserListener)listener).exitJinjaNameAtom(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HtmlParserVisitor ) return ((HtmlParserVisitor<? extends T>)visitor).visitJinjaNameAtom(this);

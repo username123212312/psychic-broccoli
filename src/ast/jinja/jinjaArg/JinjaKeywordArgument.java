@@ -24,6 +24,13 @@ public class JinjaKeywordArgument extends JinjaArgument {
 
     @Override
     public String generateCode() {
-        return "";
+        StringBuilder builder = new StringBuilder();
+        if (id != null) {
+            builder.append(id).append("=");
+        }
+        if (getArgument() != null) {
+            builder.append(getArgument().generateCode());
+        }
+        return builder.toString();
     }
 }
