@@ -16,17 +16,17 @@ bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
 
-__pycache__/
+**/__pycache__/
 .pyc
 
-flask_project/templates/generated/
+**/generated/
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
-.iml
+*.iml
 
 ### VS Code ###
 .vscode/
