@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="detail-container">
-    <img class="big-img" src="{{ url_for('static', filename=product.img.split('static/')[-1]) }}" alt="product image">
+    <img class="big-img" src="{% if product.img.startswith('static/') %}{{ url_for('static', filename=product.img[7:]) }}{% else %}{{ product.img }}{% endif %}" alt="product image">
 
 
     <div class="info">

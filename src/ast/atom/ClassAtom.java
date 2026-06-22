@@ -5,8 +5,4 @@ public class ClassAtom extends Atom {
         super("ClassAtom", line_number);
     }
 
-    @Override
-    public String generateCode() {
-        return "";
-    }
 }

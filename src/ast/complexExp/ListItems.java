@@ -1,6 +1,7 @@
 package ast.complexExp;
 
 import ast.atom.Atom;
+import cpython_bytecode.codegen.CodegenContext;
 
 import java.util.List;
 
@@ -19,9 +20,17 @@ public class ListItems extends ComplexExpression {
         return atomList;
     }
 
-    @Override
-    public String generateCode() {
-        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
-    }
 
+
+    @Override
+    public void generateBytecode(CodegenContext ctx) {
+        if (atomList != null) {
+            for (ast.atom.Atom a : atomList) {
+                ctx.emitAtom(a);
+            }
+            ctx.emitBuildTuple(atomList.size());
+        } else {
+            ctx.emitBuildTuple(0);
+        }
+    }
 }

@@ -42,6 +42,10 @@ public class NameManager {
     public List<String> getFreeVars() { return new ArrayList<>(freeVars); }
     public List<String> getCellVars() { return new ArrayList<>(cellVars); }
 
+    public boolean isCellVar(String name) { return cellVars.contains(name); }
+
+    public void removeVarName(String name) { varNames.remove(name); }
+
     public void clear() {
         names.clear();
         varNames.clear();

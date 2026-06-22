@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, abort
 
 app = Flask(__name__)
 
@@ -41,6 +41,8 @@ def add_product():
 @app.route("/product/<int:product_id>")
 def detail(product_id):
     product = next((p for p in products if p["id"] == product_id), None)
+    if product is None:
+        abort(404)
     return render_template("detail.html", product=product)
 
 

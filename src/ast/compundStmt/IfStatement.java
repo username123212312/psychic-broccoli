@@ -4,6 +4,7 @@ import ast.Consts;
 import ast.condition.Condition;
 import ast.ElIfStatement;
 import ast.Statement;
+import cpython_bytecode.codegen.CodegenContext;
 
 import java.util.List;
 
@@ -52,10 +53,39 @@ public class IfStatement extends CompoundStatement {
 
 
     @Override
-    public String generateCode() {
-        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
-    }
+    public void generateBytecode(CodegenContext ctx) {
+        String elseLabel = ctx.newLabel();
+        String endLabel = ctx.newLabel();
+        String currentElse = elseLabel;
 
+        condition.generateBytecode(ctx);
+        ctx.emitPopJumpIfFalse(currentElse);
+
+        if (statement != null) statement.generateBytecode(ctx);
+
+        if ((elifStatements != null && !elifStatements.isEmpty()) || elseStatement != null) {
+            ctx.emitJumpForward(endLabel);
+        }
+
+        ctx.markLabel(currentElse);
+
+        if (elifStatements != null) {
+            for (ElIfStatement elif : elifStatements) {
+                String nextElse = ctx.newLabel();
+                elif.getCondition().generateBytecode(ctx);
+                ctx.emitPopJumpIfFalse(nextElse);
+                if (elif.getStatement() != null) elif.getStatement().generateBytecode(ctx);
+                if (elifStatements.indexOf(elif) < elifStatements.size() - 1 || elseStatement != null) {
+                    ctx.emitJumpForward(endLabel);
+                }
+                ctx.markLabel(nextElse);
+            }
+        }
+
+        if (elseStatement != null) elseStatement.generateBytecode(ctx);
+
+        ctx.markLabel(endLabel);
+    }
 
 
     @Override

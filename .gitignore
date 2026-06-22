@@ -45,3 +45,9 @@ src/antlr/JinjaFlaskParserBaseListener.java
 src/antlr/JinjaFlaskParserBaseVisitor.java
 src/antlr/JinjaFlaskParserListener.java
 src/antlr/JinjaFlaskParserVisitor.java
+
+build/
+__pycache__/
+*.pyc
+*.class
+*.txt
