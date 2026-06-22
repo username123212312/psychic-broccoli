@@ -38,23 +38,22 @@ public class ListComprehension extends ComplexExpression {
         String loopVarName = loopVarAtom instanceof ast.atom.Name n
             ? (String) n.getValue() : null;
 
-        ctx.pushFunctionScope("<listcomp>", ctx.getFilename(), line_number, false);
-        ctx.addVarName(".0");
-        ctx.getCodeObject().co_argcount = 1;
-
-        ctx.emitResume(0);
-
+        // Build result list before loading iterable, so result is below iterator on stack
         ctx.emitBuildList(0);
 
-        int dotZeroIdx = 0;
-        ctx.emitLoadFast(dotZeroIdx);
+        // Load the iterable and get iterator
+        forLoop.getIter().generateBytecode(ctx);
         ctx.emitGetIter();
 
-        String startLabel = ctx.newLabel();
+        // Loop
+        String loopLabel = ctx.newLabel();
         String endLabel = ctx.newLabel();
-        ctx.markLabel(startLabel);
+        ctx.markLabel(loopLabel);
+
+        // FOR_ITER jumps to endLabel when exhausted (pops iterator)
         ctx.emitForIter(endLabel);
 
+        // Store loop variable
         if (loopVarName != null) {
             ctx.storeVariable(loopVarName);
         }
@@ -69,7 +68,7 @@ public class ListComprehension extends ComplexExpression {
                 int noneIdx = ctx.addConstant("NONE_PLACEHOLDER");
                 ctx.emitLoadConst(noneIdx);
             }
-            ctx.emitListAppend(1);
+            ctx.emitListAppend(2);
             ctx.markLabel(skipAppend);
         } else {
             if (yieldAtom != null) {
@@ -78,19 +77,17 @@ public class ListComprehension extends ComplexExpression {
                 int noneIdx = ctx.addConstant("NONE_PLACEHOLDER");
                 ctx.emitLoadConst(noneIdx);
             }
-            ctx.emitListAppend(1);
+            ctx.emitListAppend(2);
         }
 
-        ctx.emitJumpBackward(startLabel);
+        ctx.emitJumpBackward(loopLabel);
         ctx.markLabel(endLabel);
 
-        ctx.emitReturnValue();
-
-        ctx.saveFunctionAndEmit(false);
-
-        forLoop.getIter().generateBytecode(ctx);
-        ctx.emitGetIter();
-        ctx.emitCall(1);
+        // Python 3.12+: FOR_ITER on exhaustion pushes None (sentinel) and jumps.
+        // END_FOR pops the None sentinel; POP_ITER pops the iterator.
+        // After cleanup, only the result list remains on TOS.
+        ctx.emitEndFor();
+        ctx.emitPopIter();
     }
 
     @Override

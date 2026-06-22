@@ -3,6 +3,7 @@ package ast.condition;
 import ast.Consts;
 import ast.comparisonOp.ComparisonOperator;
 import ast.compundStmt.PythonExpression;
+import cpython_bytecode.PythonOpCode;
 import cpython_bytecode.codegen.CodegenContext;
 
 import java.util.Map;
@@ -34,6 +35,14 @@ public class ComparisonExpression extends Condition {
 
     @Override
     public void generateBytecode(CodegenContext ctx) {
+        if (operatorPythonExpressionMap != null && !operatorPythonExpressionMap.isEmpty()) {
+            ast.comparisonOp.ComparisonOperator firstOp = operatorPythonExpressionMap.keySet().iterator().next();
+            String op = firstOp != null ? firstOp.getOperator() : "";
+            if ("or".equals(op) || "and".equals(op)) {
+                generateShortCircuit(ctx, op);
+                return;
+            }
+        }
         if (baseExpr != null) baseExpr.generateBytecode(ctx);
         if (operatorPythonExpressionMap != null) {
             for (java.util.Map.Entry<ast.comparisonOp.ComparisonOperator, PythonExpression> entry : operatorPythonExpressionMap.entrySet()) {
@@ -46,6 +55,23 @@ public class ComparisonExpression extends Condition {
                 }
             }
         }
+    }
+
+    private void generateShortCircuit(CodegenContext ctx, String op) {
+        String endLabel = ctx.newLabel();
+        if (baseExpr != null) baseExpr.generateBytecode(ctx);
+        ctx.emit(PythonOpCode.COPY, 1);
+        ctx.emit(PythonOpCode.TO_BOOL, 0);
+        if ("or".equals(op)) {
+            ctx.emitPopJumpIfTrue(endLabel);
+        } else {
+            ctx.emitPopJumpIfFalse(endLabel);
+        }
+        ctx.emitPopTop();
+        ast.comparisonOp.ComparisonOperator firstOp = operatorPythonExpressionMap.keySet().iterator().next();
+        PythonExpression compExpr = operatorPythonExpressionMap.get(firstOp);
+        if (compExpr != null) compExpr.generateBytecode(ctx);
+        ctx.markLabel(endLabel);
     }
 
     private int mapCompareOp(ast.comparisonOp.ComparisonOperator compOp, cpython_bytecode.codegen.CodegenContext ctx) {

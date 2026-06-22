@@ -166,13 +166,10 @@ public class CodegenContext {
     }
 
     public String newLabel() {
-        String lbl = "L" + (labelCounter++);
-        System.out.println("DEBUG newLabel: '" + lbl + "' in function " + currentCodeObject.co_name);
-        return lbl;
+        return "L" + (labelCounter++);
     }
 
     public void markLabel(String label) {
-        System.out.println("DEBUG markLabel: '" + label + "' at instr idx " + nextInsnIndex() + " in function " + currentCodeObject.co_name);
         labelManager.markLabel(label, nextInsnIndex());
     }
 
@@ -259,16 +256,13 @@ public class CodegenContext {
                 if (enclosingLocalsStack.peek().contains(name)) {
                     int freeIdx = nameManager.addFreeVar(name);
                     int derefIdx = nameManager.getVarNames().size() + freeIdx;
-                    System.out.println("DEBUG LOAD_VAR DEREF: " + name + " freeIdx=" + freeIdx + " derefIdx=" + derefIdx + " varNames=" + nameManager.getVarNames() + " freeVars=" + nameManager.getFreeVars() + " co_name=" + currentCodeObject.co_name);
                     emit(PythonOpCode.LOAD_DEREF, derefIdx);
                 } else {
                     int idx = addName(name);
-                    System.out.println("DEBUG LOAD_VAR GLOBAL fallback: " + name + " not in enclosing scope; estack peek=" + enclosingLocalsStack.peek() + " co_name=" + currentCodeObject.co_name);
                     emit(PythonOpCode.LOAD_GLOBAL, idx << 1);
                 }
             } else {
                 int idx = addName(name);
-                System.out.println("DEBUG LOAD_VAR GLOBAL (empty estack): " + name + " co_name=" + currentCodeObject.co_name);
                 emit(PythonOpCode.LOAD_GLOBAL, idx << 1);
             }
         } else {
@@ -296,12 +290,10 @@ public class CodegenContext {
             } else if (!enclosingLocalsStack.isEmpty() && enclosingLocalsStack.peek().contains(name)) {
                 int freeIdx = nameManager.addFreeVar(name);
                 int derefIdx = nameManager.getVarNames().size() + freeIdx;
-                System.out.println("DEBUG LOAD_VAR_FOR_CALL DEREF: " + name + " freeIdx=" + freeIdx + " derefIdx=" + derefIdx + " varNames=" + nameManager.getVarNames() + " freeVars=" + nameManager.getFreeVars());
                 emit(PythonOpCode.LOAD_DEREF, derefIdx);
                 return false;
             } else {
                 int idx = addName(name);
-                System.out.println("DEBUG LOAD_VAR_FOR_CALL GLOBAL: " + name + " in genexpr? " + currentCodeObject.co_name);
                 emit(PythonOpCode.LOAD_GLOBAL, (idx << 1) | 1);
                 return true;
             }
@@ -351,6 +343,8 @@ public class CodegenContext {
     public void emitImportFrom(int arg) { emit(PythonOpCode.IMPORT_FROM, arg); }
     public void emitLoadAttr(int arg) { emit(PythonOpCode.LOAD_ATTR, arg); }
     public void emitYieldValue(int arg) { emit(PythonOpCode.YIELD_VALUE, arg); }
+    public void emitEndFor() { emit(PythonOpCode.END_FOR, 0); }
+    public void emitPopIter() { emit(PythonOpCode.POP_ITER, 0); }
     public void emitListAppend(int arg) { emit(PythonOpCode.LIST_APPEND, arg); }
     public void emitStoreFast(int idx) { emit(PythonOpCode.STORE_FAST, idx); }
     public void emitStoreName(int idx) { emit(PythonOpCode.STORE_NAME, idx); }
@@ -469,7 +463,6 @@ public class CodegenContext {
         labelCounter = 0;
         clearScope();
 
-        System.out.println("DEBUG pushFunctionScope: " + name + " co_flags=" + currentCodeObject.co_flags + " RESUME=" + emitResume);
         if (emitResume) {
             emit(PythonOpCode.RESUME, 0);
         }
@@ -477,6 +470,12 @@ public class CodegenContext {
 
     public PythonCodeObject popFunctionScope() {
         fixCellVars();
+
+        // Insert COPY_FREE_VARS at beginning if function has free variables
+        if (!nameManager.getFreeVars().isEmpty()) {
+            currentInstructions.add(0, new PythonInstruction(PythonOpCode.COPY_FREE_VARS, nameManager.getFreeVars().size()));
+            labelManager.shiftIndices(1);
+        }
 
         labelManager.backpatch(currentInstructions);
 
@@ -529,8 +528,6 @@ public class CodegenContext {
                 }
             }
         }
-
-        System.out.println("DEBUG popFunctionScope: " + funcCode.co_name + " varnames=" + funcCode.co_varnames + " freevars=" + funcCode.co_freevars + " cellvars=" + funcCode.co_cellvars);
 
         return funcCode;
     }
@@ -621,12 +618,34 @@ public class CodegenContext {
 
     public void saveFunctionAndEmit(boolean hasDecorator) {
         PythonCodeObject funcCode = popFunctionScope();
-        System.out.println("DEBUG saveFunctionAndEmit: " + funcCode.co_name + " varnames=" + funcCode.co_varnames + " freevars=" + funcCode.co_freevars + " cellvars=" + funcCode.co_cellvars);
+        // Emit closure tuple building if the child function has free variables
+        if (!funcCode.co_freevars.isEmpty()) {
+            for (String fv : funcCode.co_freevars) {
+                int varIdx = nameManager.getVarNames().indexOf(fv);
+                if (varIdx >= 0) {
+                    emit(PythonOpCode.LOAD_FAST, varIdx);
+                } else {
+                    int cellIdx = nameManager.getCellVars().indexOf(fv);
+                    if (cellIdx >= 0) {
+                        int derefIdx = nameManager.getVarNames().size() + cellIdx;
+                        emit(PythonOpCode.LOAD_DEREF, derefIdx);
+                    } else {
+                        loadVariable(fv);
+                    }
+                }
+            }
+            emit(PythonOpCode.BUILD_TUPLE, funcCode.co_freevars.size());
+        }
+
         int codeConstIdx = addConstant(funcCode);
         emit(PythonOpCode.LOAD_CONST, codeConstIdx);
         emit(PythonOpCode.MAKE_FUNCTION, 0);
+
+        if (!funcCode.co_freevars.isEmpty()) {
+            emit(PythonOpCode.SET_FUNCTION_ATTRIBUTE, 8);
+        }
+
         if (hasDecorator) {
-            // CALL 0: TOS[-1] is the decorator result, TOS is the function
             emit(PythonOpCode.CALL, 0);
         }
     }
@@ -651,8 +670,6 @@ public class CodegenContext {
         currentCodeObject.co_stacksize = stackDepthCalculator.calculate(currentInstructions);
         currentCodeObject.co_nlocals = currentCodeObject.co_varnames.size();
         currentCodeObject.co_lnotab = generateLineTable(currentInstructions.size());
-
-        System.out.println("DEBUG finishModule: " + currentCodeObject.co_name + " consts=" + currentCodeObject.co_consts);
 
         return currentCodeObject;
     }

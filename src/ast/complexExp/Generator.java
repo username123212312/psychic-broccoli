@@ -43,12 +43,6 @@ public class Generator extends ComplexExpression{
         ctx.addVarName(".0");
         ctx.getCodeObject().co_argcount = 1;
 
-        // COPY_FREE_VARS if the genexpr has freevars (closure variables)
-        int freeVarCount = ctx.getNameManager() != null ? ctx.getNameManager().getFreeVars().size() : 0;
-        if (freeVarCount > 0) {
-            ctx.emit(PythonOpCode.COPY_FREE_VARS, freeVarCount);
-        }
-
         ctx.emitReturnGenerator();
         ctx.emitPopTop();
 

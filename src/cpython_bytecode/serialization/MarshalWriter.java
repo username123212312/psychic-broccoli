@@ -82,17 +82,6 @@ public class MarshalWriter {
     }
 
     private void writeCodeObject(PythonCodeObject co) throws IOException {
-        System.out.println("Marshal writing code: " + co.co_name +
-            " arg=" + co.co_argcount +
-            " stack=" + co.co_stacksize +
-            " flags=" + co.co_flags +
-            " varnames=" + co.co_varnames +
-            " names=" + co.co_names +
-            " code_len=" + (co.co_code != null ? co.co_code.length : 0) +
-            " consts=" + co.co_consts.size() +
-            " cellvars=" + co.co_cellvars +
-            " freevars=" + co.co_freevars +
-            " total_localsplus=" + (co.co_varnames.size() + co.co_cellvars.size() + co.co_freevars.size()));
         writeRef(TYPE_CODE_REF);
         writeInt32(co.co_argcount);
         writeInt32(co.co_posonlyargcount);

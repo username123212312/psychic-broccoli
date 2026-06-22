@@ -10,6 +10,14 @@ public class DictionaryAccess extends AtomExpression {
     }
 
     public void setKey(String key) {
+        if (key != null && key.length() >= 2) {
+            char first = key.charAt(0);
+            char last = key.charAt(key.length() - 1);
+            if ((first == '\'' && last == '\'') || (first == '"' && last == '"')) {
+                this.key = key.substring(1, key.length() - 1);
+                return;
+            }
+        }
         this.key = key;
     }
 

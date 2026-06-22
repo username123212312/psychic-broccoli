@@ -99,10 +99,13 @@ public class App {
                 System.out.println("[3/4] CPython Bytecode Generated.");
 
                 // 4. Bytecode Serialization (.pyc creation)
-                ensurePycacheDirectory();
-                String outputPycPath = "./__pycache__/" + moduleName + ".cpython-314.pyc";
+                Path parentDir = filePath.getParent();
+                if (parentDir == null) parentDir = Paths.get(".");
+                File pycacheDir = new File(parentDir.toFile(), "__pycache__");
+                if (!pycacheDir.exists()) pycacheDir.mkdirs();
+                String outputPycPath = new File(pycacheDir, moduleName + ".cpython-314.pyc").getAbsolutePath();
                 PycFileWriter pycWriter = new PycFileWriter();
-                pycWriter.write(compiledCode, outputPycPath);
+                pycWriter.write(compiledCode, outputPycPath, fileName);
                 System.out.println("[4/4] .pyc file created at: " + outputPycPath);
 
             } else if (fileName.endsWith(".html") || fileName.endsWith(".j2")) {
@@ -153,13 +156,6 @@ public class App {
         String filename = new File(path).getName();
         int dotIndex = filename.lastIndexOf('.');
         return (dotIndex == -1) ? filename : filename.substring(0, dotIndex);
-    }
-
-    private static void ensurePycacheDirectory() {
-        File pycache = new File("./__pycache__");
-        if (!pycache.exists()) {
-            pycache.mkdirs();
-        }
     }
 
     private static void writeGeneratedSource( Path filePath, String content) throws IOException {

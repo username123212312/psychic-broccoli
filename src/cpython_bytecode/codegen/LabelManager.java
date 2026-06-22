@@ -74,7 +74,6 @@ public class LabelManager {
         for (int ri = 0; ri < sortedJumps.size(); ri++) {
             JumpRequest request = sortedJumps.get(ri);
             Integer targetIdx = labels.get(request.labelName);
-            System.out.println("DEBUG backpatch: " + request.opcode + " label='" + request.labelName + "' instrIdx=" + request.instructionIndex + " targetIdx=" + targetIdx + " pendingJumps.size=" + pendingJumps.size() + " labels.size=" + labels.size());
             if (targetIdx == null) {
                 throw new RuntimeException("Undefined label: " + request.labelName);
             }
@@ -109,7 +108,6 @@ public class LabelManager {
                 isAbsolute = true;
             }
 
-            System.out.println("DEBUG backpatch result: " + request.opcode + " arg=" + arg + " (instrByte=" + instrByte + " targetByte=" + targetByte + ")");
             if (arg < 0) {
                 throw new RuntimeException("Negative jump offset for " + request.opcode +
                     " (instr=" + request.instructionIndex + " target=" + targetIdx + ")");

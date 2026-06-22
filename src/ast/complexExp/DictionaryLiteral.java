@@ -35,7 +35,6 @@ public class DictionaryLiteral extends ComplexExpression {
 
     @Override
     public void generateBytecode(CodegenContext ctx) {
-        ctx.emitBuildMap(0);
         if (keyValues != null) {
             for (ast.keyValue.KeyValue kv : keyValues) {
                 ast.atom.Atom key = kv.getKey();
@@ -50,9 +49,9 @@ public class DictionaryLiteral extends ComplexExpression {
                     ast.simpleExpr.SimpleExpression se = skv.getValue();
                     if (se != null) se.generateBytecode(ctx);
                 }
-                ctx.emitStoreSubscr();
             }
         }
+        ctx.emitBuildMap(keyValues != null ? keyValues.size() : 0);
     }
 
     @Override
