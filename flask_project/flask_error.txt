@@ -1,0 +1,86 @@
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:5000
+Press CTRL+C to quit
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 631-412-244
+127.0.0.1 - - [21/Jun/2026 16:55:33] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [21/Jun/2026 16:55:40] "GET /add HTTP/1.1" 200 -
+127.0.0.1 - - [21/Jun/2026 16:55:40] "GET /product/1 HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "C:\Users\Yousef Razzouk\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1536, in __call__
+    return self.wsgi_app(environ, start_response)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yousef Razzouk\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1514, in wsgi_app
+    response = self.handle_exception(e)
+  File "C:\Users\Yousef Razzouk\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Yousef Razzouk\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Yousef Razzouk\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Yousef Razzouk\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yousef Razzouk\IdeaProjects\compiler_project\flask_project\app.py", line 44, in detail
+    return render_template("detail.html", product=product)
+  File "C:\Users\Yousef Razzouk\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\templating.py", line 151, in render_template
+    return _render(app, template, context)
+  File "C:\Users\Yousef Razzouk\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\templating.py", line 132, in _render
+    rv = template.render(context)
+  File "C:\Users\Yousef Razzouk\AppData\Local\Programs\Python\Python314\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Yousef Razzouk\AppData\Local\Programs\Python\Python314\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\Yousef Razzouk\IdeaProjects\compiler_project\flask_project\templates\detail.html", line 1, in top-level template code
+    {% extends 'base.html' %}
+  File "C:\Users\Yousef Razzouk\IdeaProjects\compiler_project\flask_project\templates\base.html", line 22, in top-level template code
+    {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yousef Razzouk\IdeaProjects\compiler_project\flask_project\templates\detail.html", line 4, in block 'content'
+    <img class="big-img" src="{{ url_for('static', filename=product.img.split('static/')[-1]) }}" alt="product image">
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yousef Razzouk\AppData\Local\Programs\Python\Python314\Lib\site-packages\jinja2\environment.py", line 490, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'None' has no attribute 'img'
+127.0.0.1 - - [21/Jun/2026 16:55:55] "POST /add HTTP/1.1" 302 -
+127.0.0.1 - - [21/Jun/2026 16:56:03] "GET /product/1 HTTP/1.1" 200 -
+127.0.0.1 - - [21/Jun/2026 16:56:12] "GET /product/999 HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "C:\Users\Yousef Razzouk\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1536, in __call__
+    return self.wsgi_app(environ, start_response)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yousef Razzouk\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1514, in wsgi_app
+    response = self.handle_exception(e)
+  File "C:\Users\Yousef Razzouk\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Yousef Razzouk\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Yousef Razzouk\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Yousef Razzouk\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yousef Razzouk\IdeaProjects\compiler_project\flask_project\app.py", line 44, in detail
+    return render_template("detail.html", product=product)
+  File "C:\Users\Yousef Razzouk\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\templating.py", line 151, in render_template
+    return _render(app, template, context)
+  File "C:\Users\Yousef Razzouk\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\templating.py", line 132, in _render
+    rv = template.render(context)
+  File "C:\Users\Yousef Razzouk\AppData\Local\Programs\Python\Python314\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Yousef Razzouk\AppData\Local\Programs\Python\Python314\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\Yousef Razzouk\IdeaProjects\compiler_project\flask_project\templates\detail.html", line 1, in top-level template code
+    {% extends 'base.html' %}
+  File "C:\Users\Yousef Razzouk\IdeaProjects\compiler_project\flask_project\templates\base.html", line 22, in top-level template code
+    {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yousef Razzouk\IdeaProjects\compiler_project\flask_project\templates\detail.html", line 4, in block 'content'
+    <img class="big-img" src="{{ url_for('static', filename=product.img.split('static/')[-1]) }}" alt="product image">
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yousef Razzouk\AppData\Local\Programs\Python\Python314\Lib\site-packages\jinja2\environment.py", line 490, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'None' has no attribute 'img'

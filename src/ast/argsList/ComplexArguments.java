@@ -28,10 +28,6 @@ public class ComplexArguments extends ArgumentsList {
         return stringBuilder.toString();
     }
 
-    @Override
-    public String generateCode() {
-        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
-    }
 
 
     @Override

@@ -24,6 +24,7 @@ compound_stmt
     | func_def     NEWLINE?      # FunctionDefinition
     | return_stmt  NEWLINE?      # ReturnStatement
     | import_from  NEWLINE?      # ImportStatement
+    | import_stmt  NEWLINE?      # PlainImport
     | global_stmt  NEWLINE?      # GlobalStatement
     ;
 
@@ -38,6 +39,14 @@ global_stmt
 
 import_from
     : FROM NAME (DOT NAME)* IMPORT imptd (COMMA imptd)* # ImportFromDef
+    ;
+
+import_stmt
+    : IMPORT import_target (COMMA import_target)*   # ImportDef
+    ;
+
+import_target
+    : NAME (DOT NAME)* (AS NAME)?   # ImportTargetDef
     ;
 
 imptd
@@ -124,8 +133,12 @@ parameters
     ;
 
 fun_params
-    : NAME ASSIGN atom (COMMA NAME ASSIGN atom)* # KeywordParams
-    | NAME (COMMA NAME)*                         # PositionalParams
+    : fun_param (COMMA fun_param)*   # FunctionParamList
+    ;
+
+fun_param
+    : NAME ASSIGN atom   # ParamWithDefault
+    | NAME               # ParamWithoutDefault
     ;
 
 atom

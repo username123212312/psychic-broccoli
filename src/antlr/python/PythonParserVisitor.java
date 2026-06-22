@@ -1,4 +1,4 @@
-// Generated from C:/Users/Yousef Razzouk/IdeaProjects/compiler_project/grammars/PythonParser.g4 by ANTLR 4.13.2
+// Generated from grammars/PythonParser.g4 by ANTLR 4.13.2
 package antlr.python;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -102,6 +102,13 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitImportStatement(PythonParser.ImportStatementContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code PlainImport}
+	 * labeled alternative in {@link PythonParser#compound_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlainImport(PythonParser.PlainImportContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code GlobalStatement}
 	 * labeled alternative in {@link PythonParser#compound_stmt}.
 	 * @param ctx the parse tree
@@ -123,6 +130,20 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSimpleReturn(PythonParser.SimpleReturnContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code ArithmeticReturn}
+	 * labeled alternative in {@link PythonParser#return_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArithmeticReturn(PythonParser.ArithmeticReturnContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ConditionReturn}
+	 * labeled alternative in {@link PythonParser#return_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConditionReturn(PythonParser.ConditionReturnContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code GlobalStatementDef}
 	 * labeled alternative in {@link PythonParser#global_stmt}.
 	 * @param ctx the parse tree
@@ -136,6 +157,20 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitImportFromDef(PythonParser.ImportFromDefContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ImportDef}
+	 * labeled alternative in {@link PythonParser#import_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitImportDef(PythonParser.ImportDefContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ImportTargetDef}
+	 * labeled alternative in {@link PythonParser#import_target}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitImportTargetDef(PythonParser.ImportTargetDefContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Imported}
 	 * labeled alternative in {@link PythonParser#imptd}.
@@ -417,19 +452,26 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunctionParameters(PythonParser.FunctionParametersContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code KeywordParams}
+	 * Visit a parse tree produced by the {@code FunctionParamList}
 	 * labeled alternative in {@link PythonParser#fun_params}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitKeywordParams(PythonParser.KeywordParamsContext ctx);
+	T visitFunctionParamList(PythonParser.FunctionParamListContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code PositionalParams}
-	 * labeled alternative in {@link PythonParser#fun_params}.
+	 * Visit a parse tree produced by the {@code ParamWithDefault}
+	 * labeled alternative in {@link PythonParser#fun_param}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPositionalParams(PythonParser.PositionalParamsContext ctx);
+	T visitParamWithDefault(PythonParser.ParamWithDefaultContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ParamWithoutDefault}
+	 * labeled alternative in {@link PythonParser#fun_param}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParamWithoutDefault(PythonParser.ParamWithoutDefaultContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code NameAtom}
 	 * labeled alternative in {@link PythonParser#atom}.

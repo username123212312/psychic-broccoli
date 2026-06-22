@@ -30,10 +30,6 @@ public class ElIfStatement extends ASTNode {
         return statement;
     }
 
-    @Override
-    public String generateCode() {
-        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
-    }
 
 
     @Override
