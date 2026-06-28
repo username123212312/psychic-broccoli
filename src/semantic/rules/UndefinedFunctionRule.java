@@ -32,6 +32,7 @@ public class UndefinedFunctionRule implements SemanticRule {
         }
 
         String errorMessage = "Undefined function '" + functionName + "' at line " + node.line_number;
+        reporter.addError(errorMessage);
         throw new SemanticError(errorMessage);
     }
 }

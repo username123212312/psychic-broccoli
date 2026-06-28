@@ -36,6 +36,7 @@ public class SemanticAnalyzer {
             registerRule(new DuplicateFunctionRule());
 
             registerRule(new ReturnOutsideFunctionRule());
+            registerRule(new UndefinedFunctionRule());
         }
 
         walk(program, reporter);
