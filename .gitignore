@@ -20,6 +20,7 @@ bin/
 .pyc
 
 **/generated/
+**/.antlr
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
