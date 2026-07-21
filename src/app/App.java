@@ -180,9 +180,9 @@ public class App {
             }
         }
 
-        // 6. Copy support files (app.py, style.css, script.js)
-        copySupportFileIfExists(projectDir.resolve("app.py"), outputWriter);
-        copySupportFileIfExists(projectDir.resolve("style.css"), outputWriter);
+        // 6. Generate app.py that serves the compiled output + copy support files
+        generateOutputAppPy(outputWriter, context);
+        copySupportFileIfExists(projectDir.resolve("styles.css"), outputWriter);
         copySupportFileIfExists(projectDir.resolve("script.js"), outputWriter);
         System.out.println("[5/5] Support files copied.");
 
@@ -202,6 +202,93 @@ public class App {
             case "edit.html": return "edit_product.html";
             default: return tplName;
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static void generateOutputAppPy(OutputWriter outputWriter, Map<String, Object> context) throws IOException {
+        StringBuilder py = new StringBuilder();
+        py.append("from flask import Flask, request, redirect, url_for, abort\n");
+        py.append("import os\n\n");
+        py.append("app = Flask(__name__)\n\n");
+
+        // Generate the data (products list, etc.)
+        Object productsObj = context.get("products");
+        if (productsObj instanceof List productsList) {
+            py.append("products = [\n");
+            for (Object item : productsList) {
+                if (item instanceof Map map) {
+                    py.append("    {");
+                    boolean first = true;
+                    for (Object key : map.keySet()) {
+                        if (!first) py.append(", ");
+                        first = false;
+                        py.append("\"").append(key).append("\": ");
+                        Object val = map.get(key);
+                        if (val instanceof Number n) {
+                            py.append(n);
+                        } else {
+                            py.append("\"").append(escapePythonString(String.valueOf(val))).append("\"");
+                        }
+                    }
+                    py.append("},\n");
+                }
+            }
+            py.append("]\n\n");
+        }
+
+        py.append("OUTPUT_DIR = os.path.dirname(os.path.abspath(__file__))\n\n");
+
+        // Index route
+        py.append("@app.route(\"/\")\n");
+        py.append("def index():\n");
+        py.append("    with open(os.path.join(OUTPUT_DIR, \"index.html\"), encoding=\"utf-8\") as f:\n");
+        py.append("        return f.read()\n\n");
+
+        // Add product route
+        py.append("@app.route(\"/add\", methods=[\"GET\", \"POST\"])\n");
+        py.append("def add_product():\n");
+        py.append("    if request.method == \"POST\":\n");
+        py.append("        name = request.form.get(\"name\")\n");
+        py.append("        price = request.form.get(\"price\")\n");
+        py.append("        description = request.form.get(\"description\")\n");
+        py.append("        specification = request.form.get(\"specification\")\n");
+        py.append("        img = request.form.get(\"img\") or \"static/images/default.png\"\n");
+        py.append("        product = {\n");
+        py.append("            \"id\": len(products) + 1,\n");
+        py.append("            \"name\": name,\n");
+        py.append("            \"price\": price,\n");
+        py.append("            \"description\": description,\n");
+        py.append("            \"specification\": specification,\n");
+        py.append("            \"img\": img,\n");
+        py.append("        }\n");
+        py.append("        products.append(product)\n");
+        py.append("        return redirect(url_for(\"index\"))\n");
+        py.append("    with open(os.path.join(OUTPUT_DIR, \"add_product.html\"), encoding=\"utf-8\") as f:\n");
+        py.append("        return f.read()\n\n");
+
+        // Detail route
+        py.append("@app.route(\"/product/<int:product_id>\")\n");
+        py.append("def detail(product_id):\n");
+        py.append("    with open(os.path.join(OUTPUT_DIR, \"detail.html\"), encoding=\"utf-8\") as f:\n");
+        py.append("        return f.read()\n\n");
+
+        // Delete route
+        py.append("@app.route(\"/delete/<int:product_id>\")\n");
+        py.append("def delete(product_id):\n");
+        py.append("    global products\n");
+        py.append("    products = [p for p in products if p[\"id\"] != product_id]\n");
+        py.append("    return redirect(url_for(\"index\"))\n\n");
+
+        py.append("if __name__ == \"__main__\":\n");
+        py.append("    app.run(debug=True)\n");
+
+        outputWriter.writeFile("app.py", py.toString());
+        System.out.println("  Generated: output/app.py (serving compiled HTML)");
+    }
+
+    private static String escapePythonString(String s) {
+        if (s == null) return "";
+        return s.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\r", "\\r");
     }
 
     private static void copySupportFileIfExists(Path sourcePath, OutputWriter outputWriter) {
