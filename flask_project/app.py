@@ -3,7 +3,24 @@ from flask import Flask, render_template, request, redirect, url_for, abort
 app = Flask(__name__)
 
 # ---- RAM STORAGE ----
-products = []  # each product is a dict
+products = [
+    {
+        "id": 1,
+        "name": "Phone",
+        "price": 300,
+        "description": "A great phone with amazing features.",
+        "specification": "6.1 inch display, 128GB storage, 12MP camera",
+        "img": "static/images/phone.png"
+    },
+    {
+        "id": 2,
+        "name": "Laptop",
+        "price": 800,
+        "description": "Powerful laptop for work and play.",
+        "specification": "15.6 inch display, 512GB SSD, 16GB RAM",
+        "img": "static/images/laptop.png"
+    }
+]  # each product is a dict
 
 multi = """
 hello world

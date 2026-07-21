@@ -1,7 +1,5 @@
-// Generated from D:/RAMA/MyProject/ComplierProject-1/grammars/PythonLexer.g4 by ANTLR 4.13.2
-
+// Generated from C:/Users/Yousef Razzouk/IdeaProjects/compiler_project/grammars/PythonLexer.g4 by ANTLR 4.13.2
 package antlr.python;
-
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;

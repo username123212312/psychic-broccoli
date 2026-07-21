@@ -1,4 +1,4 @@
-// Generated from grammars/PythonParser.g4 by ANTLR 4.13.2
+// Generated from C:/Users/Yousef Razzouk/IdeaProjects/compiler_project/grammars/PythonParser.g4 by ANTLR 4.13.2
 package antlr.python;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
@@ -537,6 +537,20 @@ public class PythonParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> impl
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitListItems(PythonParser.ListItemsContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitScalarListItem(PythonParser.ScalarListItemContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitComplexListItem(PythonParser.ComplexListItemContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

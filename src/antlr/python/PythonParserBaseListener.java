@@ -1,4 +1,4 @@
-// Generated from D:/RAMA/MyProject/ComplierProject-1/grammars/PythonParser.g4 by ANTLR 4.13.2
+// Generated from C:/Users/Yousef Razzouk/IdeaProjects/compiler_project/grammars/PythonParser.g4 by ANTLR 4.13.2
 package antlr.python;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -912,6 +912,30 @@ public class PythonParserBaseListener implements PythonParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitListItems(PythonParser.ListItemsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterScalarListItem(PythonParser.ScalarListItemContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitScalarListItem(PythonParser.ScalarListItemContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterComplexListItem(PythonParser.ComplexListItemContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitComplexListItem(PythonParser.ComplexListItemContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

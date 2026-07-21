@@ -55,9 +55,7 @@ public class ComplexExpressionVisitor extends PythonParserBaseVisitor<ComplexExp
             return listLiteral;
         }
         ListItems listItems = (ListItems) new UniversalPythonVisitor().visit(ctx.list_items());
-
-        listLiteral.setListItems(listItems.getAtomList());
-
+        listLiteral.setListItems(listItems.getItems());
         return listLiteral;
     }
 

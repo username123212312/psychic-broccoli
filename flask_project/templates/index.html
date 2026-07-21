@@ -4,14 +4,13 @@
 <div class="product-grid">
     {% for p in products %}
     <div class="product-card">
-        <img src="{% if p.img.startswith('static/') %}{{ url_for('static', filename=p.img[7:]) }}{% else %}{{ p.img }}{% endif %}" alt="product image">
+        <img src="{{ url_for('static', filename=p.img) }}" alt="product image">
         <h3>{{ p.name }}</h3>
         <p class="price">${{ p.price }}</p>
         <a class="btn" href="{{ url_for('detail', product_id=p.id) }}">View</a>
         <a class="btn delete" href="{{ url_for('delete', product_id=p.id) }}">Delete</a>
     </div>
     {% endfor %}
-
 
     {% if products|length == 0 %}
     <p>No products yet. Add one!</p>

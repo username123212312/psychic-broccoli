@@ -1,4 +1,4 @@
-// Generated from D:/RAMA/MyProject/ComplierProject-1/grammars/PythonParser.g4 by ANTLR 4.13.2
+// Generated from C:/Users/Yousef Razzouk/IdeaProjects/compiler_project/grammars/PythonParser.g4 by ANTLR 4.13.2
 package antlr.python;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -907,6 +907,30 @@ public interface PythonParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitListItems(PythonParser.ListItemsContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ScalarListItem}
+	 * labeled alternative in {@link PythonParser#list_item}.
+	 * @param ctx the parse tree
+	 */
+	void enterScalarListItem(PythonParser.ScalarListItemContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ScalarListItem}
+	 * labeled alternative in {@link PythonParser#list_item}.
+	 * @param ctx the parse tree
+	 */
+	void exitScalarListItem(PythonParser.ScalarListItemContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ComplexListItem}
+	 * labeled alternative in {@link PythonParser#list_item}.
+	 * @param ctx the parse tree
+	 */
+	void enterComplexListItem(PythonParser.ComplexListItemContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ComplexListItem}
+	 * labeled alternative in {@link PythonParser#list_item}.
+	 * @param ctx the parse tree
+	 */
+	void exitComplexListItem(PythonParser.ComplexListItemContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code KeyValuePairs}
 	 * labeled alternative in {@link PythonParser#dict_maker}.

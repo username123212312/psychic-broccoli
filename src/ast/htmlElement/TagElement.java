@@ -53,6 +53,10 @@ public class TagElement extends HtmlElement {
         isClosingTag = closingTag;
     }
 
+    public boolean isClosingTag() {
+        return isClosingTag;
+    }
+
     @Override
     public String generateCode() {
         StringBuilder builder = new StringBuilder();

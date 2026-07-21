@@ -1,34 +1,32 @@
 package ast.complexExp;
 
-import ast.atom.Atom;
+import ast.compundStmt.PythonExpression;
 import cpython_bytecode.codegen.CodegenContext;
 
 import java.util.List;
 
 public class ListItems extends ComplexExpression {
-    private List<Atom> atomList;
+    private List<PythonExpression> items;
 
     public ListItems(int line_number) {
         super("ExpressionList", line_number);
     }
 
-    public void setAtomList(List<Atom> atomList) {
-        this.atomList = atomList;
+    public void setItems(List<PythonExpression> items) {
+        this.items = items;
     }
 
-    public List<Atom> getAtomList() {
-        return atomList;
+    public List<PythonExpression> getItems() {
+        return items;
     }
-
-
 
     @Override
     public void generateBytecode(CodegenContext ctx) {
-        if (atomList != null) {
-            for (ast.atom.Atom a : atomList) {
-                ctx.emitAtom(a);
+        if (items != null) {
+            for (PythonExpression expr : items) {
+                if (expr != null) expr.generateBytecode(ctx);
             }
-            ctx.emitBuildTuple(atomList.size());
+            ctx.emitBuildTuple(items.size());
         } else {
             ctx.emitBuildTuple(0);
         }

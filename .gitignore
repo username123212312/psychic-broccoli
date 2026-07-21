@@ -36,6 +36,8 @@ bin/
 .DS_Store
 
 gen/
+build/
+
 src/antlr/JinjaFlaskLexer.java
 src/antlr/JinjaFlaskLexer.interp
 src/antlr/JinjaFlaskLexer.tokens
