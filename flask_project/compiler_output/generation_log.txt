@@ -1,0 +1,10 @@
+=== Generation Log ===
+Python AST extracted from: app.py
+Context variables: [products, multi]
+Templates parsed: [add.html, base.html, detail.html, edit.html, index.html]
+Template add.html → rendered to output/add_product.html
+Template detail.html → rendered to output/detail.html
+Template edit.html → rendered to output/edit_product.html
+Template index.html → rendered to output/index.html
+Support files copied to output/
+Compilation completed successfully.

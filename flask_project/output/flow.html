@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compiler Flow Diagram</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #0f0f23; color: #e0e0e0; padding: 40px; min-height: 100vh; }
+        h1 { text-align: center; font-size: 28px; margin-bottom: 10px; color: #00d4ff; }
+        .subtitle { text-align: center; color: #888; margin-bottom: 50px; font-size: 14px; }
+        .pipeline { display: flex; flex-direction: column; align-items: center; gap: 0; }
+
+        .stage {
+            background: #1a1a2e;
+            border: 2px solid #333;
+            border-radius: 12px;
+            padding: 20px 30px;
+            width: 520px;
+            text-align: center;
+            position: relative;
+        }
+        .stage.input    { border-color: #ff6b6b; background: #1e1215; }
+        .stage.process  { border-color: #ffd93d; background: #1e1a12; }
+        .stage.extract  { border-color: #6bcb77; background: #121e15; }
+        .stage.template { border-color: #4d96ff; background: #12151e; }
+        .stage.output   { border-color: #c084fc; background: #1a1224; }
+
+        .stage-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+            color: #888;
+        }
+        .stage h3 { font-size: 18px; margin-bottom: 4px; }
+        .stage p { font-size: 13px; color: #aaa; }
+
+        .input h3    { color: #ff6b6b; }
+        .process h3  { color: #ffd93d; }
+        .extract h3  { color: #6bcb77; }
+        .template h3 { color: #4d96ff; }
+        .output h3   { color: #c084fc; }
+
+        .arrow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 6px 0;
+            color: #555;
+            font-size: 11px;
+        }
+        .arrow .line {
+            width: 2px;
+            height: 20px;
+            background: linear-gradient(to bottom, #555, #777);
+        }
+        .arrow span { margin: 2px 0; }
+
+        .split {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            width: 520px;
+            margin-top: -8px;
+        }
+        .split .stage { width: 240px; padding: 14px 16px; }
+        .split .stage h3 { font-size: 15px; }
+        .split .stage p { font-size: 12px; }
+        .split .stage .file-list { text-align: left; margin-top: 8px; font-size: 12px; color: #bbb; }
+        .split .stage .file-list div { padding: 2px 0; }
+        .split .stage .file-list .gen { color: #c084fc; }
+        .split .stage .file-list .copy { color: #888; }
+
+        .bracket {
+            width: 520px;
+            height: 30px;
+            border-left: 2px solid #555;
+            border-right: 2px solid #555;
+            border-bottom: 2px solid #555;
+            border-radius: 0 0 10px 10px;
+            margin: 0 auto;
+        }
+        .bracket-label {
+            text-align: center;
+            font-size: 11px;
+            color: #777;
+            margin: -4px 0 0 0;
+        }
+
+        .run-box {
+            background: #1a2e1a;
+            border: 1px solid #6bcb77;
+            border-radius: 8px;
+            padding: 14px 20px;
+            width: 520px;
+            text-align: center;
+            margin-top: 16px;
+        }
+        .run-box code {
+            display: block;
+            background: #0f0f0f;
+            color: #6bcb77;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 8px;
+            font-size: 14px;
+            text-align: left;
+        }
+        .run-box p { font-size: 13px; color: #aaa; margin-top: 6px; }
+    </style>
+</head>
+<body>
+    <h1>Compiler Pipeline</h1>
+    <p class="subtitle">Python (Flask) + Jinja Templates &rarr; Static HTML + Runnable App</p>
+
+    <div class="pipeline">
+        <!-- INPUT: app.py -->
+        <div class="stage input">
+            <div class="stage-label">Input</div>
+            <h3>app.py</h3>
+            <p>Flask routes, data variables, render_template calls</p>
+        </div>
+
+        <div class="arrow">
+            <div class="line"></div>
+            <span>&#9660;</span>
+        </div>
+
+        <!-- Step 1: Python Parser -->
+        <div class="stage process">
+            <div class="stage-label">Step 1</div>
+            <h3>Python Parser (ANTLR)</h3>
+            <p>Parse Python source &rarr; Python AST</p>
+        </div>
+
+        <div class="arrow">
+            <div class="line"></div>
+            <span>&#9660;</span>
+        </div>
+
+        <!-- Step 2: Semantic Analysis -->
+        <div class="stage process">
+            <div class="stage-label">Step 2</div>
+            <h3>Semantic Analysis</h3>
+            <p>Validate types, scopes, symbol table &rarr; no errors</p>
+        </div>
+
+        <div class="arrow">
+            <div class="line"></div>
+            <span>&#9660;</span>
+        </div>
+
+        <!-- Step 3: Context Extraction -->
+        <div class="stage extract">
+            <div class="stage-label">Step 3</div>
+            <h3>Context Extraction</h3>
+            <p>Extract variables &amp; values from Python AST</p>
+        </div>
+
+        <div class="arrow">
+            <div class="line"></div>
+            <span>&#9660;</span>
+        </div>
+
+        <!-- DATA: Context + Routes -->
+        <div class="split">
+            <div class="stage extract" style="border-color:#4ade80">
+                <h3>Context Data</h3>
+                <p>products = [{name:Phone, price:300, ...}, ...]</p>
+            </div>
+            <div class="stage extract" style="border-color:#4ade80">
+                <h3>Route Map</h3>
+                <p>index &rarr; /<br>detail &rarr; /product/&lt;id&gt;</p>
+            </div>
+        </div>
+
+        <div class="arrow">
+            <div class="line"></div>
+            <span>&#9660;</span>
+        </div>
+
+        <!-- INPUT: Templates -->
+        <div class="split">
+            <div class="stage input" style="border-color:#ff9a3c">
+                <h3>Templates</h3>
+                <p>Jinja + HTML<br>index.html, add.html, etc.</p>
+            </div>
+            <div class="stage process" style="border-color:#ffd93d">
+                <h3>Jinja Parser (ANTLR)</h3>
+                <p>Parse templates &rarr; Jinja AST</p>
+            </div>
+        </div>
+
+        <div class="arrow">
+            <div class="line"></div>
+            <span>&#9660;</span>
+        </div>
+
+        <!-- Step 5: Variable Swapping / Rendering -->
+        <div class="stage template">
+            <div class="stage-label">Step 5</div>
+            <h3>Template Rendering (JinjaRenderer)</h3>
+            <p>{% for %} expanded, {{ var }} substituted, {% if %} evaluated, url_for() resolved</p>
+        </div>
+
+        <div class="arrow">
+            <div class="line"></div>
+            <span>&#9660;</span>
+        </div>
+
+        <!-- OUTPUT: Generated HTML -->
+        <div class="split">
+            <div class="stage output">
+                <div class="stage-label">Generated (compiler proof)</div>
+                <h3>Compiled HTML</h3>
+                <div class="file-list">
+                    <div class="gen">&#10003; index.html</div>
+                    <div class="gen">&#10003; add_product.html</div>
+                    <div class="gen">&#10003; edit_product.html</div>
+                    <div class="gen">&#10003; detail.html</div>
+                </div>
+            </div>
+            <div class="stage output" style="border-color:#888">
+                <div class="stage-label">Copied (accompanying files)</div>
+                <h3>Support Files</h3>
+                <div class="file-list">
+                    <div class="copy">&#10003; app.py</div>
+                    <div class="copy">&#10003; templates/</div>
+                    <div class="copy">&#10003; styles.css</div>
+                    <div class="copy">&#10003; script.js</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bracket"></div>
+        <div class="bracket-label">output/ folder</div>
+
+        <div class="arrow">
+            <div class="line"></div>
+            <span>&#9660;</span>
+        </div>
+
+        <!-- Compiler Reports -->
+        <div class="stage" style="border-color:#555; background:#151520">
+            <div class="stage-label">Compiler Reports</div>
+            <h3 style="color:#777">compiler_output/</h3>
+            <p>ast_python.json &bull; ast_jinja.json &bull; semantic_report.txt &bull; generation_log.txt</p>
+        </div>
+
+        <div class="arrow">
+            <div class="line"></div>
+            <span>&#9660;</span>
+        </div>
+
+        <!-- Run command -->
+        <div class="run-box">
+            <h3 style="color:#6bcb77">Run the app</h3>
+            <code>
+cd output<br>
+python app.py<br>
+<br>
+<span style="color:#888"># Open http://127.0.0.1:5000</span>
+            </code>
+            <p>Flask serves the copied templates with full CRUD (add / edit / remove / view products)</p>
+        </div>
+
+        <div class="arrow">
+            <div class="line"></div>
+            <span>&#9660;</span>
+        </div>
+
+        <!-- Browser -->
+        <div class="stage input" style="border-color:#00d4ff; background:#0f1a24">
+            <div class="stage-label">Final</div>
+            <h3 style="color:#00d4ff">Browser</h3>
+            <p>Product grid with data, styled pages, working navigation</p>
+        </div>
+    </div>
+</body>
+</html>
