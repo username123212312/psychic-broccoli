@@ -191,18 +191,29 @@ public class JinjaRenderer {
         String endpoint = extractJinjaArgValue(firstArg);
         if (endpoint == null) return "#";
 
+        // Mapping endpoints to static HTML files to avoid 404 in static generation
+        switch (endpoint) {
+            case "index": return "index.html";
+            case "add_product": return "add_product.html";
+            case "detail": return "detail.html";
+            case "delete": return "#"; // Delete action is not supported in static sites
+        }
+
         if (routeMap.containsKey(endpoint)) {
             String route = routeMap.get(endpoint);
-            if (route.contains("<")) {
-                if (args.getArguments().size() > 1) {
-                    JinjaArgument kwArg = args.getArguments().get(1);
-                    if (kwArg instanceof JinjaKeywordArgument kw) {
-                        String val = extractJinjaArgValue(kw);
-                        route = route.replaceAll("<[^>]+>", val != null ? val : "");
-                    }
-                }
+            if (route.equals("/")) return "index.html";
+
+            // For static sites, we convert the route to a relative .html file
+            // e.g., /add -> add.html
+            String staticName = route;
+            if (staticName.startsWith("/")) {
+                staticName = staticName.substring(1);
             }
-            return route;
+            if (staticName.contains("<")) {
+                staticName = staticName.split("/")[0]; // Use the first part of dynamic routes
+            }
+            if (staticName.isEmpty()) return "index.html";
+            return staticName + ".html";
         }
 
         if ("static".equals(endpoint)) {
@@ -418,22 +429,23 @@ public class JinjaRenderer {
         String endpoint = extractStringLiteral(parts[0].trim());
         if (endpoint == null) return "#";
 
+        // Static mapping for attributes
+        switch (endpoint) {
+            case "index": return "index.html";
+            case "add_product": return "add_product.html";
+            case "detail": return "detail.html";
+            case "delete": return "#";
+        }
+
         if (routeMap.containsKey(endpoint)) {
             String route = routeMap.get(endpoint);
-            if (route.contains("<") && parts.length > 1) {
-                for (int i = 1; i < parts.length; i++) {
-                    String part = parts[i].trim();
-                    int eqIdx = part.indexOf('=');
-                    if (eqIdx > 0) {
-                        String val = part.substring(eqIdx + 1).trim();
-                        String resolvedVal = evaluateAttrExpression(val);
-                        if (resolvedVal != null) {
-                            route = route.replaceFirst("<[^>]+>", resolvedVal);
-                        }
-                    }
-                }
-            }
-            return route;
+            if (route.equals("/")) return "index.html";
+
+            String staticName = route;
+            if (staticName.startsWith("/")) staticName = staticName.substring(1);
+            if (staticName.contains("<")) staticName = staticName.split("/")[0];
+            if (staticName.isEmpty()) return "index.html";
+            return staticName + ".html";
         }
 
         if ("static".equals(endpoint) && parts.length > 1) {

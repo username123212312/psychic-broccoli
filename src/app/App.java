@@ -49,6 +49,8 @@ public class App {
         if (Files.isDirectory(startPath) && isFlaskProject(startPath)) {
             try {
                 processFlaskProject(startPath);
+                ProjectWatcher watcher = new ProjectWatcher(startPath);
+                watcher.startWatching();
             } catch (Exception e) {
                 System.err.println("Error processing Flask project: " + e.getMessage());
                 e.printStackTrace();
@@ -86,7 +88,7 @@ public class App {
                 && Files.exists(dir.resolve("templates"));
     }
 
-    private static void processFlaskProject(Path projectDir) throws Exception {
+    public static void processFlaskProject(Path projectDir) throws Exception {
         System.out.println("=== Flask Project Mode ===");
         OutputWriter outputWriter = new OutputWriter(projectDir);
         outputWriter.createDirectories();

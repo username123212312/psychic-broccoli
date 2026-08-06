@@ -13,13 +13,14 @@ products = [
         "img": "static/images/phone.png"
     },
     {
-        "id": 2,
-        "name": "Laptop",
-        "price": 800,
+        "id": 3,
+        "name": "Blaptop",
+        "price": 700,
         "description": "Powerful laptop for work and play.",
         "specification": "15.6 inch display, 512GB SSD, 16GB RAM",
         "img": "static/images/laptop.png"
     }
+
 ]  # each product is a dict
 
 multi = """
