@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-// الحل: استخدام Set داخلي في القاعدة بدلاً من الاعتماد على SymbolTable
+
 public class DuplicateFunctionRule implements SemanticRule {
     private final Set<String> seenFunctions = new HashSet<>();
 
@@ -18,7 +18,7 @@ public class DuplicateFunctionRule implements SemanticRule {
     public void apply(ASTNode node, SymbolTable symbolTable, ErrorReporter reporter) {
         if (node instanceof FunctionDefinition fd) {
             String funcName = fd.getFunctionName();
-            if (!seenFunctions.add(funcName)) { // add() يُرجع false إذا كان موجوداً
+            if (!seenFunctions.add(funcName)) {
                 reporter.addError("Semantic Error: Function '" + funcName + "' is already defined.");
             }
         }

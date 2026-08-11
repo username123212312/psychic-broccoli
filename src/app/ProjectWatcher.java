@@ -16,7 +16,7 @@ public class ProjectWatcher {
 
             projectPath.register(watcher, ENTRY_MODIFY);
 
-            System.out.println("🔔 نظام الـ Regeneration يعمل الآن... راقب ملفاتك!");
+            System.out.println("The Rengeration System has started..monitoring...");
 
             while (true) {
                 WatchKey key = watcher.take();
@@ -26,14 +26,14 @@ public class ProjectWatcher {
 
 
                     if (fileName.toString().endsWith(".py") || fileName.toString().endsWith(".html")) {
-                        System.out.println("\n🔄 تم كشف تغيير في: " + fileName + ". جاري إعادة التوليد...");
+                        System.out.println("\n A change was detected in " + fileName + "Reloading.....");
 
 
                         try {
                             App.processFlaskProject(projectPath);
-                            System.out.println("✅ تم إعادة التوليد بنجاح!");
+                            System.out.println("Regeneration process has been successfully completed..monitoring...");
                         } catch (Exception e) {
-                            System.err.println("❌ خطأ أثناء إعادة التوليد: " + e.getMessage());
+                            System.err.println(" Error during the generation process " + e.getMessage());
                         }
                     }
                 }
