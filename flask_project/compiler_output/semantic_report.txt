@@ -8,12 +8,48 @@ Symbol Table:
 =================== SYMBOL TABLE ===================
 Symbol Name          | Scope                | Type                 | Attributes
 ----------------------------------------------------
-img                  | if statement 1058609221 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
-product              | if statement 1058609221 | Dictionary           |  { "id" : len ( products ) + 1, "name" : name, "price" : price, "description" : description, "specification" : specification, "img" : img }
-price                | if statement 1058609221 | Unknown              | request.form.get ( "price" ) 
-name                 | if statement 1058609221 | Unknown              | request.form.get ( "name" ) 
-description          | if statement 1058609221 | Unknown              | request.form.get ( "description" ) 
-specification        | if statement 1058609221 | Unknown              | request.form.get ( "specification" ) 
+img                  | if statement 138776324 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
+product              | if statement 138776324 | Dictionary           |  { "id" : len ( products ) + 1, "name" : name, "price" : price, "description" : description, "specification" : specification, "img" : img }
+price                | if statement 138776324 | Unknown              | request.form.get ( "price" ) 
+name                 | if statement 138776324 | Unknown              | request.form.get ( "name" ) 
+description          | if statement 138776324 | Unknown              | request.form.get ( "description" ) 
+specification        | if statement 138776324 | Unknown              | request.form.get ( "specification" ) 
+product              | detail               | Unknown              | next (  ( for p in products if p[id] == product_id ) , None ) 
+product_id           | detail               | Parameter            | null
+product_id           | delete               | Parameter            | null
+img                  | if statement 798310141 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
+product              | if statement 798310141 | Dictionary           |  { "id" : len ( products ) + 1, "name" : name, "price" : price, "description" : description, "specification" : specification, "img" : img }
+price                | if statement 798310141 | Unknown              | request.form.get ( "price" ) 
+name                 | if statement 798310141 | Unknown              | request.form.get ( "name" ) 
+description          | if statement 798310141 | Unknown              | request.form.get ( "description" ) 
+specification        | if statement 798310141 | Unknown              | request.form.get ( "specification" ) 
+product              | detail               | Unknown              | next (  ( for p in products if p[id] == product_id ) , None ) 
+product_id           | detail               | Parameter            | null
+product_id           | delete               | Parameter            | null
+img                  | if statement 1041109062 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
+product              | if statement 1041109062 | Dictionary           |  { "id" : len ( products ) + 1, "name" : name, "price" : price, "description" : description, "specification" : specification, "img" : img }
+price                | if statement 1041109062 | Unknown              | request.form.get ( "price" ) 
+name                 | if statement 1041109062 | Unknown              | request.form.get ( "name" ) 
+description          | if statement 1041109062 | Unknown              | request.form.get ( "description" ) 
+specification        | if statement 1041109062 | Unknown              | request.form.get ( "specification" ) 
+product              | detail               | Unknown              | next (  ( for p in products if p[id] == product_id ) , None ) 
+product_id           | detail               | Parameter            | null
+product_id           | delete               | Parameter            | null
+img                  | if statement 1954985045 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
+product              | if statement 1954985045 | Dictionary           |  { "id" : len ( products ) + 1, "name" : name, "price" : price, "description" : description, "specification" : specification, "img" : img }
+price                | if statement 1954985045 | Unknown              | request.form.get ( "price" ) 
+name                 | if statement 1954985045 | Unknown              | request.form.get ( "name" ) 
+description          | if statement 1954985045 | Unknown              | request.form.get ( "description" ) 
+specification        | if statement 1954985045 | Unknown              | request.form.get ( "specification" ) 
+product              | detail               | Unknown              | next (  ( for p in products if p[id] == product_id ) , None ) 
+product_id           | detail               | Parameter            | null
+product_id           | delete               | Parameter            | null
+img                  | if statement 1777238524 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
+product              | if statement 1777238524 | Dictionary           |  { "id" : len ( products ) + 1, "name" : name, "price" : price, "description" : description, "specification" : specification, "img" : img }
+price                | if statement 1777238524 | Unknown              | request.form.get ( "price" ) 
+name                 | if statement 1777238524 | Unknown              | request.form.get ( "name" ) 
+description          | if statement 1777238524 | Unknown              | request.form.get ( "description" ) 
+specification        | if statement 1777238524 | Unknown              | request.form.get ( "specification" ) 
 product              | detail               | Unknown              | next (  ( for p in products if p[id] == product_id ) , None ) 
 product_id           | detail               | Parameter            | null
 product_id           | delete               | Parameter            | null

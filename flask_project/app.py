@@ -19,7 +19,7 @@ products = [
         "description": "Powerful laptop for work and play.",
         "specification": "15.6 inch display, 512GB SSD, 16GB RAM",
         "img": "static/images/laptop.png"
-    }
+    },
 
 ]  # each product is a dict
 
