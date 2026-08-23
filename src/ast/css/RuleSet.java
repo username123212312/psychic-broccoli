@@ -28,9 +28,16 @@ public class RuleSet extends ASTNode {
 
     @Override
     public String generateCode() {
-        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
-    }
+        String selector = selectorDeclaration != null ? selectorDeclaration.generateCode() : "";
+        String declarations = declarationList != null ? declarationList.generateCode() : "";
+        if (selector.isBlank() || declarations.isBlank()) {
+            return "";
+        }
 
+        String indentedDeclarations = declarations.replaceAll("(?m)^", "    ");
+
+        return selector + " {\n" + indentedDeclarations + "\n}";
+    }
 
     @Override
     public String toString() {

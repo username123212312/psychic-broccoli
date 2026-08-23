@@ -39,7 +39,17 @@ public class JinjaForStatement extends JinjaStatement {
 
     @Override
     public String generateCode() {
-        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+        StringBuilder builder = new StringBuilder();
+        builder.append("{% for ").append(id).append(" in ");
+        if (iterable != null) {
+            builder.append(iterable.generateCode());
+        }
+        builder.append(" %}\n");
+        if (htmlContent != null) {
+            builder.append(htmlContent.generateCode());
+        }
+        builder.append("{% endfor %}");
+        return builder.toString();
     }
 
 

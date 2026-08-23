@@ -1,21 +1,22 @@
 package ast.complexExp;
 
-import ast.atom.Atom;
+import ast.compundStmt.PythonExpression;
+import cpython_bytecode.codegen.CodegenContext;
 
 import java.util.List;
 
 public class ListLiteral extends ComplexExpression {
-    private List<Atom> listItems;
+    private List<PythonExpression> listItems;
 
     public ListLiteral(int line_number) {
         super("ListLiteral", line_number);
     }
 
-    public void setListItems(List<Atom> listItems) {
+    public void setListItems(List<PythonExpression> listItems) {
         this.listItems = listItems;
     }
 
-    public List<Atom> getListItems() {
+    public List<PythonExpression> getListItems() {
         return listItems;
     }
 
@@ -24,36 +25,38 @@ public class ListLiteral extends ComplexExpression {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(" [ ");
         if (listItems != null) {
-            for (Atom listItem : listItems) {
-                stringBuilder.append(listItem.toString())
-                        .append((listItems.indexOf(listItem) == listItems.size() - 1)
-                                ? "" : ", ");
+            for (int i = 0; i < listItems.size(); i++) {
+                stringBuilder.append(listItems.get(i).symbolTablePrint());
+                if (i < listItems.size() - 1) stringBuilder.append(", ");
             }
         }
         stringBuilder.append(" ] ");
-
         return stringBuilder.toString();
     }
 
     @Override
-    public String generateCode() {
-        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+    public void generateBytecode(CodegenContext ctx) {
+        if (listItems != null) {
+            for (PythonExpression item : listItems) {
+                if (item != null) item.generateBytecode(ctx);
+            }
+            ctx.emitBuildList(listItems.size());
+        } else {
+            ctx.emitBuildList(0);
+        }
     }
-
 
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(super.toString()).append(" ( [ ");
         if (listItems != null) {
-            for (Atom listItem : listItems) {
-                stringBuilder.append(listItem.toString())
-                        .append((listItems.indexOf(listItem) == listItems.size() - 1)
-                                ? "" : ", ");
+            for (int i = 0; i < listItems.size(); i++) {
+                stringBuilder.append(listItems.get(i).toString());
+                if (i < listItems.size() - 1) stringBuilder.append(", ");
             }
         }
         stringBuilder.append(" ] ) ");
-
         return stringBuilder.toString();
     }
 }

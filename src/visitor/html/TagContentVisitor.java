@@ -11,7 +11,12 @@ public class TagContentVisitor extends HtmlParserBaseVisitor<TagElementItem> {
         TagElementItem tagElementItem = new TagElementItem(ctx.start.getLine());
         tagElementItem.setAttributeName(ctx.TAG_NAME().getText());
         if (ctx.ATTVALUE_VALUE() != null) {
-            tagElementItem.setAttributeValue(ctx.ATTVALUE_VALUE().getText());
+            String raw = ctx.ATTVALUE_VALUE().getText();
+            if (raw.length() >= 2) {
+                tagElementItem.setAttributeValue(raw.substring(1, raw.length() - 1));
+            } else {
+                tagElementItem.setAttributeValue(raw);
+            }
         }
         return tagElementItem;
     }

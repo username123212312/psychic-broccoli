@@ -24,6 +24,9 @@ public class Imported extends ASTNode {
         return name;
     }
 
+
+
+
     @Override
     public String generateCode() {
         return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
@@ -32,6 +35,7 @@ public class Imported extends ASTNode {
 
     @Override
     public String toString() {
-        return super.toString() + ", ( name : " + name + (alias == null ? "" : alias) + " )";
+        String info = name + (alias == null ? "" : " as " + alias);
+        return "ImportedElement: " + info + " [Line: " + this.line_number + "]";
     }
 }

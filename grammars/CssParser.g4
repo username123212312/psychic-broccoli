@@ -21,10 +21,10 @@ css_selector_list
     ;
 
 css_selector
-    : CSS_ID ( CSS_DOT CSS_ID )*                    # QualifiedSelector
-    | ( CSS_DOT CSS_ID CSS_ID? )+                   # StandaloneSimpleSelector
-    | CSS_ID (CSS_HASH CSS_ID)*                     # TypeAndIdSelector
-    | CSS_ID                                        # TypeSelector
+    : CSS_ID (CSS_DOT CSS_ID)*                    # QualifiedSelector
+    | CSS_DOT CSS_ID (CSS_DOT CSS_ID)*            # ClassOnlySelector
+    | CSS_ID (CSS_HASH CSS_ID)?                   # TypeAndIdSelector
+    | CSS_ID                                      # TypeSelector
     ;
 
 declarationList

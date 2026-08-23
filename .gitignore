@@ -16,12 +16,18 @@ bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
 
+**/__pycache__/
+*.pyc
+
+**/generated/
+**/.antlr
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
+*.iml
 
 ### VS Code ###
 .vscode/
@@ -30,6 +36,8 @@ bin/
 .DS_Store
 
 gen/
+build/
+
 src/antlr/JinjaFlaskLexer.java
 src/antlr/JinjaFlaskLexer.interp
 src/antlr/JinjaFlaskLexer.tokens
@@ -40,4 +48,3 @@ src/antlr/JinjaFlaskParserBaseListener.java
 src/antlr/JinjaFlaskParserBaseVisitor.java
 src/antlr/JinjaFlaskParserListener.java
 src/antlr/JinjaFlaskParserVisitor.java
-compiler_project.iml

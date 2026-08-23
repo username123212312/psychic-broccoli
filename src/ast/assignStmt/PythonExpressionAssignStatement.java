@@ -1,6 +1,7 @@
 package ast.assignStmt;
 
 import ast.compundStmt.PythonExpression;
+import cpython_bytecode.codegen.CodegenContext;
 
 public class PythonExpressionAssignStatement extends AssignmentStatement {
     private PythonExpression value;
@@ -15,6 +16,18 @@ public class PythonExpressionAssignStatement extends AssignmentStatement {
 
     public PythonExpression getValue() {
         return value;
+    }
+
+
+
+    @Override
+    public void generateBytecode(CodegenContext ctx) {
+        if (value != null) value.generateBytecode(ctx);
+        else {
+            int noneIdx = ctx.addConstant("NONE_PLACEHOLDER");
+            ctx.emitLoadConst(noneIdx);
+        }
+        ctx.storeVariable(ctx.extractVarName(getVar()));
     }
 
     @Override

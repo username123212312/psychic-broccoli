@@ -1,6 +1,5 @@
-// Generated from HtmlLexer.g4 by ANTLR 4.13.2
+// Generated from D:/RAMA/MyProject/ComplierProject-1/grammars/HtmlLexer.g4 by ANTLR 4.13.2
 package antlr.html;
-
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -238,7 +237,7 @@ public class HtmlLexer extends Lexer {
 		"\u0004\u0000\u0001\u0002\u0003\r\u0003\u0000\t\n\r\r  \u0001\u0000>>\u0003"+
 		"\u0000\"\"<<{{\u0001\u0000\"\"\u0001\u0000\'\'\u0003\u000009AFaf\u0001"+
 		"\u000019\u0001\u000009\u0002\u0000AZaz\u0004\u0000--09AZaz\u0003\u0000"+
-		"AZ__az\u0004\u000009AZ__az\b\u0000\t\n\r\r  \"\"\'\'--//<>\u029d\u0000"+
+		"AZ__az\u0004\u000009AZ__az\u0007\u0000\t\n\r\r  \"\"\'\'//<>\u029d\u0000"+
 		"\u0004\u0001\u0000\u0000\u0000\u0000\u0006\u0001\u0000\u0000\u0000\u0000"+
 		"\b\u0001\u0000\u0000\u0000\u0000\n\u0001\u0000\u0000\u0000\u0000\f\u0001"+
 		"\u0000\u0000\u0000\u0000\u000e\u0001\u0000\u0000\u0000\u0000\u0010\u0001"+

@@ -145,5 +145,5 @@ J_WS         : [ \t\r\n]+ -> skip ;
 
 fragment
 TAG_NameChar
-    : ~[ \t\r\n"'<>/=-]
+    : ~[ \t\r\n"'<>/=]
     ;

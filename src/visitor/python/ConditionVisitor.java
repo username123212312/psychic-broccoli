@@ -11,7 +11,7 @@ import ast.condition.Condition;
 import ast.condition.NotExpression;
 import visitor.UniversalPythonVisitor;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ConditionVisitor extends PythonParserBaseVisitor<Condition> {
@@ -37,7 +37,7 @@ public class ConditionVisitor extends PythonParserBaseVisitor<Condition> {
         ComparisonExpression comparisonExpression = new ComparisonExpression(ctx.getStart().getLine());
         PythonExpression baseExpr = pythonExpressionVisitor.visit(ctx.python_expr(0));
         comparisonExpression.setBaseExpr(baseExpr);
-        Map<ComparisonOperator, PythonExpression> pythonExpressionMap = new HashMap<>();
+        Map<ComparisonOperator, PythonExpression> pythonExpressionMap = new LinkedHashMap<>();
         for (int i = 0; i < ctx.comp_op().size(); i++) {
             ComparisonOperator comparisonOperator = new ComparisonOperator(ctx.comp_op(i).start.getLine());
             comparisonOperator.setOperator(ctx.comp_op(i).getText());

@@ -33,6 +33,14 @@ public class JinjaArgumentsList extends ASTNode{
 
     @Override
     public String generateCode() {
-        return "";
-    }
-}
+        StringBuilder builder = new StringBuilder();
+        if (arguments != null && !arguments.isEmpty()) {
+            for (int i = 0; i < arguments.size(); i++) {
+                builder.append(arguments.get(i).generateCode());
+                if (i < arguments.size() - 1) {
+                    builder.append(", ");
+                }
+            }
+        }
+        return builder.toString();
+    }}

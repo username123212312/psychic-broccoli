@@ -2,11 +2,12 @@ package visitor.html;
 
 import antlr.html.HtmlParser;
 import antlr.html.HtmlParserBaseVisitor;
-import ast.HtmlContent;
-import ast.htmlContentItem.HtmlContentItem;
 import ast.htmlElement.HtmlElement;
+import ast.htmlElement.StyleSheet;
 import ast.htmlElement.TagElement;
 import ast.tagContent.TagElementItem;
+import visitor.css.StyleSheetVisitor;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,40 +16,39 @@ public class HtmlElementVisitor extends HtmlParserBaseVisitor<HtmlElement> {
     @Override
     public HtmlElement visitTagElement(HtmlParser.TagElementContext ctx) {
         TagElement tagElement = new TagElement(ctx.getStart().getLine());
+        TagContentVisitor tagContentVisitor = new TagContentVisitor();
 
-        // استخراج اسم الوسم من أول TOKEN TAG_NAME
+        boolean isClosing = false;
         String tagName = null;
-        if (ctx.TAG_NAME() != null && ctx.TAG_NAME().size() > 0) {
-            tagName = ctx.TAG_NAME(0).getText();
-        }
-        tagElement.setTagName(tagName);
+        List<TagElementItem> attributes = new ArrayList<>();
 
-        // detect self-closing tag
-        tagElement.setSelfClosing(ctx.TAG_SLASH_CLOSE() != null);
-
-        // معالجة الخصائص
-        if (ctx.tag_attribute() != null) {
-            List<TagElementItem> tagElementItemList = new ArrayList<>();
-            TagContentVisitor tagContentVisitor = new TagContentVisitor();
-
-            for (HtmlParser.Tag_attributeContext attrCtx : ctx.tag_attribute()) {
-                TagElementItem item = attrCtx.accept(tagContentVisitor);
-                if (item != null) tagElementItemList.add(item);
-            }
-            tagElement.setTags(tagElementItemList);
-        }
-
-        // م[عالجة الأطفال (المحتوى الداخلي)
-        // في الـ Grammar الخاص بك، الـ html_content يظهر فقط إذا لم يكن الوسم ذاتي الإغلاق
-        if (ctx.html_content() != null) {
-            HtmlContent htmlContent = new HtmlContentVisitor().visit(ctx.html_content());
-            if (htmlContent != null && htmlContent.getItems() != null) {
-                for (HtmlContentItem item : htmlContent.getItems()) {
-                    tagElement.addChild(item);
+        // بنمر على كل محتويات الوسم
+        for (HtmlParser.Tag_contentContext tCtx : ctx.tag_content()) {
+            if (tCtx instanceof HtmlParser.ClosingMarkerContext) {
+                // إذا لقينا علامة / يعني هذا وسم إغلاق
+                isClosing = true;
+            } else if (tCtx instanceof HtmlParser.HtmlAttributeContext) {
+                HtmlParser.HtmlAttributeContext attrCtx = (HtmlParser.HtmlAttributeContext) tCtx;
+                if (tagName == null) {
+                    // أول اسم بنلاقيه هو اسم الوسم
+                    tagName = attrCtx.TAG_NAME().getText();
+                } else {
+                    // الأسماء اللي بعد هيك هي خصائص (Attributes)
+                    attributes.add(tagContentVisitor.visit(attrCtx));
                 }
             }
         }
 
+        tagElement.setTagName(tagName);
+        tagElement.setClosingTag(isClosing);
+        tagElement.setTags(attributes);
+        tagElement.setSelfClosing(ctx.TAG_SLASH_CLOSE() != null);
+
         return tagElement;
+    }
+
+    @Override
+    public HtmlElement visitStyleElement(HtmlParser.StyleElementContext ctx) {
+        return (StyleSheet) new StyleSheetVisitor().visit(ctx.style_sheet());
     }
 }

@@ -21,9 +21,18 @@ public class CssSelectorList extends ASTNode {
 
     @Override
     public String generateCode() {
-        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+        if (selectors == null || selectors.isEmpty()) {
+            return "";
+        }
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < selectors.size(); i++) {
+            builder.append(selectors.get(i).generateCode());
+            if (i < selectors.size() - 1) {
+                builder.append(" ");
+            }
+        }
+        return builder.toString();
     }
-
 
     @Override
     public String toString() {

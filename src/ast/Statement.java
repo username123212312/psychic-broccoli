@@ -1,6 +1,7 @@
 package ast;
 
 import ast.compundStmt.CompoundStatement;
+import cpython_bytecode.codegen.CodegenContext;
 
 import java.util.List;
 
@@ -32,6 +33,16 @@ public class Statement extends ASTNode {
 
     public boolean isPass() {
         return isPass;
+    }
+
+
+    @Override
+    public void generateBytecode(CodegenContext ctx) {
+        if (isPass) return;
+        if (compoundStatements == null) return;
+        for (CompoundStatement cs : compoundStatements) {
+            cs.generateBytecode(ctx);
+        }
     }
 
     @Override

@@ -1,6 +1,7 @@
 package ast.atomExpression;
 
 import ast.atom.Atom;
+import cpython_bytecode.codegen.CodegenContext;
 
 import java.util.List;
 
@@ -33,6 +34,20 @@ public class AttributeAccess extends AtomExpression {
         return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
     }
 
+
+    @Override
+    public void generateBytecode(CodegenContext ctx) {
+        String base = getVarName();
+        if (base != null) ctx.loadVariable(base);
+        if (attributes != null) {
+            for (ast.atom.Atom attr : attributes) {
+                if (attr != null && attr.getValue() != null) {
+                    int nameIdx = ctx.addName(attr.getValue().toString());
+                    ctx.emitLoadAttr((nameIdx << 1) | 0);
+                }
+            }
+        }
+    }
 
     @Override
     public String toString() {

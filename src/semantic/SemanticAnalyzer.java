@@ -9,12 +9,9 @@ import ast.compundStmt.ForLoop;
 import ast.compundStmt.IfStatement;
 import ast.functionDef.FunctionDefinition;
 import semantic.errors.SemanticError;
-import semantic.rules.SemanticRule;
-import semantic.rules.TypeRule;
-import semantic.rules.UndefinedVariableRule;
+import semantic.rules.*;
 import symbolTable.SymbolTable;
 import symbolTable.SymbolTableManager;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,17 +20,23 @@ public class SemanticAnalyzer {
     private final SymbolTable symbolTable = SymbolTableManager.INSTANCE.getSymbolTable();
 
 
+    private boolean inFunctionScope = false;
+
     public void registerRule(SemanticRule r) {
         if (r != null) rules.add(r);
     }
 
     public void analyze(Program program) {
         if (program == null) return;
-
         ErrorReporter reporter = new ErrorReporter();
+
         if (rules.isEmpty()) {
             registerRule(new TypeRule());
             registerRule(new UndefinedVariableRule());
+            registerRule(new DuplicateFunctionRule());
+
+            registerRule(new ReturnOutsideFunctionRule());
+            registerRule(new UndefinedFunctionRule());
         }
 
         walk(program, reporter);
@@ -43,13 +46,21 @@ public class SemanticAnalyzer {
     private void walk(ASTNode node, ErrorReporter reporter) {
         if (node == null) return;
 
+
         for (SemanticRule rule : rules) {
+
+            if (rule instanceof ReturnOutsideFunctionRule returnRule) {
+                if (inFunctionScope) returnRule.enterFunction();
+                else returnRule.exitFunction();
+            }
+
             try {
                 rule.apply(node, symbolTable, reporter);
             } catch (SemanticError se) {
-                reporter.addError("Rule error: " + se.getMessage());
+                //reporter.addError("Rule error: " + se.getMessage());
             }
         }
+
 
         switch (node) {
             case Program program -> {
@@ -63,6 +74,15 @@ public class SemanticAnalyzer {
                         walk(compoundStatement, reporter);
                     }
                 }
+            }
+            case FunctionDefinition functionDefinition -> {
+
+                boolean wasInFunction = inFunctionScope;
+                inFunctionScope = true;
+
+                walk(functionDefinition.getFunctionBody(), reporter);
+
+                inFunctionScope = wasInFunction;
             }
             case IfStatement ifStatement -> {
                 walk(ifStatement.getCondition(), reporter);
@@ -86,9 +106,7 @@ public class SemanticAnalyzer {
                 walk(forLoop.getCondition(), reporter);
                 walk(forLoop.getStatement(), reporter);
             }
-            case FunctionDefinition functionDefinition -> walk(functionDefinition.getFunctionBody(), reporter);
-            default -> {
-            }
+            default -> { }
         }
     }
 }

@@ -1,6 +1,5 @@
-// Generated from HtmlParser.g4 by ANTLR 4.13.2
+// Generated from D:/RAMA/MyProject/ComplierProject-1/grammars/HtmlParser.g4 by ANTLR 4.13.2
 package antlr.html;
-
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -92,16 +91,6 @@ public interface HtmlParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitStyleElement(HtmlParser.StyleElementContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link HtmlParser#tag_attribute}.
-	 * @param ctx the parse tree
-	 */
-	void enterTag_attribute(HtmlParser.Tag_attributeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link HtmlParser#tag_attribute}.
-	 * @param ctx the parse tree
-	 */
-	void exitTag_attribute(HtmlParser.Tag_attributeContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code HtmlAttribute}
 	 * labeled alternative in {@link HtmlParser#tag_content}.

@@ -25,6 +25,7 @@ public class FunctionTerm extends CssTerm {
 
     @Override
     public String generateCode() {
-        return "";
+        String args = arguments != null ? arguments.generateCode() : "";
+        return getValue() + "(" + args + ")";
     }
 }

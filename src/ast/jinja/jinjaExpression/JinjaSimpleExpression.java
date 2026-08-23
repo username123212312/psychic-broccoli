@@ -19,9 +19,9 @@ public class JinjaSimpleExpression extends JinjaExpression {
 
     @Override
     public String generateCode() {
-        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+        String code = expr != null ? expr.generateCode() : "";
+        return isBlock() ? "{{" + code + "}}" : code;
     }
-
 
     @Override
     public String toString() {

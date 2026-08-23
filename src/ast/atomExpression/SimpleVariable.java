@@ -1,5 +1,7 @@
 package ast.atomExpression;
 
+import cpython_bytecode.codegen.CodegenContext;
+
 public class SimpleVariable extends AtomExpression {
     public SimpleVariable(int line_number) {
         super("SimpleVariable", line_number);
@@ -8,6 +10,12 @@ public class SimpleVariable extends AtomExpression {
     @Override
     public String symbolTablePrint() {
         return super.getVarName();
+    }
+
+
+    @Override
+    public void generateBytecode(CodegenContext ctx) {
+        ctx.loadVariable(getVarName());
     }
 
     @Override

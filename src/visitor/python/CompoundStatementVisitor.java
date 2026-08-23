@@ -153,6 +153,33 @@ public class CompoundStatementVisitor extends PythonParserBaseVisitor<CompoundSt
     }
 
     @Override
+    public CompoundStatement visitPlainImport(PythonParser.PlainImportContext ctx) {
+        ImportStatement importStatement = new ImportStatement(ctx.getStart().getLine());
+        importStatement.setModule(null);
+        List<ast.Imported> importedList = new ArrayList<>();
+        PythonParser.ImportDefContext importDef = (PythonParser.ImportDefContext) ctx.import_stmt();
+        for (PythonParser.Import_targetContext targetRaw : importDef.import_target()) {
+            PythonParser.ImportTargetDefContext target = (PythonParser.ImportTargetDefContext) targetRaw;
+            ast.Imported imported = new ast.Imported(target.getStart().getLine());
+            List<org.antlr.v4.runtime.tree.TerminalNode> nameTokens = target.NAME();
+            int nameCount = nameTokens.size();
+            int nameEnd = (target.AS() != null) ? nameCount - 1 : nameCount;
+            StringBuilder nameBuilder = new StringBuilder();
+            for (int i = 0; i < nameEnd; i++) {
+                if (i > 0) nameBuilder.append(".");
+                nameBuilder.append(nameTokens.get(i).getText());
+            }
+            imported.setName(nameBuilder.toString());
+            if (target.AS() != null) {
+                imported.setAlias(nameTokens.get(nameCount - 1).getText());
+            }
+            importedList.add(imported);
+        }
+        importStatement.setImportedList(importedList);
+        return importStatement;
+    }
+
+    @Override
     public ImportStatement visitImportFromDef(PythonParser.ImportFromDefContext ctx) {
         ImportStatement importStatement = new ImportStatement(ctx.getStart().getLine());
         StringBuilder moduleBuilder = new StringBuilder();

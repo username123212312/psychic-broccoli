@@ -30,7 +30,17 @@ public class JinjaIfStatement extends JinjaStatement {
 
     @Override
     public String generateCode() {
-        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+        StringBuilder builder = new StringBuilder();
+        builder.append("{% if ");
+        if (condition != null) {
+            builder.append(condition.generateCode());
+        }
+        builder.append(" %}\n");
+        if (htmlContent != null) {
+            builder.append(htmlContent.generateCode());
+        }
+        builder.append("{% endif %}");
+        return builder.toString();
     }
 
 

@@ -32,9 +32,22 @@ public class CssDeclaration extends ASTNode {
 
     @Override
     public String generateCode() {
-        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+        if (id == null || id.isBlank()) {
+            return "";
+        }
+        StringBuilder builder = new StringBuilder();
+        builder.append(id).append(": ");
+        if (cssTermList != null) {
+            for (int i = 0; i < cssTermList.size(); i++) {
+                builder.append(cssTermList.get(i).generateCode());
+                if (i < cssTermList.size() - 1) {
+                    builder.append(" ");
+                }
+            }
+        }
+        builder.append(";");
+        return builder.toString();
     }
-
 
     @Override
     public String toString() {

@@ -1,8 +1,5 @@
 parser grammar PythonParser;
 
-@header {package antlr.python;}
-
-
 options { tokenVocab=PythonLexer; }
 
 prog
@@ -25,12 +22,15 @@ compound_stmt
     | return_stmt  NEWLINE?      # ReturnStatement
     | while_loop   NEWLINE?      # WhileStatement
     | import_from  NEWLINE?      # ImportStatement
+    | import_stmt  NEWLINE?      # PlainImport
     | global_stmt  NEWLINE?      # GlobalStatement
     ;
 
 return_stmt
     : RETURN python_expr      # ComplexReturn
     | RETURN atom             # SimpleReturn
+    | RETURN arithmetic_expr  # ArithmeticReturn
+    | RETURN condition        # ConditionReturn
     ;
 
 global_stmt
@@ -39,6 +39,14 @@ global_stmt
 
 import_from
     : FROM NAME (DOT NAME)* IMPORT imptd (COMMA imptd)* # ImportFromDef
+    ;
+
+import_stmt
+    : IMPORT import_target (COMMA import_target)*   # ImportDef
+    ;
+
+import_target
+    : NAME (DOT NAME)* (AS NAME)?   # ImportTargetDef
     ;
 
 imptd
@@ -126,8 +134,12 @@ parameters
     ;
 
 fun_params
-    : NAME ASSIGN atom (COMMA NAME ASSIGN atom)* # KeywordParams
-    | NAME (COMMA NAME)*                         # PositionalParams
+    : fun_param (COMMA fun_param)*   # FunctionParamList
+    ;
+
+fun_param
+    : NAME ASSIGN atom   # ParamWithDefault
+    | NAME               # ParamWithoutDefault
     ;
 
 atom
@@ -145,7 +157,12 @@ bool_exp:
     ;
 
 list_items
-    : atom (COMMA atom)* COMMA? # ListItems
+    : list_item (COMMA list_item)* COMMA? # ListItems
+    ;
+
+list_item
+    : atom        # ScalarListItem
+    | complex_expr # ComplexListItem
     ;
 
 dict_maker

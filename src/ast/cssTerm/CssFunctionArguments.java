@@ -21,9 +21,18 @@ public class CssFunctionArguments extends ASTNode {
 
     @Override
     public String generateCode() {
-        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+        if (cssTerms == null || cssTerms.isEmpty()) {
+            return "";
+        }
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < cssTerms.size(); i++) {
+            builder.append(cssTerms.get(i).generateCode());
+            if (i < cssTerms.size() - 1) {
+                builder.append(", ");
+            }
+        }
+        return builder.toString();
     }
-
 
     @Override
     public String toString() {

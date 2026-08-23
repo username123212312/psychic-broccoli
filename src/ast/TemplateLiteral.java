@@ -20,13 +20,13 @@ public class TemplateLiteral extends ASTNode {
         this.content = content;
     }
 
-    @Override
-    public String generateCode() {
-        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
-    }
+
 
     @Override
     public String toString() {
-        return super.toString() + Consts.printIndent(2) + htmlContent.toString();
+        if (htmlContent != null) {
+            return super.toString() + Consts.printIndent(2) + htmlContent.toString();
+        }
+        return super.toString() + Consts.printIndent(2) + "'" + content + "'";
     }
 }

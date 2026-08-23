@@ -8,7 +8,6 @@ public class None extends Atom {
     }
     @Override
     public String generateCode() {
-        return ""; // مؤقتاً  نصاً فارغاً لكي يعمل المشروع
+        return "None";
     }
-
 }

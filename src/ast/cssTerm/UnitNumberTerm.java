@@ -8,6 +8,6 @@ public class UnitNumberTerm extends CssTerm {
 
     @Override
     public String generateCode() {
-        return "";
+        return getValue() != null ? getValue() : "";
     }
 }

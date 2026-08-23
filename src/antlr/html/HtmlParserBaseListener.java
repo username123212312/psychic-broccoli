@@ -1,6 +1,5 @@
-// Generated from HtmlParser.g4 by ANTLR 4.13.2
+// Generated from D:/RAMA/MyProject/ComplierProject-1/grammars/HtmlParser.g4 by ANTLR 4.13.2
 package antlr.html;
-
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -97,18 +96,6 @@ public class HtmlParserBaseListener implements HtmlParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitStyleElement(HtmlParser.StyleElementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTag_attribute(HtmlParser.Tag_attributeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTag_attribute(HtmlParser.Tag_attributeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

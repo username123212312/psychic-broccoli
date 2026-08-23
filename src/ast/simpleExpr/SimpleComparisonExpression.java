@@ -1,6 +1,7 @@
 package ast.simpleExpr;
 
 import ast.condition.Condition;
+import cpython_bytecode.codegen.CodegenContext;
 
 public class SimpleComparisonExpression extends SimpleExpression {
     private Condition condition;
@@ -24,10 +25,13 @@ public class SimpleComparisonExpression extends SimpleExpression {
 
 
     @Override
-    public String generateCode() {
-        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+    public void generateBytecode(CodegenContext ctx) {
+        if (condition != null) condition.generateBytecode(ctx);
+        else {
+            int noneIdx = ctx.addConstant("NONE_PLACEHOLDER");
+            ctx.emitLoadConst(noneIdx);
+        }
     }
-
 
     @Override
     public String toString() {

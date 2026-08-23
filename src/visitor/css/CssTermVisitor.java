@@ -36,7 +36,7 @@ public class CssTermVisitor extends CssParserBaseVisitor<CssTerm> {
     @Override
     public CssTerm visitUnitNumberTerm(CssParser.UnitNumberTermContext ctx) {
         UnitNumberTerm unitNumberTerm = new UnitNumberTerm(ctx.start.getLine());
-        unitNumberTerm.setValue(ctx.CSS_NUMBER().getText() + " " + ctx.CSS_UNIT().getText());
+        unitNumberTerm.setValue(ctx.CSS_NUMBER().getText() + ctx.CSS_UNIT().getText());
         return unitNumberTerm;
     }
 

@@ -3,6 +3,8 @@ package ast.condition;
 import ast.Consts;
 import ast.comparisonOp.ComparisonOperator;
 import ast.compundStmt.PythonExpression;
+import cpython_bytecode.PythonOpCode;
+import cpython_bytecode.codegen.CodegenContext;
 
 import java.util.Map;
 
@@ -32,10 +34,63 @@ public class ComparisonExpression extends Condition {
     }
 
     @Override
-    public String generateCode() {
-        return "";
+    public void generateBytecode(CodegenContext ctx) {
+        if (operatorPythonExpressionMap != null && !operatorPythonExpressionMap.isEmpty()) {
+            ast.comparisonOp.ComparisonOperator firstOp = operatorPythonExpressionMap.keySet().iterator().next();
+            String op = firstOp != null ? firstOp.getOperator() : "";
+            if ("or".equals(op) || "and".equals(op)) {
+                generateShortCircuit(ctx, op);
+                return;
+            }
+        }
+        if (baseExpr != null) baseExpr.generateBytecode(ctx);
+        if (operatorPythonExpressionMap != null) {
+            for (java.util.Map.Entry<ast.comparisonOp.ComparisonOperator, PythonExpression> entry : operatorPythonExpressionMap.entrySet()) {
+                ast.comparisonOp.ComparisonOperator compOp = entry.getKey();
+                PythonExpression compExpr = entry.getValue();
+                if (compExpr != null) compExpr.generateBytecode(ctx);
+                int oparg = mapCompareOp(compOp, ctx);
+                if (oparg >= 0) {
+                    ctx.emitCompareOp(oparg);
+                }
+            }
+        }
     }
 
+    private void generateShortCircuit(CodegenContext ctx, String op) {
+        String endLabel = ctx.newLabel();
+        if (baseExpr != null) baseExpr.generateBytecode(ctx);
+        ctx.emit(PythonOpCode.COPY, 1);
+        ctx.emit(PythonOpCode.TO_BOOL, 0);
+        if ("or".equals(op)) {
+            ctx.emitPopJumpIfTrue(endLabel);
+        } else {
+            ctx.emitPopJumpIfFalse(endLabel);
+        }
+        ctx.emitPopTop();
+        ast.comparisonOp.ComparisonOperator firstOp = operatorPythonExpressionMap.keySet().iterator().next();
+        PythonExpression compExpr = operatorPythonExpressionMap.get(firstOp);
+        if (compExpr != null) compExpr.generateBytecode(ctx);
+        ctx.markLabel(endLabel);
+    }
+
+    private int mapCompareOp(ast.comparisonOp.ComparisonOperator compOp, cpython_bytecode.codegen.CodegenContext ctx) {
+        if (compOp == null) return cpython_bytecode.codegen.CodegenContext.CMP_EQ;
+        String op = compOp.getOperator();
+        return switch (op) {
+            case "<" -> cpython_bytecode.codegen.CodegenContext.CMP_LT;
+            case "<=" -> cpython_bytecode.codegen.CodegenContext.CMP_LE;
+            case "==" -> cpython_bytecode.codegen.CodegenContext.CMP_EQ;
+            case "!=" -> cpython_bytecode.codegen.CodegenContext.CMP_NE;
+            case ">" -> cpython_bytecode.codegen.CodegenContext.CMP_GT;
+            case ">=" -> cpython_bytecode.codegen.CodegenContext.CMP_GE;
+            case "in" -> { ctx.emitContainsOp(0); yield -1; }
+            case "not in" -> { ctx.emitContainsOp(1); yield -1; }
+            case "is" -> { ctx.emitIsOp(0); yield -1; }
+            case "is not" -> { ctx.emitIsOp(1); yield -1; }
+            default -> cpython_bytecode.codegen.CodegenContext.CMP_EQ;
+        };
+    }
 
     @Override
     public String symbolTablePrint() {
