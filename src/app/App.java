@@ -154,7 +154,19 @@ public class App {
             }
         }
 
-        // 5. Render templates and write output
+        // 5. Check templates for missing Flask variables
+        Map<String, java.util.Set<String>> templateExpectedVars = extractor.extractRenderTemplateVars(program);
+        semantic.ErrorReporter flaskReporter = new semantic.ErrorReporter();
+        semantic.jinja.FlaskTemplateChecker flaskChecker = new semantic.jinja.FlaskTemplateChecker();
+        for (Map.Entry<String, HtmlContent> entry : templateMap.entrySet()) {
+            String tplName = entry.getKey();
+            if ("base.html".equals(tplName)) continue;
+            java.util.Set<String> provided = templateExpectedVars.getOrDefault(tplName, new java.util.HashSet<>());
+            flaskChecker.analyze(entry.getValue(), tplName, provided, flaskReporter);
+        }
+        flaskReporter.printErrors();
+
+        // 6. Render templates and write output
         JinjaRenderer renderer = new JinjaRenderer(context, templateMap, routes);
         System.out.println("\n[4/5] Rendering templates...");
 
