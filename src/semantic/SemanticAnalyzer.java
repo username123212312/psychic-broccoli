@@ -32,6 +32,7 @@ public class SemanticAnalyzer {
 
         if (rules.isEmpty()) {
             registerRule(new TypeRule());
+            registerRule(new NotIterableRule());
             registerRule(new UndefinedVariableRule());
             registerRule(new DuplicateFunctionRule());
 
@@ -80,7 +81,19 @@ public class SemanticAnalyzer {
                 boolean wasInFunction = inFunctionScope;
                 inFunctionScope = true;
 
+                for (SemanticRule rule : rules) {
+                    if (rule instanceof FunctionScopeAware scopeAwareRule) {
+                        scopeAwareRule.pushFunction(functionDefinition.getFunctionName());
+                    }
+                }
+
                 walk(functionDefinition.getFunctionBody(), reporter);
+
+                for (SemanticRule rule : rules) {
+                    if (rule instanceof FunctionScopeAware scopeAwareRule) {
+                        scopeAwareRule.popFunction();
+                    }
+                }
 
                 inFunctionScope = wasInFunction;
             }

@@ -16,12 +16,14 @@ public class SymbolTable {
     private static final class Scope {
         private final String name;
         private final int level;
+        private final String kind;
         private final HashMap<String, SymbolEntry> table = new HashMap<>();
         private final HashSet<String> globalNames = new HashSet<>();
 
-        private Scope(String name, int level) {
+        private Scope(String name, int level, String kind) {
             this.name = name;
             this.level = level;
+            this.kind = (kind == null || kind.isBlank()) ? SymbolEntry.SCOPE_BLOCK : kind;
         }
     }
 
@@ -35,7 +37,7 @@ public class SymbolTable {
     public void allocate() {
         scopes.clear();
         exitedScopes.clear();
-        scopes.push(new Scope("global", 0));
+        scopes.push(new Scope("global", 0, SymbolEntry.SCOPE_GLOBAL));
     }
 
     // free: clear table
@@ -44,7 +46,11 @@ public class SymbolTable {
     }
 
     public void enterScope(String scopeName) {
-        scopes.push(new Scope(scopeName, scopes.size()));
+        scopes.push(new Scope(scopeName, scopes.size(), SymbolEntry.SCOPE_BLOCK));
+    }
+
+    public void enterFunctionScope(String functionName) {
+        scopes.push(new Scope(functionName, scopes.size(), SymbolEntry.SCOPE_FUNCTION));
     }
 
     public void enterTemporaryScope(String statementKind, Object owner) {
@@ -95,6 +101,24 @@ public class SymbolTable {
         return currentScope.table.get(name);
     }
 
+    public List<SymbolEntry> lookupAll(String name) {
+        List<SymbolEntry> results = new ArrayList<>();
+        if (name == null) return results;
+        for (Scope scope : scopes) {
+            SymbolEntry entry = scope.table.get(name);
+            if (entry != null) {
+                results.add(entry);
+            }
+        }
+        for (int i = exitedScopes.size() - 1; i >= 0; i--) {
+            SymbolEntry entry = exitedScopes.get(i).table.get(name);
+            if (entry != null) {
+                results.add(entry);
+            }
+        }
+        return results;
+    }
+
     public boolean isDefinedInCurrentScope(String name) {
         return lookupInCurrentScope(name) != null;
     }
@@ -111,7 +135,7 @@ public class SymbolTable {
             return null;
         }
 
-        SymbolEntry entry = new SymbolEntry(name, targetScope.name, targetScope.level);
+        SymbolEntry entry = new SymbolEntry(name, targetScope.name, targetScope.level, targetScope.kind);
         targetScope.table.put(name, entry);
         return entry;
     }
@@ -121,7 +145,7 @@ public class SymbolTable {
         Scope targetScope = resolveWriteScope(name);
         SymbolEntry entry = targetScope.table.get(name);
         if (entry == null) {
-            entry = new SymbolEntry(name, targetScope.name, targetScope.level);
+            entry = new SymbolEntry(name, targetScope.name, targetScope.level, targetScope.kind);
             targetScope.table.put(name, entry);
         }
         entry.setAttribute(key, value);

@@ -123,7 +123,7 @@ public class CompoundStatementVisitor extends PythonParserBaseVisitor<CompoundSt
         functionDefinition.setFunctionParameters(functionParameters);
         symbolTable.setAttribute(functionDefinition.getFunctionName(), "Type", functionDefinition.node_name);
         symbolTable.setAttribute(functionDefinition.getFunctionName(), "Value", "FunctionDefinition");
-        symbolTable.enterScope(functionDefinition.getFunctionName());
+        symbolTable.enterFunctionScope(functionDefinition.getFunctionName());
         try {
             if (functionParameters != null && functionParameters.getParameters() != null) {
                 for (FunctionParameter functionParameter : functionParameters.getParameters()) {
@@ -176,6 +176,7 @@ public class CompoundStatementVisitor extends PythonParserBaseVisitor<CompoundSt
             importedList.add(imported);
         }
         importStatement.setImportedList(importedList);
+        registerImportedNames(importedList);
         return importStatement;
     }
 
@@ -202,7 +203,25 @@ public class CompoundStatementVisitor extends PythonParserBaseVisitor<CompoundSt
         importStatement.setImportedList(importedList);
         importStatement.setModule(module);
 
+        registerImportedNames(importedList);
+
         return importStatement;
+    }
+
+    private void registerImportedNames(List<Imported> importedList) {
+        if (importedList == null) return;
+        for (Imported imported : importedList) {
+            if (imported == null) continue;
+            String definedName;
+            if (imported.getAlias() != null && !imported.getAlias().isBlank()) {
+                definedName = imported.getAlias();
+            } else if (imported.getName() != null) {
+                definedName = imported.getName().split("\\.")[0];
+            } else {
+                continue;
+            }
+            symbolTable.setAttribute(definedName, "Type", "Imported");
+        }
     }
 
     @Override
