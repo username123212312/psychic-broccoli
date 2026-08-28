@@ -2,7 +2,6 @@ package ast;
 
 import ast.compundStmt.CompoundStatement;
 import ast.condition.Condition;
-import cpython_bytecode.codegen.CodegenContext;
 
 public class WhileStatement extends CompoundStatement {
     Condition condition;
@@ -32,20 +31,6 @@ public class WhileStatement extends CompoundStatement {
     public String symbolTablePrint() {
         return super.symbolTablePrint() + " ( " + (condition == null ? "" : condition.symbolTablePrint()) + " ) "
                 + Consts.printIndent(2) + (statement == null ? "" : statement.symbolTablePrint());
-    }
-
-    @Override
-    public void generateBytecode(CodegenContext ctx) {
-        String startLabel = ctx.newLabel();
-        String endLabel = ctx.newLabel();
-
-        ctx.markLabel(startLabel);
-        condition.generateBytecode(ctx);
-        ctx.emitPopJumpIfFalse(endLabel);
-        if (statement != null) statement.generateBytecode(ctx);
-        ctx.emitJumpBackward(startLabel);
-
-        ctx.markLabel(endLabel);
     }
 
     @Override

@@ -3,7 +3,7 @@ package semantic.rules;
 import ast.ASTNode;
 import ast.returnStmt.ReturnStatement;
 import semantic.ErrorReporter;
-import semantic.errors.SemanticError;
+import semantic.errors.ReturnOutsideFunctionError;
 import symbolTable.SymbolTable;
 
 
@@ -28,8 +28,8 @@ public class ReturnOutsideFunctionRule implements SemanticRule {
             if (!insideFunction) {
                 String msg = "Semantic Error at line " + rs.line_number
                         + ": 'return' statement used outside of a function.";
-                reporter.addError(msg);
-                throw new SemanticError(msg);
+                reporter.addError(new ReturnOutsideFunctionError(msg));
+                throw new ReturnOutsideFunctionError(msg);
             }
         }
     }

@@ -1,7 +1,5 @@
 package ast.compundStmt;
 
-import cpython_bytecode.codegen.CodegenContext;
-
 import java.util.List;
 
 public class GlobalStatement extends CompoundStatement{
@@ -19,10 +17,6 @@ public class GlobalStatement extends CompoundStatement{
         return globals;
     }
 
-
-    @Override
-    public void generateBytecode(CodegenContext ctx) {
-    }
 
     @Override
     public String toString() {

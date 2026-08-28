@@ -4,7 +4,6 @@ import ast.Consts;
 import ast.Statement;
 import ast.atom.Atom;
 import ast.condition.Condition;
-import cpython_bytecode.codegen.CodegenContext;
 
 public class ForLoop extends CompoundStatement {
     private Atom var;
@@ -65,29 +64,6 @@ public class ForLoop extends CompoundStatement {
                 : " if " + condition.symbolTablePrint()) + (statement == null ? "" : Consts.printIndent(2) + statement.symbolTablePrint());
     }
 
-
-    @Override
-    public void generateBytecode(CodegenContext ctx) {
-        String startLabel = ctx.newLabel();
-        String endLabel = ctx.newLabel();
-
-        iter.generateBytecode(ctx);
-        ctx.emitGetIter();
-
-        ctx.markLabel(startLabel);
-        ctx.emitForIter(endLabel);
-
-        if (var instanceof ast.atom.Name nameAtom) {
-            ctx.storeVariable((String) nameAtom.getValue());
-        } else if (var != null && var.getValue() != null) {
-            ctx.storeVariable(var.getValue().toString());
-        }
-
-        if (statement != null) statement.generateBytecode(ctx);
-        ctx.emitJumpBackward(startLabel);
-
-        ctx.markLabel(endLabel);
-    }
 
     @Override
     public String toString() {

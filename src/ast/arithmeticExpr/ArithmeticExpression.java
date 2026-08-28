@@ -2,7 +2,6 @@ package ast.arithmeticExpr;
 
 import ast.compundStmt.PythonExpression;
 import ast.simpleExpr.SimpleExpression;
-import cpython_bytecode.codegen.CodegenContext;
 
 import java.util.List;
 
@@ -56,24 +55,6 @@ public class ArithmeticExpression extends SimpleExpression {
         return stringBuilder.toString();
     }
 
-
-    @Override
-    public void generateBytecode(CodegenContext ctx) {
-        if (left != null) left.generateBytecode(ctx);
-        if (right != null) {
-            for (PythonExpression r : right) {
-                r.generateBytecode(ctx);
-                int oparg = switch (operator) {
-                    case "+" -> cpython_bytecode.codegen.CodegenContext.BINARY_ADD;
-                    case "-" -> cpython_bytecode.codegen.CodegenContext.BINARY_SUBTRACT;
-                    case "*" -> cpython_bytecode.codegen.CodegenContext.BINARY_MULTIPLY;
-                    case "/" -> cpython_bytecode.codegen.CodegenContext.BINARY_TRUE_DIVIDE;
-                    default -> cpython_bytecode.codegen.CodegenContext.BINARY_ADD;
-                };
-                ctx.emitBinaryOp(oparg);
-            }
-        }
-    }
 
     @Override
     public String toString() {
