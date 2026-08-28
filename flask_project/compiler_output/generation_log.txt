@@ -1,7 +1,0 @@
-=== Data-only Render Log ===
-At: 2026-08-28T03:46:35.726423900Z
-Cause: product CRUD update from the Java web server.
-Skipped: Lexer -> Parser -> Visitor -> AST -> Semantic.
-Re-rendered templates using the latest successful compilation snapshot.
-Updated runtime support files copied to output/.
-AST and semantic-report files describe the last full compilation.

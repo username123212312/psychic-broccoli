@@ -38,6 +38,11 @@ bin/
 gen/
 build/
 
+### Compiler generated output ###
+**/output/
+**/compiler_output/
+**/flask_output.txt
+
 src/antlr/JinjaFlaskLexer.java
 src/antlr/JinjaFlaskLexer.interp
 src/antlr/JinjaFlaskLexer.tokens
