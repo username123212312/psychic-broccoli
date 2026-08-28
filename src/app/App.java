@@ -71,6 +71,9 @@ public class App {
                 } else {
                     new ProjectWatcher(startPath).startWatching();
                 }
+            } catch (semantic.errors.SemanticError e) {
+                System.out.println("Semantic error detected \"" + e.getName()
+                        + "\": " + e.getDescription());
             } catch (Exception e) {
                 System.err.println("Error processing Flask project: " + e.getMessage());
                 e.printStackTrace();
@@ -174,7 +177,22 @@ public class App {
             }
         }
 
-        // 5. Render templates and write output
+        // 5. Check templates for missing Flask variables
+        Map<String, java.util.Set<String>> templateExpectedVars = extractor.extractRenderTemplateVars(program);
+        semantic.ErrorReporter flaskReporter = new semantic.ErrorReporter();
+        semantic.jinja.FlaskTemplateChecker flaskChecker = new semantic.jinja.FlaskTemplateChecker();
+        for (Map.Entry<String, HtmlContent> entry : templateMap.entrySet()) {
+            String tplName = entry.getKey();
+            if ("base.html".equals(tplName)) continue;
+            java.util.Set<String> provided = templateExpectedVars.getOrDefault(tplName, new java.util.HashSet<>());
+            flaskChecker.analyze(entry.getValue(), tplName, provided, flaskReporter);
+        }
+        flaskReporter.printErrors();
+        if (flaskReporter.hasErrors()) {
+            throw flaskReporter.getErrors().get(0);
+        }
+
+        // 6. Render templates and write output
         JinjaRenderer renderer = new JinjaRenderer(context, templateMap, routes);
         System.out.println("\n[4/5] Rendering templates...");
 
@@ -202,10 +220,10 @@ public class App {
             }
         }
 
-        // 6. Copy support files (app.py, templates, styles.css, script.js)
+        // 7. Copy support files (app.py, templates, styles.css, script.js)
         copyRuntimeSupportFiles(projectDir, outputWriter);
 
-        // 7. Write reports
+        // 8. Write reports
         writeReports(outputWriter, program, context, routes, templateMap);
 
         System.out.println("\n=== Flask Project Processing Complete ===");
@@ -392,10 +410,13 @@ public class App {
                     writeGeneratedSource(filePath, generatedCss);
                 }
             }
-        } catch (Exception e) {
-            System.err.println("Error processing " + fileName + ": " + e.getMessage());
-            e.printStackTrace();
-        }
+} catch (semantic.errors.SemanticError e) {
+                System.out.println("Semantic error detected \"" + e.getName()
+                        + "\": " + e.getDescription());
+            } catch (Exception e) {
+                System.err.println("Error processing " + fileName + ": " + e.getMessage());
+                e.printStackTrace();
+            }
     }
 
     private static void writeGeneratedSource(Path filePath, String content) throws IOException {

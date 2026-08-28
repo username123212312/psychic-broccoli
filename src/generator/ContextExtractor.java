@@ -1,11 +1,16 @@
 package generator;
 
+import ast.ASTNode;
+import ast.ElIfStatement;
 import ast.Program;
 import ast.Statement;
+import ast.WhileStatement;
 import ast.assignStmt.*;
 import ast.atom.*;
 import ast.atomExpression.*;
 import ast.compundStmt.CompoundStatement;
+import ast.compundStmt.ForLoop;
+import ast.compundStmt.IfStatement;
 import ast.compundStmt.PythonExpression;
 import ast.complexExp.*;
 import ast.functionDef.Decorator;
@@ -13,6 +18,8 @@ import ast.functionDef.FunctionDefinition;
 import ast.keyValue.*;
 import ast.argsList.*;
 import ast.argument.*;
+import ast.returnStmt.ComplexReturnStatement;
+import ast.returnStmt.ReturnStatement;
 
 import java.math.BigInteger;
 import java.util.*;
@@ -207,5 +214,133 @@ public class ContextExtractor {
             return "True".equals(String.valueOf(raw));
         }
         return raw;
+    }
+
+    public Map<String, Set<String>> extractRenderTemplateVars(Program program) {
+        Map<String, Set<String>> templateVars = new LinkedHashMap<>();
+        if (program == null || program.getStatements() == null) return templateVars;
+        for (Statement statement : program.getStatements()) {
+            scanStatement(statement, templateVars);
+        }
+        return templateVars;
+    }
+
+    private void scanStatement(Statement statement, Map<String, Set<String>> templateVars) {
+        if (statement == null || statement.getCompoundStatements() == null) return;
+        for (CompoundStatement compoundStatement : statement.getCompoundStatements()) {
+            scanCompound(compoundStatement, templateVars);
+        }
+    }
+
+    private void scanCompound(CompoundStatement compoundStatement, Map<String, Set<String>> templateVars) {
+        if (compoundStatement == null) return;
+        switch (compoundStatement) {
+            case ReturnStatement returnStatement -> scanReturn(returnStatement, templateVars);
+            case FunctionDefinition functionDefinition ->
+                    scanStatement(functionDefinition.getFunctionBody(), templateVars);
+            case IfStatement ifStatement -> {
+                scanStatement(ifStatement.getStatement(), templateVars);
+                if (ifStatement.getElifStatements() != null) {
+                    for (ElIfStatement elIfStatement : ifStatement.getElifStatements()) {
+                        scanStatement(elIfStatement.getStatement(), templateVars);
+                    }
+                }
+                scanStatement(ifStatement.getElseStatement(), templateVars);
+            }
+            case WhileStatement whileStatement -> scanStatement(whileStatement.getStatement(), templateVars);
+            case ForLoop forLoop -> scanStatement(forLoop.getStatement(), templateVars);
+            case PythonExpressionAssignStatement pythonExpressionAssignStatement ->
+                    scanExpression(pythonExpressionAssignStatement.getValue(), templateVars);
+            default -> { }
+        }
+    }
+
+    private void scanReturn(ReturnStatement returnStatement, Map<String, Set<String>> templateVars) {
+        if (!(returnStatement instanceof ComplexReturnStatement complexReturnStatement)) return;
+        ASTNode returned = complexReturnStatement.getPythonExpression() != null
+                ? complexReturnStatement.getPythonExpression()
+                : complexReturnStatement.getExpression();
+        if (returned instanceof PythonExpression pythonExpression) {
+            scanExpression(pythonExpression, templateVars);
+        }
+    }
+
+    private void scanExpression(PythonExpression expression, Map<String, Set<String>> templateVars) {
+        if (expression == null) return;
+        switch (expression) {
+            case FunctionCall functionCall -> {
+                harvestRenderTemplate(functionCall, templateVars);
+                scanArguments(functionCall.getArgumentsList(), templateVars);
+            }
+            case ObjectCreation objectCreation -> scanArguments(objectCreation.getArgumentsList(), templateVars);
+            case MethodAccess methodAccess -> {
+                if (methodAccess.getMethodCalls() != null) {
+                    for (PythonExpression call : methodAccess.getMethodCalls()) {
+                        scanExpression(call, templateVars);
+                    }
+                }
+            }
+            case ListLiteral listLiteral -> {
+                if (listLiteral.getListItems() != null) {
+                    for (PythonExpression item : listLiteral.getListItems()) {
+                        scanExpression(item, templateVars);
+                    }
+                }
+            }
+            default -> { }
+        }
+    }
+
+    private void scanArguments(ArgumentsList argumentsList, Map<String, Set<String>> templateVars) {
+        if (!(argumentsList instanceof ComplexArguments complexArguments)
+                || complexArguments.getArguments() == null) return;
+        for (Argument argument : complexArguments.getArguments()) {
+            scanExpression(argument.getArg(), templateVars);
+        }
+    }
+
+    private void harvestRenderTemplate(FunctionCall functionCall, Map<String, Set<String>> templateVars) {
+        if (!"render_template".equals(functionCall.getVarName())) return;
+        ArgumentsList argumentsList = functionCall.getArgumentsList();
+        if (argumentsList == null) return;
+
+        String templateName = extractTemplateName(argumentsList);
+        if (templateName == null) return;
+
+        Set<String> providedVars = templateVars.computeIfAbsent(templateName, key -> new LinkedHashSet<>());
+        if (argumentsList instanceof ComplexArguments complexArguments
+                && complexArguments.getArguments() != null) {
+            for (Argument argument : complexArguments.getArguments()) {
+                if (argument instanceof KeywordArgument keywordArgument && keywordArgument.getArgName() != null) {
+                    providedVars.add(keywordArgument.getArgName());
+                }
+            }
+        }
+    }
+
+    private String extractTemplateName(ArgumentsList argumentsList) {
+        if (argumentsList instanceof AtomArguments atomArguments
+                && atomArguments.getArgs() != null && !atomArguments.getArgs().isEmpty()) {
+            return stripQuotes(String.valueOf(atomArguments.getArgs().get(0).getValue()));
+        }
+        if (argumentsList instanceof ComplexArguments complexArguments
+                && complexArguments.getArguments() != null && !complexArguments.getArguments().isEmpty()) {
+            Argument first = complexArguments.getArguments().get(0);
+            if (first instanceof PositionalArgument positionalArgument
+                    && positionalArgument.getArg() instanceof LiteralExpression literalExpression) {
+                return stripQuotes(literalExpression.getLiteralValue());
+            }
+        }
+        return null;
+    }
+
+    private String stripQuotes(String value) {
+        if (value == null || value.length() < 2) return value;
+        char first = value.charAt(0);
+        char last = value.charAt(value.length() - 1);
+        if ((first == '\'' && last == '\'') || (first == '"' && last == '"')) {
+            return value.substring(1, value.length() - 1);
+        }
+        return value;
     }
 }
