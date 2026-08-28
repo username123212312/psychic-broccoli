@@ -32,17 +32,23 @@ public final class CompilationSnapshot {
         this.routes = new LinkedHashMap<>(routes);
     }
 
+    /** The context variables from the last successful full compilation. */
+    public Map<String, Object> getContext() {
+        return new LinkedHashMap<>(compiledContext);
+    }
+
     /**
-     * Regenerates only rendered output and runtime support files after a CRUD data change.
-     * Compiler artefacts (AST and semantic report) intentionally remain from this snapshot.
+     * Regenerates only rendered output and runtime support files after a data change.
+     * The given context is used as-is: the caller is expected to merge the latest
+     * data of every editable collection (plus the compiled snapshot context), so
+     * templates that read several collections stay consistent. Compiler artefacts
+     * (AST and semantic report) intentionally remain from this snapshot.
      */
-    public synchronized void renderProductsOnly(List<Product> products) throws IOException {
-        Map<String, Object> liveContext = new LinkedHashMap<>(compiledContext);
-        liveContext.put("products", productsToContext(products));
+    public synchronized void rerender(String causeCollection, Map<String, Object> liveContext) throws IOException {
+        JinjaRenderer renderer = new JinjaRenderer(new LinkedHashMap<>(liveContext), templateMap, routes);
 
         OutputWriter outputWriter = new OutputWriter(projectDirectory);
         outputWriter.createDirectories();
-        JinjaRenderer renderer = new JinjaRenderer(liveContext, templateMap, routes);
 
         System.out.println("=== Data-only Render Mode ===");
         System.out.println("Skipping Lexer -> Parser -> Visitor -> AST -> Semantic; rendering with the latest successful snapshot.");
@@ -60,23 +66,10 @@ public final class CompilationSnapshot {
         App.copyRuntimeSupportFiles(projectDirectory, outputWriter);
         outputWriter.writeGenerationLog("=== Data-only Render Log ===\n" +
                 "At: " + Instant.now() + "\n" +
-                "Cause: product CRUD update from the Java web server.\n" +
+                "Cause: collection '" + causeCollection + "' updated from the Java web server.\n" +
                 "Skipped: Lexer -> Parser -> Visitor -> AST -> Semantic.\n" +
                 "Re-rendered templates using the latest successful compilation snapshot.\n" +
                 "Updated runtime support files copied to output/.\n" +
                 "AST and semantic-report files describe the last full compilation.\n");
-    }
-
-    private static List<Map<String, Object>> productsToContext(List<Product> products) {
-        return products.stream().map(product -> {
-            Map<String, Object> row = new LinkedHashMap<>();
-            row.put("id", product.id());
-            row.put("name", product.name());
-            row.put("price", product.price());
-            row.put("description", product.description());
-            row.put("specification", product.specification());
-            row.put("img", product.img());
-            return row;
-        }).toList();
     }
 }

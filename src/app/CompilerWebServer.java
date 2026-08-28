@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,16 +22,23 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executors;
 
 /**
- * Runs the generated files and exposes a small same-origin API.
+ * Runs the generated files and exposes a small same-origin CRUD API.
  * app.py remains the single source of truth: each successful API mutation is
- * written into its `products` literal and then sent through the existing compiler.
+ * written into the matching top-level collection literal and then sent through
+ * the existing renderer.
+ *
+ * <p>Editable collections are discovered from the compiled context: any
+ * top-level variable whose value is a list of dictionaries that carry a numeric
+ * {@code "id"} key (e.g. {@code products}, {@code posts}, {@code books}). Each
+ * such collection is exposed at {@code /api/<collectionName>} and everything in
+ * the data path is generic - no field set is hard-coded.</p>
  */
 public final class CompilerWebServer implements AutoCloseable {
     private static final int MAX_REQUEST_BODY_BYTES = 64 * 1024;
 
     private final Path projectDirectory;
     private final Path outputDirectory;
-    private final PythonProductStore productStore;
+    private final Map<String, PythonDataStore> stores;
     private final HttpServer server;
     private final SseHub events = new SseHub();
     private final Object compilationLock = new Object();
@@ -39,11 +47,26 @@ public final class CompilerWebServer implements AutoCloseable {
     public CompilerWebServer(Path projectDirectory, int port, CompilationSnapshot initialSnapshot) throws IOException {
         this.projectDirectory = projectDirectory.toAbsolutePath().normalize();
         this.outputDirectory = this.projectDirectory.resolve("output").normalize();
-        this.productStore = new PythonProductStore(this.projectDirectory.resolve("app.py"));
         this.snapshot = initialSnapshot;
         this.server = HttpServer.create(new InetSocketAddress("127.0.0.1", port), 0);
         this.server.setExecutor(Executors.newVirtualThreadPerTaskExecutor());
-        this.server.createContext("/api/products", this::handleProducts);
+
+        Map<String, PythonDataStore> discovered = new LinkedHashMap<>();
+        Path appPy = this.projectDirectory.resolve("app.py");
+        if (Files.isRegularFile(appPy)) {
+            for (String collection : discoverCollections(initialSnapshot.getContext())) {
+                if (discovered.containsKey(collection)) {
+                    continue;
+                }
+                PythonDataStore store = new PythonDataStore(appPy, collection);
+                discovered.put(collection, store);
+                String contextPath = "/api/" + collection;
+                server.createContext(contextPath, exchange -> handleCollection(exchange, collection, store));
+                System.out.println("API endpoint registered: " + contextPath);
+            }
+        }
+        this.stores = Collections.unmodifiableMap(new LinkedHashMap<>(discovered));
+
         this.server.createContext("/events", this::handleEvents);
         this.server.createContext("/", this::handleGeneratedFile);
     }
@@ -58,7 +81,12 @@ public final class CompilerWebServer implements AutoCloseable {
     }
 
     public boolean shouldIgnoreSourceEvent(Path changedPath) {
-        return productStore.shouldIgnoreSourceEvent(changedPath);
+        for (PythonDataStore store : stores.values()) {
+            if (store.shouldIgnoreSourceEvent(changedPath)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void onExternalSourceChange(Path changedPath) {
@@ -73,20 +101,22 @@ public final class CompilerWebServer implements AutoCloseable {
         }
     }
 
-    private void handleProducts(HttpExchange exchange) throws IOException {
+    private void handleCollection(HttpExchange exchange, String collection, PythonDataStore store) throws IOException {
         try {
-            String tail = exchange.getRequestURI().getPath().substring("/api/products".length());
+            String prefix = "/api/" + collection;
+            String path = exchange.getRequestURI().getPath();
+            String tail = path.substring(prefix.length());
             String method = exchange.getRequestMethod();
 
             if (tail.isEmpty() || "/".equals(tail)) {
                 if ("GET".equals(method)) {
-                    sendJson(exchange, 200, productsJson(productStore.list()));
+                    sendJson(exchange, 200, listJson(store.list()));
                     return;
                 }
                 if ("POST".equals(method)) {
                     Map<String, String> form = readForm(exchange);
-                    Product created = productStore.create(Product.fromForm(1, form));
-                    regenerateAfterUiMutation("create", created.id());
+                    DataRecord created = store.create(form);
+                    regenerateAfterUiMutation(collection, "create", created.id());
                     sendJson(exchange, 201, created.toJson());
                     return;
                 }
@@ -94,28 +124,28 @@ public final class CompilerWebServer implements AutoCloseable {
                 return;
             }
 
-            int productId = parseId(tail);
+            int recordId = parseId(tail);
             if ("GET".equals(method)) {
-                Product product = productStore.find(productId)
-                        .orElseThrow(() -> new PythonProductStore.ProductNotFoundException(productId));
-                sendJson(exchange, 200, product.toJson());
+                DataRecord record = store.find(recordId)
+                        .orElseThrow(() -> new PythonDataStore.NotFoundException(collection, recordId));
+                sendJson(exchange, 200, record.toJson());
                 return;
             }
             if ("PUT".equals(method)) {
                 Map<String, String> form = readForm(exchange);
-                Product updated = productStore.update(productId, Product.fromForm(productId, form));
-                regenerateAfterUiMutation("update", updated.id());
+                DataRecord updated = store.update(recordId, form);
+                regenerateAfterUiMutation(collection, "update", updated.id());
                 sendJson(exchange, 200, updated.toJson());
                 return;
             }
             if ("DELETE".equals(method)) {
-                productStore.delete(productId);
-                regenerateAfterUiMutation("delete", productId);
+                store.delete(recordId);
+                regenerateAfterUiMutation(collection, "delete", recordId);
                 sendEmpty(exchange, 204);
                 return;
             }
             sendMethodNotAllowed(exchange, "GET, PUT, DELETE");
-        } catch (PythonProductStore.ProductNotFoundException exception) {
+        } catch (PythonDataStore.NotFoundException exception) {
             sendJson(exchange, 404, errorJson(exception.getMessage()));
         } catch (IllegalArgumentException exception) {
             sendJson(exchange, 400, errorJson(exception.getMessage()));
@@ -125,15 +155,62 @@ public final class CompilerWebServer implements AutoCloseable {
         }
     }
 
-    private void regenerateAfterUiMutation(String action, int productId) throws Exception {
+    private void regenerateAfterUiMutation(String collection, String action, int recordId) throws Exception {
         synchronized (compilationLock) {
             CompilationSnapshot currentSnapshot = snapshot;
             if (currentSnapshot == null) {
                 throw new IllegalStateException("No successful full compilation is available. Fix the source and let the watcher complete a full compilation first.");
             }
-            currentSnapshot.renderProductsOnly(productStore.list());
+            currentSnapshot.rerender(collection, liveContext(currentSnapshot));
         }
-        events.broadcast("regenerated", eventData(action, "product=" + productId));
+        events.broadcast("regenerated", eventData(action, collection + "=" + recordId));
+    }
+
+    /**
+     * Current render context: the compiled snapshot values for every variable,
+     * overlaid with the live data of all editable collections, so a template
+     * that reads several collections is re-rendered with consistent data.
+     */
+    private Map<String, Object> liveContext(CompilationSnapshot currentSnapshot) throws IOException {
+        Map<String, Object> context = currentSnapshot.getContext();
+        for (Map.Entry<String, PythonDataStore> entry : stores.entrySet()) {
+            context.put(entry.getKey(), entry.getValue().listAsMaps());
+        }
+        return context;
+    }
+
+    /** Finds the editable top-level collections in the compiled context. */
+    private static List<String> discoverCollections(Map<String, Object> context) {
+        List<String> collections = new ArrayList<>();
+        for (Map.Entry<String, Object> entry : context.entrySet()) {
+            if (isEditableCollection(entry.getValue())) {
+                collections.add(entry.getKey());
+            }
+        }
+        return collections;
+    }
+
+    private static boolean isEditableCollection(Object value) {
+        if (!(value instanceof List<?> list) || list.isEmpty()) {
+            return false;
+        }
+        for (Object element : list) {
+            if (!(element instanceof Map<?, ?> map)) {
+                return false;
+            }
+            if (!(map.get("id") instanceof Number)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static String listJson(List<DataRecord> records) {
+        List<String> encoded = new ArrayList<>();
+        for (DataRecord record : records) {
+            encoded.add(record.toJson());
+        }
+        return "[" + String.join(",", encoded) + "]";
     }
 
     private void handleEvents(HttpExchange exchange) throws IOException {
@@ -252,32 +329,26 @@ public final class CompilerWebServer implements AutoCloseable {
 
     private static int parseId(String tail) {
         if (!tail.matches("/\\d+")) {
-            throw new IllegalArgumentException("The product id must be a positive integer.");
+            throw new IllegalArgumentException("The id must be a positive integer.");
         }
         try {
             int id = Integer.parseInt(tail.substring(1));
-            if (id < 1) throw new NumberFormatException();
+            if (id < 1) {
+                throw new NumberFormatException();
+            }
             return id;
         } catch (NumberFormatException exception) {
-            throw new IllegalArgumentException("The product id must be a positive integer.");
+            throw new IllegalArgumentException("The id must be a positive integer.");
         }
-    }
-
-    private static String productsJson(List<Product> products) {
-        List<String> encoded = new ArrayList<>();
-        for (Product product : products) {
-            encoded.add(product.toJson());
-        }
-        return "[" + String.join(",", encoded) + "]";
     }
 
     private static String errorJson(String message) {
-        return "{\"error\":\"" + Product.jsonEscape(message == null ? "Unknown error" : message) + "\"}";
+        return "{\"error\":\"" + DataRecord.jsonEscape(message == null ? "Unknown error" : message) + "\"}";
     }
 
     private static String eventData(String reason, String detail) {
-        return "{\"reason\":\"" + Product.jsonEscape(reason) + "\",\"detail\":\"" +
-                Product.jsonEscape(detail == null ? "" : detail) + "\",\"at\":\"" + Instant.now() + "\"}";
+        return "{\"reason\":\"" + DataRecord.jsonEscape(reason) + "\",\"detail\":\"" +
+                DataRecord.jsonEscape(detail == null ? "" : detail) + "\",\"at\":\"" + Instant.now() + "\"}";
     }
 
     private static void sendJson(HttpExchange exchange, int status, String json) throws IOException {
