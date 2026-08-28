@@ -40,17 +40,41 @@ import java.util.stream.Stream;
 
 public class App {
     public static void main(String[] args) {
-        if (args.length != 1) {
-            System.err.println("Usage: java app.App <directory_path_or_file>");
+        if (args.length < 1 || args.length > 3) {
+            System.err.println("Usage: java app.App <directory_path_or_file> [--serve [port]]");
             return;
         }
+
+        boolean serve = args.length >= 2 && "--serve".equals(args[1]);
+        if (args.length >= 2 && !serve) {
+            System.err.println("Usage: java app.App <directory_path_or_file> [--serve [port]]");
+            return;
+        }
+        int port = 8080;
+        if (args.length == 3) {
+            try {
+                port = Integer.parseInt(args[2]);
+                if (port < 1 || port > 65535) throw new NumberFormatException();
+            } catch (NumberFormatException exception) {
+                System.err.println("Port must be an integer from 1 to 65535.");
+                return;
+            }
+        }
+
         Path startPath = Paths.get(args[0]);
 
         if (Files.isDirectory(startPath) && isFlaskProject(startPath)) {
             try {
-                processFlaskProject(startPath);
-                ProjectWatcher watcher = new ProjectWatcher(startPath);
-                watcher.startWatching();
+                CompilationSnapshot initialSnapshot = processFlaskProject(startPath);
+                if (serve) {
+                    CompilerWebServer webServer = new CompilerWebServer(startPath, port, initialSnapshot);
+                    webServer.start();
+                    Runtime.getRuntime().addShutdownHook(new Thread(webServer::close));
+                    new ProjectWatcher(startPath, webServer::onExternalSourceChange, webServer::shouldIgnoreSourceEvent)
+                            .startWatching();
+                } else {
+                    new ProjectWatcher(startPath).startWatching();
+                }
             } catch (Exception e) {
                 System.err.println("Error processing Flask project: " + e.getMessage());
                 e.printStackTrace();
@@ -88,7 +112,7 @@ public class App {
                 && Files.exists(dir.resolve("templates"));
     }
 
-    public static void processFlaskProject(Path projectDir) throws Exception {
+    public static CompilationSnapshot processFlaskProject(Path projectDir) throws Exception {
         System.out.println("=== Flask Project Mode ===");
         OutputWriter outputWriter = new OutputWriter(projectDir);
         outputWriter.createDirectories();
@@ -183,11 +207,7 @@ public class App {
         }
 
         // 6. Copy support files (app.py, templates, styles.css, script.js)
-        copySupportFileIfExists(projectDir.resolve("app.py"), outputWriter);
-        copyDirectory(projectDir.resolve("templates"), outputWriter.getOutputDir().resolve("templates"));
-        copySupportFileIfExists(projectDir.resolve("styles.css"), outputWriter);
-        copySupportFileIfExists(projectDir.resolve("script.js"), outputWriter);
-        System.out.println("[5/5] Support files copied.");
+        copyRuntimeSupportFiles(projectDir, outputWriter);
 
         // 7. Write reports
         writeReports(outputWriter, program, context, routes, templateMap);
@@ -195,9 +215,10 @@ public class App {
         System.out.println("\n=== Flask Project Processing Complete ===");
         System.out.println("Output directory: " + outputWriter.getOutputDir());
         System.out.println("Compiler output: " + outputWriter.getCompilerOutputDir());
+        return new CompilationSnapshot(projectDir, context, templateMap, routes);
     }
 
-    private static String mapToOutputName(String tplName) {
+    static String mapToOutputName(String tplName) {
         switch (tplName) {
             case "index.html": return "index.html";
             case "add.html": return "add_product.html";
@@ -205,6 +226,18 @@ public class App {
             case "edit.html": return "edit_product.html";
             default: return tplName;
         }
+    }
+
+    static void copyRuntimeSupportFiles(Path projectDir, OutputWriter outputWriter) {
+        copySupportFileIfExists(projectDir.resolve("app.py"), outputWriter);
+        try {
+            copyDirectory(projectDir.resolve("templates"), outputWriter.getOutputDir().resolve("templates"));
+        } catch (IOException exception) {
+            System.err.println("  ERROR copying templates/: " + exception.getMessage());
+        }
+        copySupportFileIfExists(projectDir.resolve("styles.css"), outputWriter);
+        copySupportFileIfExists(projectDir.resolve("script.js"), outputWriter);
+        System.out.println("[5/5] Support files copied.");
     }
 
     private static void copyDirectory(Path source, Path target) throws IOException {

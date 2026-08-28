@@ -1,25 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for, abort
+from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
 # ---- RAM STORAGE ----
 products = [
-    {
-        "id": 1,
-        "name": "Phone",
-        "price": 300,
-        "description": "A great phone with amazing features.",
-        "specification": "6.1 inch display, 128GB storage, 12MP camera",
-        "img": "static/images/phone.png"
-    },
-    {
-        "id": 3,
-        "name": "Blaptop",
-        "price": 700,
-        "description": "Powerful laptop for work and play.",
-        "specification": "15.6 inch display, 512GB SSD, 16GB RAM",
-        "img": "static/images/laptop.png"
-    },
 
 ]  # each product is a dict
 
@@ -59,8 +43,21 @@ def add_product():
 @app.route("/product/<int:product_id>")
 def detail(product_id):
     product = next((p for p in products if p["id"] == product_id), None)
-
     return render_template("detail.html", product=product)
+
+
+@app.route("/edit/<int:product_id>", methods=["GET", "POST"])
+def edit_product(product_id):
+    product = next((p for p in products if p["id"] == product_id), None)
+    if request.method == "POST":
+        product["name"] = request.form.get("name")
+        product["price"] = request.form.get("price")
+        product["description"] = request.form.get("description")
+        product["specification"] = request.form.get("specification")
+        product["img"] = request.form.get("img") or "static/images/default.png"
+        return redirect(url_for("detail", product_id=product_id))
+
+    return render_template("edit.html", product=product)
 
 
 @app.route("/delete/<int:product_id>")

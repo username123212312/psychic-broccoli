@@ -8,53 +8,69 @@ Symbol Table:
 =================== SYMBOL TABLE ===================
 Symbol Name          | Scope                | Type                 | Attributes
 ----------------------------------------------------
-img                  | if statement 138776324 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
-product              | if statement 138776324 | Dictionary           |  { "id" : len ( products ) + 1, "name" : name, "price" : price, "description" : description, "specification" : specification, "img" : img }
-price                | if statement 138776324 | Unknown              | request.form.get ( "price" ) 
-name                 | if statement 138776324 | Unknown              | request.form.get ( "name" ) 
-description          | if statement 138776324 | Unknown              | request.form.get ( "description" ) 
-specification        | if statement 138776324 | Unknown              | request.form.get ( "specification" ) 
+img                  | if statement 589273327 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
+product              | if statement 589273327 | Dictionary           |  { "id" : len ( products ) + 1, "name" : name, "price" : price, "description" : description, "specification" : specification, "img" : img }
+price                | if statement 589273327 | Unknown              | request.form.get ( "price" ) 
+name                 | if statement 589273327 | Unknown              | request.form.get ( "name" ) 
+description          | if statement 589273327 | Unknown              | request.form.get ( "description" ) 
+specification        | if statement 589273327 | Unknown              | request.form.get ( "specification" ) 
 product              | detail               | Unknown              | next (  ( for p in products if p[id] == product_id ) , None ) 
 product_id           | detail               | Parameter            | null
+product              | if statement 1944798106 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
+product              | edit_product         | Unknown              | next (  ( for p in products if p[id] == product_id ) , None ) 
+product_id           | edit_product         | Parameter            | null
 product_id           | delete               | Parameter            | null
-img                  | if statement 798310141 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
-product              | if statement 798310141 | Dictionary           |  { "id" : len ( products ) + 1, "name" : name, "price" : price, "description" : description, "specification" : specification, "img" : img }
-price                | if statement 798310141 | Unknown              | request.form.get ( "price" ) 
-name                 | if statement 798310141 | Unknown              | request.form.get ( "name" ) 
-description          | if statement 798310141 | Unknown              | request.form.get ( "description" ) 
-specification        | if statement 798310141 | Unknown              | request.form.get ( "specification" ) 
+img                  | if statement 508378341 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
+product              | if statement 508378341 | Dictionary           |  { "id" : len ( products ) + 1, "name" : name, "price" : price, "description" : description, "specification" : specification, "img" : img }
+price                | if statement 508378341 | Unknown              | request.form.get ( "price" ) 
+name                 | if statement 508378341 | Unknown              | request.form.get ( "name" ) 
+description          | if statement 508378341 | Unknown              | request.form.get ( "description" ) 
+specification        | if statement 508378341 | Unknown              | request.form.get ( "specification" ) 
 product              | detail               | Unknown              | next (  ( for p in products if p[id] == product_id ) , None ) 
 product_id           | detail               | Parameter            | null
+product              | if statement 110651474 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
+product              | edit_product         | Unknown              | next (  ( for p in products if p[id] == product_id ) , None ) 
+product_id           | edit_product         | Parameter            | null
 product_id           | delete               | Parameter            | null
-img                  | if statement 1041109062 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
-product              | if statement 1041109062 | Dictionary           |  { "id" : len ( products ) + 1, "name" : name, "price" : price, "description" : description, "specification" : specification, "img" : img }
-price                | if statement 1041109062 | Unknown              | request.form.get ( "price" ) 
-name                 | if statement 1041109062 | Unknown              | request.form.get ( "name" ) 
-description          | if statement 1041109062 | Unknown              | request.form.get ( "description" ) 
-specification        | if statement 1041109062 | Unknown              | request.form.get ( "specification" ) 
+img                  | if statement 69329761 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
+product              | if statement 69329761 | Dictionary           |  { "id" : len ( products ) + 1, "name" : name, "price" : price, "description" : description, "specification" : specification, "img" : img }
+price                | if statement 69329761 | Unknown              | request.form.get ( "price" ) 
+name                 | if statement 69329761 | Unknown              | request.form.get ( "name" ) 
+description          | if statement 69329761 | Unknown              | request.form.get ( "description" ) 
+specification        | if statement 69329761 | Unknown              | request.form.get ( "specification" ) 
 product              | detail               | Unknown              | next (  ( for p in products if p[id] == product_id ) , None ) 
 product_id           | detail               | Parameter            | null
+product              | if statement 310016558 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
+product              | edit_product         | Unknown              | next (  ( for p in products if p[id] == product_id ) , None ) 
+product_id           | edit_product         | Parameter            | null
 product_id           | delete               | Parameter            | null
-img                  | if statement 1954985045 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
-product              | if statement 1954985045 | Dictionary           |  { "id" : len ( products ) + 1, "name" : name, "price" : price, "description" : description, "specification" : specification, "img" : img }
-price                | if statement 1954985045 | Unknown              | request.form.get ( "price" ) 
-name                 | if statement 1954985045 | Unknown              | request.form.get ( "name" ) 
-description          | if statement 1954985045 | Unknown              | request.form.get ( "description" ) 
-specification        | if statement 1954985045 | Unknown              | request.form.get ( "specification" ) 
+img                  | if statement 324404955 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
+product              | if statement 324404955 | Dictionary           |  { "id" : len ( products ) + 1, "name" : name, "price" : price, "description" : description, "specification" : specification, "img" : img }
+price                | if statement 324404955 | Unknown              | request.form.get ( "price" ) 
+name                 | if statement 324404955 | Unknown              | request.form.get ( "name" ) 
+description          | if statement 324404955 | Unknown              | request.form.get ( "description" ) 
+specification        | if statement 324404955 | Unknown              | request.form.get ( "specification" ) 
 product              | detail               | Unknown              | next (  ( for p in products if p[id] == product_id ) , None ) 
 product_id           | detail               | Parameter            | null
+product              | if statement 1097324923 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
+product              | edit_product         | Unknown              | next (  ( for p in products if p[id] == product_id ) , None ) 
+product_id           | edit_product         | Parameter            | null
 product_id           | delete               | Parameter            | null
-img                  | if statement 1777238524 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
-product              | if statement 1777238524 | Dictionary           |  { "id" : len ( products ) + 1, "name" : name, "price" : price, "description" : description, "specification" : specification, "img" : img }
-price                | if statement 1777238524 | Unknown              | request.form.get ( "price" ) 
-name                 | if statement 1777238524 | Unknown              | request.form.get ( "name" ) 
-description          | if statement 1777238524 | Unknown              | request.form.get ( "description" ) 
-specification        | if statement 1777238524 | Unknown              | request.form.get ( "specification" ) 
+img                  | if statement 1042307502 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
+product              | if statement 1042307502 | Dictionary           |  { "id" : len ( products ) + 1, "name" : name, "price" : price, "description" : description, "specification" : specification, "img" : img }
+price                | if statement 1042307502 | Unknown              | request.form.get ( "price" ) 
+name                 | if statement 1042307502 | Unknown              | request.form.get ( "name" ) 
+description          | if statement 1042307502 | Unknown              | request.form.get ( "description" ) 
+specification        | if statement 1042307502 | Unknown              | request.form.get ( "specification" ) 
 product              | detail               | Unknown              | next (  ( for p in products if p[id] == product_id ) , None ) 
 product_id           | detail               | Parameter            | null
+product              | if statement 1783083399 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
+product              | edit_product         | Unknown              | next (  ( for p in products if p[id] == product_id ) , None ) 
+product_id           | edit_product         | Parameter            | null
 product_id           | delete               | Parameter            | null
 app                  | global               | Flask                | Flask(__name__)
 add_product          | global               | FunctionDefinition   | FunctionDefinition
+edit_product         | global               | FunctionDefinition   | FunctionDefinition
 index                | global               | FunctionDefinition   | FunctionDefinition
 detail               | global               | FunctionDefinition   | FunctionDefinition
 delete               | global               | FunctionDefinition   | FunctionDefinition
@@ -65,7 +81,7 @@ hello world
 
 
 Context Variables:
-  products: [{id=1, name=Phone, price=300, description=A great phone with amazing features., specification=6.1 inch display, 128GB storage, 12MP camera, img=static/images/phone.png}, {id=3, name=Blaptop, price=700, description=Powerful laptop for work and play., specification=15.6 inch display, 512GB SSD, 16GB RAM, img=static/images/laptop.png}]
+  products: []
   multi: 
 hello world
 
