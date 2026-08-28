@@ -1,7 +1,6 @@
 package ast.complexExp;
 
 import ast.compundStmt.PythonExpression;
-import cpython_bytecode.codegen.CodegenContext;
 
 import java.util.List;
 
@@ -32,18 +31,6 @@ public class ListLiteral extends ComplexExpression {
         }
         stringBuilder.append(" ] ");
         return stringBuilder.toString();
-    }
-
-    @Override
-    public void generateBytecode(CodegenContext ctx) {
-        if (listItems != null) {
-            for (PythonExpression item : listItems) {
-                if (item != null) item.generateBytecode(ctx);
-            }
-            ctx.emitBuildList(listItems.size());
-        } else {
-            ctx.emitBuildList(0);
-        }
     }
 
     @Override

@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.Map;
 
-/** Immutable product model used by the Java HTTP runtime and the Python source synchronizer. */
+/**
+ * Immutable product model used by the Java HTTP runtime and the Python source synchronizer.
+ */
 public record Product(
         int id,
         String name,

@@ -80,6 +80,23 @@
             </form>`;
     }
 
+    function isAppRoute(path) {
+        return path === "/" || path === "/index.html"
+            || path === "/add" || path === "/add_product.html"
+            || /^\/edit\/\d+$/.test(path)
+            || /^\/product\/\d+$/.test(path);
+    }
+
+    function navigate(path) {
+        history.pushState(null, "", path);
+        window.scrollTo(0, 0);
+        renderCurrentPage()
+            .catch((error) => showError(error.message))
+            .finally(() => {
+                mutationInFlight = false;
+            });
+    }
+
     function renderIndex(products) {
         const cards = products.map((product) => `
             <article class="product-card">
@@ -142,7 +159,7 @@
                 method: isNew ? "POST" : "PUT",
                 body: new URLSearchParams(new FormData(form)),
             });
-            window.location.assign(`/product/${product.id}`);
+            navigate(`/product/${product.id}`);
         } catch (error) {
             showError(error.message);
             button.disabled = false;
@@ -159,7 +176,7 @@
         button.disabled = true;
         try {
             await api(`/api/products/${id}`, { method: "DELETE" });
-            window.location.assign("/");
+            navigate("/");
         } catch (error) {
             showError(error.message);
             button.disabled = false;
@@ -167,9 +184,32 @@
         }
     });
 
+    document.addEventListener("click", (event) => {
+        if (event.defaultPrevented || event.button !== 0
+            || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+            return;
+        }
+        const anchor = event.target.closest("a");
+        if (!anchor || anchor.target === "_blank") return;
+        let path;
+        try {
+            path = new URL(anchor.href).pathname;
+            if (new URL(anchor.href).origin !== window.location.origin) return;
+        } catch (_) {
+            return;
+        }
+        if (!isAppRoute(path)) return;
+        event.preventDefault();
+        navigate(path);
+    });
+
+    window.addEventListener("popstate", () => {
+        renderCurrentPage().catch((error) => showError(error.message));
+    });
+
     const stream = new EventSource("/events");
     stream.addEventListener("regenerated", () => {
-        if (!mutationInFlight) window.location.reload();
+        renderCurrentPage().catch((error) => showError(error.message));
     });
     stream.addEventListener("compiler-error", (event) => {
         try {

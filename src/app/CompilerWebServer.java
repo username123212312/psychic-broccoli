@@ -177,11 +177,24 @@ public final class CompilerWebServer implements AutoCloseable {
             return;
         }
         byte[] content = Files.readAllBytes(target);
-        exchange.getResponseHeaders().set("Content-Type", contentType(target));
+        String contentType = contentType(target);
+        exchange.getResponseHeaders().set("Content-Type", contentType);
         exchange.getResponseHeaders().set("Cache-Control", "no-store");
         if ("HEAD".equals(exchange.getRequestMethod())) {
             exchange.sendResponseHeaders(200, -1);
             exchange.close();
+            return;
+        }
+        if (contentType.startsWith("text/html")) {
+            String html = new String(content, StandardCharsets.UTF_8);
+            if (html.contains("<head>") && !html.contains("<base ")) {
+                html = html.replace("<head>", "<head><base href=\"/\">");
+            }
+            byte[] patched = html.getBytes(StandardCharsets.UTF_8);
+            exchange.sendResponseHeaders(200, patched.length);
+            try (OutputStream body = exchange.getResponseBody()) {
+                body.write(patched);
+            }
             return;
         }
         exchange.sendResponseHeaders(200, content.length);

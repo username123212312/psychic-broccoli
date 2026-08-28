@@ -4,7 +4,22 @@ app = Flask(__name__)
 
 # ---- RAM STORAGE ----
 products = [
-
+    {
+        "id": 2,
+        "name": "ewrewr",
+        "price": 123,
+        "description": "2ee",
+        "specification": "e3e3e",
+        "img": "static/images/default.png"
+    },
+    {
+        "id": 3,
+        "name": "asdasd",
+        "price": 111,
+        "description": "sfdsdf",
+        "specification": "fdfdsfz",
+        "img": "static/images/default.png"
+    }
 ]  # each product is a dict
 
 multi = """

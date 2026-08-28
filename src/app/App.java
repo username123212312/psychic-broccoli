@@ -9,9 +9,6 @@ import antlr.python.PythonParser;
 import ast.ASTNode;
 import ast.HtmlContent;
 import ast.Program;
-import cpython_bytecode.PythonCodeObject;
-import cpython_bytecode.codegen.CPythonBytecodeGenerator;
-import cpython_bytecode.serialization.PycFileWriter;
 import generator.ContextExtractor;
 import generator.JinjaRenderer;
 import generator.OutputWriter;
@@ -28,7 +25,6 @@ import visitor.python.ProgramVisitor;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -353,20 +349,6 @@ public class App {
                 System.out.println("[2/4] Semantic Analysis Completed.");
                 System.out.println("Symbol Table: " + SymbolTableManager.INSTANCE.getSymbolTable());
 
-                CPythonBytecodeGenerator generator = new CPythonBytecodeGenerator();
-                String moduleName = getModuleName(fileName);
-                PythonCodeObject compiledCode = generator.generate(program, fileName, moduleName);
-                System.out.println("[3/4] CPython Bytecode Generated.");
-
-                Path parentDir = filePath.getParent();
-                if (parentDir == null) parentDir = Paths.get(".");
-                File pycacheDir = new File(parentDir.toFile(), "__pycache__");
-                if (!pycacheDir.exists()) pycacheDir.mkdirs();
-                String outputPycPath = new File(pycacheDir, moduleName + ".cpython-314.pyc").getAbsolutePath();
-                PycFileWriter pycWriter = new PycFileWriter();
-                pycWriter.write(compiledCode, outputPycPath, fileName);
-                System.out.println("[4/4] .pyc file created at: " + outputPycPath);
-
             } else if (fileName.endsWith(".html") || fileName.endsWith(".j2")) {
                 HtmlLexer lexer = new HtmlLexer(CharStreams.fromFileName(fileName));
                 CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -414,12 +396,6 @@ public class App {
             System.err.println("Error processing " + fileName + ": " + e.getMessage());
             e.printStackTrace();
         }
-    }
-
-    private static String getModuleName(String path) {
-        String filename = new File(path).getName();
-        int dotIndex = filename.lastIndexOf('.');
-        return (dotIndex == -1) ? filename : filename.substring(0, dotIndex);
     }
 
     private static void writeGeneratedSource(Path filePath, String content) throws IOException {

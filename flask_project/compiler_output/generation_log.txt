@@ -1,10 +1,7 @@
-=== Generation Log ===
-Python AST extracted from: app.py
-Context variables: [products, multi]
-Templates parsed: [add.html, base.html, detail.html, edit.html, index.html]
-Template add.html → rendered to output/add_product.html
-Template detail.html → rendered to output/detail.html
-Template edit.html → rendered to output/edit_product.html
-Template index.html → rendered to output/index.html
-Support files copied to output/
-Compilation completed successfully.
+=== Data-only Render Log ===
+At: 2026-08-28T03:46:35.726423900Z
+Cause: product CRUD update from the Java web server.
+Skipped: Lexer -> Parser -> Visitor -> AST -> Semantic.
+Re-rendered templates using the latest successful compilation snapshot.
+Updated runtime support files copied to output/.
+AST and semantic-report files describe the last full compilation.

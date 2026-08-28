@@ -8,63 +8,15 @@ Symbol Table:
 =================== SYMBOL TABLE ===================
 Symbol Name          | Scope                | Type                 | Attributes
 ----------------------------------------------------
-img                  | if statement 589273327 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
-product              | if statement 589273327 | Dictionary           |  { "id" : len ( products ) + 1, "name" : name, "price" : price, "description" : description, "specification" : specification, "img" : img }
-price                | if statement 589273327 | Unknown              | request.form.get ( "price" ) 
-name                 | if statement 589273327 | Unknown              | request.form.get ( "name" ) 
-description          | if statement 589273327 | Unknown              | request.form.get ( "description" ) 
-specification        | if statement 589273327 | Unknown              | request.form.get ( "specification" ) 
+img                  | if statement 1621002296 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
+product              | if statement 1621002296 | Dictionary           |  { "id" : len ( products ) + 1, "name" : name, "price" : price, "description" : description, "specification" : specification, "img" : img }
+price                | if statement 1621002296 | Unknown              | request.form.get ( "price" ) 
+name                 | if statement 1621002296 | Unknown              | request.form.get ( "name" ) 
+description          | if statement 1621002296 | Unknown              | request.form.get ( "description" ) 
+specification        | if statement 1621002296 | Unknown              | request.form.get ( "specification" ) 
 product              | detail               | Unknown              | next (  ( for p in products if p[id] == product_id ) , None ) 
 product_id           | detail               | Parameter            | null
-product              | if statement 1944798106 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
-product              | edit_product         | Unknown              | next (  ( for p in products if p[id] == product_id ) , None ) 
-product_id           | edit_product         | Parameter            | null
-product_id           | delete               | Parameter            | null
-img                  | if statement 508378341 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
-product              | if statement 508378341 | Dictionary           |  { "id" : len ( products ) + 1, "name" : name, "price" : price, "description" : description, "specification" : specification, "img" : img }
-price                | if statement 508378341 | Unknown              | request.form.get ( "price" ) 
-name                 | if statement 508378341 | Unknown              | request.form.get ( "name" ) 
-description          | if statement 508378341 | Unknown              | request.form.get ( "description" ) 
-specification        | if statement 508378341 | Unknown              | request.form.get ( "specification" ) 
-product              | detail               | Unknown              | next (  ( for p in products if p[id] == product_id ) , None ) 
-product_id           | detail               | Parameter            | null
-product              | if statement 110651474 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
-product              | edit_product         | Unknown              | next (  ( for p in products if p[id] == product_id ) , None ) 
-product_id           | edit_product         | Parameter            | null
-product_id           | delete               | Parameter            | null
-img                  | if statement 69329761 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
-product              | if statement 69329761 | Dictionary           |  { "id" : len ( products ) + 1, "name" : name, "price" : price, "description" : description, "specification" : specification, "img" : img }
-price                | if statement 69329761 | Unknown              | request.form.get ( "price" ) 
-name                 | if statement 69329761 | Unknown              | request.form.get ( "name" ) 
-description          | if statement 69329761 | Unknown              | request.form.get ( "description" ) 
-specification        | if statement 69329761 | Unknown              | request.form.get ( "specification" ) 
-product              | detail               | Unknown              | next (  ( for p in products if p[id] == product_id ) , None ) 
-product_id           | detail               | Parameter            | null
-product              | if statement 310016558 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
-product              | edit_product         | Unknown              | next (  ( for p in products if p[id] == product_id ) , None ) 
-product_id           | edit_product         | Parameter            | null
-product_id           | delete               | Parameter            | null
-img                  | if statement 324404955 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
-product              | if statement 324404955 | Dictionary           |  { "id" : len ( products ) + 1, "name" : name, "price" : price, "description" : description, "specification" : specification, "img" : img }
-price                | if statement 324404955 | Unknown              | request.form.get ( "price" ) 
-name                 | if statement 324404955 | Unknown              | request.form.get ( "name" ) 
-description          | if statement 324404955 | Unknown              | request.form.get ( "description" ) 
-specification        | if statement 324404955 | Unknown              | request.form.get ( "specification" ) 
-product              | detail               | Unknown              | next (  ( for p in products if p[id] == product_id ) , None ) 
-product_id           | detail               | Parameter            | null
-product              | if statement 1097324923 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
-product              | edit_product         | Unknown              | next (  ( for p in products if p[id] == product_id ) , None ) 
-product_id           | edit_product         | Parameter            | null
-product_id           | delete               | Parameter            | null
-img                  | if statement 1042307502 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
-product              | if statement 1042307502 | Dictionary           |  { "id" : len ( products ) + 1, "name" : name, "price" : price, "description" : description, "specification" : specification, "img" : img }
-price                | if statement 1042307502 | Unknown              | request.form.get ( "price" ) 
-name                 | if statement 1042307502 | Unknown              | request.form.get ( "name" ) 
-description          | if statement 1042307502 | Unknown              | request.form.get ( "description" ) 
-specification        | if statement 1042307502 | Unknown              | request.form.get ( "specification" ) 
-product              | detail               | Unknown              | next (  ( for p in products if p[id] == product_id ) , None ) 
-product_id           | detail               | Parameter            | null
-product              | if statement 1783083399 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
+product              | if statement 51554940 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
 product              | edit_product         | Unknown              | next (  ( for p in products if p[id] == product_id ) , None ) 
 product_id           | edit_product         | Parameter            | null
 product_id           | delete               | Parameter            | null
@@ -81,7 +33,7 @@ hello world
 
 
 Context Variables:
-  products: []
+  products: [{id=2, name=ewrewr, price=123, description=2ee, specification=e3e3e, img=static/images/default.png}, {id=3, name=asdasd, price=111, description=sadasd, specification=sadad, img=static/images/default.png}]
   multi: 
 hello world
 

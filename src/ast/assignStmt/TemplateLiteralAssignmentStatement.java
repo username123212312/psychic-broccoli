@@ -1,7 +1,6 @@
 package ast.assignStmt;
 
 import ast.TemplateLiteral;
-import cpython_bytecode.codegen.CodegenContext;
 
 public class TemplateLiteralAssignmentStatement extends AssignmentStatement {
     private TemplateLiteral templateLiteral;
@@ -17,18 +16,6 @@ public class TemplateLiteralAssignmentStatement extends AssignmentStatement {
         return templateLiteral;
     }
 
-
-    @Override
-    public void generateBytecode(CodegenContext ctx) {
-        if (templateLiteral != null && templateLiteral.getContent() != null) {
-            int strIdx = ctx.addConstant(templateLiteral.getContent());
-            ctx.emitLoadConst(strIdx);
-        } else {
-            int noneIdx = ctx.addConstant("NONE_PLACEHOLDER");
-            ctx.emitLoadConst(noneIdx);
-        }
-        ctx.storeVariable(ctx.extractVarName(getVar()));
-    }
 
     @Override
     public String toString() {

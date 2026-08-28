@@ -2,7 +2,6 @@ package ast.condition;
 
 import ast.Consts;
 import ast.compundStmt.PythonExpression;
-import cpython_bytecode.codegen.CodegenContext;
 
 public class NotExpression extends Condition {
     private PythonExpression pythonExpression;
@@ -20,12 +19,6 @@ public class NotExpression extends Condition {
     }
 
 
-
-    @Override
-    public void generateBytecode(CodegenContext ctx) {
-        if (pythonExpression != null) pythonExpression.generateBytecode(ctx);
-        ctx.emitUnaryNot();
-    }
 
     @Override
     public String symbolTablePrint() {
