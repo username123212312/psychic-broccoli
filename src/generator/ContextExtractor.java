@@ -71,6 +71,25 @@ public class ContextExtractor {
                     return val;
                 }
             }
+        } else if (args instanceof ComplexArguments complexArgs) {
+            if (complexArgs.getArguments() != null && !complexArgs.getArguments().isEmpty()) {
+                Argument first = complexArgs.getArguments().get(0);
+                if (first instanceof PositionalArgument pos) {
+                    PythonExpression argExpr = pos.getArg();
+                    return extractStringFromExpression(argExpr);
+                }
+            }
+        }
+        return null;
+    }
+
+    private String extractStringFromExpression(PythonExpression expr) {
+        if (expr instanceof ast.atomExpression.LiteralExpression lit) {
+            String val = lit.getLiteralValue();
+            if (val != null && val.length() >= 2) {
+                val = val.substring(1, val.length() - 1);
+            }
+            return val;
         }
         return null;
     }

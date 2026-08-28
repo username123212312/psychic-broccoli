@@ -8,12 +8,12 @@ Symbol Table:
 =================== SYMBOL TABLE ===================
 Symbol Name          | Scope                | Type                 | Attributes
 ----------------------------------------------------
-img                  | if statement 1833789138 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
-product              | if statement 1833789138 | Dictionary           |  { "id" : len ( products ) + 1, "name" : name, "price" : price, "description" : description, "specification" : specification, "img" : img }
-price                | if statement 1833789138 | Unknown              | request.form.get ( "price" ) 
-name                 | if statement 1833789138 | Unknown              | request.form.get ( "name" ) 
-description          | if statement 1833789138 | Unknown              | request.form.get ( "description" ) 
-specification        | if statement 1833789138 | Unknown              | request.form.get ( "specification" ) 
+img                  | if statement 517254671 | Boolean              | request.form.get ( "img" )  or "static/images/default.png"
+product              | if statement 517254671 | Dictionary           |  { "id" : len ( products ) + 1, "name" : name, "price" : price, "description" : description, "specification" : specification, "img" : img }
+price                | if statement 517254671 | Unknown              | request.form.get ( "price" ) 
+name                 | if statement 517254671 | Unknown              | request.form.get ( "name" ) 
+description          | if statement 517254671 | Unknown              | request.form.get ( "description" ) 
+specification        | if statement 517254671 | Unknown              | request.form.get ( "specification" ) 
 product              | detail               | Unknown              | next (  ( for p in products if p[id] == product_id ) , None ) 
 product_id           | detail               | Parameter            | null
 product_id           | delete               | Parameter            | null
@@ -36,5 +36,6 @@ hello world
 
 Routes:
   index -> /
+  add_product -> /add
   detail -> /product/<int:product_id>
   delete -> /delete/<int:product_id>

@@ -189,12 +189,6 @@ public class App {
         copySupportFileIfExists(projectDir.resolve("script.js"), outputWriter);
         System.out.println("[5/5] Support files copied.");
 
-        // Inject recompile hook so runtime data changes trigger re-generation
-        Path outputAppPy = outputWriter.getOutputDir().resolve("app.py");
-        if (Files.exists(outputAppPy)) {
-            injectRecompileHook(outputAppPy, projectDir);
-        }
-
         // 7. Write reports
         writeReports(outputWriter, program, context, routes, templateMap);
 
@@ -244,78 +238,6 @@ public class App {
                 System.err.println("  ERROR copying " + sourcePath.getFileName() + ": " + e.getMessage());
             }
         }
-    }
-
-    private static void injectRecompileHook(Path outputAppPy, Path projectDir) {
-        try {
-            String original = Files.readString(outputAppPy);
-            Path absProject = projectDir.toAbsolutePath();
-            Path absParent = absProject.getParent();
-            String hook = getString(absProject, absParent);
-
-            // Inject after the products list definition (after "# each product is a dict")
-            String patched = original.replace(
-                    "# each product is a dict",
-                    "# each product is a dict\n" + hook
-            );
-
-            // Normalize line endings so string replacements match
-            patched = patched.replace("\r\n", "\n");
-
-            // Add _save_and_recompile() calls in add and delete routes
-            patched = patched.replace(
-                    "        products.append(product)\n        return redirect(url_for(\"index\"))",
-                    "        products.append(product)\n        _save_and_recompile()\n        return redirect(url_for(\"index\"))"
-            );
-            patched = patched.replace(
-                    "    products = [p for p in products if p[\"id\"] != product_id]\n    return redirect(url_for(\"index\"))",
-                    "    products = [p for p in products if p[\"id\"] != product_id]\n    _save_and_recompile()\n    return redirect(url_for(\"index\"))"
-            );
-
-            Files.writeString(outputAppPy, patched);
-            System.out.println("  Injected recompile hook into output/app.py");
-        } catch (IOException e) {
-            System.err.println("  ERROR injecting recompile hook: " + e.getMessage());
-        }
-    }
-
-    private static String getString(Path absProject, Path absParent) {
-        String absoluteProject = absProject.toString().replace("\\", "/");
-        String absoluteJar = absParent.toString().replace("\\", "/")
-                + "/dependencies/antlr-4.13.2-complete.jar";
-        String absoluteBuild = absParent.toString().replace("\\", "/")
-                + "/build";
-        String absoluteOut = absParent.toString().replace("\\", "/")
-                + "/out/production/compiler_project";
-
-        return "\n"
-                + "import subprocess, json, re, sys, os\n"
-                + "\n"
-                + "def _save_and_recompile():\n"
-                + "    \"\"\"Rewrite the source app.py with current in-memory products, then re-run compiler.\"\"\"\n"
-                + "    try:\n"
-                + "        src_path = r'" + absoluteProject + "/app.py'\n"
-                + "        with open(src_path, 'r', encoding='utf-8') as f:\n"
-                + "            src = f.read()\n"
-                + "        products_json = json.dumps(products, indent=4)\n"
-                + "        products_py = 'products = ' + products_json + '  # each product is a dict\\n'\n"
-                + "        src = re.sub(\n"
-                + "            r'products\\s*=\\s*\\[[\\s\\S]*?\\]\\s*# each product is a dict',\n"
-                + "            products_py,\n"
-                + "            src,\n"
-                + "            count=1\n"
-                + "        )\n"
-                + "        with open(src_path, 'w', encoding='utf-8') as f:\n"
-                + "            f.write(src)\n"
-                + "        cp = r'" + absoluteJar + ";" + absoluteBuild + ";" + absoluteOut + "'\n"
-                + "        subprocess.Popen(\n"
-                + "            ['java', '-cp', cp, 'app.App', r'" + absoluteProject + "'],\n"
-                + "            cwd=r'" + absoluteProject + "'\n"
-                + "        )\n"
-                + "        print('[recompile] Source updated, compiler triggered.')\n"
-                + "    except Exception as e:\n"
-                + "        print(f'[recompile error] {e}')\n"
-                + "\n";
     }
 
     private static void writeReports(OutputWriter outputWriter, Program program,
