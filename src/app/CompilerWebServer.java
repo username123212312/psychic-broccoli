@@ -89,7 +89,7 @@ public final class CompilerWebServer implements AutoCloseable {
     public void onExternalSourceChange(Path changedPath) {
         try {
             synchronized (compilationLock) {
-                snapshot = App.processFlaskProject(projectDirectory, false);
+                snapshot = App.processFlaskProject(projectDirectory, true);
             }
             events.broadcast("regenerated", eventData("source-change", changedPath.toString()));
         } catch (Exception exception) {

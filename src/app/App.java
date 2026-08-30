@@ -109,17 +109,16 @@ public class App {
                 && Files.exists(dir.resolve("templates"));
     }
 
-    public static CompilationSnapshot processFlaskProject(Path projectDir, boolean absorbRuntimeData) throws Exception {
+    public static CompilationSnapshot processFlaskProject(Path projectDir, boolean clearRuntimeData) throws Exception {
         System.out.println("=== Flask Project Mode ===");
         OutputWriter outputWriter = new OutputWriter(projectDir);
         outputWriter.createDirectories();
 
-        // Step 0: fold runtime data into app.py only at startup / explicit build; on
-        // watcher-triggered recompiles instead clear the runtime sidecars so app.py
-        // (the edited source) becomes the sole source of truth again.
-        if (absorbRuntimeData) {
-            PythonDataStore.absorbDataIntoSource(projectDir);
-        } else {
+        // app.py is never edited automatically. clearRuntimeData=true wipes the runtime
+        // sidecars (data/*.json) before compiling, so the source literal is the only thing
+        // that matters at launch and after source edits; UI CRUD during a session re-creates
+        // the sidecars and they are discarded again on the next start or source change.
+        if (clearRuntimeData) {
             PythonDataStore.clearRuntimeData(projectDir);
         }
 
