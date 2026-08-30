@@ -265,6 +265,7 @@ public class UndefinedVariableRule implements SemanticRule, FunctionScopeAware {
         String deduplicationKey = name + "@" + lineNumber;
         if (!reportedUsages.add(deduplicationKey)) return;
         if (loopVariables.contains(name)) return;
+        if (name.startsWith("_")) return;
 
         List<SymbolEntry> candidates = symbolTable.lookupAll(name);
         if (candidates.isEmpty()) {
