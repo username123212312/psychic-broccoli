@@ -1,4 +1,4 @@
-// Generated from D:/RAMA/MyProject/ComplierProject-1/grammars/HtmlParser.g4 by ANTLR 4.13.2
+// Generated from C:/Users/Yousef Razzouk/IdeaProjects/compiler_project/grammars/HtmlParser.g4 by ANTLR 4.13.2
 package antlr.html;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -45,6 +45,13 @@ public interface HtmlParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitJinjaExprItem(HtmlParser.JinjaExprItemContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code HtmlCommentItem}
+	 * labeled alternative in {@link HtmlParser#html_content_item}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitHtmlCommentItem(HtmlParser.HtmlCommentItemContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code TagElement}
 	 * labeled alternative in {@link HtmlParser#htmlElement}.
@@ -129,6 +136,13 @@ public interface HtmlParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitTypeSelector(HtmlParser.TypeSelectorContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UniversalSelector}
+	 * labeled alternative in {@link HtmlParser#css_selector}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUniversalSelector(HtmlParser.UniversalSelectorContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code DeclarationBlock}
 	 * labeled alternative in {@link HtmlParser#declarationList}.

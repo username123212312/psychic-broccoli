@@ -1,4 +1,4 @@
-// Generated from D:/RAMA/MyProject/ComplierProject-1/grammars/HtmlParser.g4 by ANTLR 4.13.2
+// Generated from C:/Users/Yousef Razzouk/IdeaProjects/compiler_project/grammars/HtmlParser.g4 by ANTLR 4.13.2
 package antlr.html;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
@@ -47,6 +47,13 @@ public class HtmlParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitJinjaExprItem(HtmlParser.JinjaExprItemContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitHtmlCommentItem(HtmlParser.HtmlCommentItemContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -131,6 +138,13 @@ public class HtmlParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitTypeSelector(HtmlParser.TypeSelectorContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitUniversalSelector(HtmlParser.UniversalSelectorContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

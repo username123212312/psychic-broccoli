@@ -172,16 +172,17 @@ src/
 <span class="dir">├── semantic/</span>                          <span class="comment">// مرحلة التحليل الدلالي</span>
 │   ├── <span class="file">SemanticAnalyzer.java</span>           <span class="comment">// يمرّ على AST ويطبّق القواعد</span>
 │   ├── <span class="file">ErrorReporter.java</span>              <span class="comment">// يجمع الأخطاء ويطبعها</span>
-│   ├── <span class="dir">errors/</span>                         <span class="comment">// SemanticError (أساس) + 8 استثناءات مسمّاة</span>
+│   ├── <span class="dir">errors/</span>                         <span class="comment">// SemanticError (أساس) + 9 استثناءات مسمّاة</span>
 │   │   ├── <span class="file">TypeError.java</span>               <span class="comment">// تباين الأنواع (مثل سلسلة + عدد) — TypeRule</span>
 │   │   ├── <span class="file">UndefinedVariableError.java</span>  <span class="comment">// متغير غير معروف — UndefinedVariableRule</span>
 │   │   ├── <span class="file">UndefinedFunctionError.java</span>  <span class="comment">// دالة غير معروفة — UndefinedFunctionRule</span>
 │   │   ├── <span class="file">NotIterableError.java</span>        <span class="comment">// for-in على قيمة غير قابلة للتكرار — NotIterableRule</span>
 │   │   ├── <span class="file">ScopeError.java</span>              <span class="comment">// فشل دقّة النطاق (scope) — UndefinedVariableRule</span>
 │   │   ├── <span class="file">DuplicateFunctionError.java</span>  <span class="comment">// تكرار اسم def — DuplicateFunctionRule</span>
+│   │   ├── <span class="file">DuplicateArgumentError.java</span>  <span class="comment">// تكرار اسم معامل — DuplicateArgumentRule</span>
 │   │   ├── <span class="file">ReturnOutsideFunctionError.java</span> <span class="comment">// return خارج دالة — ReturnOutsideFunctionRule</span>
 │   │   └── <span class="file">MissingFlaskVariableError.java</span> <span class="comment">// متغير قالب غير مُمرَّر إلى render_template — FlaskTemplateChecker</span>
-│   ├── <span class="dir">rules/</span>                          <span class="comment">// TypeRule, UndefinedVariableRule, DuplicateFunctionRule, ReturnOutsideFunctionRule, NotIterableRule, UndefinedFunctionRule + مساعد FunctionScopeAware</span>
+│   ├── <span class="dir">rules/</span>                          <span class="comment">// TypeRule, UndefinedVariableRule, DuplicateFunctionRule, DuplicateArgumentRule, ReturnOutsideFunctionRule, NotIterableRule, UndefinedFunctionRule + مساعد FunctionScopeAware</span>
 │   └── <span class="dir">jinja/</span>                          <span class="comment">// فحوصات دلالية على مستوى القالب</span>
 │       ├── <span class="file">JinjaSemanticAnalyzer.java</span>     <span class="comment">// يمرّ على AST قالب HTML</span>
 │       └── <span class="file">FlaskTemplateChecker.java</span>      <span class="comment">// يرمي MissingFlaskVariableError</span>
@@ -309,15 +310,16 @@ ParseTree tree       = parser.prog();   <span class="comment">// ← تُبنى 
   <tr><td><code>UndefinedFunctionRule</code></td><td>يرصد استدعاءات <code>FunctionCall</code> لدوال غير معروفة (يُسمح بـ 30 دالة مدمجة)</td><td><code>UndefinedFunctionError</code></td></tr>
   <tr><td><code>NotIterableRule</code></td><td>يرصد التكرار <code>for-in</code> على قيمة غير قابلة للتكرار</td><td><code>NotIterableError</code></td></tr>
   <tr><td><code>DuplicateFunctionRule</code></td><td>يرصد تكرار أسماء <code>def</code></td><td><code>DuplicateFunctionError</code></td></tr>
+  <tr><td><code>DuplicateArgumentRule</code></td><td>يرصد تكرار أسماء المعاملات في <code>def</code></td><td><code>DuplicateArgumentError</code></td></tr>
   <tr><td><code>ReturnOutsideFunctionRule</code></td><td>يرصد <code>return</code> على المستوى الأعلى (يراعي نطاق الدوال)</td><td><code>ReturnOutsideFunctionError</code></td></tr>
 </table>
 
 <p>
-  إذًا فالقواعد <strong>الست</strong> تُنتج <strong>سبعة</strong> من الأخطاء المسمّاة الثمانية.
-  أما الثامن، <code>MissingFlaskVariableError</code>، فليس قاعدة — بل يرميه
+  إذًا فالقواعد <strong>السبع</strong> تُنتج <strong>ثمانية</strong> من الأخطاء المسمّاة التسعة.
+  أما التاسع، <code>MissingFlaskVariableError</code>، فليس قاعدة — بل يرميه
   <code>semantic/jinja/FlaskTemplateChecker.java</code> عندما يكون متغير قالب لم يُمرَّر
   إلى <code>render_template</code>. لهذا يحتوي <code>samples/</code> على
-  <strong>9 مجلدات</strong>: مجلد لكل نوع خطأ (8) بالإضافة إلى
+  <strong>10 مجلدات</strong>: مجلد لكل نوع خطأ (9) بالإضافة إلى
   <code>CombinedErrors/</code>، وهو ملف واحد يثير عدة أخطاء معًا كعرض توضيحي.
 </p>
 
@@ -497,7 +499,7 @@ outputWriter.writeHtmlFile(outputName, renderedHtml);            <span class="co
 
 <hr style="border-color:var(--border);margin:2rem 0;">
 <p style="text-align:center;color:var(--text-muted);font-size:.85rem;">
-  مولّد من <code>src/</code> — 190 ملف Java، و105 صنف عقدة AST، و33 قاعدة نحوية (+54 رمز معجمي)
+  مولّد من <code>src/</code> — 191 ملف Java، و105 صنف عقدة AST، و33 قاعدة نحوية (+54 رمز معجمي)
 </p>
 
 </body>

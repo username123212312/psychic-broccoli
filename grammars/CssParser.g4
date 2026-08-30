@@ -25,6 +25,7 @@ css_selector
     | CSS_DOT CSS_ID (CSS_DOT CSS_ID)*            # ClassOnlySelector
     | CSS_ID (CSS_HASH CSS_ID)?                   # TypeAndIdSelector
     | CSS_ID                                      # TypeSelector
+    | CSS_STAR                                    # UniversalSelector
     ;
 
 declarationList

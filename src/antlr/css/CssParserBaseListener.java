@@ -1,4 +1,4 @@
-// Generated from D:/RAMA/MyProject/ComplierProject-1/grammars/CssParser.g4 by ANTLR 4.13.2
+// Generated from C:/Users/Yousef Razzouk/IdeaProjects/compiler_project/grammars/CssParser.g4 by ANTLR 4.13.2
 package antlr.css;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -108,6 +108,18 @@ public class CssParserBaseListener implements CssParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTypeSelector(CssParser.TypeSelectorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUniversalSelector(CssParser.UniversalSelectorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUniversalSelector(CssParser.UniversalSelectorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -1,4 +1,4 @@
-// Generated from D:/RAMA/MyProject/ComplierProject-1/grammars/CssParser.g4 by ANTLR 4.13.2
+// Generated from C:/Users/Yousef Razzouk/IdeaProjects/compiler_project/grammars/CssParser.g4 by ANTLR 4.13.2
 package antlr.css;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -103,6 +103,18 @@ public interface CssParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTypeSelector(CssParser.TypeSelectorContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UniversalSelector}
+	 * labeled alternative in {@link CssParser#css_selector}.
+	 * @param ctx the parse tree
+	 */
+	void enterUniversalSelector(CssParser.UniversalSelectorContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UniversalSelector}
+	 * labeled alternative in {@link CssParser#css_selector}.
+	 * @param ctx the parse tree
+	 */
+	void exitUniversalSelector(CssParser.UniversalSelectorContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code DeclarationBlock}
 	 * labeled alternative in {@link CssParser#declarationList}.

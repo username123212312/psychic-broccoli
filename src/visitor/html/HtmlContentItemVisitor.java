@@ -2,6 +2,7 @@ package visitor.html;
 
 import antlr.html.HtmlParser;
 import antlr.html.HtmlParserBaseVisitor;
+import ast.htmlContentItem.HtmlCommentItem;
 import ast.htmlContentItem.HtmlContentItem;
 import ast.htmlContentItem.HtmlTextItem;
 import visitor.jinja.JinjaExpressionVisitor;
@@ -21,6 +22,13 @@ public class HtmlContentItemVisitor extends HtmlParserBaseVisitor<HtmlContentIte
         HtmlTextItem htmlTextItem = new HtmlTextItem(ctx.getStart().getLine());
         htmlTextItem.setText(ctx.HTML_TEXT().getText());
         return htmlTextItem;
+    }
+
+    @Override
+    public HtmlContentItem visitHtmlCommentItem(HtmlParser.HtmlCommentItemContext ctx) {
+        HtmlCommentItem htmlCommentItem = new HtmlCommentItem(ctx.getStart().getLine());
+        htmlCommentItem.setComment(ctx.HTML_COMMENT().getText());
+        return htmlCommentItem;
     }
 
     @Override

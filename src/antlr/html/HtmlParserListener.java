@@ -1,4 +1,4 @@
-// Generated from D:/RAMA/MyProject/ComplierProject-1/grammars/HtmlParser.g4 by ANTLR 4.13.2
+// Generated from C:/Users/Yousef Razzouk/IdeaProjects/compiler_project/grammars/HtmlParser.g4 by ANTLR 4.13.2
 package antlr.html;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -67,6 +67,18 @@ public interface HtmlParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitJinjaExprItem(HtmlParser.JinjaExprItemContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code HtmlCommentItem}
+	 * labeled alternative in {@link HtmlParser#html_content_item}.
+	 * @param ctx the parse tree
+	 */
+	void enterHtmlCommentItem(HtmlParser.HtmlCommentItemContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code HtmlCommentItem}
+	 * labeled alternative in {@link HtmlParser#html_content_item}.
+	 * @param ctx the parse tree
+	 */
+	void exitHtmlCommentItem(HtmlParser.HtmlCommentItemContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code TagElement}
 	 * labeled alternative in {@link HtmlParser#htmlElement}.
@@ -211,6 +223,18 @@ public interface HtmlParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTypeSelector(HtmlParser.TypeSelectorContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UniversalSelector}
+	 * labeled alternative in {@link HtmlParser#css_selector}.
+	 * @param ctx the parse tree
+	 */
+	void enterUniversalSelector(HtmlParser.UniversalSelectorContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UniversalSelector}
+	 * labeled alternative in {@link HtmlParser#css_selector}.
+	 * @param ctx the parse tree
+	 */
+	void exitUniversalSelector(HtmlParser.UniversalSelectorContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code DeclarationBlock}
 	 * labeled alternative in {@link HtmlParser#declarationList}.

@@ -11,13 +11,14 @@ collection of data from the browser — not just `products`.
 2. **Build a hand-crafted AST** (`src/ast/`, 105 node classes) using 32 specialised
    visitors (`src/visitor/{python,html,css,jinja}/`), populating the scoped symbol table
    in the same pass.
-3. **Run semantic analysis** (`src/semantic/`). Six core rules
+3. **Run semantic analysis** (`src/semantic/`). Seven core rules
    (`TypeRule`, `UndefinedVariableRule`, `UndefinedFunctionRule`, `NotIterableRule`,
-   `DuplicateFunctionRule`, `ReturnOutsideFunctionRule`) raise seven named exceptions
-   (`ScopeError` and `UndefinedVariableError` both come from `UndefinedVariableRule`);
-   the eighth, `MissingFlaskVariableError`, is raised by `semantic/jinja/FlaskTemplateChecker`
-   when a template variable is never passed to `render_template`. The CLI reports each as
-   `Semantic error detected "TypeName": …`. `samples/` has 9 folders — one per error type (8)
+   `DuplicateFunctionRule`, `DuplicateArgumentRule`, `ReturnOutsideFunctionRule`) raise
+   eight named exceptions (`ScopeError` and `UndefinedVariableError` both come from
+   `UndefinedVariableRule`); the ninth, `MissingFlaskVariableError`, is raised by
+   `semantic/jinja/FlaskTemplateChecker` when a template variable is never passed to
+   `render_template`. The CLI reports each as
+   `Semantic error detected "TypeName": …`. `samples/` has 10 folders — one per error type (9)
    plus `CombinedErrors/`, a single file that triggers several errors at once.
 4. **Extract context + render**: `ContextExtractor` gathers route data and context variables;
    `JinjaRenderer` renders each template to static HTML; `OutputWriter` writes the result into
@@ -88,11 +89,11 @@ src/
   antlr/python/           # ANTLR-generated lexer/parser
   visitor/                # 32 CST → AST visitors (python/, html/, css/, jinja/)
   ast/                    # 105 hand-written AST node classes
-  semantic/               # 6 rules, named errors, jinja template checker
+  semantic/               # 7 rules, named errors, jinja template checker
   symbolTable/            # Scoped symbol table
   generator/              # ContextExtractor, JinjaRenderer, OutputWriter
 grammars/                 # Python/Html/Css ANTLR grammars
-samples/                  # 9 folders: one per error type + CombinedErrors
+samples/                  # 10 folders: one per error type + CombinedErrors
 docs/                     # architecture.html (EN) + architecture.ar.html (AR, RTL)
 dependencies/             # antlr-4.13.2-complete.jar
 ```

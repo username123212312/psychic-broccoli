@@ -1,4 +1,4 @@
-// Generated from D:/RAMA/MyProject/ComplierProject-1/grammars/CssParser.g4 by ANTLR 4.13.2
+// Generated from C:/Users/Yousef Razzouk/IdeaProjects/compiler_project/grammars/CssParser.g4 by ANTLR 4.13.2
 package antlr.css;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -66,6 +66,13 @@ public interface CssParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitTypeSelector(CssParser.TypeSelectorContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UniversalSelector}
+	 * labeled alternative in {@link CssParser#css_selector}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUniversalSelector(CssParser.UniversalSelectorContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code DeclarationBlock}
 	 * labeled alternative in {@link CssParser#declarationList}.

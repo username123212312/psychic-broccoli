@@ -11,6 +11,7 @@ html_content_item
     | HTML_TEXT       # HtmlTextItem
     | jinjaStatementBlock  # JinjaStmtItem
     | jinjaExpressionBlock # JinjaExprItem
+    | HTML_COMMENT    # HtmlCommentItem
     ;
 
 htmlElement
@@ -46,6 +47,7 @@ css_selector
     | ( CSS_DOT CSS_ID CSS_ID? )+                   # StandaloneSimpleSelector
     | CSS_ID (CSS_HASH CSS_ID)*                     # TypeAndIdSelector
     | CSS_ID                                        # TypeSelector
+    | CSS_STAR                                      # UniversalSelector
     ;
 
 declarationList
