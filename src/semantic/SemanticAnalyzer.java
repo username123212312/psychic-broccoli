@@ -12,6 +12,7 @@ import semantic.errors.SemanticError;
 import semantic.rules.*;
 import symbolTable.SymbolTable;
 import symbolTable.SymbolTableManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,6 @@ public class SemanticAnalyzer {
             registerRule(new TypeRule());
             registerRule(new UndefinedFunctionRule());
             registerRule(new UndefinedVariableRule());
-
         }
 
         walk(program, reporter);
@@ -123,7 +123,8 @@ public class SemanticAnalyzer {
                 walk(forLoop.getCondition(), reporter);
                 walk(forLoop.getStatement(), reporter);
             }
-            default -> { }
+            default -> {
+            }
         }
     }
 }

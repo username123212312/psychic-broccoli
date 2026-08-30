@@ -170,16 +170,17 @@ src/
 <span class="dir">├── semantic/</span>                          <span class="comment">// Semantic analysis pass</span>
 │   ├── <span class="file">SemanticAnalyzer.java</span>           <span class="comment">// walks AST, applies rules</span>
 │   ├── <span class="file">ErrorReporter.java</span>              <span class="comment">// collects &amp; prints errors</span>
-│   ├── <span class="dir">errors/</span>                         <span class="comment">// SemanticError (base) + 8 named exceptions</span>
+│   ├── <span class="dir">errors/</span>                         <span class="comment">// SemanticError (base) + 9 named exceptions</span>
 │   │   ├── <span class="file">TypeError.java</span>               <span class="comment">// Type mismatch (e.g. string + int) — TypeRule</span>
 │   │   ├── <span class="file">UndefinedVariableError.java</span>  <span class="comment">// Unknown Name — UndefinedVariableRule</span>
 │   │   ├── <span class="file">UndefinedFunctionError.java</span>  <span class="comment">// Unknown FunctionCall — UndefinedFunctionRule</span>
 │   │   ├── <span class="file">NotIterableError.java</span>        <span class="comment">// for-in over a non-iterable — NotIterableRule</span>
 │   │   ├── <span class="file">ScopeError.java</span>              <span class="comment">// Scope resolution failure — UndefinedVariableRule</span>
 │   │   ├── <span class="file">DuplicateFunctionError.java</span>  <span class="comment">// Repeated def name — DuplicateFunctionRule</span>
+│   │   ├── <span class="file">DuplicateArgumentError.java</span>  <span class="comment">// Duplicate parameter name — DuplicateArgumentRule</span>
 │   │   ├── <span class="file">ReturnOutsideFunctionError.java</span> <span class="comment">// return at module level — ReturnOutsideFunctionRule</span>
 │   │   └── <span class="file">MissingFlaskVariableError.java</span> <span class="comment">// template var not passed to render_template — FlaskTemplateChecker</span>
-│   ├── <span class="dir">rules/</span>                          <span class="comment">// TypeRule, UndefinedVariableRule, DuplicateFunctionRule, ReturnOutsideFunctionRule, NotIterableRule, UndefinedFunctionRule + FunctionScopeAware helper</span>
+│   ├── <span class="dir">rules/</span>                          <span class="comment">// TypeRule, UndefinedVariableRule, DuplicateFunctionRule, DuplicateArgumentRule, ReturnOutsideFunctionRule, NotIterableRule, UndefinedFunctionRule + FunctionScopeAware helper</span>
 │   └── <span class="dir">jinja/</span>                          <span class="comment">// Template-level semantic checks</span>
 │       ├── <span class="file">JinjaSemanticAnalyzer.java</span>     <span class="comment">// walks the HTML template AST</span>
 │       └── <span class="file">FlaskTemplateChecker.java</span>      <span class="comment">// throws MissingFlaskVariableError</span>
@@ -308,16 +309,17 @@ and all <code>ast/</code> node classes.
   <tr><td><code>UndefinedFunctionRule</code></td><td>Flags <code>FunctionCall</code> to unknown functions (30 builtins whitelisted)</td><td><code>UndefinedFunctionError</code></td></tr>
   <tr><td><code>NotIterableRule</code></td><td>Flags <code>for-in</code> over a non-iterable</td><td><code>NotIterableError</code></td></tr>
   <tr><td><code>DuplicateFunctionRule</code></td><td>Flags duplicate <code>def</code> names</td><td><code>DuplicateFunctionError</code></td></tr>
+  <tr><td><code>DuplicateArgumentRule</code></td><td>Flags duplicate parameter names in a <code>def</code></td><td><code>DuplicateArgumentError</code></td></tr>
   <tr><td><code>ReturnOutsideFunctionRule</code></td><td>Flags <code>return</code> at module level (function-scope aware)</td><td><code>ReturnOutsideFunctionError</code></td></tr>
 </table>
 
 <p>
-  So the <strong>six rules</strong> produce <strong>seven</strong> of the eight named
-  errors. The eighth, <code>MissingFlaskVariableError</code>, is not a rule — it is
+  So the <strong>seven rules</strong> produce <strong>eight</strong> of the nine named
+  errors. The ninth, <code>MissingFlaskVariableError</code>, is not a rule — it is
   raised by <code>semantic/jinja/FlaskTemplateChecker.java</code> when a template
   variable was never passed to <code>render_template</code>. That is why
-  <code>samples/</code> contains <strong>9 folders</strong>: one per error type
-  (8) plus <code>CombinedErrors/</code>, a single file that triggers several errors
+  <code>samples/</code> contains <strong>10 folders</strong>: one per error type
+  (9) plus <code>CombinedErrors/</code>, a single file that triggers several errors
   at once as a demo.
 </p>
 
@@ -497,7 +499,7 @@ outputWriter.writeHtmlFile(outputName, renderedHtml);            <span class="co
 
 <hr style="border-color:var(--border);margin:2rem 0;">
 <p style="text-align:center;color:var(--text-muted);font-size:.85rem;">
-  Generated from <code>src/</code> — 190 Java source files, 105 AST node classes, 33 parser rules (+54 lexer token rules)
+  Generated from <code>src/</code> — 191 Java source files, 105 AST node classes, 33 parser rules (+54 lexer token rules)
 </p>
 
 </body>
