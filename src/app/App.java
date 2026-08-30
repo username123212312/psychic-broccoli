@@ -59,7 +59,7 @@ public class App {
 
         if (Files.isDirectory(startPath) && isFlaskProject(startPath)) {
             try {
-                CompilationSnapshot initialSnapshot = processFlaskProject(startPath);
+                CompilationSnapshot initialSnapshot = processFlaskProject(startPath, true);
                 if (serve) {
                     CompilerWebServer webServer = new CompilerWebServer(startPath, port, initialSnapshot);
                     webServer.start();
@@ -109,14 +109,19 @@ public class App {
                 && Files.exists(dir.resolve("templates"));
     }
 
-    public static CompilationSnapshot processFlaskProject(Path projectDir) throws Exception {
+    public static CompilationSnapshot processFlaskProject(Path projectDir, boolean absorbRuntimeData) throws Exception {
         System.out.println("=== Flask Project Mode ===");
         OutputWriter outputWriter = new OutputWriter(projectDir);
         outputWriter.createDirectories();
 
-        // 0. Absorb runtime data (data/*.json) back into app.py before compiling, so the
-        // next compiled output contains the products/posts/... created live in the UI.
-        PythonDataStore.absorbDataIntoSource(projectDir);
+        // Step 0: fold runtime data into app.py only at startup / explicit build; on
+        // watcher-triggered recompiles instead clear the runtime sidecars so app.py
+        // (the edited source) becomes the sole source of truth again.
+        if (absorbRuntimeData) {
+            PythonDataStore.absorbDataIntoSource(projectDir);
+        } else {
+            PythonDataStore.clearRuntimeData(projectDir);
+        }
 
         // 1. Parse app.py
         Path appPy = projectDir.resolve("app.py");

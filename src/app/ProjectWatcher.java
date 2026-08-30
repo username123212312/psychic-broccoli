@@ -25,7 +25,7 @@ public class ProjectWatcher {
     public ProjectWatcher(Path projectPath) throws IOException {
         this(projectPath, changedPath -> {
             try {
-                App.processFlaskProject(projectPath);
+                App.processFlaskProject(projectPath, false);
             } catch (Exception exception) {
                 throw new RuntimeException(exception);
             }

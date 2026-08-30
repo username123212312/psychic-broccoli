@@ -187,6 +187,23 @@ public final class PythonDataStore {
         }
     }
 
+    /** Removes every runtime sidecar ({@code data/*.json}) for the project, so a recompile
+     *  falls back to app.py as the sole source of truth. Called for watcher-triggered
+     *  compiles (never at startup, which absorbs instead). */
+    public static void clearRuntimeData(Path projectDir) throws IOException {
+        Path dataDir = projectDir.resolve("data");
+        if (!Files.isDirectory(dataDir)) {
+            return;
+        }
+        try (var files = Files.list(dataDir)) {
+            for (Path file : files.toList()) {
+                if (file.getFileName().toString().endsWith(".json")) {
+                    Files.deleteIfExists(file);
+                }
+            }
+        }
+    }
+
     /** Merges the sidecar (if any) into this collection's literal and resyncs the sidecar. */
     private void absorb() throws IOException {
         Parsed parsed;

@@ -81,16 +81,15 @@ public final class CompilerWebServer implements AutoCloseable {
     }
 
     public boolean shouldIgnoreSourceEvent(Path changedPath) {
-        // Runtime CRUD persists to data/*.json (not a watched source file) and app.py
-        // is only ever rewritten by the compiler's absorb step, which is content-safe
-        // (no write when unchanged), so nothing needs suppressing here.
+        // Runtime CRUD persists to data/*.json (not a watched source file), and watcher
+        // recompiles run with absorb=false, so nothing needs suppressing here.
         return false;
     }
 
     public void onExternalSourceChange(Path changedPath) {
         try {
             synchronized (compilationLock) {
-                snapshot = App.processFlaskProject(projectDirectory);
+                snapshot = App.processFlaskProject(projectDirectory, false);
             }
             events.broadcast("regenerated", eventData("source-change", changedPath.toString()));
         } catch (Exception exception) {
