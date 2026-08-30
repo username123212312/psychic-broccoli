@@ -39,5 +39,4 @@ public class JinjaFunctionCall extends JinjaCallExpression {
         }
         builder.append(")");
         return builder.toString();
-    }
-}
+    }}

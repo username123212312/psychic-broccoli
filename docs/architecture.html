@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compiler Architecture</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-muted: #8b949e;
+    --accent: #58a6ff;
+    --green: #3fb950;
+    --orange: #d29922;
+    --purple: #bc8cff;
+    --red: #f85149;
+    --cyan: #39d2c0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.6;
+    padding: 2rem; max-width: 1100px; margin: 0 auto;
+  }
+  h1 { font-size: 2.2rem; border-bottom: 1px solid var(--border); padding-bottom: .5rem; margin-bottom: 1.5rem; }
+  h2 { font-size: 1.5rem; margin: 2rem 0 1rem; color: var(--accent); }
+  h3 { font-size: 1.15rem; margin: 1.5rem 0 .75rem; color: var(--cyan); }
+  p, li { color: var(--text-muted); margin-bottom: .5rem; }
+  a { color: var(--accent); }
+  pre {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+    padding: 1rem; overflow-x: auto; font-size: .85rem; line-height: 1.45;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', Consolas, monospace;
+  }
+  code { font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace; font-size: .85rem; }
+  pre code { background: none; padding: 0; }
+  .file { color: var(--orange); }
+  .keyword { color: var(--purple); }
+  .comment { color: var(--text-muted); font-style: italic; }
+  .class-name { color: var(--cyan); }
+  .string { color: var(--green); }
+
+  .tree { margin: 1rem 0; }
+  .tree summary { cursor: pointer; color: var(--accent); font-weight: 600; }
+  .tree ul { list-style: none; padding-left: 1.5rem; border-left: 1px solid var(--border); margin: .25rem 0; }
+  .tree li { position: relative; padding: .15rem 0; }
+  .tree li::before {
+    content: ''; position: absolute; left: -1.5rem; top: .6rem;
+    width: 1rem; height: 0; border-top: 1px solid var(--border);
+  }
+  .tree li:last-child::after {
+    content: ''; position: absolute; left: -1.5rem; top: .6rem;
+    bottom: 0; width: 0; border-left: 1px solid transparent;
+  }
+  .dir { color: var(--accent); font-weight: 600; }
+  .file-icon { color: var(--text-muted); margin-right: .25rem; }
+
+  .phase {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.25rem; margin: 1.5rem 0;
+  }
+  .phase h3 { margin-top: 0; }
+  .phase .badge {
+    display: inline-block; padding: .15rem .5rem; border-radius: 12px;
+    font-size: .75rem; font-weight: 600; margin-bottom: .5rem;
+  }
+  .badge-blue { background: #1f6feb33; color: var(--accent); }
+  .badge-green { background: #3fb95033; color: var(--green); }
+  .badge-purple { background: #bc8cff33; color: var(--purple); }
+  .badge-orange { background: #d2992233; color: var(--orange); }
+
+  .arrow-flow {
+    display: flex; align-items: center; flex-wrap: wrap; gap: .5rem;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 1rem; margin: 1rem 0; font-size: .85rem;
+  }
+  .arrow-flow .step {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 4px;
+    padding: .3rem .6rem; white-space: nowrap;
+  }
+  .arrow-flow .arrow { color: var(--text-muted); }
+
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .85rem; }
+  th, td { border: 1px solid var(--border); padding: .5rem .75rem; text-align: left; }
+  th { background: var(--surface); color: var(--accent); font-weight: 600; }
+  td { color: var(--text-muted); }
+
+  @media (max-width: 768px) {
+    body { padding: 1rem; }
+    h1 { font-size: 1.6rem; }
+    .arrow-flow { flex-direction: column; align-items: flex-start; }
+    .arrow-flow .arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<h1>Python Compiler — Architecture &amp; Workflow</h1>
+
+<p>
+  A hand-written compiler that parses Python source, runs semantic analysis, extracts
+  runtime context (<code>ContextExtractor</code>), and renders Flask/Jinja2 templates into
+  static HTML. The project also supports HTML/Jinja2 and CSS, and can serve the generated
+  output through a built-in web server (<code>--serve</code>) that exposes a generic
+  CRUD API (<code>/api/&lt;collection&gt;</code>) for any top-level list of dictionaries —
+  not just <code>products</code>.
+</p>
+
+<hr style="border-color:var(--border);margin:1.5rem 0;">
+
+<!-- ====================================================================== -->
+<h2>Directory Structure</h2>
+
+<pre class="tree">
+src/
+<span class="dir">├── app/</span>
+│   ├── <span class="file">App.java</span>                         <span class="comment">// Entry point — CLI argument = file or directory</span>
+│   ├── <span class="file">ProjectWatcher.java</span>             <span class="comment">// Watches sources; recompiles on any change (serve mode)</span>
+│   ├── <span class="file">CompilerWebServer.java</span>         <span class="comment">// Serves output/ + generic CRUD API, SSE events</span>
+│   ├── <span class="file">CompilationSnapshot.java</span>       <span class="comment">// Re-usable render state; rerender(context) after data changes</span>
+│   ├── <span class="file">PythonDataStore.java</span>           <span class="comment">// Generic store: parse/rewrite any 'name = [...]' literal</span>
+│   └── <span class="file">DataRecord.java</span>                <span class="comment">// Generic row: numeric id + typed fields (int/BigDecimal/bool/string)</span>
+<span class="dir">├── antlr/</span>
+│   └── <span class="dir">python/</span>                          <span class="comment">// Generated from grammars/*.g4 by ANTLR 4.13.2</span>
+│       ├── <span class="file">PythonLexer.java</span>              <span class="comment">// Tokeniser</span>
+│       ├── <span class="file">PythonParser.java</span>             <span class="comment">// Parser — builds CST</span>
+│       ├── <span class="file">PythonParserBaseVisitor.java</span>  <span class="comment">// Generated visitor stub</span>
+│       └── <span class="file">PythonLexerBase.java</span>           <span class="comment">// Custom indentation / brace handling</span>
+<span class="dir">├── visitor/</span>                           <span class="comment">// 32 CST → AST visitors</span>
+│   ├── <span class="file">UniversalPythonVisitor.java</span>    <span class="comment">// catch-all default (while, import, decorators, params)</span>
+│   ├── <span class="dir">python/</span>                        <span class="comment">// 18 specialised Python visitors</span>
+│   │   ├── <span class="file">ProgramVisitor.java</span>           <span class="comment">// prog → Program</span>
+│   │   ├── <span class="file">StatementVisitor.java</span>         <span class="comment">// statement → Statement</span>
+│   │   ├── <span class="file">CompoundStatementVisitor.java</span> <span class="comment">// dispatcher — calls specialised sub-visitors</span>
+│   │   ├── <span class="file">AssignmentStatementVisitor.java</span> <span class="comment">// assign_stmt + type inference</span>
+│   │   ├── <span class="file">AtomVisitor.java</span>              <span class="comment">// literals (Number, Str, Bool, None, Name)</span>
+│   │   ├── <span class="file">AtomExpressionVisitor.java</span>    <span class="comment">// calls, attribute access, indexing</span>
+│   │   ├── <span class="file">ArithmeticExpressionVisitor.java</span> <span class="comment">// + - * /</span>
+│   │   ├── <span class="file">ConditionVisitor.java</span>         <span class="comment">// comparisons, and/or, not</span>
+│   │   ├── <span class="file">ForLoopVisitor.java</span>           <span class="comment">// simple &amp; complex for-loops</span>
+│   │   ├── <span class="file">ComplexExpressionVisitor.java</span> <span class="comment">// lists, dicts, comprehensions</span>
+│   │   ├── <span class="file">ReturnStatementVisitor.java</span>   <span class="comment">// return statements</span>
+│   │   ├── <span class="file">FunctionParametersVisitor.java</span> <span class="comment">// function parameter lists</span>
+│   │   ├── <span class="file">ArgumentListVisitor.java</span>      <span class="comment">// call-site argument lists</span>
+│   │   ├── <span class="file">ArgumentVisitor.java</span>          <span class="comment">// positional / keyword arguments</span>
+│   │   ├── <span class="file">KeyValueVisitor.java</span>          <span class="comment">// dict key : value</span>
+│   │   ├── <span class="file">TemplateLiteralVisitor.java</span>   <span class="comment">// triple-quoted / f-strings</span>
+│   │   ├── <span class="file">PythonExpressionVisitor.java</span>  <span class="comment">// python_expr → PythonExpression</span>
+│   │   └── <span class="file">SimpleExpressionVisitor.java</span>    <span class="comment">// simple_expr → SimpleExpression</span>
+│   ├── <span class="dir">html/</span>                          <span class="comment">// HtmlContentVisitor, HtmlElementVisitor, TagContentVisitor…</span>
+│   ├── <span class="dir">css/</span>                           <span class="comment">// StyleSheetVisitor, CssSelectorVisitor, CssTermVisitor</span>
+│   └── <span class="dir">jinja/</span>                         <span class="comment">// JinjaVisitor, JinjaExpressionVisitor, JinjaStatementVisitor…</span>
+<span class="dir">├── ast/</span>                               <span class="comment">// 105 hand-written AST node classes</span>
+│   ├── <span class="file">ASTNode.java</span>                    <span class="comment">// abstract root</span>
+│   ├── <span class="file">Program.java</span>                    <span class="comment">// List&lt;Statement&gt;</span>
+│   ├── <span class="file">Statement.java</span>                  <span class="comment">// List&lt;CompoundStatement&gt; | pass</span>
+│   ├── <span class="dir">compundStmt/</span>                    <span class="comment">// If, ForLoop, While, Import, Global, FunctionDef</span>
+│   ├── <span class="dir">assignStmt/</span>                     <span class="comment">// 4 assignment variants</span>
+│   ├── <span class="dir">atom/</span>                           <span class="comment">// Number, Str, Bool, None, Name, ClassAtom</span>
+│   ├── <span class="dir">atomExpression/</span>                 <span class="comment">// FunctionCall, AttributeAccess, ListAccess, etc.</span>
+│   ├── <span class="dir">arithmeticExpr/</span>                 <span class="comment">// ArithmeticExpression + Operator enum</span>
+│   ├── <span class="dir">condition/</span>                      <span class="comment">// ComparisonExpression, BooleanCondition, NotExpression</span>
+│   ├── <span class="dir">complexExp/</span>                     <span class="comment">// ListComprehension, Generator, DictLiteral</span>
+│   ├── <span class="dir">functionDef/</span>                    <span class="comment">// FunctionDefinition, Decorator, Parameters</span>
+│   ├── <span class="dir">returnStmt/</span>                     <span class="comment">// SimpleReturn, ComplexReturn</span>
+│   ├── <span class="dir">argsList/</span> <span class="dir">argument/</span> <span class="dir">keyValue/</span>   <span class="comment">// argument &amp; dict infrastructure</span>
+│   └── <span class="file">TemplateLiteral.java</span>
+<span class="dir">├── semantic/</span>                          <span class="comment">// Semantic analysis pass</span>
+│   ├── <span class="file">SemanticAnalyzer.java</span>           <span class="comment">// walks AST, applies rules</span>
+│   ├── <span class="file">ErrorReporter.java</span>              <span class="comment">// collects &amp; prints errors</span>
+│   ├── <span class="dir">errors/</span>                         <span class="comment">// SemanticError (base) + 8 named exceptions</span>
+│   │   ├── <span class="file">TypeError.java</span>               <span class="comment">// Type mismatch (e.g. string + int) — TypeRule</span>
+│   │   ├── <span class="file">UndefinedVariableError.java</span>  <span class="comment">// Unknown Name — UndefinedVariableRule</span>
+│   │   ├── <span class="file">UndefinedFunctionError.java</span>  <span class="comment">// Unknown FunctionCall — UndefinedFunctionRule</span>
+│   │   ├── <span class="file">NotIterableError.java</span>        <span class="comment">// for-in over a non-iterable — NotIterableRule</span>
+│   │   ├── <span class="file">ScopeError.java</span>              <span class="comment">// Scope resolution failure — UndefinedVariableRule</span>
+│   │   ├── <span class="file">DuplicateFunctionError.java</span>  <span class="comment">// Repeated def name — DuplicateFunctionRule</span>
+│   │   ├── <span class="file">ReturnOutsideFunctionError.java</span> <span class="comment">// return at module level — ReturnOutsideFunctionRule</span>
+│   │   └── <span class="file">MissingFlaskVariableError.java</span> <span class="comment">// template var not passed to render_template — FlaskTemplateChecker</span>
+│   ├── <span class="dir">rules/</span>                          <span class="comment">// TypeRule, UndefinedVariableRule, DuplicateFunctionRule, ReturnOutsideFunctionRule, NotIterableRule, UndefinedFunctionRule + FunctionScopeAware helper</span>
+│   └── <span class="dir">jinja/</span>                          <span class="comment">// Template-level semantic checks</span>
+│       ├── <span class="file">JinjaSemanticAnalyzer.java</span>     <span class="comment">// walks the HTML template AST</span>
+│       └── <span class="file">FlaskTemplateChecker.java</span>      <span class="comment">// throws MissingFlaskVariableError</span>
+<span class="dir">├── symbolTable/</span>                       <span class="comment">// Scoped symbol table</span>
+│   ├── <span class="file">SymbolTableManager.java</span>         <span class="comment">// Singleton (enum)</span>
+│   ├── <span class="file">SymbolTable.java</span>                <span class="comment">// Deque&lt;Scope&gt;, enter/exit/lookup/define</span>
+│   └── <span class="file">SymbolEntry.java</span>                <span class="comment">// name + scope + HashMap&lt;String,Object&gt; attributes</span>
+<span class="dir">├── generator/</span>                         <span class="comment">// Context extraction &amp; rendering</span>
+│   ├── <span class="file">ContextExtractor.java</span>            <span class="comment">// extracts runtime data from the AST</span>
+│   ├── <span class="file">JinjaRenderer.java</span>               <span class="comment">// renders Jinja templates to static HTML</span>
+│   └── <span class="file">OutputWriter.java</span>                <span class="comment">// writes output/ + compiler_output/ artifacts</span>
+└── <span class="file">listener/CustomErrorListener.java</span>   <span class="comment">// ANTLR error → RuntimeException</span>
+</pre>
+
+<!-- ====================================================================== -->
+<h2>End‑to‑End Pipeline Overview</h2>
+
+<div class="arrow-flow">
+  <span class="step"><span class="badge badge-blue">Phase 1</span> Lex &amp; Parse</span>
+  <span class="arrow">→</span>
+  <span class="step"><span class="badge badge-green">Phase 2</span> Build AST</span>
+  <span class="arrow">→</span>
+  <span class="step"><span class="badge badge-purple">Phase 3</span> Semantic Analysis</span>
+  <span class="arrow">→</span>
+  <span class="step"><span class="badge badge-orange">Phase 4</span> Context Extraction</span>
+  <span class="arrow">→</span>
+  <span class="step"><span class="badge badge-orange">Phase 5</span> Render HTML</span>
+</div>
+
+<!-- ====================================================================== -->
+<h2>Phase 1 — Lexing &amp; Parsing</h2>
+
+<div class="phase">
+<p><span class="badge badge-blue">ANTLR 4.13.2</span></p>
+<p>
+  The source file is fed through the ANTLR-generated <strong>PythonLexer</strong>
+  (tokeniser) which produces a <code>CommonTokenStream</code>. The
+  <strong>PythonParser</strong> then builds a Concrete Syntax Tree (CST) using
+  the grammar rules defined in <code>grammars/PythonParser.g4</code>.
+</p>
+
+<pre>
+<span class="comment">// App.processFile() — relevant snippet</span>
+CharStream input     = CharStreams.fromFileName(path);
+PythonLexer lexer    = <span class="keyword">new</span> PythonLexer(input);
+CommonTokenStream tokens = <span class="keyword">new</span> CommonTokenStream(lexer);
+PythonParser parser  = <span class="keyword">new</span> PythonParser(tokens);
+parser.addErrorListener(<span class="keyword">new</span> CustomErrorListener());
+ParseTree tree       = parser.prog();   <span class="comment">// ← CST built here</span>
+</pre>
+
+<p><strong>Key files:</strong>
+<code>PythonLexer.java</code>,
+<code>PythonParser.java</code>,
+<code>PythonLexerBase.java</code> (custom indentation, brace tracking, NEWLINE handling),
+<code>CustomErrorListener.java</code>.
+</p>
+</div>
+
+<!-- ====================================================================== -->
+<h2>Phase 2 — AST Construction</h2>
+
+<div class="phase">
+<p><span class="badge badge-green">~32 specialised visitors</span></p>
+<p>
+  The CST is walked by a family of <strong>visitor classes</strong>, each
+  responsible for a single grammar domain. Every visitor creates or dispatches
+  to create <strong>hand‑crafted AST nodes</strong> (in <code>src/ast/</code>).
+  The symbol table is populated <strong>inline</strong> during this phase.
+</p>
+
+<pre>
+<span class="comment">// CompoundStatementVisitor acts as the dispatcher</span>
+<span class="keyword">switch</span> (ctx) {
+    <span class="keyword">case</span> AssignmentStatementContext a  → visitAssignmentStatement(a);
+    <span class="keyword">case</span> IfStatementContext i           → build <span class="keyword">new</span> IfStatement(...);
+    <span class="keyword">case</span> ForLoopStatementContext f      → <span class="keyword">new</span> ForLoopVisitor().visit(f);
+    <span class="keyword">case</span> FunctionDefinitionContext fn   → enterScope(); build <span class="keyword">new</span> FunctionDefinition(...); exitScope();
+    <span class="keyword">case</span> AtomExpressionContext a        → <span class="keyword">new</span> AtomExpressionVisitor().visit(a);
+    <span class="keyword">case</span> ReturnStatementContext r        → <span class="keyword">new</span> ReturnStatementVisitor().visit(r);
+    <span class="keyword">case</span> ImportStatementContext i        → build <span class="keyword">new</span> ImportStatement(...);
+    <span class="keyword">case</span> GlobalStatementContext g        → build <span class="keyword">new</span> GlobalStatement(...);
+    <span class="keyword">default</span>                               → UniversalPythonVisitor().visit(ctx);
+}
+</pre>
+
+<p><strong>Key files:</strong>
+<code>ProgramVisitor.java</code>,
+<code>StatementVisitor.java</code>,
+<code>CompoundStatementVisitor.java</code>,
+<code>AssignmentStatementVisitor.java</code>,
+<code>AtomExpressionVisitor.java</code>,
+<code>AtomVisitor.java</code>,
+<code>ConditionVisitor.java</code>,
+<code>ForLoopVisitor.java</code>,
+<code>ArithmeticExpressionVisitor.java</code>,
+<code>ComplexExpressionVisitor.java</code>,
+<code>ReturnStatementVisitor.java</code>,
+<code>FunctionParametersVisitor.java</code>,
+<code>ArgumentListVisitor.java</code>,
+<code>ArgumentVisitor.java</code>,
+<code>KeyValueVisitor.java</code>,
+<code>TemplateLiteralVisitor.java</code>,
+<code>UniversalPythonVisitor.java</code>,
+and all <code>ast/</code> node classes.
+</p>
+</div>
+
+<!-- ====================================================================== -->
+<h2>Phase 3 — Semantic Analysis</h2>
+
+<div class="phase">
+<p><span class="badge badge-purple">Rule-based walker</span></p>
+<p>
+  The <strong>SemanticAnalyzer</strong> walks the entire AST and applies a set
+  of <code>SemanticRule</code> implementations to every node. Each violation
+  surfaces as a <strong>named exception</strong> (<code>semantic/errors/*.java</code>),
+  and the CLI reports it as <code>Semantic error detected "TypeError": …</code>.
+  One compilable example per error type lives in <code>samples/&lt;ErrorName&gt;/</code>.
+</p>
+
+<table>
+  <tr><th>Rule</th><th>What it checks</th><th>Error raised</th></tr>
+  <tr><td><code>TypeRule</code></td><td>Type inference; detects mismatches (e.g. string + int)</td><td><code>TypeError</code></td></tr>
+  <tr><td><code>UndefinedVariableRule</code></td><td>Flags <code>Name</code> nodes not found in symbol table</td><td><code>UndefinedVariableError</code> <em>or</em> <code>ScopeError</code></td></tr>
+  <tr><td><code>UndefinedFunctionRule</code></td><td>Flags <code>FunctionCall</code> to unknown functions (30 builtins whitelisted)</td><td><code>UndefinedFunctionError</code></td></tr>
+  <tr><td><code>NotIterableRule</code></td><td>Flags <code>for-in</code> over a non-iterable</td><td><code>NotIterableError</code></td></tr>
+  <tr><td><code>DuplicateFunctionRule</code></td><td>Flags duplicate <code>def</code> names</td><td><code>DuplicateFunctionError</code></td></tr>
+  <tr><td><code>ReturnOutsideFunctionRule</code></td><td>Flags <code>return</code> at module level (function-scope aware)</td><td><code>ReturnOutsideFunctionError</code></td></tr>
+</table>
+
+<p>
+  So the <strong>six rules</strong> produce <strong>seven</strong> of the eight named
+  errors. The eighth, <code>MissingFlaskVariableError</code>, is not a rule — it is
+  raised by <code>semantic/jinja/FlaskTemplateChecker.java</code> when a template
+  variable was never passed to <code>render_template</code>. That is why
+  <code>samples/</code> contains <strong>9 folders</strong>: one per error type
+  (8) plus <code>CombinedErrors/</code>, a single file that triggers several errors
+  at once as a demo.
+</p>
+
+<pre>
+<span class="comment">// SemanticAnalyzer.walk() — apply every rule to the node, then recurse per type</span>
+<span class="keyword">for</span> (SemanticRule rule : rules) {
+    rule.apply(node, symbolTable, reporter);
+}
+<span class="keyword">switch</span> (node) {                  <span class="comment">// Program, Statement, If, While, ForLoop, FunctionDef…</span>
+    <span class="keyword">case</span> IfStatement i         → walk(i.getStatement(), reporter);
+    <span class="keyword">case</span> FunctionDefinition f  → walk(f.getFunctionBody(), reporter);
+    <span class="keyword">default</span>                    → <span class="comment">// leaf</span>
+}
+</pre>
+
+<p><strong>Key files:</strong>
+<code>SemanticAnalyzer.java</code>,
+<code>SymbolTable.java</code>,
+<code>SymbolTableManager.java</code>,
+<code>SymbolEntry.java</code>,
+<code>ErrorReporter.java</code>,
+<code>rules/*.java</code>.
+</p>
+</div>
+
+<!-- ====================================================================== -->
+<h2>Phase 4 — Context Extraction &amp; HTML Rendering</h2>
+
+<div class="phase">
+<p><span class="badge badge-orange">Flask project mode</span></p>
+<p>
+  The <strong>ContextExtractor</strong> walks the Python AST and extracts the runtime
+  data needed to render the templates (route functions, context variables, <code>url_for</code>
+  targets, collection/list data). A <strong>JinjaRenderer</strong> then renders each
+  template (given its <code>HtmlContent</code> AST) to static HTML, which the
+  <strong>OutputWriter</strong> writes into <code>output/</code> together with support files
+  (<code>app.py</code>, <code>styles.css</code>, <code>script.js</code>, <code>templates/</code>).
+  Reports (semantic report, generation log, AST JSON dumps) are written to <code>compiler_output/</code>.
+</p>
+
+<pre>
+<span class="comment">// processFlaskProject() — relevant snippet</span>
+ContextExtractor extractor = <span class="keyword">new</span> ContextExtractor();
+Map&lt;String, Object&gt; context = extractor.extract(program);       <span class="comment">// Phase 4</span>
+Map&lt;String, String&gt; routes   = extractor.extractRoutes(program);
+
+JinjaRenderer renderer       = <span class="keyword">new</span> JinjaRenderer(context, templateMap, routes);
+String renderedHtml           = renderer.render(htmlContent);
+outputWriter.writeHtmlFile(outputName, renderedHtml);            <span class="comment">// Phase 5</span>
+</pre>
+
+<p>
+  In <strong>serve mode</strong> (<code>--serve</code>), the generated <code>output/</code>
+  directory is continuously regenerated by a <code>ProjectWatcher</code> whenever a source
+  file changes, and a built-in <code>CompilerWebServer</code> serves the pages on the same
+  origin (no CORS). For a single file (non-Flask) invocation, rendering is skipped — only
+  the Python AST + semantic analysis are printed; <code>.html/.j2/.css</code> files are
+  written to a local <code>generated/</code> folder.
+</p>
+
+<h3>Generic CRUD API</h3>
+<p>
+  The server discovers <strong>editable collections</strong> from the compiled context: any
+  top-level variable whose value is a <strong>list of dictionaries that each carry a numeric
+  <code>"id"</code></strong> (e.g. <code>products</code>, <code>posts</code>, <code>books</code>).
+  Each one gets its own endpoint <code>/api/&lt;collection&gt;</code>:
+</p>
+<table>
+  <tr><th>Endpoint</th><th>Method</th><th>Action</th></tr>
+  <tr><td><code>/api/&lt;collection&gt;</code></td><td><code>GET</code></td><td>List all records (JSON array, types preserved)</td></tr>
+  <tr><td><code>/api/&lt;collection&gt;</code></td><td><code>POST</code></td><td>Create a record (id = max + 1) → <code>201</code></td></tr>
+  <tr><td><code>/api/&lt;collection&gt;/&lt;id&gt;</code></td><td><code>GET</code></td><td>Fetch one record</td></tr>
+  <tr><td><code>/api/&lt;collection&gt;/&lt;id&gt;</code></td><td><code>PUT</code></td><td>Update fields from the form → <code>200</code></td></tr>
+  <tr><td><code>/api/&lt;collection&gt;/&lt;id&gt;</code></td><td><code>DELETE</code></td><td>Remove a record → <code>204</code></td></tr>
+</table>
+<p>
+  <code>PythonDataStore</code> keeps <code>app.py</code> as the single source of truth: every
+  mutation is written back into the matching literal, then <code>CompilationSnapshot.rerender()</code>
+  re-renders the templates with a <strong>merged live context</strong> (all editable collections
+  from their stores, everything else from the last full compile). Whole numbers are normalised to
+  integers in JSON/rendered output, floats/booleans/strings keep their type. Everything else in the
+  context (plain dicts, string lists, scalars) is read-only. Errors are reported as JSON
+  (<code>404</code>/<code>400</code>/<code>405</code>/<code>500</code>), and an SSE stream at
+  <code>/events</code> pushes <code>regenerated</code> / <code>compiler-error</code> events.
+</p>
+
+<p><strong>Key files:</strong>
+<code>generator/ContextExtractor.java</code>,
+<code>generator/JinjaRenderer.java</code>,
+<code>generator/OutputWriter.java</code>,
+<code>app/CompilerWebServer.java</code>,
+<code>app/PythonDataStore.java</code>,
+<code>app/DataRecord.java</code>,
+<code>app/CompilationSnapshot.java</code>,
+<code>app/ProjectWatcher.java</code>.
+</p>
+</div>
+
+<!-- ====================================================================== -->
+<h2>Key Design Decisions</h2>
+
+<div style="margin-top:1.5rem">
+
+<table>
+  <tr><th style="width:220px">Decision</th><th>Rationale</th></tr>
+  <tr>
+    <td>Visitors for CST→AST, renderers operating on AST nodes</td>
+    <td><strong>Double‑dispatch.</strong> ANTLR visitors handle grammar‑specific logic during tree conversion; the context extractor and Jinja renderer walk the finished AST instead of a monolithic switch.</td>
+  </tr>
+  <tr>
+    <td>Symbol table populated during AST construction</td>
+    <td>No separate pass needed. The visitor building the AST already knows what symbols are being defined (function names, parameters, globals) and can enter/exit scopes immediately.</td>
+  </tr>
+  <tr>
+    <td>Dynamic type inference in AssignmentStatementVisitor</td>
+    <td>Keeps the symbol table useful for semantic checks without requiring a full Hindley‑Milner type system. Infers Integer, Float, String, Boolean, List, Dict.</td>
+  </tr>
+  <tr>
+    <td>Context extraction decoupled from rendering</td>
+    <td><code>ContextExtractor</code> gathers route data and context variables in one pass; <code>JinjaRenderer</code> only consumes them. This separation makes it easy to re-render static HTML after any data change: <code>CompilationSnapshot</code> keeps the last successful compile and <code>rerender(liveContext)</code> re-renders it without re-lexing/re-parsing.</td>
+  </tr>
+  <tr>
+    <td>app.py is the single source of truth</td>
+    <td>For the web runtime (<code>PythonDataStore</code>), CRUD mutations on any collection are written back into the matching top-level literal of <code>app.py</code>, then the templates are re-rendered through the compiler — no second data model to keep in sync, and types (numbers, booleans, strings) survive the round trip.</td>
+  </tr>
+  <tr>
+    <td>Editable collections are discovered, not hard-coded</td>
+    <td>The server inspects the compiled context and exposes <code>/api/&lt;collection&gt;</code> for every list-of-dicts variable with a numeric <code>"id"</code> (products, posts, books, …). No field set is hard-wired; non-list data stays read-only.</td>
+  </tr>
+  <tr>
+    <td>UI mutations re-render with a merged context</td>
+    <td>After a browser write, every editable collection is overlaid onto the snapshot context before re-rendering, so templates that read several collections (e.g. <code>students</code> + <code>teachers</code>) are regenerated consistently in one pass.</td>
+  </tr>
+</table>
+
+</div>
+
+<!-- ====================================================================== -->
+<h2>Data Flow Summary</h2>
+
+<div class="phase">
+<pre>
+<strong>app.py</strong> (+ templates/*.html, styles.css, script.js)
+    │
+    ▼
+<strong>ANTLR Lexer</strong> (PythonLexer.java)
+    │  Token stream
+    ▼
+<strong>ANTLR Parser</strong> (PythonParser.java)
+    │  Concrete Syntax Tree (CST)
+    ▼
+<strong>32 specialised Visitors</strong> (visitor/python/, html/, css/, jinja/)
+    │  + SymbolTable population
+    ▼
+<strong>AST</strong> (ast/&lt;*&gt;.java)                ◄── <strong>Semantic Analyzer</strong>
+    │                                         (semantic/SemanticAnalyzer.java)
+    │  ContextExtractor.extract(program)
+    ▼
+<strong>Context</strong> (generator/ContextExtractor.java)
+    │  Map&lt;String,Object&gt; context + routes
+    ▼
+<strong>JinjaRenderer</strong> (generator/JinjaRenderer.java)
+    │  renders each HtmlContent AST to static HTML
+    ▼
+<strong>OutputWriter</strong> (generator/OutputWriter.java)
+    │  output/*.html + styles.css + script.js + reports
+    ▼
+<strong>Static HTML</strong>  🎯  (served live via app --serve)
+    │
+    ▼
+<strong>Browser</strong> ── <code>GET/POST/PUT/DELETE /api/&lt;collection&gt;</code> ──▶ <strong>PythonDataStore</strong>
+    │                                                                       │  write literal back to app.py
+    │  <code>regenerated</code> (SSE /events)                                │  + snapshot.rerender(context)
+    ◀────────────────────────────────────────────────────────────────────────┘
+</pre>
+</div>
+
+<hr style="border-color:var(--border);margin:2rem 0;">
+<p style="text-align:center;color:var(--text-muted);font-size:.85rem;">
+  Generated from <code>src/</code> — 190 Java source files, 105 AST node classes, 33 parser rules (+54 lexer token rules)
+</p>
+
+</body>
+</html>

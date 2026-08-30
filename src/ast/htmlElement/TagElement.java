@@ -12,11 +12,6 @@ public class TagElement extends HtmlElement {
     private List<TagElementItem> tags;
     private String tagName;
     private boolean selfClosing = false;
-    private boolean isClosingTag = false;
-
-    public void setClosingTag(boolean closingTag) {
-        isClosingTag = closingTag;
-    }
 
     public TagElement(int line_number) {
         super("TagElement", line_number);
@@ -52,15 +47,25 @@ public class TagElement extends HtmlElement {
         return tagName;
     }
 
+    private boolean isClosingTag = false; // ضيف هذا المتغير فوق مع الـ tagName
+
+    public void setClosingTag(boolean closingTag) {
+        isClosingTag = closingTag;
+    }
+
+    public boolean isClosingTag() {
+        return isClosingTag;
+    }
+
     @Override
     public String generateCode() {
         StringBuilder builder = new StringBuilder();
 
         if (isClosingTag) {
-
+            // إذا كان وسم إغلاق يطبع فقط </name>
             builder.append("</").append(tagName).append(">");
         } else {
-
+            // إذا كان وسم فتح يطبع <name attrs>
             builder.append("<").append(tagName);
             if (tags != null) {
                 for (TagElementItem attr : tags) {
@@ -77,6 +82,7 @@ public class TagElement extends HtmlElement {
         }
         return builder.toString();
     }
+
 
 
     private static boolean isVoidElement(String name) {

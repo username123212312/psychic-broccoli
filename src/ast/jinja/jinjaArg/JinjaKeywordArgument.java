@@ -21,7 +21,6 @@ public class JinjaKeywordArgument extends JinjaArgument {
     public String toString() {
         return super.toString() + " ( " + id + " = " +getArgument().toString() + " ) ";
     }
-
     @Override
     public String generateCode() {
         StringBuilder builder = new StringBuilder();

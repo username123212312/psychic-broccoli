@@ -22,18 +22,18 @@ public class HtmlElementVisitor extends HtmlParserBaseVisitor<HtmlElement> {
         String tagName = null;
         List<TagElementItem> attributes = new ArrayList<>();
 
-
+        // بنمر على كل محتويات الوسم
         for (HtmlParser.Tag_contentContext tCtx : ctx.tag_content()) {
             if (tCtx instanceof HtmlParser.ClosingMarkerContext) {
-
+                // إذا لقينا علامة / يعني هذا وسم إغلاق
                 isClosing = true;
             } else if (tCtx instanceof HtmlParser.HtmlAttributeContext) {
                 HtmlParser.HtmlAttributeContext attrCtx = (HtmlParser.HtmlAttributeContext) tCtx;
                 if (tagName == null) {
-
+                    // أول اسم بنلاقيه هو اسم الوسم
                     tagName = attrCtx.TAG_NAME().getText();
                 } else {
-
+                    // الأسماء اللي بعد هيك هي خصائص (Attributes)
                     attributes.add(tagContentVisitor.visit(attrCtx));
                 }
             }

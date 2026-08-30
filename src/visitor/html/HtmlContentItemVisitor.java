@@ -38,11 +38,10 @@ public class HtmlContentItemVisitor extends HtmlParserBaseVisitor<HtmlContentIte
         return visit(ctx.jinjaExpressionBlock());
     }
 
-
     @Override
     public HtmlContentItem visitJinjaExprBlock(HtmlParser.JinjaExprBlockContext ctx) {
         ast.jinja.jinjaExpression.JinjaExpression expr = new JinjaExpressionVisitor().visit(ctx.j_expression());
-        expr.setBlock(true);
+        expr.setBlock(true); // هنا ضفنا هذي عشان نعرف إنها جاية كـ {{ }}
         return expr;
     }
 }

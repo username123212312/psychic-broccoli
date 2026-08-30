@@ -9,9 +9,11 @@ import ast.WhileStatement;
 import ast.argsList.ArgumentsList;
 import ast.atom.Atom;
 import ast.atom.Bool;
+import ast.complexExp.ComplexExpression;
 import ast.complexExp.ListItems;
 import ast.compundStmt.CompoundStatement;
 import ast.compundStmt.GlobalStatement;
+import ast.compundStmt.PythonExpression;
 import ast.condition.Condition;
 import ast.functionDef.Decorator;
 import ast.functionDef.FunctionParameters;
@@ -55,14 +57,23 @@ public class UniversalPythonVisitor extends PythonParserBaseVisitor<ASTNode> {
     @Override
     public ListItems visitListItems(PythonParser.ListItemsContext ctx) {
         ListItems listItems = new ListItems(ctx.getStart().getLine());
-        List<Atom> atomList = new ArrayList<>();
+        List<PythonExpression> itemList = new ArrayList<>();
         AtomVisitor atomVisitor = new AtomVisitor();
-        for (int i = 0; i < ctx.atom().size(); i++) {
-            Atom atom = atomVisitor.visit(ctx.atom(i));
-            atomList.add(atom);
+        ComplexExpressionVisitor complexVisitor = new ComplexExpressionVisitor();
+        for (int i = 0; i < ctx.list_item().size(); i++) {
+            PythonParser.List_itemContext liCtx = ctx.list_item(i);
+            if (liCtx instanceof PythonParser.ScalarListItemContext scalarCtx) {
+                Atom atom = atomVisitor.visit(scalarCtx.atom());
+                ast.atomExpression.LiteralExpression lit = new ast.atomExpression.LiteralExpression(liCtx.getStart().getLine());
+                lit.setLiteralValue(atom.getValue() != null ? atom.getValue().toString() : "");
+                lit.setVarName(null);
+                itemList.add(lit);
+            } else if (liCtx instanceof PythonParser.ComplexListItemContext complexCtx) {
+                ComplexExpression complexExpr = complexVisitor.visit(complexCtx.complex_expr());
+                itemList.add(complexExpr);
+            }
         }
-        listItems.setAtomList(atomList);
-
+        listItems.setItems(itemList);
         return listItems;
     }
 

@@ -10,10 +10,8 @@ import ast.compundStmt.IfStatement;
 import ast.functionDef.FunctionDefinition;
 import semantic.errors.SemanticError;
 import semantic.rules.*;
-import semantic.rules.UndefinedVariableRule;
 import symbolTable.SymbolTable;
 import symbolTable.SymbolTableManager;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,37 +20,52 @@ public class SemanticAnalyzer {
     private final SymbolTable symbolTable = SymbolTableManager.INSTANCE.getSymbolTable();
 
 
+    private boolean inFunctionScope = false;
+
     public void registerRule(SemanticRule r) {
         if (r != null) rules.add(r);
     }
 
     public void analyze(Program program) {
         if (program == null) return;
-
         ErrorReporter reporter = new ErrorReporter();
+
         if (rules.isEmpty()) {
-            registerRule(new TypeRule());
-            registerRule(new UndefinedVariableRule());
-            registerRule(new DuplicateFunctionRule());
-            registerRule(new NamingConventionRule());
             registerRule(new DuplicateArgumentRule());
+            registerRule(new DuplicateFunctionRule());
+            registerRule(new NotIterableRule());
+            registerRule(new ReturnOutsideFunctionRule());
+            registerRule(new TypeRule());
+            registerRule(new UndefinedFunctionRule());
+            registerRule(new UndefinedVariableRule());
+
         }
 
         walk(program, reporter);
-
         reporter.printErrors();
+        if (reporter.hasErrors()) {
+            throw reporter.getErrors().get(0);
+        }
     }
 
     private void walk(ASTNode node, ErrorReporter reporter) {
         if (node == null) return;
 
+
         for (SemanticRule rule : rules) {
+
+            if (rule instanceof ReturnOutsideFunctionRule returnRule) {
+                if (inFunctionScope) returnRule.enterFunction();
+                else returnRule.exitFunction();
+            }
+
             try {
                 rule.apply(node, symbolTable, reporter);
             } catch (SemanticError se) {
-                reporter.addError("Rule error: " + se.getMessage());
+                //reporter.addError("Rule error: " + se.getMessage());
             }
         }
+
 
         switch (node) {
             case Program program -> {
@@ -66,6 +79,27 @@ public class SemanticAnalyzer {
                         walk(compoundStatement, reporter);
                     }
                 }
+            }
+            case FunctionDefinition functionDefinition -> {
+
+                boolean wasInFunction = inFunctionScope;
+                inFunctionScope = true;
+
+                for (SemanticRule rule : rules) {
+                    if (rule instanceof FunctionScopeAware scopeAwareRule) {
+                        scopeAwareRule.pushFunction(functionDefinition.getFunctionName());
+                    }
+                }
+
+                walk(functionDefinition.getFunctionBody(), reporter);
+
+                for (SemanticRule rule : rules) {
+                    if (rule instanceof FunctionScopeAware scopeAwareRule) {
+                        scopeAwareRule.popFunction();
+                    }
+                }
+
+                inFunctionScope = wasInFunction;
             }
             case IfStatement ifStatement -> {
                 walk(ifStatement.getCondition(), reporter);
@@ -89,9 +123,7 @@ public class SemanticAnalyzer {
                 walk(forLoop.getCondition(), reporter);
                 walk(forLoop.getStatement(), reporter);
             }
-            case FunctionDefinition functionDefinition -> walk(functionDefinition.getFunctionBody(), reporter);
-            default -> {
-            }
+            default -> { }
         }
     }
 }

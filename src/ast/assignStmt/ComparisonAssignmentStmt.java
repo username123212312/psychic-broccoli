@@ -1,7 +1,6 @@
 package ast.assignStmt;
 
 import ast.condition.Condition;
-import cpython_bytecode.codegen.CodegenContext;
 
 public class ComparisonAssignmentStmt extends AssignmentStatement {
     private Condition value;
@@ -16,16 +15,6 @@ public class ComparisonAssignmentStmt extends AssignmentStatement {
 
     public Condition getValue() {
         return value;
-    }
-
-    @Override
-    public void generateBytecode(CodegenContext ctx) {
-        if (value != null) value.generateBytecode(ctx);
-        else {
-            int noneIdx = ctx.addConstant("NONE_PLACEHOLDER");
-            ctx.emitLoadConst(noneIdx);
-        }
-        ctx.storeVariable(ctx.extractVarName(getVar()));
     }
 
     @Override

@@ -1,26 +1,32 @@
 package semantic;
 
+import semantic.errors.SemanticError;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ErrorReporter {
-    private final List<String> errors = new ArrayList<>();
+    private final List<SemanticError> errors = new ArrayList<>();
 
-    public void addError(String error) {
+    public void addError(SemanticError error) {
         errors.add(error);
+    }
+
+    public void addError(String message) {
+        errors.add(new SemanticError(message));
     }
 
     public boolean hasErrors() {
         return !errors.isEmpty();
     }
 
-    public List<String> getErrors() {
+    public List<SemanticError> getErrors() {
         return errors;
     }
 
     public void printErrors() {
         if (errors.isEmpty()) return;
         System.out.println("--- Semantic Errors ---");
-        for (String e : errors) System.out.println(e);
+        for (SemanticError e : errors) System.out.println(e.getName() + ": " + e.getDescription());
     }
 }

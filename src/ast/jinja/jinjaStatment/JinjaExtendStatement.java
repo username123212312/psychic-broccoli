@@ -19,8 +19,6 @@ public class JinjaExtendStatement extends JinjaStatement {
     public String generateCode() {
         return "{% extends " + extended + " %}";
     }
-
-
     @Override
     public String toString() {
         return super.toString() + " ( extended : " + extended + " ) ";

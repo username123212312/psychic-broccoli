@@ -7,9 +7,7 @@ options {
     superClass = PythonLexerBase;
 }
 
-@lexer::header {
-package antlr.python;
-}
+
 
 // =================== LEXER RULES (Hybrid Indentation) ===================
 

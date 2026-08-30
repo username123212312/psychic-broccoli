@@ -23,4 +23,9 @@ public class FunctionTerm extends CssTerm {
         return super.toString() + Consts.printIndent(3) + arguments.toString();
     }
 
+    @Override
+    public String generateCode() {
+        String args = arguments != null ? arguments.generateCode() : "";
+        return getValue() + "(" + args + ")";
+    }
 }

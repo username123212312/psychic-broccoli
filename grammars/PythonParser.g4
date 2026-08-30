@@ -1,7 +1,5 @@
 parser grammar PythonParser;
 
-@header {package antlr.python;}
-
 options { tokenVocab=PythonLexer; }
 
 prog
@@ -159,7 +157,12 @@ bool_exp:
     ;
 
 list_items
-    : atom (COMMA atom)* COMMA? # ListItems
+    : list_item (COMMA list_item)* COMMA? # ListItems
+    ;
+
+list_item
+    : atom        # ScalarListItem
+    | complex_expr # ComplexListItem
     ;
 
 dict_maker

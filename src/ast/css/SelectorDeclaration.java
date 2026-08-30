@@ -22,9 +22,19 @@ public class SelectorDeclaration extends ASTNode {
 
     @Override
     public String generateCode() {
-        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
-    }
+        if (selectorLists == null || selectorLists.isEmpty()) {
+            return "";
+        }
 
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < selectorLists.size(); i++) {
+            builder.append(selectorLists.get(i).generateCode());
+            if (i < selectorLists.size() - 1) {
+                builder.append(", ");
+            }
+        }
+        return builder.toString();
+    }
 
     @Override
     public String toString() {

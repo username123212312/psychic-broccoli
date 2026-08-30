@@ -16,17 +16,18 @@ bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
 
-__pycache__/
-.pyc
+**/__pycache__/
+*.pyc
 
-flask_project/templates/generated/
+**/generated/
+**/.antlr
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
-.iml
+*.iml
 
 ### VS Code ###
 .vscode/
@@ -35,6 +36,13 @@ flask_project/templates/generated/
 .DS_Store
 
 gen/
+build/
+
+### Compiler generated output ###
+**/output/
+**/compiler_output/
+**/flask_output.txt
+
 src/antlr/JinjaFlaskLexer.java
 src/antlr/JinjaFlaskLexer.interp
 src/antlr/JinjaFlaskLexer.tokens

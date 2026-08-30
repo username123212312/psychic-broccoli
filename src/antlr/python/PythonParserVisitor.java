@@ -1,4 +1,4 @@
-// Generated from grammars/PythonParser.g4 by ANTLR 4.13.2
+// Generated from C:/Users/Yousef Razzouk/IdeaProjects/compiler_project/grammars/PythonParser.g4 by ANTLR 4.13.2
 package antlr.python;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -535,6 +535,20 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitListItems(PythonParser.ListItemsContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ScalarListItem}
+	 * labeled alternative in {@link PythonParser#list_item}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitScalarListItem(PythonParser.ScalarListItemContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ComplexListItem}
+	 * labeled alternative in {@link PythonParser#list_item}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitComplexListItem(PythonParser.ComplexListItemContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code KeyValuePairs}
 	 * labeled alternative in {@link PythonParser#dict_maker}.

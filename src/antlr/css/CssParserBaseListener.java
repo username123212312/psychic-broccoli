@@ -1,4 +1,4 @@
-// Generated from grammars/CssParser.g4 by ANTLR 4.13.2
+// Generated from D:/RAMA/MyProject/ComplierProject-1/grammars/CssParser.g4 by ANTLR 4.13.2
 package antlr.css;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -77,13 +77,13 @@ public class CssParserBaseListener implements CssParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStandaloneSimpleSelector(CssParser.StandaloneSimpleSelectorContext ctx) { }
+	@Override public void enterClassOnlySelector(CssParser.ClassOnlySelectorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStandaloneSimpleSelector(CssParser.StandaloneSimpleSelectorContext ctx) { }
+	@Override public void exitClassOnlySelector(CssParser.ClassOnlySelectorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

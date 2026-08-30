@@ -21,9 +21,21 @@ public class CssDeclarationList extends ASTNode {
 
     @Override
     public String generateCode() {
-        return ""; // مؤقتاً نعيد نصاً فارغاً لكي يعمل المشروع
+        if (declarations == null || declarations.isEmpty()) {
+            return "";
+        }
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < declarations.size(); i++) {
+            String code = declarations.get(i).generateCode();
+            if (!code.isBlank()) {
+                builder.append(code);
+                if (i < declarations.size() - 1) {
+                    builder.append("\n");
+                }
+            }
+        }
+        return builder.toString();
     }
-
 
     @Override
     public String toString() {

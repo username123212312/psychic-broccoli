@@ -11,7 +11,7 @@ import ast.atomExpression.LiteralExpression;
 import ast.atomExpression.SimpleVariable;
 import ast.compundStmt.PythonExpression;
 import semantic.ErrorReporter;
-import semantic.errors.SemanticError;
+import semantic.errors.TypeError;
 import symbolTable.SymbolTable;
 
 import java.util.ArrayList;
@@ -89,8 +89,8 @@ public class TypeRule implements SemanticRule {
         boolean mixed = operandTypes.stream().anyMatch("String"::equals) && operandTypes.stream().anyMatch(this::isNumeric);
         if (mixed) {
             String errorMessage = "Type error at line " + ae.line_number + ": cannot apply '" + ae.getOperator() + "' to " + operandTypes;
-            reporter.addError(errorMessage);
-            throw new SemanticError(errorMessage);
+            reporter.addError(new TypeError(errorMessage));
+            throw new TypeError(errorMessage);
         }
         return "Unknown";
     }

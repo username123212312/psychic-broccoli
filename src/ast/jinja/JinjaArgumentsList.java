@@ -43,5 +43,4 @@ public class JinjaArgumentsList extends ASTNode{
             }
         }
         return builder.toString();
-    }
-}
+    }}
