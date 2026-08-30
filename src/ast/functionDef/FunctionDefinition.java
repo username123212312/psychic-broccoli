@@ -3,7 +3,6 @@ package ast.functionDef;
 import ast.Consts;
 import ast.Statement;
 import ast.compundStmt.CompoundStatement;
-import cpython_bytecode.codegen.CodegenContext;
 
 public class FunctionDefinition extends CompoundStatement {
     private Decorator decorator;
@@ -56,44 +55,4 @@ public class FunctionDefinition extends CompoundStatement {
     }
 
 
-    @Override
-    public void generateBytecode(CodegenContext ctx) {
-        String funcName = functionName;
-        boolean hasDecorator = (decorator != null);
-
-        // Evaluate decorator expression at MODULE level so its bytecode
-        // ends up in the module instruction stream, not inside the function.
-        // loadVariableForCall inside decorator handles PUSH_NULL placement.
-        if (hasDecorator) {
-            decorator.generateBytecode(ctx);
-        }
-
-        ctx.pushFunctionScope(funcName, ctx.getFilename(), line_number);
-
-        int argCount = 0;
-        if (functionParameters != null && functionParameters.getParameters() != null) {
-            for (FunctionParameter fp : functionParameters.getParameters()) {
-                if (fp != null && fp.getId() != null) {
-                    ctx.addVarName(fp.getId());
-                    ctx.addAssignedLocal(fp.getId());
-                    argCount++;
-                }
-            }
-        }
-        ctx.getCodeObject().co_argcount = argCount;
-
-        if (functionBody != null) {
-            ctx.collectGlobals(functionBody);
-            ctx.collectLocals(functionBody);
-        }
-
-        if (functionBody != null) functionBody.generateBytecode(ctx);
-
-        int noneIdx = ctx.addConstant("NONE_PLACEHOLDER");
-        ctx.emitLoadConst(noneIdx);
-        ctx.emitReturnValue();
-
-        ctx.saveFunctionAndEmit(hasDecorator);
-        ctx.storeVariable(funcName);
-    }
 }

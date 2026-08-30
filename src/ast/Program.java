@@ -1,7 +1,5 @@
 package ast;
 
-import cpython_bytecode.codegen.CodegenContext;
-
 import java.util.List;
 
 public class Program extends ASTNode{
@@ -46,13 +44,5 @@ public class Program extends ASTNode{
             if (s != null) sb.append(s.generateCode());
         }
         return sb.toString();
-    }
-
-    @Override
-    public void generateBytecode(CodegenContext ctx) {
-        if (statements == null) return;
-        for (Statement s : statements) {
-            if (s != null) s.generateBytecode(ctx);
-        }
     }
 }

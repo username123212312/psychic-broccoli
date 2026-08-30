@@ -42,6 +42,9 @@ public class SemanticAnalyzer {
 
         walk(program, reporter);
         reporter.printErrors();
+        if (reporter.hasErrors()) {
+            throw reporter.getErrors().get(0);
+        }
     }
 
     private void walk(ASTNode node, ErrorReporter reporter) {

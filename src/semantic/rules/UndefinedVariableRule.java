@@ -46,7 +46,9 @@ import ast.returnStmt.SimpleReturnStatement;
 import ast.simpleExpr.SimpleComparisonExpression;
 import ast.simpleExpr.SimpleExpression;
 import semantic.ErrorReporter;
+import semantic.errors.ScopeError;
 import semantic.errors.SemanticError;
+import semantic.errors.UndefinedVariableError;
 import symbolTable.SymbolEntry;
 import symbolTable.SymbolTable;
 
@@ -266,7 +268,7 @@ public class UndefinedVariableRule implements SemanticRule, FunctionScopeAware {
 
         List<SymbolEntry> candidates = symbolTable.lookupAll(name);
         if (candidates.isEmpty()) {
-            fail("Undefined variable '" + name + "' at line " + lineNumber, reporter);
+            fail(new UndefinedVariableError("Undefined variable '" + name + "' at line " + lineNumber), reporter);
             return;
         }
 
@@ -287,14 +289,14 @@ public class UndefinedVariableRule implements SemanticRule, FunctionScopeAware {
         }
 
         if (!accessible && functionScopedEntry != null) {
-            fail("Scope error at line " + lineNumber + ": '" + name
+            fail(new ScopeError("Scope error at line " + lineNumber + ": '" + name
                     + "' is defined inside function '" + functionScopedEntry.getScopeName()
-                    + "' and cannot be accessed here.", reporter);
+                    + "' and cannot be accessed here."), reporter);
         }
     }
 
-    private void fail(String errorMessage, ErrorReporter reporter) {
-        reporter.addError(errorMessage);
-        throw new SemanticError(errorMessage);
+    private void fail(SemanticError error, ErrorReporter reporter) {
+        reporter.addError(error);
+        throw error;
     }
 }

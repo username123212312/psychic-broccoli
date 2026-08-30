@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مترجم بايثون — البنية وسير العمل</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-muted: #8b949e;
+    --accent: #58a6ff;
+    --green: #3fb950;
+    --orange: #d29922;
+    --purple: #bc8cff;
+    --red: #f85149;
+    --cyan: #39d2c0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { direction: rtl; }
+  body {
+    font-family: 'Segoe UI', Tahoma, 'Noto Kufi Arabic', 'Noto Naskh Arabic', Arial, sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.9;
+    padding: 2rem; max-width: 1100px; margin: 0 auto; text-align: right;
+  }
+  h1 { font-size: 2.2rem; border-bottom: 1px solid var(--border); padding-bottom: .5rem; margin-bottom: 1.5rem; }
+  h2 { font-size: 1.5rem; margin: 2rem 0 1rem; color: var(--accent); }
+  h3 { font-size: 1.15rem; margin: 1.5rem 0 .75rem; color: var(--cyan); }
+  p, li { color: var(--text-muted); margin-bottom: .5rem; }
+  a { color: var(--accent); }
+  pre {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+    padding: 1rem; overflow-x: auto; font-size: .85rem; line-height: 1.45;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', Consolas, monospace;
+    direction: ltr; text-align: left;
+  }
+  code { font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace; font-size: .85rem; }
+  pre code { background: none; padding: 0; }
+  .file { color: var(--orange); }
+  .keyword { color: var(--purple); }
+  .comment { color: var(--text-muted); font-style: italic; }
+  .class-name { color: var(--cyan); }
+  .string { color: var(--green); }
+
+  .tree { margin: 1rem 0; }
+  .tree summary { cursor: pointer; color: var(--accent); font-weight: 600; }
+  .tree ul { list-style: none; padding-right: 1.5rem; border-right: 1px solid var(--border); margin: .25rem 0; }
+  .tree li { position: relative; padding: .15rem 0; }
+  .tree li::before {
+    content: ''; position: absolute; right: -1.5rem; top: .6rem;
+    width: 1rem; height: 0; border-top: 1px solid var(--border);
+  }
+  .tree li:last-child::after {
+    content: ''; position: absolute; right: -1.5rem; top: .6rem;
+    bottom: 0; width: 0; border-right: 1px solid transparent;
+  }
+  .dir { color: var(--accent); font-weight: 600; }
+  .file-icon { color: var(--text-muted); margin-left: .25rem; }
+
+  .phase {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.25rem; margin: 1.5rem 0;
+  }
+  .phase h3 { margin-top: 0; }
+  .phase .badge {
+    display: inline-block; padding: .15rem .5rem; border-radius: 12px;
+    font-size: .75rem; font-weight: 600; margin-bottom: .5rem;
+  }
+  .badge-blue { background: #1f6feb33; color: var(--accent); }
+  .badge-green { background: #3fb95033; color: var(--green); }
+  .badge-purple { background: #bc8cff33; color: var(--purple); }
+  .badge-orange { background: #d2992233; color: var(--orange); }
+
+  .arrow-flow {
+    display: flex; align-items: center; flex-wrap: wrap; gap: .5rem;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 1rem; margin: 1rem 0; font-size: .85rem;
+  }
+  .arrow-flow .step {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 4px;
+    padding: .3rem .6rem; white-space: nowrap;
+  }
+  .arrow-flow .arrow { color: var(--text-muted); }
+
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .85rem; }
+  th, td { border: 1px solid var(--border); padding: .5rem .75rem; text-align: right; }
+  th { background: var(--surface); color: var(--accent); font-weight: 600; }
+  td { color: var(--text-muted); }
+  td code, th code { direction: ltr; unicode-bidi: embed; display: inline-block; }
+
+  @media (max-width: 768px) {
+    body { padding: 1rem; }
+    h1 { font-size: 1.6rem; }
+    .arrow-flow { flex-direction: column; align-items: flex-end; }
+    .arrow-flow .arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<h1>مترجم بايثون — البنية وسير العمل</h1>
+
+<p>
+  مترجم مكتوب يدويًا يحلّل كود بايثون ويُجري التحليل الدلالي ثم يستخرج سياق التشغيل
+  (<code>ContextExtractor</code>) ويحوّل قوالب Flask/Jinja2 إلى HTML ثابت.
+  يدعم المشروع أيضًا HTML/Jinja2 و CSS، ويمكنه تقديم المخرجات عبر خادم ويب مدمج
+  (<code>--serve</code>) يوفّر واجهة CRUD عامة (<code>/api/&lt;collection&gt;</code>)
+  لأي قائمة من القواميس على مستوى أعلى ملف — وليس فقط <code>products</code>.
+</p>
+
+<hr style="border-color:var(--border);margin:1.5rem 0;">
+
+<!-- ====================================================================== -->
+<h2>بنية المجلدات</h2>
+
+<pre class="tree">
+src/
+<span class="dir">├── app/</span>
+│   ├── <span class="file">App.java</span>                         <span class="comment">// نقطة الدخول — وسيطة CLI: ملف أو مجلد</span>
+│   ├── <span class="file">ProjectWatcher.java</span>             <span class="comment">// يراقب المصادر ويعيد الترجمة عند أي تغيير (وضع serve)</span>
+│   ├── <span class="file">CompilerWebServer.java</span>         <span class="comment">// يقدّم output/ + واجهة CRUD عامة + أحداث SSE</span>
+│   ├── <span class="file">CompilationSnapshot.java</span>       <span class="comment">// حالة ترجمة قابلة لإعادة الاستخدام؛ rerender(context) بعد تغيير البيانات</span>
+│   ├── <span class="file">PythonDataStore.java</span>           <span class="comment">// مخزن عام: يقرأ/يكتب أي حرفية 'name = [...]'</span>
+│   └── <span class="file">DataRecord.java</span>                <span class="comment">// صف عام: id رقمي + حقول مكتوبة (int/BigDecimal/bool/string)</span>
+<span class="dir">├── antlr/</span>
+│   └── <span class="dir">python/</span>                          <span class="comment">// مولد من grammars/*.g4 بواسطة ANTLR 4.13.2</span>
+│       ├── <span class="file">PythonLexer.java</span>              <span class="comment">// المفوّت المعجمي</span>
+│       ├── <span class="file">PythonParser.java</span>             <span class="comment">// المحلّل — يبني CST</span>
+│       ├── <span class="file">PythonParserBaseVisitor.java</span>  <span class="comment">// كعب زائر مُولّد</span>
+│       └── <span class="file">PythonLexerBase.java</span>           <span class="comment">// معالجة مخصصة للمسافات البادئة والأقواس</span>
+<span class="dir">├── visitor/</span>                           <span class="comment">// 32 زائرا لتحويل CST → AST</span>
+│   ├── <span class="file">UniversalPythonVisitor.java</span>    <span class="comment">// الشامل (while, import, decorator, parameters)</span>
+│   ├── <span class="dir">python/</span>                        <span class="comment">// 18 زائرا متخصصا للبايثون</span>
+│   │   ├── <span class="file">ProgramVisitor.java</span>           <span class="comment">// prog → Program</span>
+│   │   ├── <span class="file">StatementVisitor.java</span>         <span class="comment">// statement → Statement</span>
+│   │   ├── <span class="file">CompoundStatementVisitor.java</span> <span class="comment">// الموزّع — يستدعي الزوار الفرعية المتخصصة</span>
+│   │   ├── <span class="file">AssignmentStatementVisitor.java</span> <span class="comment">// assign_stmt + استدلال الأنواع</span>
+│   │   ├── <span class="file">AtomVisitor.java</span>              <span class="comment">// القيم الحرفية (Number, Str, Bool, None, Name)</span>
+│   │   ├── <span class="file">AtomExpressionVisitor.java</span>    <span class="comment">// الاستدعاءات والوصول للخصائص والفهرسة</span>
+│   │   ├── <span class="file">ArithmeticExpressionVisitor.java</span> <span class="comment">// + - * /</span>
+│   │   ├── <span class="file">ConditionVisitor.java</span>         <span class="comment">// المقارنات و and/or/not</span>
+│   │   ├── <span class="file">ForLoopVisitor.java</span>           <span class="comment">// حلقات for البسيطة والمركّبة</span>
+│   │   ├── <span class="file">ComplexExpressionVisitor.java</span> <span class="comment">// القوائم والقواميس والفهم (list/dict comprehensions)</span>
+│   │   ├── <span class="file">ReturnStatementVisitor.java</span>   <span class="comment">// عبارات return</span>
+│   │   ├── <span class="file">FunctionParametersVisitor.java</span> <span class="comment">// قوائم معاملات الدوال</span>
+│   │   ├── <span class="file">ArgumentListVisitor.java</span>      <span class="comment">// قوائم الوسائط عند الاستدعاء</span>
+│   │   ├── <span class="file">ArgumentVisitor.java</span>          <span class="comment">// وسائط موضعية / بالكلمات المفتاحية</span>
+│   │   ├── <span class="file">KeyValueVisitor.java</span>          <span class="comment">// مفتاح القاموس : القيمة</span>
+│   │   ├── <span class="file">TemplateLiteralVisitor.java</span>   <span class="comment">// السلاسل ثلاثية الاقتباس / f-strings</span>
+│   │   ├── <span class="file">PythonExpressionVisitor.java</span>  <span class="comment">// python_expr → PythonExpression</span>
+│   │   └── <span class="file">SimpleExpressionVisitor.java</span>    <span class="comment">// simple_expr → SimpleExpression</span>
+│   ├── <span class="dir">html/</span>                          <span class="comment">// HtmlContentVisitor, HtmlElementVisitor, TagContentVisitor…</span>
+│   ├── <span class="dir">css/</span>                           <span class="comment">// StyleSheetVisitor, CssSelectorVisitor, CssTermVisitor</span>
+│   └── <span class="dir">jinja/</span>                         <span class="comment">// JinjaVisitor, JinjaExpressionVisitor, JinjaStatementVisitor…</span>
+<span class="dir">├── ast/</span>                               <span class="comment">// 105 صنف عقدة AST مكتوبة يدويًا</span>
+│   ├── <span class="file">ASTNode.java</span>                    <span class="comment">// الجذر المجرد</span>
+│   ├── <span class="file">Program.java</span>                    <span class="comment">// List&lt;Statement&gt;</span>
+│   ├── <span class="file">Statement.java</span>                  <span class="comment">// List&lt;CompoundStatement&gt; | pass</span>
+│   ├── <span class="dir">compundStmt/</span>                    <span class="comment">// If, ForLoop, While, Import, Global, FunctionDef</span>
+│   ├── <span class="dir">assignStmt/</span>                     <span class="comment">// 4 صور من التعيين</span>
+│   ├── <span class="dir">atom/</span>                           <span class="comment">// Number, Str, Bool, None, Name, ClassAtom</span>
+│   ├── <span class="dir">atomExpression/</span>                 <span class="comment">// FunctionCall, AttributeAccess, ListAccess, ...</span>
+│   ├── <span class="dir">arithmeticExpr/</span>                 <span class="comment">// ArithmeticExpression + تعداد Operator</span>
+│   ├── <span class="dir">condition/</span>                      <span class="comment">// ComparisonExpression, BooleanCondition, NotExpression</span>
+│   ├── <span class="dir">complexExp/</span>                     <span class="comment">// ListComprehension, Generator, DictLiteral</span>
+│   ├── <span class="dir">functionDef/</span>                    <span class="comment">// FunctionDefinition, Decorator, Parameters</span>
+│   ├── <span class="dir">returnStmt/</span>                     <span class="comment">// SimpleReturn, ComplexReturn</span>
+│   ├── <span class="dir">argsList/</span> <span class="dir">argument/</span> <span class="dir">keyValue/</span>   <span class="comment">// بنية الوسائط والقواميس</span>
+│   └── <span class="file">TemplateLiteral.java</span>
+<span class="dir">├── semantic/</span>                          <span class="comment">// مرحلة التحليل الدلالي</span>
+│   ├── <span class="file">SemanticAnalyzer.java</span>           <span class="comment">// يمرّ على AST ويطبّق القواعد</span>
+│   ├── <span class="file">ErrorReporter.java</span>              <span class="comment">// يجمع الأخطاء ويطبعها</span>
+│   ├── <span class="dir">errors/</span>                         <span class="comment">// SemanticError (أساس) + 8 استثناءات مسمّاة</span>
+│   │   ├── <span class="file">TypeError.java</span>               <span class="comment">// تباين الأنواع (مثل سلسلة + عدد) — TypeRule</span>
+│   │   ├── <span class="file">UndefinedVariableError.java</span>  <span class="comment">// متغير غير معروف — UndefinedVariableRule</span>
+│   │   ├── <span class="file">UndefinedFunctionError.java</span>  <span class="comment">// دالة غير معروفة — UndefinedFunctionRule</span>
+│   │   ├── <span class="file">NotIterableError.java</span>        <span class="comment">// for-in على قيمة غير قابلة للتكرار — NotIterableRule</span>
+│   │   ├── <span class="file">ScopeError.java</span>              <span class="comment">// فشل دقّة النطاق (scope) — UndefinedVariableRule</span>
+│   │   ├── <span class="file">DuplicateFunctionError.java</span>  <span class="comment">// تكرار اسم def — DuplicateFunctionRule</span>
+│   │   ├── <span class="file">ReturnOutsideFunctionError.java</span> <span class="comment">// return خارج دالة — ReturnOutsideFunctionRule</span>
+│   │   └── <span class="file">MissingFlaskVariableError.java</span> <span class="comment">// متغير قالب غير مُمرَّر إلى render_template — FlaskTemplateChecker</span>
+│   ├── <span class="dir">rules/</span>                          <span class="comment">// TypeRule, UndefinedVariableRule, DuplicateFunctionRule, ReturnOutsideFunctionRule, NotIterableRule, UndefinedFunctionRule + مساعد FunctionScopeAware</span>
+│   └── <span class="dir">jinja/</span>                          <span class="comment">// فحوصات دلالية على مستوى القالب</span>
+│       ├── <span class="file">JinjaSemanticAnalyzer.java</span>     <span class="comment">// يمرّ على AST قالب HTML</span>
+│       └── <span class="file">FlaskTemplateChecker.java</span>      <span class="comment">// يرمي MissingFlaskVariableError</span>
+<span class="dir">├── symbolTable/</span>                       <span class="comment">// جدول الرموز بالنطاقات</span>
+│   ├── <span class="file">SymbolTableManager.java</span>         <span class="comment">// Singleton (enum)</span>
+│   ├── <span class="file">SymbolTable.java</span>                <span class="comment">// Deque&lt;Scope&gt;, enter/exit/lookup/define</span>
+│   └── <span class="file">SymbolEntry.java</span>                <span class="comment">// name + scope + HashMap&lt;String,Object&gt; attributes</span>
+<span class="dir">├── generator/</span>                         <span class="comment">// استخراج السياق والنسيج</span>
+│   ├── <span class="file">ContextExtractor.java</span>            <span class="comment">// يستخرج بيانات التشغيل من AST</span>
+│   ├── <span class="file">JinjaRenderer.java</span>               <span class="comment">// يحوّل قوالب Jinja إلى HTML ثابت</span>
+│   └── <span class="file">OutputWriter.java</span>                <span class="comment">// يكتب مخرجات output/ و compiler_output/</span>
+└── <span class="file">listener/CustomErrorListener.java</span>   <span class="comment">// خطأ ANTLR → RuntimeException</span>
+</pre>
+
+<!-- ====================================================================== -->
+<h2>نظرة عامة على خط الإنتاج</h2>
+
+<div class="arrow-flow">
+  <span class="step"><span class="badge badge-blue">المرحلة 1</span> المعاجلة المعجمية والتحليل النحوي</span>
+  <span class="arrow">←</span>
+  <span class="step"><span class="badge badge-green">المرحلة 2</span> بناء AST</span>
+  <span class="arrow">←</span>
+  <span class="step"><span class="badge badge-purple">المرحلة 3</span> التحليل الدلالي</span>
+  <span class="arrow">←</span>
+  <span class="step"><span class="badge badge-orange">المرحلة 4</span> استخراج السياق</span>
+  <span class="arrow">←</span>
+  <span class="step"><span class="badge badge-orange">المرحلة 5</span> توليد HTML</span>
+</div>
+
+<!-- ====================================================================== -->
+<h2>المرحلة 1 — التحليل المعجمي والنحوي</h2>
+
+<div class="phase">
+<p><span class="badge badge-blue">ANTLR 4.13.2</span></p>
+<p>
+  يُمرَّر الملف المصدر عبر <strong>PythonLexer</strong> المُولّد بواسطة ANTLR
+  (المفوّت المعجمي) الذي ينتج <code>CommonTokenStream</code>. ثم يبني
+  <strong>PythonParser</strong> شجرة الصياغة الملموسة (CST) وفق قواعد القواعد
+  النحوية المعرّفة في <code>grammars/PythonParser.g4</code>.
+</p>
+
+<pre>
+<span class="comment">// App.processFile() — مقتطف ذو صلة</span>
+CharStream input     = CharStreams.fromFileName(path);
+PythonLexer lexer    = <span class="keyword">new</span> PythonLexer(input);
+CommonTokenStream tokens = <span class="keyword">new</span> CommonTokenStream(lexer);
+PythonParser parser  = <span class="keyword">new</span> PythonParser(tokens);
+parser.addErrorListener(<span class="keyword">new</span> CustomErrorListener());
+ParseTree tree       = parser.prog();   <span class="comment">// ← تُبنى CST هنا</span>
+</pre>
+
+<p><strong>ملفات أساسية:</strong>
+<code>PythonLexer.java</code>,
+<code>PythonParser.java</code>,
+<code>PythonLexerBase.java</code> (معالجة مخصصة للمسافات البادئة، وتتبّع الأقواس، والتعامل مع NEWLINE)،
+<code>CustomErrorListener.java</code>.
+</p>
+</div>
+
+<!-- ====================================================================== -->
+<h2>المرحلة 2 — بناء AST</h2>
+
+<div class="phase">
+<p><span class="badge badge-green">حوالى 32 زائرا متخصصا</span></p>
+<p>
+  تُمسَح CST بواسطة عائلة من أصناف <strong>الزوار</strong>، وكل زائر مسؤول عن مجال
+  نحوي واحد. كل زائر ينشئ —أو يوزّع لإنشاء— عقد <strong>AST مكتوبة يدويًا</strong>
+  (في <code>src/ast/</code>). ويُملأ جدول الرموز <strong>ضمنيًا</strong> خلال هذه المرحلة.
+</p>
+
+<pre>
+<span class="comment">// يعمل CompoundStatementVisitor كموزّع</span>
+<span class="keyword">switch</span> (ctx) {
+    <span class="keyword">case</span> AssignmentStatementContext a  → visitAssignmentStatement(a);
+    <span class="keyword">case</span> IfStatementContext i           → build <span class="keyword">new</span> IfStatement(...);
+    <span class="keyword">case</span> ForLoopStatementContext f      → <span class="keyword">new</span> ForLoopVisitor().visit(f);
+    <span class="keyword">case</span> FunctionDefinitionContext fn   → enterScope(); build <span class="keyword">new</span> FunctionDefinition(...); exitScope();
+    <span class="keyword">case</span> AtomExpressionContext a        → <span class="keyword">new</span> AtomExpressionVisitor().visit(a);
+    <span class="keyword">case</span> ReturnStatementContext r        → <span class="keyword">new</span> ReturnStatementVisitor().visit(r);
+    <span class="keyword">case</span> ImportStatementContext i        → build <span class="keyword">new</span> ImportStatement(...);
+    <span class="keyword">case</span> GlobalStatementContext g        → build <span class="keyword">new</span> GlobalStatement(...);
+    <span class="keyword">default</span>                               → UniversalPythonVisitor().visit(ctx);
+}
+</pre>
+
+<p><strong>ملفات أساسية:</strong>
+<code>ProgramVisitor.java</code>,
+<code>StatementVisitor.java</code>,
+<code>CompoundStatementVisitor.java</code>,
+<code>AssignmentStatementVisitor.java</code>,
+<code>AtomExpressionVisitor.java</code>,
+<code>AtomVisitor.java</code>,
+<code>ConditionVisitor.java</code>,
+<code>ForLoopVisitor.java</code>,
+<code>ArithmeticExpressionVisitor.java</code>,
+<code>ComplexExpressionVisitor.java</code>,
+<code>ReturnStatementVisitor.java</code>,
+<code>FunctionParametersVisitor.java</code>,
+<code>ArgumentListVisitor.java</code>,
+<code>ArgumentVisitor.java</code>,
+<code>KeyValueVisitor.java</code>,
+<code>TemplateLiteralVisitor.java</code>,
+<code>UniversalPythonVisitor.java</code>،
+وجميع أصناف العقد في <code>ast/</code>.
+</p>
+</div>
+
+<!-- ====================================================================== -->
+<h2>المرحلة 3 — التحليل الدلالي</h2>
+
+<div class="phase">
+<p><span class="badge badge-purple">ماسح قائم على القواعد</span></p>
+<p>
+  يمرّ <strong>SemanticAnalyzer</strong> على كامل AST ويطبّق مجموعة من القواعد
+  <code>SemanticRule</code> على كل عقدة. كل مخالفة تُحمَّل كـ<strong>استثناء مسمّى</strong>
+  (<code>semantic/errors/*.java</code>)، ويُبلّغ عنها سطر الأوامر بالصيغة
+  <code>Semantic error detected "TypeError": …</code>.
+  يوجد مثال قابل للترجمة لكل نوع خطأ داخل <code>samples/&lt;ErrorName&gt;/</code>.
+</p>
+
+<table>
+  <tr><th>القاعدة</th><th>ما تفحصه</th><th>الخطأ المرفوع</th></tr>
+  <tr><td><code>TypeRule</code></td><td>استدلال الأنواع؛ يكتشف التباينات (مثل سلسلة + عدد)</td><td><code>TypeError</code></td></tr>
+  <tr><td><code>UndefinedVariableRule</code></td><td>يرصد عقد <code>Name</code> غير الموجودة في جدول الرموز</td><td><code>UndefinedVariableError</code> <em>أو</em> <code>ScopeError</code></td></tr>
+  <tr><td><code>UndefinedFunctionRule</code></td><td>يرصد استدعاءات <code>FunctionCall</code> لدوال غير معروفة (يُسمح بـ 30 دالة مدمجة)</td><td><code>UndefinedFunctionError</code></td></tr>
+  <tr><td><code>NotIterableRule</code></td><td>يرصد التكرار <code>for-in</code> على قيمة غير قابلة للتكرار</td><td><code>NotIterableError</code></td></tr>
+  <tr><td><code>DuplicateFunctionRule</code></td><td>يرصد تكرار أسماء <code>def</code></td><td><code>DuplicateFunctionError</code></td></tr>
+  <tr><td><code>ReturnOutsideFunctionRule</code></td><td>يرصد <code>return</code> على المستوى الأعلى (يراعي نطاق الدوال)</td><td><code>ReturnOutsideFunctionError</code></td></tr>
+</table>
+
+<p>
+  إذًا فالقواعد <strong>الست</strong> تُنتج <strong>سبعة</strong> من الأخطاء المسمّاة الثمانية.
+  أما الثامن، <code>MissingFlaskVariableError</code>، فليس قاعدة — بل يرميه
+  <code>semantic/jinja/FlaskTemplateChecker.java</code> عندما يكون متغير قالب لم يُمرَّر
+  إلى <code>render_template</code>. لهذا يحتوي <code>samples/</code> على
+  <strong>9 مجلدات</strong>: مجلد لكل نوع خطأ (8) بالإضافة إلى
+  <code>CombinedErrors/</code>، وهو ملف واحد يثير عدة أخطاء معًا كعرض توضيحي.
+</p>
+
+<pre>
+<span class="comment">// SemanticAnalyzer.walk() — يطبّق كل قاعدة على العقدة ثم يعاود حسب النوع</span>
+<span class="keyword">for</span> (SemanticRule rule : rules) {
+    rule.apply(node, symbolTable, reporter);
+}
+<span class="keyword">switch</span> (node) {                  <span class="comment">// Program, Statement, If, While, ForLoop, FunctionDef…</span>
+    <span class="keyword">case</span> IfStatement i         → walk(i.getStatement(), reporter);
+    <span class="keyword">case</span> FunctionDefinition f  → walk(f.getFunctionBody(), reporter);
+    <span class="keyword">default</span>                    → <span class="comment">// ورقة</span>
+}
+</pre>
+
+<p><strong>ملفات أساسية:</strong>
+<code>SemanticAnalyzer.java</code>,
+<code>SymbolTable.java</code>,
+<code>SymbolTableManager.java</code>,
+<code>SymbolEntry.java</code>,
+<code>ErrorReporter.java</code>,
+<code>rules/*.java</code>,
+<code>errors/*.java</code>.
+</p>
+</div>
+
+<!-- ====================================================================== -->
+<h2>المرحلة 4 — استخراج السياق وتوليد HTML وواجهة الخادم</h2>
+
+<div class="phase">
+<p><span class="badge badge-orange">وضع مشروع Flask</span></p>
+<p>
+  يمرّ <strong>ContextExtractor</strong> على AST بايثون ويستخرج البيانات اللازمة لنسج
+  القوالب (دوال المسارات، ومتغيرات السياق، وأهداف <code>url_for</code>، وبيانات
+  القوائم/المجموعات). ثم يقوم <strong>JinjaRenderer</strong> بتحويل كل قالب
+  (بالاعتماد على عقدة <code>HtmlContent</code>) إلى HTML ثابت، يكتبه
+  <strong>OutputWriter</strong> في <code>output/</code> مع الملفات المساندة
+  (<code>app.py</code>، <code>styles.css</code>، <code>script.js</code>، <code>templates/</code>).
+  وتُكتب التقارير (التقرير الدلالي، سجل التوليد، ونسخ AST بصيغة JSON) في <code>compiler_output/</code>.
+</p>
+
+<pre>
+<span class="comment">// processFlaskProject() — مقتطف ذو صلة</span>
+ContextExtractor extractor = <span class="keyword">new</span> ContextExtractor();
+Map&lt;String, Object&gt; context = extractor.extract(program);       <span class="comment">// المرحلة 4</span>
+Map&lt;String, String&gt; routes   = extractor.extractRoutes(program);
+
+JinjaRenderer renderer       = <span class="keyword">new</span> JinjaRenderer(context, templateMap, routes);
+String renderedHtml           = renderer.render(htmlContent);
+outputWriter.writeHtmlFile(outputName, renderedHtml);            <span class="comment">// المرحلة 5</span>
+</pre>
+
+<p>
+  في <strong>وضع التشغيل</strong> (<code>--serve</code>) يُعاد توليد مجلد <code>output/</code>
+  باستمرار بواسطة <code>ProjectWatcher</code> عند أي تغيير في الملفات المصدرية، ويقدّم
+  <code>CompilerWebServer</code> الصفحات على نفس الأصل (بدون CORS). أما عند استدعاء ملف واحد
+  (غير Flask) فتُتخطى مرحلة النسج — تُطبع شجرة AST والتحليل الدلالي فقط؛ وتُكتب ملفات
+  <code>.html/.j2/.css</code> في مجلد محلي <code>generated/</code>.
+</p>
+
+<h3>واجهة CRUD العامة</h3>
+<p>
+  يكتشف الخادم <strong>المجموعات القابلة للتحرير</strong> من السياق المترجم: أي متغير على
+  مستوى أعلى ملف تكون قيمته <strong>قائمة قواميس تحمل كل منها مفتاح <code>"id"</code> رقميًا</strong>
+  (مثل <code>products</code> و <code>posts</code> و <code>books</code>). كل مجموعة تحصل على
+  نقطة نهاية خاصة بها <code>/api/&lt;collection&gt;</code>:
+</p>
+<table>
+  <tr><th>النقطة</th><th>الطريقة</th><th>الإجراء</th></tr>
+  <tr><td><code>/api/&lt;collection&gt;</code></td><td><code>GET</code></td><td>سرد كل السجلات (مصفوفة JSON مع الحفاظ على الأنواع)</td></tr>
+  <tr><td><code>/api/&lt;collection&gt;</code></td><td><code>POST</code></td><td>إنشاء سجل (id = أكبر قيمة + 1) ← <code>201</code></td></tr>
+  <tr><td><code>/api/&lt;collection&gt;/&lt;id&gt;</code></td><td><code>GET</code></td><td>جلب سجل واحد</td></tr>
+  <tr><td><code>/api/&lt;collection&gt;/&lt;id&gt;</code></td><td><code>PUT</code></td><td>تحديث الحقول من النموذج ← <code>200</code></td></tr>
+  <tr><td><code>/api/&lt;collection&gt;/&lt;id&gt;</code></td><td><code>DELETE</code></td><td>حذف سجل ← <code>204</code></td></tr>
+</table>
+<p>
+  يُبقي <code>PythonDataStore</code> ملف <code>app.py</code> مصدرًا وحيدًا للحقيقة: كل
+  تعديل يُعاد كتابته في الحرفية المطابقة، ثم يستدعي <code>CompilationSnapshot.rerender()</code>
+  لإعادة نسج القوالب بـ<strong>سياق حي مدمج</strong> (كل المجموعات القابلة للتحرير من مخازنها،
+  والباقي من آخر ترجمة كاملة). تُحوَّل الأعداد الصحيحة إلى أعداد صحيحة في مخرجات JSON/النسج،
+  بينما تحافظ الأعداد العشرية والقيم المنطقية والسلاسل على نوعها. أما بقية السياق (قواميس عادية،
+  قوائم سلاسل، قيم رقمية) فتبقى للقراءة فقط. وتُبلغ الأخطاء بصيغة JSON
+  (<code>404</code>/<code>400</code>/<code>405</code>/<code>500</code>)، ويبث تيار SSE على
+  <code>/events</code> أحداث <code>regenerated</code> أو <code>compiler-error</code>.
+</p>
+
+<p><strong>ملفات أساسية:</strong>
+<code>generator/ContextExtractor.java</code>,
+<code>generator/JinjaRenderer.java</code>,
+<code>generator/OutputWriter.java</code>,
+<code>app/CompilerWebServer.java</code>,
+<code>app/PythonDataStore.java</code>,
+<code>app/DataRecord.java</code>,
+<code>app/CompilationSnapshot.java</code>,
+<code>app/ProjectWatcher.java</code>.
+</p>
+</div>
+
+<!-- ====================================================================== -->
+<h2>قرارات التصميم الرئيسية</h2>
+
+<div style="margin-top:1.5rem">
+
+<table>
+  <tr><th style="width:220px">القرار</th><th>المبرّر</th></tr>
+  <tr>
+    <td>زوار لتحويل CST→AST ومولّدات تعمل على عقد AST</td>
+    <td><strong>إرسال مزدوج.</strong> زوار ANTLR يتكفلون بالمنطق الخاص بالقواعد أثناء التحويل؛ أما مستخرج السياق ومولّد Jinja فيمرّان على AST النهائي بدلًا من switch عملاق.</td>
+  </tr>
+  <tr>
+    <td>ملء جدول الرموز أثناء بناء AST</td>
+    <td>لا حاجة لمرحلة منفصلة. الزائر الذي يبني AST يعرف أصلاً ما هي الرموز المعرّفة (أسماء الدوال، المعاملات، العموميات) ويدخل/يخرج النطاقات فورًا.</td>
+  </tr>
+  <tr>
+    <td>استدلال الأنواع الديناميكي في AssignmentStatementVisitor</td>
+    <td>يجعل جدول الرموز مفيدًا للفحوص الدلالية دون الحاجة إلى نظام أنماط كامل (Hindley-Milner). يستنتج Integer و Float و String و Boolean و List و Dict.</td>
+  </tr>
+  <tr>
+    <td>فصل استخراج السياق عن النسج</td>
+    <td><code>ContextExtractor</code> يجمع بيانات المسارات ومتغيرات السياق في تمريرة واحدة؛ و<code>JinjaRenderer</code> يستهلكها فقط. هذا الفصل يسهّل إعادة نسج HTML بعد أي تغيير في البيانات: يحتفظ <code>CompilationSnapshot</code> بآخر ترجمة ناجحة ويستدعي <code>rerender(liveContext)</code> دون إعادة تحليل معجمي/نحوي.</td>
+  </tr>
+  <tr>
+    <td>app.py هو مصدر الحقيقة الوحيد</td>
+    <td>في بيئة الويب (<code>PythonDataStore</code>) تُكتب تعديلات CRUD على أي مجموعة في الحرفية المطابقة من <code>app.py</code> ثم يُعاد نسج القوالب عبر المترجم — لا يوجد نموذج بيانات ثانٍ يجب مزامنته، وتحافظ الأنواع (أرقام، منطقيات، سلاسل) على سلامتها في دورة الذهاب والإياب.</td>
+  </tr>
+  <tr>
+    <td>اكتشاف المجموعات القابلة للتحرير لا كتابتها بشكل صلب</td>
+    <td>يفحص الخادم السياق المترجم ويكشف <code>/api/&lt;collection&gt;</code> لكل متغير قيمته قائمة قواميس تحمل <code>"id"</code> رقميًا (products, posts, books, ...). لا يوجد أي حقل مكتوب بشكل صلب، وتبقى البيانات غير القوائم للقراءة فقط.</td>
+  </tr>
+  <tr>
+    <td>إعادة النسج بعد تعديل الواجهة بسياق مدمج</td>
+    <td>بعد أي كتابة من المتصفح، تُدمج كل المجموعات القابلة للتحرير فوق سياق اللقطة قبل إعادة النسج، حتى تُولَّد القوالب التي تقرأ عدة مجموعات (مثل <code>students</code> + <code>teachers</code>) بشكل متسق في تمريرة واحدة.</td>
+  </tr>
+</table>
+
+</div>
+
+<!-- ====================================================================== -->
+<h2>ملخص تدفق البيانات</h2>
+
+<div class="phase">
+<pre>
+<strong>app.py</strong> (+ templates/*.html, styles.css, script.js)
+    │
+    ▼
+<strong>ANTLR Lexer</strong> (PythonLexer.java)
+    │  Token stream
+    ▼
+<strong>ANTLR Parser</strong> (PythonParser.java)
+    │  Concrete Syntax Tree (CST)
+    ▼
+<strong>32 specialised Visitors</strong> (visitor/python/, html/, css/, jinja/)
+    │  + SymbolTable population
+    ▼
+<strong>AST</strong> (ast/&lt;*&gt;.java)                ◄── <strong>Semantic Analyzer</strong>
+    │                                         (semantic/SemanticAnalyzer.java)
+    │  ContextExtractor.extract(program)
+    ▼
+<strong>Context</strong> (generator/ContextExtractor.java)
+    │  Map&lt;String,Object&gt; context + routes
+    ▼
+<strong>JinjaRenderer</strong> (generator/JinjaRenderer.java)
+    │  renders each HtmlContent AST to static HTML
+    ▼
+<strong>OutputWriter</strong> (generator/OutputWriter.java)
+    │  output/*.html + styles.css + script.js + reports
+    ▼
+<strong>Static HTML</strong>  🎯  (served live via app --serve)
+    │
+    ▼
+<strong>Browser</strong> ── <code>GET/POST/PUT/DELETE /api/&lt;collection&gt;</code> ──▶ <strong>PythonDataStore</strong>
+    │                                                                       │  write literal back to app.py
+    │  <code>regenerated</code> (SSE /events)                                │  + snapshot.rerender(context)
+    ◀────────────────────────────────────────────────────────────────────────┘
+</pre>
+</div>
+
+<hr style="border-color:var(--border);margin:2rem 0;">
+<p style="text-align:center;color:var(--text-muted);font-size:.85rem;">
+  مولّد من <code>src/</code> — 190 ملف Java، و105 صنف عقدة AST، و33 قاعدة نحوية (+54 رمز معجمي)
+</p>
+
+</body>
+</html>

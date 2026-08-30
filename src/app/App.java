@@ -9,9 +9,6 @@ import antlr.python.PythonParser;
 import ast.ASTNode;
 import ast.HtmlContent;
 import ast.Program;
-import cpython_bytecode.PythonCodeObject;
-import cpython_bytecode.codegen.CPythonBytecodeGenerator;
-import cpython_bytecode.serialization.PycFileWriter;
 import generator.ContextExtractor;
 import generator.JinjaRenderer;
 import generator.OutputWriter;
@@ -28,7 +25,6 @@ import visitor.python.ProgramVisitor;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -40,17 +36,44 @@ import java.util.stream.Stream;
 
 public class App {
     public static void main(String[] args) {
-        if (args.length != 1) {
-            System.err.println("Usage: java app.App <directory_path_or_file>");
+        if (args.length < 1 || args.length > 3) {
+            System.err.println("Usage: java app.App <directory_path_or_file> [--serve [port]]");
             return;
         }
+
+        boolean serve = args.length >= 2 && "--serve".equals(args[1]);
+        if (args.length >= 2 && !serve) {
+            System.err.println("Usage: java app.App <directory_path_or_file> [--serve [port]]");
+            return;
+        }
+        int port = 8080;
+        if (args.length == 3) {
+            try {
+                port = Integer.parseInt(args[2]);
+                if (port < 1 || port > 65535) throw new NumberFormatException();
+            } catch (NumberFormatException exception) {
+                System.err.println("Port must be an integer from 1 to 65535.");
+                return;
+            }
+        }
+
         Path startPath = Paths.get(args[0]);
 
         if (Files.isDirectory(startPath) && isFlaskProject(startPath)) {
             try {
-                processFlaskProject(startPath);
-                ProjectWatcher watcher = new ProjectWatcher(startPath);
-                watcher.startWatching();
+                CompilationSnapshot initialSnapshot = processFlaskProject(startPath);
+                if (serve) {
+                    CompilerWebServer webServer = new CompilerWebServer(startPath, port, initialSnapshot);
+                    webServer.start();
+                    Runtime.getRuntime().addShutdownHook(new Thread(webServer::close));
+                    new ProjectWatcher(startPath, webServer::onExternalSourceChange, webServer::shouldIgnoreSourceEvent)
+                            .startWatching();
+                } else {
+                    new ProjectWatcher(startPath).startWatching();
+                }
+            } catch (semantic.errors.SemanticError e) {
+                System.out.println("Semantic error detected \"" + e.getName()
+                        + "\": " + e.getDescription());
             } catch (Exception e) {
                 System.err.println("Error processing Flask project: " + e.getMessage());
                 e.printStackTrace();
@@ -88,7 +111,7 @@ public class App {
                 && Files.exists(dir.resolve("templates"));
     }
 
-    public static void processFlaskProject(Path projectDir) throws Exception {
+    public static CompilationSnapshot processFlaskProject(Path projectDir) throws Exception {
         System.out.println("=== Flask Project Mode ===");
         OutputWriter outputWriter = new OutputWriter(projectDir);
         outputWriter.createDirectories();
@@ -165,6 +188,9 @@ public class App {
             flaskChecker.analyze(entry.getValue(), tplName, provided, flaskReporter);
         }
         flaskReporter.printErrors();
+        if (flaskReporter.hasErrors()) {
+            throw flaskReporter.getErrors().get(0);
+        }
 
         // 6. Render templates and write output
         JinjaRenderer renderer = new JinjaRenderer(context, templateMap, routes);
@@ -194,29 +220,43 @@ public class App {
             }
         }
 
-        // 6. Copy support files (app.py, templates, styles.css, script.js)
-        copySupportFileIfExists(projectDir.resolve("app.py"), outputWriter);
-        copyDirectory(projectDir.resolve("templates"), outputWriter.getOutputDir().resolve("templates"));
-        copySupportFileIfExists(projectDir.resolve("styles.css"), outputWriter);
-        copySupportFileIfExists(projectDir.resolve("script.js"), outputWriter);
-        System.out.println("[5/5] Support files copied.");
+        // 7. Copy support files (app.py, templates, styles.css, script.js)
+        copyRuntimeSupportFiles(projectDir, outputWriter);
 
-        // 7. Write reports
+        // 8. Write reports
         writeReports(outputWriter, program, context, routes, templateMap);
 
         System.out.println("\n=== Flask Project Processing Complete ===");
         System.out.println("Output directory: " + outputWriter.getOutputDir());
         System.out.println("Compiler output: " + outputWriter.getCompilerOutputDir());
+        return new CompilationSnapshot(projectDir, context, templateMap, routes);
     }
 
-    private static String mapToOutputName(String tplName) {
+    static String mapToOutputName(String tplName) {
         switch (tplName) {
-            case "index.html": return "index.html";
-            case "add.html": return "add_product.html";
-            case "detail.html": return "detail.html";
-            case "edit.html": return "edit_product.html";
-            default: return tplName;
+            case "index.html":
+                return "index.html";
+            case "add.html":
+                return "add_product.html";
+            case "detail.html":
+                return "detail.html";
+            case "edit.html":
+                return "edit_product.html";
+            default:
+                return tplName;
         }
+    }
+
+    static void copyRuntimeSupportFiles(Path projectDir, OutputWriter outputWriter) {
+        copySupportFileIfExists(projectDir.resolve("app.py"), outputWriter);
+        try {
+            copyDirectory(projectDir.resolve("templates"), outputWriter.getOutputDir().resolve("templates"));
+        } catch (IOException exception) {
+            System.err.println("  ERROR copying templates/: " + exception.getMessage());
+        }
+        copySupportFileIfExists(projectDir.resolve("styles.css"), outputWriter);
+        copySupportFileIfExists(projectDir.resolve("script.js"), outputWriter);
+        System.out.println("[5/5] Support files copied.");
     }
 
     private static void copyDirectory(Path source, Path target) throws IOException {
@@ -332,20 +372,6 @@ public class App {
                 System.out.println("[2/4] Semantic Analysis Completed.");
                 System.out.println("Symbol Table: " + SymbolTableManager.INSTANCE.getSymbolTable());
 
-                CPythonBytecodeGenerator generator = new CPythonBytecodeGenerator();
-                String moduleName = getModuleName(fileName);
-                PythonCodeObject compiledCode = generator.generate(program, fileName, moduleName);
-                System.out.println("[3/4] CPython Bytecode Generated.");
-
-                Path parentDir = filePath.getParent();
-                if (parentDir == null) parentDir = Paths.get(".");
-                File pycacheDir = new File(parentDir.toFile(), "__pycache__");
-                if (!pycacheDir.exists()) pycacheDir.mkdirs();
-                String outputPycPath = new File(pycacheDir, moduleName + ".cpython-314.pyc").getAbsolutePath();
-                PycFileWriter pycWriter = new PycFileWriter();
-                pycWriter.write(compiledCode, outputPycPath, fileName);
-                System.out.println("[4/4] .pyc file created at: " + outputPycPath);
-
             } else if (fileName.endsWith(".html") || fileName.endsWith(".j2")) {
                 HtmlLexer lexer = new HtmlLexer(CharStreams.fromFileName(fileName));
                 CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -389,16 +415,13 @@ public class App {
                     writeGeneratedSource(filePath, generatedCss);
                 }
             }
-        } catch (Exception e) {
-            System.err.println("Error processing " + fileName + ": " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    private static String getModuleName(String path) {
-        String filename = new File(path).getName();
-        int dotIndex = filename.lastIndexOf('.');
-        return (dotIndex == -1) ? filename : filename.substring(0, dotIndex);
+} catch (semantic.errors.SemanticError e) {
+                System.out.println("Semantic error detected \"" + e.getName()
+                        + "\": " + e.getDescription());
+            } catch (Exception e) {
+                System.err.println("Error processing " + fileName + ": " + e.getMessage());
+                e.printStackTrace();
+            }
     }
 
     private static void writeGeneratedSource(Path filePath, String content) throws IOException {
@@ -426,9 +449,18 @@ public class App {
             JButton zoomInButton = new JButton("Zoom In");
             JButton zoomOutButton = new JButton("Zoom Out");
             JButton resetButton = new JButton("Reset Zoom");
-            zoomInButton.addActionListener(e -> { viewer.setScale(viewer.getScale() * 1.2); viewer.repaint(); });
-            zoomOutButton.addActionListener(e -> { viewer.setScale(viewer.getScale() / 1.2); viewer.repaint(); });
-            resetButton.addActionListener(e -> { viewer.setScale(1.0); viewer.repaint(); });
+            zoomInButton.addActionListener(e -> {
+                viewer.setScale(viewer.getScale() * 1.2);
+                viewer.repaint();
+            });
+            zoomOutButton.addActionListener(e -> {
+                viewer.setScale(viewer.getScale() / 1.2);
+                viewer.repaint();
+            });
+            resetButton.addActionListener(e -> {
+                viewer.setScale(1.0);
+                viewer.repaint();
+            });
             controlPanel.add(zoomInButton);
             controlPanel.add(zoomOutButton);
             controlPanel.add(resetButton);

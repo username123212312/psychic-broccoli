@@ -1,7 +1,5 @@
 package ast;
 
-import cpython_bytecode.codegen.CodegenContext;
-
 public abstract class ASTNode {
     public String node_name;
     public int line_number;
@@ -26,9 +24,6 @@ public abstract class ASTNode {
 
     public String generateCode() {
         return "";
-    }
-
-    public void generateBytecode(CodegenContext ctx) {
     }
 
     @Override

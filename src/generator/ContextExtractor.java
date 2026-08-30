@@ -20,8 +20,9 @@ import ast.argsList.*;
 import ast.argument.*;
 import ast.returnStmt.ComplexReturnStatement;
 import ast.returnStmt.ReturnStatement;
-import cpython_bytecode.codegen.CodegenContext;
 
+
+import java.math.BigInteger;
 import java.util.*;
 
 public class ContextExtractor {
@@ -78,6 +79,25 @@ public class ContextExtractor {
                     return val;
                 }
             }
+        } else if (args instanceof ComplexArguments complexArgs) {
+            if (complexArgs.getArguments() != null && !complexArgs.getArguments().isEmpty()) {
+                Argument first = complexArgs.getArguments().get(0);
+                if (first instanceof PositionalArgument pos) {
+                    PythonExpression argExpr = pos.getArg();
+                    return extractStringFromExpression(argExpr);
+                }
+            }
+        }
+        return null;
+    }
+
+    private String extractStringFromExpression(PythonExpression expr) {
+        if (expr instanceof ast.atomExpression.LiteralExpression lit) {
+            String val = lit.getLiteralValue();
+            if (val != null && val.length() >= 2) {
+                val = val.substring(1, val.length() - 1);
+            }
+            return val;
         }
         return null;
     }
@@ -116,14 +136,36 @@ public class ContextExtractor {
             return extractDict(dictLit);
         }
         if (expr instanceof LiteralExpression le) {
-            return CodegenContext.parseLiteralValue(le.getLiteralValue());
+            return parseLiteralValue(le.getLiteralValue());
         }
         return null;
     }
 
+    private static Object parseLiteralValue(String val) {
+        if (val == null) return "NONE_PLACEHOLDER";
+        if ("True".equals(val)) return Boolean.TRUE;
+        if ("False".equals(val)) return Boolean.FALSE;
+        if (val.length() >= 2) {
+            char first = val.charAt(0);
+            char last = val.charAt(val.length() - 1);
+            if ((first == '\'' && last == '\'') || (first == '"' && last == '"')) {
+                return val.substring(1, val.length() - 1);
+            }
+        }
+        try {
+            if (val.contains(".") || val.contains("e") || val.contains("E")) {
+                return Double.parseDouble(val);
+            } else {
+                return new BigInteger(val);
+            }
+        } catch (NumberFormatException e) {
+            return val;
+        }
+    }
+
     private Object extractPythonExpressionValue(PythonExpression expr) {
         if (expr instanceof LiteralExpression le) {
-            return CodegenContext.parseLiteralValue(le.getLiteralValue());
+            return parseLiteralValue(le.getLiteralValue());
         }
         if (expr instanceof DictionaryLiteral dictLit) {
             return extractDict(dictLit);

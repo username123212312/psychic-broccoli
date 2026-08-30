@@ -15,6 +15,7 @@ import ast.jinja.jinjaStatment.JinjaIfStatement;
 import ast.jinja.jinjaStatment.JinjaStatement;
 import ast.tagContent.TagElementItem;
 import semantic.ErrorReporter;
+import semantic.errors.MissingFlaskVariableError;
 
 import java.util.HashSet;
 import java.util.List;
@@ -138,7 +139,8 @@ public class FlaskTemplateChecker {
         String deduplicationKey = templateName + "@" + root + "@" + lineNumber;
         if (!reported.add(deduplicationKey)) return;
         if (JINJA_GLOBALS.contains(root) || available.contains(root)) return;
-        reporter.addError("Missing Flask variable '" + root + "' at line " + lineNumber
-                + ": template '" + templateName + "' expects it but render_template does not pass it.");
+        String message = "Missing Flask variable '" + root + "' at line " + lineNumber
+                + ": template '" + templateName + "' expects it but render_template does not pass it.";
+        reporter.addError(new MissingFlaskVariableError(message));
     }
 }

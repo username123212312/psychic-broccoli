@@ -8,7 +8,7 @@ import ast.compundStmt.ForLoop;
 import ast.compundStmt.PythonExpression;
 import ast.complexExp.ListLiteral;
 import semantic.ErrorReporter;
-import semantic.errors.SemanticError;
+import semantic.errors.NotIterableError;
 import symbolTable.SymbolTable;
 
 import java.util.Set;
@@ -33,8 +33,8 @@ public class NotIterableRule implements SemanticRule {
         if (iterableType != null && NON_ITERABLE_TYPES.contains(iterableType)) {
             String errorMessage = "Type error at line " + forLoop.line_number + ": '"
                     + iterableType + "' object is not iterable";
-            reporter.addError(errorMessage);
-            throw new SemanticError(errorMessage);
+            reporter.addError(new NotIterableError(errorMessage));
+            throw new NotIterableError(errorMessage);
         }
     }
 
