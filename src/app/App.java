@@ -23,6 +23,7 @@ import visitor.css.StyleSheetVisitor;
 import visitor.html.HtmlContentVisitor;
 import visitor.python.ProgramVisitor;
 
+import java.awt.GraphicsEnvironment;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -32,30 +33,39 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import javax.swing.JFileChooser;
+
 public class App {
     public static void main(String[] args) {
-        if (args.length < 1 || args.length > 3) {
-            System.err.println("Usage: java app.App <directory_path_or_file> [--serve [port]]");
-            return;
-        }
-
-        boolean serve = args.length >= 2 && "--serve".equals(args[1]);
-        if (args.length >= 2 && !serve) {
-            System.err.println("Usage: java app.App <directory_path_or_file> [--serve [port]]");
-            return;
-        }
+        String pathArg = null;
+        boolean serve = false;
         int port = 8080;
-        if (args.length == 3) {
-            try {
-                port = Integer.parseInt(args[2]);
-                if (port < 1 || port > 65535) throw new NumberFormatException();
-            } catch (NumberFormatException exception) {
-                System.err.println("Port must be an integer from 1 to 65535.");
+        for (String arg : args) {
+            if ("--serve".equals(arg)) {
+                serve = true;
+            } else if (serve && arg.matches("\\d+")) {
+                // First number after --serve is the port.
+                try {
+                    port = Integer.parseInt(arg);
+                    if (port < 1 || port > 65535) throw new NumberFormatException();
+                } catch (NumberFormatException exception) {
+                    System.err.println("Port must be an integer from 1 to 65535.");
+                    return;
+                }
+            } else if (pathArg == null) {
+                pathArg = arg;
+            } else {
+                usage();
                 return;
             }
         }
 
-        Path startPath = Paths.get(args[0]);
+        Path startPath = pathArg != null ? Paths.get(pathArg) : pickPathFromUi();
+        if (startPath == null) {
+            System.out.println("No file or folder selected.");
+            return;
+        }
+        System.out.println("Processing: " + startPath);
 
         if (Files.isDirectory(startPath) && isFlaskProject(startPath)) {
             try {
@@ -102,6 +112,29 @@ public class App {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void usage() {
+        System.err.println("Usage: java app.App <directory_path_or_file> [--serve [port]]");
+        System.err.println("Run without a path to choose the file/folder from a dialog, e.g.:");
+        System.err.println("    java app.App --serve               # pick a folder, then serve it");
+        System.err.println("    java app.App --serve 9000         # pick a folder, serve on port 9000");
+    }
+
+    /** Lets the user pick a Python file or project folder when no path is given on the CLI. */
+    private static Path pickPathFromUi() {
+        if (GraphicsEnvironment.isHeadless()) {
+            return null;
+        }
+        JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle("Choose a Python file or a project folder");
+        chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        chooser.setMultiSelectionEnabled(false);
+        chooser.setCurrentDirectory(new java.io.File(System.getProperty("user.dir")));
+        if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            return chooser.getSelectedFile().toPath();
+        }
+        return null;
     }
 
     private static boolean isFlaskProject(Path dir) {

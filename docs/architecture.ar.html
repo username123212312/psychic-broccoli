@@ -122,14 +122,18 @@ src/
 │   ├── <span class="file">ProjectWatcher.java</span>             <span class="comment">// يراقب المصادر ويعيد الترجمة عند أي تغيير (وضع serve)</span>
 │   ├── <span class="file">CompilerWebServer.java</span>         <span class="comment">// يقدّم output/ + واجهة CRUD عامة + أحداث SSE</span>
 │   ├── <span class="file">CompilationSnapshot.java</span>       <span class="comment">// حالة ترجمة قابلة لإعادة الاستخدام؛ rerender(context) بعد تغيير البيانات</span>
-│   ├── <span class="file">PythonDataStore.java</span>           <span class="comment">// مخزن عام: يقرأ/يكتب أي حرفية 'name = [...]'</span>
+│   ├── <span class="file">PythonDataStore.java</span>           <span class="comment">// مخزن تشغيلي: ملفات جانبية data/*.json، لا يعدّل app.py أبدًا؛ يمسحها عند البدء وتغيير المصدر</span>
 │   └── <span class="file">DataRecord.java</span>                <span class="comment">// صف عام: id رقمي + حقول مكتوبة (int/BigDecimal/bool/string)</span>
+<span class="dir">├── gui/</span>
+│   └── <span class="file">ParseTreeViewer.java</span>            <span class="comment">// نافذة Swing واحدة مشتركة: شريط جانبي (لكل ملف) + بطاقات TreeViewer الخاصة بـ ANTLR + تكبير/تصغير</span>
 <span class="dir">├── antlr/</span>
-│   └── <span class="dir">python/</span>                          <span class="comment">// مولد من grammars/*.g4 بواسطة ANTLR 4.13.2</span>
-│       ├── <span class="file">PythonLexer.java</span>              <span class="comment">// المفوّت المعجمي</span>
-│       ├── <span class="file">PythonParser.java</span>             <span class="comment">// المحلّل — يبني CST</span>
-│       ├── <span class="file">PythonParserBaseVisitor.java</span>  <span class="comment">// كعب زائر مُولّد</span>
-│       └── <span class="file">PythonLexerBase.java</span>           <span class="comment">// معالجة مخصصة للمسافات البادئة والأقواس</span>
+│   ├── <span class="dir">python/</span>                          <span class="comment">// مولد من grammars/*.g4 بواسطة ANTLR 4.13.2</span>
+│   │   ├── <span class="file">PythonLexer.java</span>              <span class="comment">// المفوّت المعجمي</span>
+│   │   ├── <span class="file">PythonParser.java</span>             <span class="comment">// المحلّل — يبني CST</span>
+│   │   ├── <span class="file">PythonParserBaseVisitor.java</span>  <span class="comment">// كعب زائر مُولّد</span>
+│   │   └── <span class="file">PythonLexerBase.java</span>           <span class="comment">// معالجة مخصصة للمسافات البادئة والأقواس</span>
+│   ├── <span class="dir">html/</span>                           <span class="comment">// HtmlLexer/HtmlParser مولد من grammars/Html*.g4</span>
+│   └── <span class="dir">css/</span>                            <span class="comment">// CssLexer/CssParser مولد من grammars/Css*.g4</span>
 <span class="dir">├── visitor/</span>                           <span class="comment">// 32 زائرا لتحويل CST → AST</span>
 │   ├── <span class="file">UniversalPythonVisitor.java</span>    <span class="comment">// الشامل (while, import, decorator, parameters)</span>
 │   ├── <span class="dir">python/</span>                        <span class="comment">// 18 زائرا متخصصا للبايثون</span>
@@ -323,6 +327,15 @@ ParseTree tree       = parser.prog();   <span class="comment">// ← تُبنى 
   <code>CombinedErrors/</code>، وهو ملف واحد يثير عدة أخطاء معًا كعرض توضيحي.
 </p>
 
+<p>
+  وتُفحص دلالات القوالب منفصلة في <code>semantic/jinja/</code>:
+  <code>JinjaSemanticAnalyzer</code> يمرّ على AST قالب HTML ويُبلّغ عن أسماء Jinja غير المعرّفة
+  (يستخدم <code>ErrorReporter</code> فيطبع الأخطاء ولا يرميها؛ وهو موصول بخط الإنتاج أحادي
+  الملف فقط)، بينما <code>FlaskTemplateChecker</code> يقارن الجذور المتغيرة في القالب بالوسائط
+  الكلمات المفتاحية لكل استدعاء <code>render_template</code> ويرمي
+  <code>MissingFlaskVariableError</code>.
+</p>
+
 <pre>
 <span class="comment">// SemanticAnalyzer.walk() — يطبّق كل قاعدة على العقدة ثم يعاود حسب النوع</span>
 <span class="keyword">for</span> (SemanticRule rule : rules) {
@@ -396,14 +409,20 @@ outputWriter.writeHtmlFile(outputName, renderedHtml);            <span class="co
   <tr><td><code>/api/&lt;collection&gt;/&lt;id&gt;</code></td><td><code>DELETE</code></td><td>حذف سجل ← <code>204</code></td></tr>
 </table>
 <p>
-  يُبقي <code>PythonDataStore</code> ملف <code>app.py</code> مصدرًا وحيدًا للحقيقة: كل
-  تعديل يُعاد كتابته في الحرفية المطابقة، ثم يستدعي <code>CompilationSnapshot.rerender()</code>
-  لإعادة نسج القوالب بـ<strong>سياق حي مدمج</strong> (كل المجموعات القابلة للتحرير من مخازنها،
-  والباقي من آخر ترجمة كاملة). تُحوَّل الأعداد الصحيحة إلى أعداد صحيحة في مخرجات JSON/النسج،
-  بينما تحافظ الأعداد العشرية والقيم المنطقية والسلاسل على نوعها. أما بقية السياق (قواميس عادية،
-  قوائم سلاسل، قيم رقمية) فتبقى للقراءة فقط. وتُبلغ الأخطاء بصيغة JSON
-  (<code>404</code>/<code>400</code>/<code>405</code>/<code>500</code>)، ويبث تيار SSE على
-  <code>/events</code> أحداث <code>regenerated</code> أو <code>compiler-error</code>.
+  يُبقي <code>PythonDataStore</code> ملف <code>app.py</code> <strong>للقراءة فقط</strong>: تعديلات
+  CRUD تُحفظ في ملف JSON جانبي على المسار <code>&lt;project&gt;/data/&lt;collection&gt;.json</code>
+  يحوي <code>records</code> وقائمة <code>deleted</code> (شواهد القبور). كل قراءة تدمج الملف الجانبي
+  فوق الحرفية <strong>حسب المعرّف</strong> (نسخة JSON تفوز لكل معرّف، والسجلات الموجودة فقط في
+  الحرفية تبقى، والمعرّفات المرمّزة محذوفة تبقى مخفية)، ثم يستدعي
+  <code>CompilationSnapshot.rerender()</code> لإعادة نسج القوالب بـ<strong>سياق حي مدمج</strong>
+  (كل المجموعات القابلة للتحرير من مخازنها، والباقي من آخر ترجمة كاملة). وتُمسح الملفات الجانبية
+  عند <strong>بدء البرنامج</strong> وعند <strong>أي تغيير في المصدر</strong>، لذلك يبدأ التطبيق
+  دائمًا من الحرفية ويبقى المصدر هو الحقيقة الوحيدة الدائمة؛ وتوجد <code>absorbDataIntoSource</code>
+  كأداة يدوية "لدمج بيانات التشغيل في الحرفية" لا يستدعيها شيء تلقائيًا. تُحوَّل الأعداد الصحيحة
+  إلى أعداد صحيحة في مخرجات JSON/النسج، بينما تحافظ الأعداد العشرية والقيم المنطقية والسلاسل على
+  نوعها. أما بقية السياق (قواميس عادية، قوائم سلاسل، قيم رقمية) فتبقى للقراءة فقط. وتُبلغ الأخطاء
+  بصيغة JSON (<code>404</code>/<code>400</code>/<code>405</code>/<code>500</code>)، ويبث تيار
+  SSE على <code>/events</code> أحداث <code>regenerated</code> أو <code>compiler-error</code>.
 </p>
 
 <p><strong>ملفات أساسية:</strong>
@@ -442,8 +461,8 @@ outputWriter.writeHtmlFile(outputName, renderedHtml);            <span class="co
     <td><code>ContextExtractor</code> يجمع بيانات المسارات ومتغيرات السياق في تمريرة واحدة؛ و<code>JinjaRenderer</code> يستهلكها فقط. هذا الفصل يسهّل إعادة نسج HTML بعد أي تغيير في البيانات: يحتفظ <code>CompilationSnapshot</code> بآخر ترجمة ناجحة ويستدعي <code>rerender(liveContext)</code> دون إعادة تحليل معجمي/نحوي.</td>
   </tr>
   <tr>
-    <td>app.py هو مصدر الحقيقة الوحيد</td>
-    <td>في بيئة الويب (<code>PythonDataStore</code>) تُكتب تعديلات CRUD على أي مجموعة في الحرفية المطابقة من <code>app.py</code> ثم يُعاد نسج القوالب عبر المترجم — لا يوجد نموذج بيانات ثانٍ يجب مزامنته، وتحافظ الأنواع (أرقام، منطقيات، سلاسل) على سلامتها في دورة الذهاب والإياب.</td>
+    <td>لا يُعاد كتابة app.py أبدًا تلقائيًا</td>
+    <td>في بيئة الويب (<code>PythonDataStore</code>) تُكتب تعديلات CRUD في ملف JSON جانبي (<code>data/&lt;collection&gt;.json</code>) بدلًا من المصدر. الحرفية تبقى هي البذرة والمخطط؛ يدمجها المخزن فوقها حسب المعرّف في كل قراءة. وتُمسح الملفات الجانبية عند البدء وعند أي تغيير في المصدر (نموذج الجلسة الطازجة)، فيبقى ملف بايثون دائمًا هو الحقيقة الدائمة ولا يفاجئ أحدًا بتعديل كوده. كما يزيل شرط الكاتب الوحيد بين خادم الويب ومحرر المستخدم.</td>
   </tr>
   <tr>
     <td>اكتشاف المجموعات القابلة للتحرير لا كتابتها بشكل صلب</td>
@@ -491,15 +510,18 @@ outputWriter.writeHtmlFile(outputName, renderedHtml);            <span class="co
     │
     ▼
 <strong>Browser</strong> ── <code>GET/POST/PUT/DELETE /api/&lt;collection&gt;</code> ──▶ <strong>PythonDataStore</strong>
-    │                                                                       │  write literal back to app.py
-    │  <code>regenerated</code> (SSE /events)                                │  + snapshot.rerender(context)
+    │                                                                       │  write data/&lt;collection&gt;.json
+    │  <code>regenerated</code> (SSE /events)                                │  (لا يُعدّل app.py أبدًا)
     ◀────────────────────────────────────────────────────────────────────────┘
+    │
+    ▼
+مسح الملفات الجانبية عند البدء / تغيير المصدر ──▶ حرفية app.py هي المرجع
 </pre>
 </div>
 
 <hr style="border-color:var(--border);margin:2rem 0;">
 <p style="text-align:center;color:var(--text-muted);font-size:.85rem;">
-  مولّد من <code>src/</code> — 191 ملف Java، و105 صنف عقدة AST، و33 قاعدة نحوية (+54 رمز معجمي)
+  مولّد من <code>src/</code> — 194 ملف Java، و105 صنف عقدة AST، و33 قاعدة نحوية (+54 رمز معجمي)
 </p>
 
 </body>

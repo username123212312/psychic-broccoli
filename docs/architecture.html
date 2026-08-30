@@ -120,14 +120,18 @@ src/
 │   ├── <span class="file">ProjectWatcher.java</span>             <span class="comment">// Watches sources; recompiles on any change (serve mode)</span>
 │   ├── <span class="file">CompilerWebServer.java</span>         <span class="comment">// Serves output/ + generic CRUD API, SSE events</span>
 │   ├── <span class="file">CompilationSnapshot.java</span>       <span class="comment">// Re-usable render state; rerender(context) after data changes</span>
-│   ├── <span class="file">PythonDataStore.java</span>           <span class="comment">// Generic store: parse/rewrite any 'name = [...]' literal</span>
+│   ├── <span class="file">PythonDataStore.java</span>           <span class="comment">// RT store: sidecars data/*.json, never edits app.py; clears on start &amp; source change</span>
 │   └── <span class="file">DataRecord.java</span>                <span class="comment">// Generic row: numeric id + typed fields (int/BigDecimal/bool/string)</span>
+<span class="dir">├── gui/</span>
+│   └── <span class="file">ParseTreeViewer.java</span>            <span class="comment">// One shared Swing window: sidebar (per file) + ANTLR TreeViewer cards + zoom</span>
 <span class="dir">├── antlr/</span>
-│   └── <span class="dir">python/</span>                          <span class="comment">// Generated from grammars/*.g4 by ANTLR 4.13.2</span>
-│       ├── <span class="file">PythonLexer.java</span>              <span class="comment">// Tokeniser</span>
-│       ├── <span class="file">PythonParser.java</span>             <span class="comment">// Parser — builds CST</span>
-│       ├── <span class="file">PythonParserBaseVisitor.java</span>  <span class="comment">// Generated visitor stub</span>
-│       └── <span class="file">PythonLexerBase.java</span>           <span class="comment">// Custom indentation / brace handling</span>
+│   ├── <span class="dir">python/</span>                          <span class="comment">// Generated from grammars/*.g4 by ANTLR 4.13.2</span>
+│   │   ├── <span class="file">PythonLexer.java</span>              <span class="comment">// Tokeniser</span>
+│   │   ├── <span class="file">PythonParser.java</span>             <span class="comment">// Parser — builds CST</span>
+│   │   ├── <span class="file">PythonParserBaseVisitor.java</span>  <span class="comment">// Generated visitor stub</span>
+│   │   └── <span class="file">PythonLexerBase.java</span>           <span class="comment">// Custom indentation / brace handling</span>
+│   ├── <span class="dir">html/</span>                           <span class="comment">// HtmlLexer/HtmlParser generated from grammars/Html*.g4</span>
+│   └── <span class="dir">css/</span>                            <span class="comment">// CssLexer/CssParser generated from grammars/Css*.g4</span>
 <span class="dir">├── visitor/</span>                           <span class="comment">// 32 CST → AST visitors</span>
 │   ├── <span class="file">UniversalPythonVisitor.java</span>    <span class="comment">// catch-all default (while, import, decorators, params)</span>
 │   ├── <span class="dir">python/</span>                        <span class="comment">// 18 specialised Python visitors</span>
@@ -323,6 +327,16 @@ and all <code>ast/</code> node classes.
   at once as a demo.
 </p>
 
+<p>
+  Template semantics are checked separately in <code>semantic/jinja/</code>:
+  <code>JinjaSemanticAnalyzer</code> walks an HTML template's AST and reports
+  undefined Jinja names (it uses an <code>ErrorReporter</code>, so it prints rather
+  than throwing; it is wired into the single-file pipeline only), while
+  <code>FlaskTemplateChecker</code> compares the template-root variables against the
+  keyword arguments of every <code>render_template</code> call and raises
+  <code>MissingFlaskVariableError</code>.
+</p>
+
 <pre>
 <span class="comment">// SemanticAnalyzer.walk() — apply every rule to the node, then recurse per type</span>
 <span class="keyword">for</span> (SemanticRule rule : rules) {
@@ -396,14 +410,21 @@ outputWriter.writeHtmlFile(outputName, renderedHtml);            <span class="co
   <tr><td><code>/api/&lt;collection&gt;/&lt;id&gt;</code></td><td><code>DELETE</code></td><td>Remove a record → <code>204</code></td></tr>
 </table>
 <p>
-  <code>PythonDataStore</code> keeps <code>app.py</code> as the single source of truth: every
-  mutation is written back into the matching literal, then <code>CompilationSnapshot.rerender()</code>
-  re-renders the templates with a <strong>merged live context</strong> (all editable collections
-  from their stores, everything else from the last full compile). Whole numbers are normalised to
-  integers in JSON/rendered output, floats/booleans/strings keep their type. Everything else in the
-  context (plain dicts, string lists, scalars) is read-only. Errors are reported as JSON
-  (<code>404</code>/<code>400</code>/<code>405</code>/<code>500</code>), and an SSE stream at
-  <code>/events</code> pushes <code>regenerated</code> / <code>compiler-error</code> events.
+  <code>PythonDataStore</code> keeps <code>app.py</code> <strong>read-only</strong>: CRUD
+  mutations are persisted to a sidecar JSON file at <code>&lt;project&gt;/data/&lt;collection&gt;.json</code>
+  containing <code>records</code> plus a <code>deleted</code> tombstone list. Every read merges
+  the sidecar over the literal <strong>by id</strong> (JSON wins per id, literal-only records are
+  kept, tombstoned ids stay hidden), then <code>CompilationSnapshot.rerender()</code> re-renders
+  the templates with a <strong>merged live context</strong> (all editable collections from their
+  stores, everything else from the last full compile). The sidecars are wiped at <strong>program
+  start</strong> and on <strong>any source change</strong>, so the app always boots from the literal
+  and the source is the only persisted truth; <code>absorbDataIntoSource</code> exists as a manual
+  "bake runtime data into the literal" utility that nothing calls automatically. Whole numbers are
+  normalized to integers in JSON/rendered output, floats/booleans/strings keep their type.
+  Everything else in the context (plain dicts, string lists, scalars) is read-only. Errors are
+  reported as JSON (<code>404</code>/<code>400</code>/<code>405</code>/<code>500</code>), and an
+  SSE stream at <code>/events</code> pushes <code>regenerated</code> / <code>compiler-error</code>
+  events.
 </p>
 
 <p><strong>Key files:</strong>
@@ -442,8 +463,8 @@ outputWriter.writeHtmlFile(outputName, renderedHtml);            <span class="co
     <td><code>ContextExtractor</code> gathers route data and context variables in one pass; <code>JinjaRenderer</code> only consumes them. This separation makes it easy to re-render static HTML after any data change: <code>CompilationSnapshot</code> keeps the last successful compile and <code>rerender(liveContext)</code> re-renders it without re-lexing/re-parsing.</td>
   </tr>
   <tr>
-    <td>app.py is the single source of truth</td>
-    <td>For the web runtime (<code>PythonDataStore</code>), CRUD mutations on any collection are written back into the matching top-level literal of <code>app.py</code>, then the templates are re-rendered through the compiler — no second data model to keep in sync, and types (numbers, booleans, strings) survive the round trip.</td>
+    <td>app.py is never rewritten automatically</td>
+    <td>For the web runtime (<code>PythonDataStore</code>), CRUD mutations are written to a JSON sidecar (<code>data/&lt;collection&gt;.json</code>) instead of the source. The literal stays the seed/schema; the store merges the sidecar over it by id on every read. Sidecars are wiped at program start and on any source change (fresh-run model), so the user's Python file is always the persisted truth and nobody surprises them by editing their code. It also removes the one-writer requirement between the web server and the user's editor.</td>
   </tr>
   <tr>
     <td>Editable collections are discovered, not hard-coded</td>
@@ -491,15 +512,18 @@ outputWriter.writeHtmlFile(outputName, renderedHtml);            <span class="co
     │
     ▼
 <strong>Browser</strong> ── <code>GET/POST/PUT/DELETE /api/&lt;collection&gt;</code> ──▶ <strong>PythonDataStore</strong>
-    │                                                                       │  write literal back to app.py
-    │  <code>regenerated</code> (SSE /events)                                │  + snapshot.rerender(context)
+    │                                                                       │  write data/&lt;collection&gt;.json
+    │  <code>regenerated</code> (SSE /events)                                │  (never edits app.py)
     ◀────────────────────────────────────────────────────────────────────────┘
+    │
+    ▼
+clear sidecars at start / on source change ──▶ app.py literal is authoritative
 </pre>
 </div>
 
 <hr style="border-color:var(--border);margin:2rem 0;">
 <p style="text-align:center;color:var(--text-muted);font-size:.85rem;">
-  Generated from <code>src/</code> — 191 Java source files, 105 AST node classes, 33 parser rules (+54 lexer token rules)
+  Generated from <code>src/</code> — 194 Java source files, 105 AST node classes, 33 parser rules (+54 lexer token rules)
 </p>
 
 </body>
