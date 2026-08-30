@@ -81,11 +81,9 @@ public final class CompilerWebServer implements AutoCloseable {
     }
 
     public boolean shouldIgnoreSourceEvent(Path changedPath) {
-        for (PythonDataStore store : stores.values()) {
-            if (store.shouldIgnoreSourceEvent(changedPath)) {
-                return true;
-            }
-        }
+        // Runtime CRUD persists to data/*.json (not a watched source file) and app.py
+        // is only ever rewritten by the compiler's absorb step, which is content-safe
+        // (no write when unchanged), so nothing needs suppressing here.
         return false;
     }
 

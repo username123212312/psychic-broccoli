@@ -14,10 +14,18 @@ products = [
     },
     {
         "id": 3,
-        "name": "asdasd",
-        "price": 111,
-        "description": "sfdsdf",
-        "specification": "fdfdsfz",
+        "name": "Yousef Razzouk",
+        "price": 234324,
+        "description": "werewrew",
+        "specification": "ewerwer",
+        "img": "static/images/default.png"
+    },
+    {
+        "id": 4,
+        "name": "Yousef Razzouk",
+        "price": 234324,
+        "description": "dsfsdf",
+        "specification": "dsfsdf",
         "img": "static/images/default.png"
     }
 ]  # each product is a dict

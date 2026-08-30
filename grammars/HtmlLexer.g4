@@ -5,7 +5,7 @@ JINJA_STMT_START: '{%' -> pushMode(JINJA_MODE);
 JINJA_COMMENT_START: '{#' -> pushMode(JINJA_MODE);
 
 HTML_COMMENT
-    : '<!--' .*? '-->' -> channel(HIDDEN)
+    : '<!--' .*? '-->'
     ;
 
 HTML_CONDITIONAL_COMMENT
@@ -101,6 +101,7 @@ CSS_ID         : [a-zA-Z] [a-zA-Z0-9\-]* ;
 CSS_Space      : [ \t\r\n]+ -> skip ;
 CSS_Comment    : '/*' .*? '*/' -> skip ;
 CSS_TILDE      : '~';
+CSS_STAR       : '*';
 // =================== JINJA MODE (Unified Jinja Logic) ===================
 
 mode JINJA_MODE;

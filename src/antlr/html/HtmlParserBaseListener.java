@@ -1,4 +1,4 @@
-// Generated from D:/RAMA/MyProject/ComplierProject-1/grammars/HtmlParser.g4 by ANTLR 4.13.2
+// Generated from C:/Users/Yousef Razzouk/IdeaProjects/compiler_project/grammars/HtmlParser.g4 by ANTLR 4.13.2
 package antlr.html;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -72,6 +72,18 @@ public class HtmlParserBaseListener implements HtmlParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitJinjaExprItem(HtmlParser.JinjaExprItemContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHtmlCommentItem(HtmlParser.HtmlCommentItemContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHtmlCommentItem(HtmlParser.HtmlCommentItemContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -216,6 +228,18 @@ public class HtmlParserBaseListener implements HtmlParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTypeSelector(HtmlParser.TypeSelectorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUniversalSelector(HtmlParser.UniversalSelectorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUniversalSelector(HtmlParser.UniversalSelectorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

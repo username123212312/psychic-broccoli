@@ -7,36 +7,57 @@ import java.nio.file.AtomicMoveNotSupportedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Keeps app.py as the source of truth for any top-level collection literal
- * (for example {@code products}, {@code posts} or {@code books}). Only the
- * literal assigned to {@code collectionName} is replaced; all Flask routes and
- * the rest of the Python file remain untouched.
+ * Runtime data store for any top-level collection literal in {@code app.py}
+ * (for example {@code products}, {@code posts} or {@code books}). The Python
+ * source is read-only at runtime: create/update/delete operations persist to a
+ * sidecar JSON file in {@code <project>/data/&lt;collection&gt;.json} instead of
+ * editing app.py.
  *
- * <p>The dictionary schema (field order and value types) is read from the
- * literal itself, so no field set is hard-coded. The {@code "id"} field is the
- * numeric key used for updates and deletes.</p>
+ * <p>The app.py literal acts as the seed and the schema source. The store
+ * layers the sidecar over it on every read: records with the same {@code "id"}
+ * take the JSON version, records present only in JSON are added, records
+ * present only in the literal are kept, and ids listed in {@code "deleted"} are
+ * suppressed (so UI deletions are not resurrected by the seed).</p>
+ *
+ * <p>The compiler ({@link #absorbDataIntoSource(Path)}) merges the sidecar back
+ * into the app.py literal during compilation, clears the tombstones, and
+ * resyncs the sidecar, so runtime data becomes part of the next compiled
+ * output. The compiler is the only thing that ever rewrites app.py.</p>
+ *
+ * <p>The dictionary schema (field order and value types) is inferred from the
+ * records, so no field set is hard-coded. The {@code "id"} field is the numeric
+ * key used for updates and deletes. The literal reader tolerates {@code #} line
+ * comments inside the collection; comments never appear in the sidecar and are
+ * dropped whenever the compiler regenerates the literal.</p>
  */
 public final class PythonDataStore {
 
-    /** Kind of a value in the collection literal. */
+    /** Kind of a value in a record. */
     private enum FieldKind { STRING, NUMBER, BOOLEAN, RAW }
 
     private record Schema(List<String> order, Map<String, FieldKind> kinds) {
     }
 
     private record Parsed(List<DataRecord> records, Schema schema) {
+    }
+
+    private record Load(List<DataRecord> records, Schema schema, Set<Integer> deleted) {
+    }
+
+    private record JsonData(List<DataRecord> records, Set<Integer> deleted) {
     }
 
     private record Key(String name, int nextIndex) {
@@ -46,20 +67,24 @@ public final class PythonDataStore {
     }
 
     private final Path pythonSource;
+    private final Path dataFile;
     private final String collectionName;
     private final Pattern assignmentPattern;
-    private volatile long ignoreEventsUntilMillis = 0L;
 
     private static final Pattern PYTHON_INTEGER = Pattern.compile(
             "-?\\d+([eE][+-]?\\d+)?");
     private static final Pattern PYTHON_NUMBER = Pattern.compile(
             "-?(\\d+\\.\\d*|\\.\\d+|\\d+)([eE][+-]?\\d+)?");
+    private static final Pattern TOP_LEVEL_ASSIGNMENT = Pattern.compile(
+            "(?m)^\\s*([A-Za-z_][A-Za-z0-9_]*)\\s*=\\s*\\[");
 
     public PythonDataStore(Path pythonSource, String collectionName) {
         this.pythonSource = pythonSource.toAbsolutePath().normalize();
         this.collectionName = collectionName;
         this.assignmentPattern = Pattern.compile(
                 "(?m)^" + Pattern.quote(collectionName) + "\\s*=\\s*\\[");
+        this.dataFile = this.pythonSource.getParent().resolve("data")
+                .resolve(collectionName + ".json").normalize();
     }
 
     public String collectionName() {
@@ -67,20 +92,20 @@ public final class PythonDataStore {
     }
 
     public synchronized List<DataRecord> list() throws IOException {
-        return parseSource().records();
+        return load().records();
     }
 
     /** Records rendered as plain maps (including the {@code "id"} key) for the Jinja renderer. */
     public synchronized List<Map<String, Object>> listAsMaps() throws IOException {
         List<Map<String, Object>> maps = new ArrayList<>();
-        for (DataRecord record : parseSource().records()) {
+        for (DataRecord record : load().records()) {
             maps.add(record.fields());
         }
         return maps;
     }
 
     public synchronized Optional<DataRecord> find(int id) throws IOException {
-        for (DataRecord record : parseSource().records()) {
+        for (DataRecord record : load().records()) {
             if (record.id() == id) {
                 return Optional.of(record);
             }
@@ -89,20 +114,20 @@ public final class PythonDataStore {
     }
 
     public synchronized DataRecord create(Map<String, String> form) throws IOException {
-        Parsed parsed = parseSource();
-        List<DataRecord> records = new ArrayList<>(parsed.records());
+        Load load = load();
+        List<DataRecord> records = new ArrayList<>(load.records());
         int nextId = records.stream().map(DataRecord::id)
-                .max(Comparator.naturalOrder()).orElse(0) + 1;
-        Map<String, Object> values = coerceFields(parsed.schema(), nextId, form);
+                .max(Integer::compareTo).orElse(0) + 1;
+        Map<String, Object> values = coerceFields(load.schema(), nextId, form);
         DataRecord created = new DataRecord(nextId, values);
         records.add(created);
-        save(parsed, records);
+        writeDataFile(records, new LinkedHashSet<>(load.deleted()));
         return created;
     }
 
     public synchronized DataRecord update(int id, Map<String, String> form) throws IOException {
-        Parsed parsed = parseSource();
-        List<DataRecord> records = new ArrayList<>(parsed.records());
+        Load load = load();
+        List<DataRecord> records = new ArrayList<>(load.records());
         int index = -1;
         for (int i = 0; i < records.size(); i++) {
             if (records.get(i).id() == id) {
@@ -113,97 +138,114 @@ public final class PythonDataStore {
         if (index < 0) {
             throw new NotFoundException(collectionName, id);
         }
-        Map<String, Object> values = coerceFields(parsed.schema(), id, form);
+        Map<String, Object> values = coerceFields(load.schema(), id, form);
         records.set(index, new DataRecord(id, values));
-        save(parsed, records);
+        writeDataFile(records, new LinkedHashSet<>(load.deleted()));
         return new DataRecord(id, values);
     }
 
     public synchronized void delete(int id) throws IOException {
-        Parsed parsed = parseSource();
-        List<DataRecord> records = new ArrayList<>(parsed.records());
+        Load load = load();
+        List<DataRecord> records = new ArrayList<>(load.records());
         boolean removed = records.removeIf(record -> record.id() == id);
         if (!removed) {
             throw new NotFoundException(collectionName, id);
         }
-        save(parsed, records);
+        Set<Integer> deleted = new LinkedHashSet<>(load.deleted());
+        deleted.add(id);
+        writeDataFile(records, deleted);
     }
 
-    public boolean shouldIgnoreSourceEvent(Path changedPath) {
-        return pythonSource.equals(changedPath.toAbsolutePath().normalize())
-                && System.currentTimeMillis() < ignoreEventsUntilMillis;
-    }
+    // ------------------------------------------------------------------
+    // Compiler-side absorption: merge the sidecar back into app.py.
+    // ------------------------------------------------------------------
 
-    private Map<String, Object> coerceFields(Schema schema, int id, Map<String, String> form) {
-        Map<String, Object> values = new LinkedHashMap<>();
-        values.put("id", id);
-        for (String field : schema.order()) {
-            if ("id".equals(field)) {
-                continue;
-            }
-            FieldKind kind = schema.kinds().getOrDefault(field, FieldKind.STRING);
-            String raw = form.get(field);
-            Object coerced = coerce(kind, field, raw);
-            if (coerced != null) {
-                values.put(field, coerced);
-            }
+    /**
+     * Discovers every top-level {@code name = [...]} literal in app.py and, for
+     * the editable collections among them, merges the sidecar data back into the
+     * source literal and resyncs the sidecar. Called by the compiler before
+     * parsing so that runtime data is baked into the compiled output. The only
+     * writer of app.py.
+     */
+    public static void absorbDataIntoSource(Path projectDir) throws IOException {
+        Path appPy = projectDir.resolve("app.py");
+        if (!Files.isRegularFile(appPy)) {
+            return;
         }
-        return values;
-    }
-
-    private Object coerce(FieldKind kind, String field, String raw) {
-        switch (kind) {
-            case NUMBER:
-                if (raw == null || raw.trim().isEmpty()) {
-                    throw new IllegalArgumentException("The field '" + field + "' must be a number.");
-                }
-                try {
-                    BigDecimal value = new BigDecimal(raw.trim());
-                    return normalizeNumber(value);
-                } catch (NumberFormatException e) {
-                    throw new IllegalArgumentException("The field '" + field + "' must be a number.");
-                }
-            case BOOLEAN:
-                if (raw == null) {
-                    return Boolean.FALSE;
-                }
-                String lower = raw.trim().toLowerCase(Locale.ROOT);
-                return "true".equals(lower) || "1".equals(lower)
-                        || "on".equals(lower) || "yes".equals(lower);
-            case STRING:
-            case RAW:
-            default:
-                return raw == null ? "" : raw;
+        String source = Files.readString(appPy, StandardCharsets.UTF_8);
+        Set<String> names = new LinkedHashSet<>();
+        Matcher matcher = TOP_LEVEL_ASSIGNMENT.matcher(source);
+        while (matcher.find()) {
+            names.add(matcher.group(1));
+        }
+        for (String name : names) {
+            try {
+                new PythonDataStore(appPy, name).absorb();
+            } catch (IOException e) {
+                System.err.println("  SKIP data absorption for '" + name + "': " + e.getMessage());
+            }
         }
     }
 
-    private void save(Parsed parsed, List<DataRecord> records) throws IOException {
+    /** Merges the sidecar (if any) into this collection's literal and resyncs the sidecar. */
+    private void absorb() throws IOException {
+        Parsed parsed;
+        try {
+            parsed = parseSource();
+        } catch (IOException e) {
+            // Not an editable collection (plain list, malformed literal, ...) - leave it alone.
+            return;
+        }
+        boolean hasData = Files.isRegularFile(dataFile);
+        if (!hasData) {
+            // No runtime mutations: the literal is already authoritative; do not
+            // rewrite app.py or create a sidecar for a collection that was never edited.
+            return;
+        }
+        Load load = merge(parsed.records(), readDataFile());
         String source = Files.readString(pythonSource, StandardCharsets.UTF_8);
+        String rewritten = rewriteLiteral(source, load.records(), load.schema());
+        if (!rewritten.equals(source)) {
+            writeAtomically(pythonSource, rewritten);
+        }
+        // The literal is now authoritative; tombstones no longer needed.
+        writeDataFile(load.records(), Collections.emptySet());
+    }
+
+    private String rewriteLiteral(String source, List<DataRecord> records, Schema schema) throws IOException {
         int openingBracket = findOpeningBracket(source);
         int closingBracket = findMatchingBracket(source, openingBracket);
-        String renderedList = renderList(parsed.schema(), records);
-        String rewritten = source.substring(0, openingBracket)
-                + renderedList
-                + source.substring(closingBracket + 1);
-
-        Path temporary = Files.createTempFile(pythonSource.getParent(), collectionName + ".", ".tmp");
-        try {
-            Files.writeString(temporary, rewritten, StandardCharsets.UTF_8);
-            // Set this before the atomic move because WatchService may publish the event immediately.
-            ignoreEventsUntilMillis = System.currentTimeMillis() + Duration.ofSeconds(2).toMillis();
-            try {
-                Files.move(temporary, pythonSource, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
-            } catch (AtomicMoveNotSupportedException ignored) {
-                Files.move(temporary, pythonSource, StandardCopyOption.REPLACE_EXISTING);
-            }
-        } finally {
-            Files.deleteIfExists(temporary);
-        }
+        String renderedList = renderList(schema, records);
+        return source.substring(0, openingBracket) + renderedList + source.substring(closingBracket + 1);
     }
 
     // ------------------------------------------------------------------
-    // Reading: locate the literal and turn it into typed DataRecords.
+    // Reading: app.py literal (seed) merged with the sidecar data file.
     // ------------------------------------------------------------------
+
+    private Load load() throws IOException {
+        Parsed parsed = parseSource();
+        if (!Files.isRegularFile(dataFile)) {
+            return new Load(parsed.records(), parsed.schema(), Collections.emptySet());
+        }
+        return merge(parsed.records(), readDataFile());
+    }
+
+    /** Sidecar wins per id; literal-only records are kept; tombstoned ids are dropped. */
+    private static Load merge(List<DataRecord> base, JsonData data) {
+        Map<Integer, DataRecord> jsonById = new LinkedHashMap<>();
+        for (DataRecord record : data.records()) {
+            jsonById.put(record.id(), record);
+        }
+        List<DataRecord> merged = new ArrayList<>(data.records());
+        for (DataRecord record : base) {
+            if (jsonById.containsKey(record.id()) || data.deleted().contains(record.id())) {
+                continue;
+            }
+            merged.add(record);
+        }
+        return new Load(List.copyOf(merged), schemaOf(merged), data.deleted());
+    }
 
     private Parsed parseSource() throws IOException {
         String source = Files.readString(pythonSource, StandardCharsets.UTF_8);
@@ -215,13 +257,9 @@ public final class PythonDataStore {
 
     private Parsed parseBody(String body) throws IOException {
         List<DataRecord> records = new ArrayList<>();
-        Map<String, FieldKind> kinds = new LinkedHashMap<>();
-        List<String> order = new ArrayList<>();
         int index = 0;
         while (true) {
-            while (index < body.length() && Character.isWhitespace(body.charAt(index))) {
-                index++;
-            }
+            index = skipWsAndComments(body, index);
             if (index >= body.length()) {
                 break;
             }
@@ -241,24 +279,47 @@ public final class PythonDataStore {
                         + "' in app.py must contain a numeric \"id\" key.");
             }
             records.add(new DataRecord(parsedDict.id(), parsedDict.values()));
-            if (order.isEmpty()) {
-                order.addAll(parsedDict.values().keySet());
-            } else {
-                for (String key : parsedDict.values().keySet()) {
-                    if (!order.contains(key)) {
-                        order.add(key);
-                    }
-                }
-            }
-            for (Map.Entry<String, Object> entry : parsedDict.values().entrySet()) {
-                kinds.merge(entry.getKey(), kindOfValue(entry.getValue()), PythonDataStore::mostSpecificKind);
-            }
         }
         if (!body.isBlank() && records.isEmpty()) {
             throw new IOException("Could not parse the '" + collectionName
                     + "' list in app.py. Ensure each entry is a dict literal.");
         }
-        return new Parsed(List.copyOf(records), new Schema(List.copyOf(order), Map.copyOf(kinds)));
+        return new Parsed(List.copyOf(records), schemaOf(records));
+    }
+
+    private static Schema schemaOf(List<DataRecord> records) {
+        List<String> order = new ArrayList<>();
+        Map<String, FieldKind> kinds = new LinkedHashMap<>();
+        for (DataRecord record : records) {
+            for (Map.Entry<String, Object> entry : record.fields().entrySet()) {
+                if (!order.contains(entry.getKey())) {
+                    order.add(entry.getKey());
+                }
+                kinds.merge(entry.getKey(), kindOfValue(entry.getValue()), PythonDataStore::mostSpecificKind);
+            }
+        }
+        return new Schema(List.copyOf(order), Map.copyOf(kinds));
+    }
+
+    /** Advances over whitespace and '#' line comments, returning the next meaningful index. */
+    private static int skipWsAndComments(String body, int index) {
+        while (index < body.length()) {
+            char current = body.charAt(index);
+            if (current == '#') {
+                while (index < body.length()) {
+                    char inner = body.charAt(index);
+                    if (inner == '\n' || inner == '\r' || inner == '\f') {
+                        break;
+                    }
+                    index++;
+                }
+            } else if (Character.isWhitespace(current)) {
+                index++;
+            } else {
+                break;
+            }
+        }
+        return index;
     }
 
     private record ParsedDict(Integer id, Map<String, Object> values, int nextIndex) {
@@ -269,9 +330,10 @@ public final class PythonDataStore {
         Integer id = null;
         Map<String, Object> values = new LinkedHashMap<>();
         while (true) {
-            while (index < body.length()
-                    && (Character.isWhitespace(body.charAt(index)) || body.charAt(index) == ',')) {
+            index = skipWsAndComments(body, index);
+            if (index < body.length() && body.charAt(index) == ',') {
                 index++;
+                continue;
             }
             if (index >= body.length()) {
                 throw new IOException("Unterminated dict literal in '" + collectionName + "'.");
@@ -282,16 +344,12 @@ public final class PythonDataStore {
             }
             Key key = readKey(body, index);
             index = key.nextIndex();
-            while (index < body.length() && Character.isWhitespace(body.charAt(index))) {
-                index++;
-            }
+            index = skipWsAndComments(body, index);
             if (index >= body.length() || body.charAt(index) != ':') {
                 throw new IOException("Expected ':' after key '" + key.name() + "' in '" + collectionName + "'.");
             }
             index++;
-            while (index < body.length() && Character.isWhitespace(body.charAt(index))) {
-                index++;
-            }
+            index = skipWsAndComments(body, index);
             Value value = readValue(body, index);
             index = value.nextIndex();
             values.put(key.name(), value.typedValue());
@@ -360,7 +418,7 @@ public final class PythonDataStore {
                     break;
                 }
                 depth--;
-            } else if ((ch == ',' || ch == '}') && depth == 0) {
+            } else if ((ch == ',' || ch == '}' || ch == '#') && depth == 0) {
                 break;
             }
             raw.append(ch);
@@ -451,16 +509,12 @@ public final class PythonDataStore {
     }
 
     private static FieldKind kindOfValue(Object value) {
-        if (value instanceof BigDecimal) {
+        if (value instanceof BigDecimal || value instanceof Number) {
             return FieldKind.NUMBER;
         }
         if (value instanceof Boolean) {
             return FieldKind.BOOLEAN;
         }
-        if (value instanceof Number) {
-            return FieldKind.NUMBER;
-        }
-        // RAW values that are not reached here because they are stored as raw strings.
         return FieldKind.STRING;
     }
 
@@ -479,8 +533,205 @@ public final class PythonDataStore {
         return FieldKind.STRING;
     }
 
+    private Map<String, Object> coerceFields(Schema schema, int id, Map<String, String> form) {
+        Map<String, Object> values = new LinkedHashMap<>();
+        values.put("id", id);
+        for (String field : schema.order()) {
+            if ("id".equals(field)) {
+                continue;
+            }
+            FieldKind kind = schema.kinds().getOrDefault(field, FieldKind.STRING);
+            String raw = form.get(field);
+            Object coerced = coerce(kind, field, raw);
+            if (coerced != null) {
+                values.put(field, coerced);
+            }
+        }
+        return values;
+    }
+
+    private Object coerce(FieldKind kind, String field, String raw) {
+        switch (kind) {
+            case NUMBER:
+                if (raw == null || raw.trim().isEmpty()) {
+                    throw new IllegalArgumentException("The field '" + field + "' must be a number.");
+                }
+                try {
+                    BigDecimal value = new BigDecimal(raw.trim());
+                    return normalizeNumber(value);
+                } catch (NumberFormatException e) {
+                    throw new IllegalArgumentException("The field '" + field + "' must be a number.");
+                }
+            case BOOLEAN:
+                if (raw == null) {
+                    return Boolean.FALSE;
+                }
+                String lower = raw.trim().toLowerCase(Locale.ROOT);
+                return "true".equals(lower) || "1".equals(lower)
+                        || "on".equals(lower) || "yes".equals(lower);
+            case STRING:
+            case RAW:
+            default:
+                return raw == null ? "" : raw;
+        }
+    }
+
     // ------------------------------------------------------------------
-    // Writing: render the collection back to a Python literal.
+    // Sidecar persistence: <project>/data/<collection>.json
+    // ------------------------------------------------------------------
+
+    private void writeDataFile(List<DataRecord> records, Set<Integer> deleted) throws IOException {
+        Files.createDirectories(dataFile.getParent());
+        writeAtomically(dataFile, renderJson(schemaOf(records), records, deleted));
+    }
+
+    private static String renderJson(Schema schema, List<DataRecord> records, Set<Integer> deleted) {
+        StringBuilder out = new StringBuilder("{\n  \"records\": [\n");
+        for (int index = 0; index < records.size(); index++) {
+            List<String> parts = new ArrayList<>();
+            for (String field : schema.order()) {
+                Object value = records.get(index).fields().get(field);
+                if (value == null) {
+                    continue;
+                }
+                FieldKind kind = schema.kinds().getOrDefault(field, FieldKind.STRING);
+                parts.add(jsonString(field) + ": " + jsonValue(kind, value));
+            }
+            out.append("    { ").append(String.join(", ", parts)).append(" }");
+            if (index < records.size() - 1) {
+                out.append(',');
+            }
+            out.append('\n');
+        }
+        out.append("  ],\n  \"deleted\": [");
+        List<Integer> sorted = new ArrayList<>(deleted);
+        Collections.sort(sorted);
+        for (int index = 0; index < sorted.size(); index++) {
+            out.append(sorted.get(index));
+            if (index < sorted.size() - 1) {
+                out.append(", ");
+            }
+        }
+        return out.append("]\n}\n").toString();
+    }
+
+    private static String jsonValue(FieldKind kind, Object value) {
+        switch (kind) {
+            case NUMBER:
+                if (value instanceof BigDecimal decimal) {
+                    return decimal.stripTrailingZeros().toPlainString();
+                }
+                return String.valueOf(value);
+            case BOOLEAN:
+                return Boolean.TRUE.equals(value) ? "true" : "false";
+            case STRING:
+            case RAW:
+            default:
+                return jsonString(String.valueOf(value));
+        }
+    }
+
+    private static String jsonString(String value) {
+        StringBuilder out = new StringBuilder("\"");
+        for (int index = 0; index < value.length(); index++) {
+            char current = value.charAt(index);
+            switch (current) {
+                case '"' -> out.append("\\\"");
+                case '\\' -> out.append("\\\\");
+                case '\n' -> out.append("\\n");
+                case '\r' -> out.append("\\r");
+                case '\t' -> out.append("\\t");
+                case '\b' -> out.append("\\b");
+                case '\f' -> out.append("\\f");
+                default -> {
+                    if (current < 0x20) {
+                        out.append(String.format("\\u%04x", (int) current));
+                    } else {
+                        out.append(current);
+                    }
+                }
+            }
+        }
+        return out.append('"').toString();
+    }
+
+    /** Reads the sidecar; returns empty data when the file is absent. */
+    private JsonData readDataFile() throws IOException {
+        if (!Files.isRegularFile(dataFile)) {
+            return new JsonData(List.of(), Collections.emptySet());
+        }
+        String json = Files.readString(dataFile, StandardCharsets.UTF_8);
+        Object root = new JsonParser(json).parseValue();
+        if (!(root instanceof Map<?, ?> map)) {
+            throw new IOException("The '" + collectionName + "' data file (" + dataFile.getFileName()
+                    + ") must contain a JSON object with a \"records\" array.");
+        }
+        List<DataRecord> records = new ArrayList<>();
+        Object recordsValue = map.get("records");
+        if (recordsValue == null) {
+            throw new IOException("The '" + collectionName + "' data file (" + dataFile.getFileName()
+                    + ") is missing the \"records\" array.");
+        }
+        if (!(recordsValue instanceof List<?> list)) {
+            throw new IOException("The \"records\" entry in '" + dataFile.getFileName()
+                    + "' must be an array.");
+        }
+        for (Object item : list) {
+            if (!(item instanceof Map<?, ?> itemMap)) {
+                throw new IOException("Each entry in '" + dataFile.getFileName()
+                        + "' must be a JSON object.");
+            }
+            Map<String, Object> fields = new LinkedHashMap<>();
+            Object idValue = null;
+            for (Map.Entry<?, ?> entry : itemMap.entrySet()) {
+                String field = String.valueOf(entry.getKey());
+                Object value = entry.getValue();
+                if (value instanceof Map || value instanceof List) {
+                    throw new IOException("Only strings, numbers and booleans are supported in '"
+                            + dataFile.getFileName() + "' (field '" + field + "').");
+                }
+                if ("id".equals(field)) {
+                    idValue = value;
+                }
+                fields.put(field, value == null ? "" : value);
+            }
+            records.add(new DataRecord(jsonId(idValue), fields));
+        }
+
+        Set<Integer> deleted = new LinkedHashSet<>();
+        Object deletedValue = map.get("deleted");
+        if (deletedValue != null) {
+            if (!(deletedValue instanceof List<?> deletedList)) {
+                throw new IOException("The \"deleted\" entry in '" + dataFile.getFileName()
+                        + "' must be an array of ids.");
+            }
+            for (Object id : deletedList) {
+                deleted.add(jsonId(id));
+            }
+        }
+        return new JsonData(List.copyOf(records), deleted);
+    }
+
+    private static int jsonId(Object value) throws IOException {
+        if (value instanceof Long number) {
+            try {
+                return Math.toIntExact(number);
+            } catch (ArithmeticException e) {
+                throw new IOException("An \"id\" in the data file must be a 32-bit integer.");
+            }
+        }
+        if (value instanceof BigDecimal decimal) {
+            try {
+                return decimal.intValueExact();
+            } catch (ArithmeticException e) {
+                throw new IOException("An \"id\" in the data file must be a 32-bit integer.");
+            }
+        }
+        throw new IOException("An \"id\" in the data file must be an integer.");
+    }
+
+    // ------------------------------------------------------------------
+    // Writing: render the merged records back to a Python literal.
     // ------------------------------------------------------------------
 
     private static String renderList(Schema schema, List<DataRecord> records) {
@@ -578,6 +829,14 @@ public final class PythonDataStore {
                 }
                 continue;
             }
+            if (current == '#') {
+                while (index < source.length()
+                        && source.charAt(index) != '\n' && source.charAt(index) != '\r'
+                        && source.charAt(index) != '\f') {
+                    index++;
+                }
+                continue;
+            }
             if (current == '\'' || current == '"') {
                 inString = true;
                 quote = current;
@@ -591,8 +850,30 @@ public final class PythonDataStore {
     }
 
     // ------------------------------------------------------------------
-    // Escaping helpers shared with earlier parser versions.
+    // Atomic writes and escaping helpers.
     // ------------------------------------------------------------------
+
+    /** Writes {@code content} to {@code target} atomically, skipping the write when unchanged. */
+    private static void writeAtomically(Path target, String content) throws IOException {
+        if (Files.isRegularFile(target)) {
+            String existing = Files.readString(target, StandardCharsets.UTF_8);
+            if (existing.equals(content)) {
+                return;
+            }
+        }
+        Path parent = target.getParent();
+        Path temporary = Files.createTempFile(parent, target.getFileName() + ".", ".tmp");
+        try {
+            Files.writeString(temporary, content, StandardCharsets.UTF_8);
+            try {
+                Files.move(temporary, target, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
+            } catch (AtomicMoveNotSupportedException ignored) {
+                Files.move(temporary, target, StandardCopyOption.REPLACE_EXISTING);
+            }
+        } finally {
+            Files.deleteIfExists(temporary);
+        }
+    }
 
     private static String pythonUnescape(String value) {
         StringBuilder out = new StringBuilder();
@@ -617,6 +898,208 @@ public final class PythonDataStore {
             out.append('\\');
         }
         return out.toString();
+    }
+
+    /**
+     * Minimal JSON reader for the sidecar data file (objects, arrays, strings,
+     * numbers, booleans and null, with standard escapes).
+     */
+    private static final class JsonParser {
+        private final String text;
+        private int pos;
+
+        JsonParser(String text) {
+            this.text = text;
+        }
+
+        private IOException error(String message) {
+            return new IOException(message + " at data file offset " + pos + ".");
+        }
+
+        private void ws() {
+            while (pos < text.length() && Character.isWhitespace(text.charAt(pos))) {
+                pos++;
+            }
+        }
+
+        Object parseValue() throws IOException {
+            ws();
+            if (pos >= text.length()) {
+                throw error("Unexpected end of JSON");
+            }
+            char current = text.charAt(pos);
+            switch (current) {
+                case '{':
+                    return parseObject();
+                case '[':
+                    return parseArray();
+                case '"':
+                    return parseString();
+                case 't':
+                    expect("true");
+                    return Boolean.TRUE;
+                case 'f':
+                    expect("false");
+                    return Boolean.FALSE;
+                case 'n':
+                    expect("null");
+                    return null;
+                default:
+                    if (current == '-' || Character.isDigit(current)) {
+                        return parseNumber();
+                    }
+                    throw error("Unexpected character '" + current + "'");
+            }
+        }
+
+        private void expect(String literal) throws IOException {
+            if (!text.startsWith(literal, pos)) {
+                throw error("Expected '" + literal + "'");
+            }
+            pos += literal.length();
+        }
+
+        private Map<String, Object> parseObject() throws IOException {
+            Map<String, Object> map = new LinkedHashMap<>();
+            pos++; // consume '{'
+            ws();
+            if (pos < text.length() && text.charAt(pos) == '}') {
+                pos++;
+                return map;
+            }
+            while (true) {
+                ws();
+                if (pos >= text.length() || text.charAt(pos) != '"') {
+                    throw error("Expected a quoted key");
+                }
+                String key = parseString();
+                ws();
+                if (pos >= text.length() || text.charAt(pos) != ':') {
+                    throw error("Expected ':' after '" + key + "'");
+                }
+                pos++;
+                map.put(key, parseValue());
+                ws();
+                if (pos >= text.length()) {
+                    throw error("Unterminated object");
+                }
+                char separator = text.charAt(pos);
+                if (separator == ',') {
+                    pos++;
+                    continue;
+                }
+                if (separator == '}') {
+                    pos++;
+                    return map;
+                }
+                throw error("Expected ',' or '}'");
+            }
+        }
+
+        private List<Object> parseArray() throws IOException {
+            List<Object> list = new ArrayList<>();
+            pos++; // consume '['
+            ws();
+            if (pos < text.length() && text.charAt(pos) == ']') {
+                pos++;
+                return list;
+            }
+            while (true) {
+                list.add(parseValue());
+                ws();
+                if (pos >= text.length()) {
+                    throw error("Unterminated array");
+                }
+                char separator = text.charAt(pos);
+                if (separator == ',') {
+                    pos++;
+                    continue;
+                }
+                if (separator == ']') {
+                    pos++;
+                    return list;
+                }
+                throw error("Expected ',' or ']'");
+            }
+        }
+
+        private String parseString() throws IOException {
+            pos++; // consume opening quote
+            StringBuilder out = new StringBuilder();
+            while (pos < text.length()) {
+                char current = text.charAt(pos);
+                if (current == '"') {
+                    pos++;
+                    return out.toString();
+                }
+                if (current == '\\') {
+                    pos++;
+                    if (pos >= text.length()) {
+                        break;
+                    }
+                    char escaped = text.charAt(pos);
+                    switch (escaped) {
+                        case '"' -> out.append('"');
+                        case '\\' -> out.append('\\');
+                        case '/' -> out.append('/');
+                        case 'b' -> out.append('\b');
+                        case 'f' -> out.append('\f');
+                        case 'n' -> out.append('\n');
+                        case 'r' -> out.append('\r');
+                        case 't' -> out.append('\t');
+                        case 'u' -> {
+                            if (pos + 4 >= text.length()) {
+                                throw error("Invalid \\u escape");
+                            }
+                            String hex = text.substring(pos + 1, pos + 5);
+                            try {
+                                out.append((char) Integer.parseInt(hex, 16));
+                            } catch (NumberFormatException e) {
+                                throw error("Invalid \\u escape");
+                            }
+                            pos += 4;
+                        }
+                        default -> throw error("Invalid escape '\\" + escaped + "'");
+                    }
+                    pos++;
+                } else {
+                    out.append(current);
+                    pos++;
+                }
+            }
+            throw error("Unterminated string");
+        }
+
+        private Object parseNumber() throws IOException {
+            int start = pos;
+            if (pos < text.length() && text.charAt(pos) == '-') {
+                pos++;
+            }
+            while (pos < text.length() && Character.isDigit(text.charAt(pos))) {
+                pos++;
+            }
+            if (pos < text.length() && text.charAt(pos) == '.') {
+                pos++;
+                while (pos < text.length() && Character.isDigit(text.charAt(pos))) {
+                    pos++;
+                }
+            }
+            if (pos < text.length() && (text.charAt(pos) == 'e' || text.charAt(pos) == 'E')) {
+                pos++;
+                if (pos < text.length() && (text.charAt(pos) == '+' || text.charAt(pos) == '-')) {
+                    pos++;
+                }
+                while (pos < text.length() && Character.isDigit(text.charAt(pos))) {
+                    pos++;
+                }
+            }
+            String literal = text.substring(start, pos);
+            try {
+                return normalizeNumber(new BigDecimal(literal));
+            } catch (NumberFormatException e) {
+                throw error("Invalid number '" + literal + "'");
+            }
+        }
     }
 
     public static final class NotFoundException extends RuntimeException {

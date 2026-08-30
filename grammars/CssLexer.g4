@@ -20,3 +20,4 @@ CSS_ID         : [a-zA-Z] [a-zA-Z0-9\-]* ;
 CSS_Space      : [ \t\r\n]+ -> skip ;
 CSS_Comment    : '/*' .*? '*/' -> skip ;
 CSS_TILDE      : '~';
+CSS_STAR       : '*';

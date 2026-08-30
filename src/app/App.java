@@ -12,8 +12,8 @@ import ast.Program;
 import generator.ContextExtractor;
 import generator.JinjaRenderer;
 import generator.OutputWriter;
+import gui.ParseTreeViewer;
 import listener.CustomErrorListener;
-import org.antlr.v4.gui.TreeViewer;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -23,8 +23,6 @@ import visitor.css.StyleSheetVisitor;
 import visitor.html.HtmlContentVisitor;
 import visitor.python.ProgramVisitor;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -116,6 +114,10 @@ public class App {
         OutputWriter outputWriter = new OutputWriter(projectDir);
         outputWriter.createDirectories();
 
+        // 0. Absorb runtime data (data/*.json) back into app.py before compiling, so the
+        // next compiled output contains the products/posts/... created live in the UI.
+        PythonDataStore.absorbDataIntoSource(projectDir);
+
         // 1. Parse app.py
         Path appPy = projectDir.resolve("app.py");
         System.out.println("\n--- Parsing: " + appPy + " ---");
@@ -125,7 +127,7 @@ public class App {
         parser.removeErrorListeners();
         parser.addErrorListener(new CustomErrorListener());
         ParseTree tree = parser.prog();
-        showParseTree(parser.getRuleNames(), tree);
+        ParseTreeViewer.show("app.py", parser.getRuleNames(), tree);
 
         ProgramVisitor visitor = new ProgramVisitor();
         Program program = visitor.visit(tree);
@@ -142,6 +144,25 @@ public class App {
         Map<String, String> routes = extractor.extractRoutes(program);
         System.out.println("[3/5] Context Data Extracted: " + context.keySet());
         System.out.println("Routes: " + routes.keySet());
+
+        // 3b. Parse styles.css for the tree viewer. CSS tokens only exist in the
+        // lexer's STYLE_MODE, so wrap the file in <style>...</style> to tokenize it.
+        Path cssFile = projectDir.resolve("styles.css");
+        if (Files.exists(cssFile)) {
+            System.out.println("Parsing stylesheet: " + cssFile);
+            try {
+                String cssText = Files.readString(cssFile);
+                HtmlLexer cssLexer = new HtmlLexer(CharStreams.fromString("<style>\n" + cssText + "\n</style>"));
+                cssLexer.removeErrorListeners();
+                CommonTokenStream cssTokens = new CommonTokenStream(cssLexer);
+                HtmlParser cssParser = new HtmlParser(cssTokens);
+                cssParser.removeErrorListeners();
+                ParseTree cssTree = cssParser.html_content();
+                ParseTreeViewer.show("styles.css", cssParser.getRuleNames(), cssTree);
+            } catch (Exception e) {
+                System.err.println("  ERROR parsing styles.css: " + e.getMessage());
+            }
+        }
 
         // 4. Parse all templates
         Path templatesDir = projectDir.resolve("templates");
@@ -165,6 +186,7 @@ public class App {
                         htmlParser.removeErrorListeners();
                         htmlParser.addErrorListener(new CustomErrorListener());
                         ParseTree htmlTree = htmlParser.html_content();
+                        ParseTreeViewer.show("templates/" + tplPath.getFileName(), htmlParser.getRuleNames(), htmlTree);
                         HtmlContentVisitor htmlVisitor = new HtmlContentVisitor();
                         HtmlContent htmlContent = htmlVisitor.visit(htmlTree);
                         templateMap.put(tplPath.getFileName().toString(), htmlContent);
@@ -361,7 +383,7 @@ public class App {
                 parser.addErrorListener(new CustomErrorListener());
                 ParseTree tree = parser.prog();
 
-                showParseTree(parser.getRuleNames(), tree);
+                ParseTreeViewer.show(fileName, parser.getRuleNames(), tree);
 
                 ProgramVisitor visitor = new ProgramVisitor();
                 Program program = visitor.visit(tree);
@@ -380,7 +402,7 @@ public class App {
                 parser.removeErrorListeners();
                 parser.addErrorListener(new CustomErrorListener());
 
-                showParseTree(parser.getRuleNames(), tree);
+                ParseTreeViewer.show(fileName, parser.getRuleNames(), tree);
                 HtmlContentVisitor visitor = new HtmlContentVisitor();
                 HtmlContent htmlContent = visitor.visit(tree);
                 System.out.println(htmlContent);
@@ -405,7 +427,7 @@ public class App {
                 parser.removeErrorListeners();
                 parser.addErrorListener(new CustomErrorListener());
 
-                showParseTree(parser.getRuleNames(), tree);
+                ParseTreeViewer.show(fileName, parser.getRuleNames(), tree);
                 StyleSheetVisitor visitor = new StyleSheetVisitor();
                 ASTNode styleSheet = visitor.visit(tree);
                 System.out.println(styleSheet);
@@ -433,43 +455,5 @@ public class App {
         Path outputFile = outputDir.resolve(filePath.getFileName());
         Files.writeString(outputFile, content);
         System.out.println("Success! Generated at: " + outputFile.toAbsolutePath());
-    }
-
-    private static void showParseTree(String[] ruleNames, ParseTree parseTree) {
-        if (GraphicsEnvironment.isHeadless()) {
-            return;
-        }
-        SwingUtilities.invokeLater(() -> {
-            TreeViewer viewer = new TreeViewer(java.util.Arrays.asList(ruleNames), parseTree);
-            viewer.setScale(1.5);
-            JPanel mainPanel = new JPanel(new BorderLayout());
-            mainPanel.add(viewer, BorderLayout.CENTER);
-            JScrollPane scrollPane = new JScrollPane(mainPanel);
-            JPanel controlPanel = new JPanel();
-            JButton zoomInButton = new JButton("Zoom In");
-            JButton zoomOutButton = new JButton("Zoom Out");
-            JButton resetButton = new JButton("Reset Zoom");
-            zoomInButton.addActionListener(e -> {
-                viewer.setScale(viewer.getScale() * 1.2);
-                viewer.repaint();
-            });
-            zoomOutButton.addActionListener(e -> {
-                viewer.setScale(viewer.getScale() / 1.2);
-                viewer.repaint();
-            });
-            resetButton.addActionListener(e -> {
-                viewer.setScale(1.0);
-                viewer.repaint();
-            });
-            controlPanel.add(zoomInButton);
-            controlPanel.add(zoomOutButton);
-            controlPanel.add(resetButton);
-            JFrame frame = new JFrame("Parse Tree Viewer");
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            frame.add(scrollPane, BorderLayout.CENTER);
-            frame.add(controlPanel, BorderLayout.SOUTH);
-            frame.setSize(1000, 640);
-            frame.setVisible(true);
-        });
     }
 }
