@@ -97,6 +97,16 @@ docs/                     # architecture.html (EN) + architecture.ar.html (AR, R
 dependencies/             # antlr-4.13.2-complete.jar
 ```
 
+## Contributors
+
+| Member   | Work                                                                                      |
+| -------- | ----------------------------------------------------------------------------------------- |
+| **Yasmeen** | Semantic analysis — undefined variables, scope errors, not-iterable checks, and missing Flask template variable detection; `ContextExtractor` |
+| **Ruba**  | `ProjectWatcher` auto-regeneration & HTML fix-ups; `App` / `CompilationSnapshot`          |
+| **Razan** | Jinja AST & visitors + code generation                                                    |
+| **Rama**  | Undefined function rule, CSS code generation, and error test samples                      |
+| **Yousef**| Generic CRUD web server and main branch integration/build                                 |
+
 ## Documentation
 
 - `docs/architecture.html` — full engine architecture and workflow (English).
