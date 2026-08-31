@@ -7,9 +7,17 @@ import ast.assignStmt.ComparisonAssignmentStmt;
 import ast.assignStmt.PythonExpressionAssignStatement;
 import ast.assignStmt.TemplateLiteralAssignmentStatement;
 import ast.arithmeticExpr.ArithmeticExpression;
+import ast.atomExpression.FunctionCall;
 import ast.atomExpression.LiteralExpression;
 import ast.atomExpression.SimpleVariable;
 import ast.compundStmt.PythonExpression;
+import ast.complexExp.DictionaryLiteral;
+import ast.complexExp.ListLiteral;
+import ast.condition.BooleanCondition;
+import ast.condition.ComparisonExpression;
+import ast.condition.NotExpression;
+import ast.returnStmt.ComplexReturnStatement;
+import ast.returnStmt.ReturnStatement;
 import semantic.ErrorReporter;
 import semantic.errors.TypeError;
 import symbolTable.SymbolTable;
@@ -39,8 +47,38 @@ public class TypeRule implements SemanticRule {
             if (symbolName == null || !symbolName.matches("[A-Za-z_][A-Za-z0-9_]*")) return;
 
             inferType(value, symbolTable, reporter);
-            // keep this rule read-only: only detect invalid expressions here
-            // the symbol table already contains the visitor-produced types/values
+        } else if (node instanceof ComparisonExpression comparisonExpression) {
+            checkComparison(comparisonExpression, symbolTable, reporter);
+        } else if (node instanceof ReturnStatement returnStatement) {
+            analyzeReturnValue(returnStatement, symbolTable, reporter);
+        }
+    }
+
+    private void analyzeReturnValue(ReturnStatement returnStatement, SymbolTable symbolTable, ErrorReporter reporter) {
+        if (returnStatement instanceof ComplexReturnStatement complexReturnStatement) {
+            ASTNode returned = complexReturnStatement.getPythonExpression() != null
+                    ? complexReturnStatement.getPythonExpression()
+                    : complexReturnStatement.getExpression();
+            if (returned != null) {
+                inferType(returned, symbolTable, reporter);
+            }
+        }
+    }
+
+    private void checkComparison(ComparisonExpression ce, SymbolTable symbolTable, ErrorReporter reporter) {
+        String baseType = inferType(ce.getBaseExpr(), symbolTable, reporter);
+        if (ce.getOperatorPythonExpressionMap() != null) {
+            for (var entry : ce.getOperatorPythonExpressionMap().entrySet()) {
+                String operandType = inferType(entry.getValue(), symbolTable, reporter);
+                String cmpOp = entry.getKey() == null ? null : entry.getKey().getOperator();
+                boolean ordering = ">".equals(cmpOp) || "<".equals(cmpOp) || ">=".equals(cmpOp) || "<=".equals(cmpOp);
+                if (ordering && isOrderingIncompatible(baseType, operandType)) {
+                    String message = "Type error at line " + ce.line_number + ": cannot apply '" + cmpOp
+                            + "' to [" + baseType + ", " + operandType + "]";
+                    reporter.addError(new TypeError(message));
+                    throw new TypeError(message);
+                }
+            }
         }
     }
 
@@ -59,16 +97,36 @@ public class TypeRule implements SemanticRule {
             case ArithmeticExpression ae -> {
                 return inferArithmetic(ae, symbolTable, reporter);
             }
+            case FunctionCall fc -> {
+                return inferFunctionReturnType(fc);
+            }
+            case ListLiteral ignored -> { return "List"; }
+            case DictionaryLiteral ignored -> { return "Dictionary"; }
+            case ComparisonExpression ce -> {
+                checkComparison(ce, symbolTable, reporter);
+                return "Boolean";
+            }
+            case BooleanCondition ignored -> { return "Boolean"; }
+            case NotExpression ignored -> { return "Boolean"; }
             default -> {
             }
         }
-        // fallback: use node_name if present
-        try {
-            var field = node.getClass().getField("node_name");
-            Object val = field.get(node);
-            if (val != null) return val.toString();
-        } catch (Exception ignored) {}
         return "Unknown";
+    }
+
+    private String inferFunctionReturnType(FunctionCall fc) {
+        if (fc.getVarName() == null) return "Unknown";
+        switch (fc.getVarName()) {
+            case "str": return "String";
+            case "len": return "Integer";
+            case "int": return "Integer";
+            case "float": return "Float";
+            case "bool": return "Boolean";
+            case "list": return "List";
+            case "dict": return "Dictionary";
+            case "range": return "List";
+            default: return "Unknown";
+        }
     }
 
     private String inferArithmetic(ArithmeticExpression ae, SymbolTable symbolTable, ErrorReporter reporter) {
@@ -80,23 +138,68 @@ public class TypeRule implements SemanticRule {
             }
         }
 
+        String op = ae.getOperator();
+
+        boolean anyUnknown = operandTypes.stream().anyMatch("Unknown"::equals);
         boolean allNumeric = operandTypes.stream().allMatch(this::isNumeric);
         if (allNumeric) return operandTypes.contains("Float") ? "Float" : "Integer";
 
         boolean allString = operandTypes.stream().allMatch("String"::equals);
-        if ("+".equals(ae.getOperator()) && allString) return "String";
+        if ("+".equals(op) && allString) return "String";
 
-        boolean mixed = operandTypes.stream().anyMatch("String"::equals) && operandTypes.stream().anyMatch(this::isNumeric);
-        if (mixed) {
-            String errorMessage = "Type error at line " + ae.line_number + ": cannot apply '" + ae.getOperator() + "' to " + operandTypes;
+        boolean allList = operandTypes.stream().allMatch("List"::equals);
+        if ("+".equals(op) && allList) return "List";
+
+        boolean error = false;
+        if (!anyUnknown) {
+            long stringCount = operandTypes.stream().filter("String"::equals).count();
+            boolean anyString = stringCount > 0;
+            boolean anyList = operandTypes.stream().anyMatch("List"::equals);
+            boolean anyDict = operandTypes.stream().anyMatch("Dictionary"::equals);
+            boolean anyNone = operandTypes.stream().anyMatch("None"::equals);
+
+            if (anyNone) {
+                error = true;
+            } else if (anyDict) {
+                error = true;
+            } else if (anyString) {
+                if ("+".equals(op)) {
+                    error = operandTypes.stream().anyMatch(t -> !t.equals("String"));
+                } else if ("-".equals(op) || "/".equals(op)) {
+                    error = true;
+                } else if ("*".equals(op)) {
+                    error = stringCount > 1
+                            || operandTypes.stream().anyMatch(t -> !t.equals("String") && !t.equals("Integer") && !t.equals("Boolean"));
+                }
+            } else if (anyList) {
+                if ("+".equals(op)) {
+                    error = operandTypes.stream().anyMatch(t -> !t.equals("List"));
+                } else if ("-".equals(op) || "/".equals(op)) {
+                    error = true;
+                } else if ("*".equals(op)) {
+                    error = operandTypes.stream().anyMatch(t -> !t.equals("List") && !t.equals("Integer") && !t.equals("Boolean"));
+                }
+            }
+        }
+        if (error) {
+            String errorMessage = "Type error at line " + ae.line_number + ": cannot apply '" + op + "' to " + operandTypes;
             reporter.addError(new TypeError(errorMessage));
             throw new TypeError(errorMessage);
         }
         return "Unknown";
     }
 
+    private boolean isOrderingIncompatible(String a, String b) {
+        if (a == null || b == null || "Unknown".equals(a) || "Unknown".equals(b)) return false;
+        if ("None".equals(a) || "None".equals(b)) return true;
+        if ("Dictionary".equals(a) || "Dictionary".equals(b)) return true;
+        if (isNumeric(a) && isNumeric(b)) return false;
+        if (a.equals(b)) return false;
+        return true;
+    }
+
     private boolean isNumeric(String t) {
-        return "Integer".equals(t) || "Float".equals(t);
+        return "Integer".equals(t) || "Float".equals(t) || "Boolean".equals(t);
     }
 
     private String inferLiteralType(String s) {

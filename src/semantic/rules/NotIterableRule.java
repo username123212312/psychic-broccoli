@@ -46,7 +46,7 @@ public class NotIterableRule implements SemanticRule {
             case SimpleVariable simpleVariable -> {
                 var candidates = symbolTable.lookupAll(simpleVariable.getVarName());
                 if (candidates.isEmpty()) yield null;
-                Object typeAttribute = candidates.get(0).getAttribute("Type");
+                Object typeAttribute = candidates.getFirst().getAttribute("Type");
                 yield normalizeDeclaredType(typeAttribute);
             }
             case FunctionCall functionCall -> {

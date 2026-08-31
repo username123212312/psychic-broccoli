@@ -20,14 +20,13 @@ public class DuplicateArgumentRule implements SemanticRule {
                 for (FunctionParameter param : fd.getFunctionParameters().getParameters()) {
                     String paramName = param.getId();
 
-                    if (seenArguments.contains(paramName)) {
+                    if (!seenArguments.add(paramName)) {
                         String message = "Semantic Error at line " + param.line_number
                                 + ": Duplicate argument '" + paramName
                                 + "' in function '" + fd.getFunctionName() + "'.";
                         reporter.addError(new DuplicateArgumentError(message));
                         throw new DuplicateArgumentError(message);
                     }
-                    seenArguments.add(paramName);
                 }
             }
         }

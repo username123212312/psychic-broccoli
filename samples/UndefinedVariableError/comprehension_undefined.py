@@ -1,0 +1,1 @@
+result = [q for n in unknown]

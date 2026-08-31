@@ -131,7 +131,6 @@ public class SymbolTable {
     public SymbolEntry define(String name) {
         Scope targetScope = resolveWriteScope(name);
         if (targetScope.table.containsKey(name)) {
-            System.out.println("Error: symbol '" + name + "' already defined in scope '" + targetScope.name + "'!");
             return null;
         }
 
@@ -155,7 +154,6 @@ public class SymbolTable {
     public Object getAttribute(String name, String key) {
         SymbolEntry entry = lookup(name);
         if (entry == null) {
-            System.out.println("Error: symbol '" + name + "' not defined!");
             return null;
         }
         return entry.getAttribute(key);

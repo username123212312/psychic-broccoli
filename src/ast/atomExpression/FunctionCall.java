@@ -21,12 +21,12 @@ public class FunctionCall extends AtomExpression {
 
     @Override
     public String symbolTablePrint() {
-        return super.getVarName() + " ( " + argumentsList.symbolTablePrint() + " ) ";
+        return super.getVarName() + " ( " + (argumentsList == null ? "" : argumentsList.symbolTablePrint()) + " ) ";
     }
 
 
     @Override
     public String toString() {
-        return super.toString() + "( " + argumentsList.toString() + " ) )";
+        return super.toString() + "( " + (argumentsList == null ? "" : argumentsList.toString()) + " ) )";
     }
 }

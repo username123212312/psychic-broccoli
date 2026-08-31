@@ -5,21 +5,53 @@ app = Flask(__name__)
 # ---- RAM STORAGE ----
 products = [
     {
-        "id": 4,
-        "name": "Yousef Razzouk",
-        "price": 234324,
-        "description": "dsfsdf",
-        "specification": "dsfsdf",
-        "img": "static/images/default.png"
+        "id": 1,
+        "name": "Wireless Mouse",
+        "price": 25,
+        "description": "Ergonomic 2.4GHz wireless mouse, silent clicks",
+        "specification": "DPI 800-2400, USB receiver",
+        "img": "static/images/mouse.png"
     },
     {
-            "id": 5,
-            "name": "dafsasd",
-            "price": 2111,
-            "description": "ss",
-            "specification": "dsfsdf",
-            "img": "static/images/default.png"
-        }
+        "id": 2,
+        "name": "Mechanical Keyboard",
+        "price": 79,
+        "description": "Blue-switch RGB backlit keyboard for gaming and typing",
+        "specification": "87 keys, USB-C, hot-swappable",
+        "img": "static/images/keyboard.png"
+    },
+    {
+        "id": 3,
+        "name": '27" 4K Monitor',
+        "price": 349,
+        "description": "UHD IPS display with 99% sRGB for designers",
+        "specification": "27in, 60Hz, HDMI+DisplayPort",
+        "img": "static/images/monitor.png"
+    },
+    {
+        "id": 4,
+        "name": "USB-C Hub",
+        "price": 39,
+        "description": "7-in-1 adapter with HDMI 4K and SD card slots",
+        "specification": "USB-C, 100W PD pass-through",
+        "img": "static/images/hub.png"
+    },
+    {
+        "id": 5,
+        "name": "Noise-Cancelling Headphones",
+        "price": 199,
+        "description": "Over-ear ANC headphones, 30h battery",
+        "specification": "Bluetooth 5.3, foldable, mic",
+        "img": "static/images/headphones.png"
+    },
+    {
+        "id": 6,
+        "name": "Webcam 1080p",
+        "price": 59,
+        "description": "Full-HD webcam with autofocus for calls",
+        "specification": "1080p/30fps, plug-and-play",
+        "img": "static/images/webcam.png"
+    }
 ]  # each product is a dict
 
 multi = """

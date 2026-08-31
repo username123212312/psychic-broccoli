@@ -44,7 +44,7 @@ public class SemanticAnalyzer {
         walk(program, reporter);
         reporter.printErrors();
         if (reporter.hasErrors()) {
-            throw reporter.getErrors().get(0);
+            throw reporter.getErrors().getFirst();
         }
     }
 

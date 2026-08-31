@@ -170,10 +170,10 @@ public class AssignmentStatementVisitor extends PythonParserBaseVisitor<Assignme
 
         boolean mixedStringAndNumeric = operandTypes.stream().anyMatch(type -> "String".equals(type))
                 && operandTypes.stream().anyMatch(this::isNumericType);
-        if (mixedStringAndNumeric) {
-            System.out.println("Semantic error at line " + arithmeticExpression.line_number
-                    + ": cannot apply operator '" + arithmeticExpression.getOperator()
-                    + "' to incompatible types " + operandTypes);
+        boolean stringTimesInteger = "*".equals(arithmeticExpression.getOperator())
+                && operandTypes.contains("String")
+                && operandTypes.stream().anyMatch(type -> "Integer".equals(type));
+        if (mixedStringAndNumeric && !stringTimesInteger) {
             return "Unknown";
         }
 

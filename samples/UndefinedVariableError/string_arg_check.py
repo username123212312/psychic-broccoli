@@ -10,5 +10,5 @@ elif x < 0:
 for i in [1,2,3,4]:
     j = 4
 
-while true:
+while True:
     o = 0
